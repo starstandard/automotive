@@ -22,6 +22,7 @@ paths:
       tags:
       - AccountingPeriod
       summary: Retrieve a list of AccountingPeriod entities.
+      description: list AccountingPeriod By
       operationId: listAccountingPeriod
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - AccountingPeriod
       summary: Create a new AccountingPeriod entity.
+      description: Create AccountingPeriod
       operationId: createAccountingPeriod
       requestBody:
         description: AccountingPeriod data to create the new resource.
@@ -145,6 +149,7 @@ paths:
       tags:
       - AccountingPeriod
       summary: Replace a AccountingPeriod entity.
+      description: replace AccountingPeriod
       operationId: replaceAccountingPeriod
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - AccountingPeriod
       summary: Partially update a AccountingPeriod entity.
-      operationId: updateAccountingPeriod
+      description: Partially update a AccountingPeriod
+      operationId: updatePartialAccountingPeriod
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78I
+        example: KEY785
   /accounting-periods/{accountingPeriodKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by accountingPeriodKey.
+      description: list Identifier By AccountingPeriodKey
       operationId: listIdentifierByAccountingPeriodKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/accounting-periods{accountingPeriodKey}identifiers/KEY78Qf"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -462,7 +473,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -517,6 +529,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78IN
+        example: KEY785F
 components:
   schemas: {}

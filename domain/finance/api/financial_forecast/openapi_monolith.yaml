@@ -19,12 +19,48 @@ security:
   - standard:read
 - member-api-key: []
 - {}
+tags:
+- name: RebateReference
+  description: Operations related to RebateReference
+- name: TaxSplit
+  description: Operations related to TaxSplit
+- name: FinancialForecast
+  description: Operations related to FinancialForecast
+- name: DiscountReference
+  description: Operations related to DiscountReference
+- name: ControlAccountReference
+  description: Operations related to ControlAccountReference
+- name: RewardReference
+  description: Operations related to RewardReference
+- name: Default
+  description: Operations related to Default
+- name: FinancialCategoryReference
+  description: Operations related to FinancialCategoryReference
+- name: Money
+  description: Operations related to Money
+- name: FeeReference
+  description: Operations related to FeeReference
+- name: Identifier
+  description: Operations related to Identifier
+- name: Price
+  description: Operations related to Price
+- name: FinancialEvent
+  description: Operations related to FinancialEvent
+- name: CreditReference
+  description: Operations related to CreditReference
+- name: TextualDetail
+  description: Operations related to TextualDetail
+- name: FinancialTrack
+  description: Operations related to FinancialTrack
+- name: FinancialSplit
+  description: Operations related to FinancialSplit
 paths:
   /financial-forecasts:
     get:
       tags:
       - FinancialForecast
       summary: Retrieve a list of FinancialForecast entities.
+      description: list FinancialForecast By
       operationId: listFinancialForecast
       parameters:
       - name: sort
@@ -76,6 +112,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -86,12 +123,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialForecast
       summary: Create a new FinancialForecast entity.
+      description: Create FinancialForecast
       operationId: createFinancialForecast
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -110,7 +150,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /financial-forecasts/KEY785
+                example: /financial-forecasts/KEY78y
           content:
             application/json:
               schema:
@@ -132,6 +172,7 @@ paths:
       tags:
       - FinancialForecast
       summary: Retrieve a specific FinancialForecast entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}"
       operationId: getFinancialForecastById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -159,6 +200,7 @@ paths:
       tags:
       - FinancialForecast
       summary: Replace a FinancialForecast entity.
+      description: replace FinancialForecast
       operationId: replaceFinancialForecast
       parameters:
       - name: If-Match
@@ -230,7 +272,8 @@ paths:
       tags:
       - FinancialForecast
       summary: Partially update a FinancialForecast entity.
-      operationId: updateFinancialForecast
+      description: Partially update a FinancialForecast
+      operationId: updatePartialFinancialForecast
       parameters:
       - name: If-Match
         in: header
@@ -281,12 +324,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78E
+        example: KEY78p
   /financial-forecasts/{financialForecastKey}/rebate-references:
     get:
       tags:
       - RebateReference
       summary: Retrieve a list of RebateReference entities sco...
+      description: list RebateReference By FinancialForecastKey
       operationId: listRebateReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -338,6 +382,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -348,12 +393,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - RebateReference
       summary: Create a new RebateReference entity.
+      description: Create RebateReference
       operationId: createRebateReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -372,7 +420,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}rebate-references/KEY78ym"
           content:
             application/json:
               schema:
@@ -401,6 +449,7 @@ paths:
       tags:
       - RebateReference
       summary: Retrieve a specific RebateReference entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/rebate-references/{rebateReferenceKey}"
       operationId: getRebateReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -428,6 +477,7 @@ paths:
       tags:
       - RebateReference
       summary: Replace a RebateReference entity.
+      description: replace RebateReference
       operationId: replaceRebateReference
       parameters:
       - name: If-Match
@@ -499,7 +549,8 @@ paths:
       tags:
       - RebateReference
       summary: Partially update a RebateReference entity.
-      operationId: updateRebateReference
+      description: Partially update a RebateReference
+      operationId: updatePartialRebateReference
       parameters:
       - name: If-Match
         in: header
@@ -556,12 +607,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJ
+        example: KEY78pr
   /financial-forecasts/{financialForecastKey}/tax-splits:
     get:
       tags:
       - TaxSplit
       summary: Retrieve a list of TaxSplit entities scoped by ...
+      description: list TaxSplit By FinancialForecastKey
       operationId: listTaxSplitByFinancialForecastKey
       parameters:
       - name: sort
@@ -613,6 +665,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -623,12 +676,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - TaxSplit
       summary: Create a new TaxSplit entity.
+      description: Create TaxSplit
       operationId: createTaxSplit
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -647,7 +703,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}tax-splits/KEY78ym8"
           content:
             application/json:
               schema:
@@ -676,6 +732,7 @@ paths:
       tags:
       - TaxSplit
       summary: Retrieve a specific TaxSplit entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/tax-splits/{taxSplitKey}"
       operationId: getTaxSplitById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -703,6 +760,7 @@ paths:
       tags:
       - TaxSplit
       summary: Replace a TaxSplit entity.
+      description: replace TaxSplit
       operationId: replaceTaxSplit
       parameters:
       - name: If-Match
@@ -774,7 +832,8 @@ paths:
       tags:
       - TaxSplit
       summary: Partially update a TaxSplit entity.
-      operationId: updateTaxSplit
+      description: Partially update a TaxSplit
+      operationId: updatePartialTaxSplit
       parameters:
       - name: If-Match
         in: header
@@ -831,12 +890,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJd
+        example: KEY78pr7
   /financial-forecasts/{financialForecastKey}/discount-references:
     get:
       tags:
       - DiscountReference
       summary: Retrieve a list of DiscountReference entities s...
+      description: list DiscountReference By FinancialForecastKey
       operationId: listDiscountReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -888,6 +948,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -898,12 +959,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - DiscountReference
       summary: Create a new DiscountReference entity.
+      description: Create DiscountReference
       operationId: createDiscountReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -922,7 +986,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}discount-references/KEY78ym8v"
           content:
             application/json:
               schema:
@@ -951,6 +1015,7 @@ paths:
       tags:
       - DiscountReference
       summary: Retrieve a specific DiscountReference entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/discount-references/{discountReferenceKey}"
       operationId: getDiscountReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -978,6 +1043,7 @@ paths:
       tags:
       - DiscountReference
       summary: Replace a DiscountReference entity.
+      description: replace DiscountReference
       operationId: replaceDiscountReference
       parameters:
       - name: If-Match
@@ -1049,7 +1115,8 @@ paths:
       tags:
       - DiscountReference
       summary: Partially update a DiscountReference entity.
-      operationId: updateDiscountReference
+      description: Partially update a DiscountReference
+      operationId: updatePartialDiscountReference
       parameters:
       - name: If-Match
         in: header
@@ -1106,12 +1173,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdY
+        example: KEY78pr7b
   /financial-forecasts/{financialForecastKey}/control-account-references:
     get:
       tags:
       - ControlAccountReference
       summary: Retrieve a list of ControlAccountReference enti...
+      description: list ControlAccountReference By FinancialForeca...
       operationId: listControlAccountReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -1163,6 +1231,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1173,12 +1242,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ControlAccountReference
       summary: Create a new ControlAccountReference entity.
+      description: Create ControlAccountReference
       operationId: createControlAccountReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1197,7 +1269,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}control-account-references/KEY78ym8vg"
           content:
             application/json:
               schema:
@@ -1226,6 +1298,7 @@ paths:
       tags:
       - ControlAccountReference
       summary: Retrieve a specific ControlAccountReference ent...
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/control-account-references/{controlAccountReferenceKey}"
       operationId: getControlAccountReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1253,6 +1326,7 @@ paths:
       tags:
       - ControlAccountReference
       summary: Replace a ControlAccountReference entity.
+      description: replace ControlAccountReference
       operationId: replaceControlAccountReference
       parameters:
       - name: If-Match
@@ -1324,7 +1398,8 @@ paths:
       tags:
       - ControlAccountReference
       summary: Partially update a ControlAccountReference entity.
-      operationId: updateControlAccountReference
+      description: Partially update a ControlAccountReference
+      operationId: updatePartialControlAccountReference
       parameters:
       - name: If-Match
         in: header
@@ -1381,12 +1456,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD
+        example: KEY78pr7bl
   /financial-forecasts/{financialForecastKey}/reward-references:
     get:
       tags:
       - RewardReference
       summary: Retrieve a list of RewardReference entities sco...
+      description: list RewardReference By FinancialForecastKey
       operationId: listRewardReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -1438,6 +1514,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1448,12 +1525,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - RewardReference
       summary: Create a new RewardReference entity.
+      description: Create RewardReference
       operationId: createRewardReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1472,7 +1552,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}reward-references/KEY78ym8vgT"
           content:
             application/json:
               schema:
@@ -1501,6 +1581,7 @@ paths:
       tags:
       - RewardReference
       summary: Retrieve a specific RewardReference entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/reward-references/{rewardReferenceKey}"
       operationId: getRewardReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1528,6 +1609,7 @@ paths:
       tags:
       - RewardReference
       summary: Replace a RewardReference entity.
+      description: replace RewardReference
       operationId: replaceRewardReference
       parameters:
       - name: If-Match
@@ -1599,7 +1681,8 @@ paths:
       tags:
       - RewardReference
       summary: Partially update a RewardReference entity.
-      operationId: updateRewardReference
+      description: Partially update a RewardReference
+      operationId: updatePartialRewardReference
       parameters:
       - name: If-Match
         in: header
@@ -1656,12 +1739,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4
+        example: KEY78pr7bly
   /financial-forecasts/{financialForecastKey}/financial-category-references:
     get:
       tags:
       - FinancialCategoryReference
       summary: Retrieve a list of FinancialCategoryReference e...
+      description: list FinancialCategoryReference By FinancialFor...
       operationId: listFinancialCategoryReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -1713,6 +1797,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1723,12 +1808,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialCategoryReference
       summary: Create a new FinancialCategoryReference entity.
+      description: Create FinancialCategoryReference
       operationId: createFinancialCategoryReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1747,7 +1835,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}financial-category-references/KEY78ym8vgTw"
           content:
             application/json:
               schema:
@@ -1776,6 +1864,7 @@ paths:
       tags:
       - FinancialCategoryReference
       summary: Retrieve a specific FinancialCategoryReference ...
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/financial-category-references/{financialCategoryReferenceKey}"
       operationId: getFinancialCategoryReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1803,6 +1892,7 @@ paths:
       tags:
       - FinancialCategoryReference
       summary: Replace a FinancialCategoryReference entity.
+      description: replace FinancialCategoryReference
       operationId: replaceFinancialCategoryReference
       parameters:
       - name: If-Match
@@ -1874,7 +1964,8 @@ paths:
       tags:
       - FinancialCategoryReference
       summary: Partially update a FinancialCategoryReference e...
-      operationId: updateFinancialCategoryReference
+      description: Partially update a FinancialCategoryReference
+      operationId: updatePartialFinancialCategoryReference
       parameters:
       - name: If-Match
         in: header
@@ -1931,12 +2022,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4k
+        example: KEY78pr7bly7
   /financial-forecasts/{financialForecastKey}/money:
     get:
       tags:
       - Money
       summary: Retrieve a list of Money entities scoped by fin...
+      description: list Money By FinancialForecastKey
       operationId: listMoneyByFinancialForecastKey
       parameters:
       - name: sort
@@ -1988,6 +2080,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1998,6 +2091,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -2012,6 +2107,7 @@ paths:
       tags:
       - Money
       summary: Retrieve a specific Money entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/money/{moneyKey}"
       operationId: getMoneyById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2048,12 +2144,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kf
+        example: KEY78pr7bly71
   /financial-forecasts/{financialForecastKey}/fee-references:
     get:
       tags:
       - FeeReference
       summary: Retrieve a list of FeeReference entities scoped...
+      description: list FeeReference By FinancialForecastKey
       operationId: listFeeReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -2105,6 +2202,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2115,12 +2213,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FeeReference
       summary: Create a new FeeReference entity.
+      description: Create FeeReference
       operationId: createFeeReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2139,7 +2240,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}fee-references/KEY78ym8vgTwqR"
           content:
             application/json:
               schema:
@@ -2168,6 +2269,7 @@ paths:
       tags:
       - FeeReference
       summary: Retrieve a specific FeeReference entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/fee-references/{feeReferenceKey}"
       operationId: getFeeReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2195,6 +2297,7 @@ paths:
       tags:
       - FeeReference
       summary: Replace a FeeReference entity.
+      description: replace FeeReference
       operationId: replaceFeeReference
       parameters:
       - name: If-Match
@@ -2266,7 +2369,8 @@ paths:
       tags:
       - FeeReference
       summary: Partially update a FeeReference entity.
-      operationId: updateFeeReference
+      description: Partially update a FeeReference
+      operationId: updatePartialFeeReference
       parameters:
       - name: If-Match
         in: header
@@ -2323,12 +2427,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF
+        example: KEY78pr7bly71C
   /financial-forecasts/{financialForecastKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped b...
+      description: list Identifier By FinancialForecastKey
       operationId: listIdentifierByFinancialForecastKey
       parameters:
       - name: sort
@@ -2380,6 +2485,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2390,12 +2496,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2414,7 +2523,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}identifiers/KEY78ym8vgTwqRo"
           content:
             application/json:
               schema:
@@ -2443,6 +2552,7 @@ paths:
       tags:
       - Identifier
       summary: Retrieve a specific Identifier entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/identifiers/{identifierKey}"
       operationId: getIdentifierById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2470,6 +2580,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -2541,7 +2652,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -2598,12 +2710,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF6
+        example: KEY78pr7bly71Cq
   /financial-forecasts/{financialForecastKey}/prices:
     get:
       tags:
       - Price
       summary: Retrieve a list of Price entities scoped by fin...
+      description: list Price By FinancialForecastKey
       operationId: listPriceByFinancialForecastKey
       parameters:
       - name: sort
@@ -2655,6 +2768,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2665,12 +2779,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Price
       summary: Create a new Price entity.
+      description: Create Price
       operationId: createPrice
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2689,7 +2806,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}prices/KEY78ym8vgTwqRoG"
           content:
             application/json:
               schema:
@@ -2718,6 +2835,7 @@ paths:
       tags:
       - Price
       summary: Retrieve a specific Price entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/prices/{priceKey}"
       operationId: getPriceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2745,6 +2863,7 @@ paths:
       tags:
       - Price
       summary: Replace a Price entity.
+      description: replace Price
       operationId: replacePrice
       parameters:
       - name: If-Match
@@ -2816,7 +2935,8 @@ paths:
       tags:
       - Price
       summary: Partially update a Price entity.
-      operationId: updatePrice
+      description: Partially update a Price
+      operationId: updatePartialPrice
       parameters:
       - name: If-Match
         in: header
@@ -2873,12 +2993,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF65
+        example: KEY78pr7bly71Cq5
   /financial-forecasts/{financialForecastKey}/financial-events:
     get:
       tags:
       - FinancialEvent
       summary: Retrieve a list of FinancialEvent entities scop...
+      description: list FinancialEvent By FinancialForecastKey
       operationId: listFinancialEventByFinancialForecastKey
       parameters:
       - name: sort
@@ -2930,6 +3051,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2940,12 +3062,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialEvent
       summary: Create a new FinancialEvent entity.
+      description: Create FinancialEvent
       operationId: createFinancialEvent
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2964,7 +3089,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}financial-events/KEY78ym8vgTwqRoG5"
           content:
             application/json:
               schema:
@@ -2993,6 +3118,7 @@ paths:
       tags:
       - FinancialEvent
       summary: Retrieve a specific FinancialEvent entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/financial-events/{financialEventKey}"
       operationId: getFinancialEventById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3020,6 +3146,7 @@ paths:
       tags:
       - FinancialEvent
       summary: Replace a FinancialEvent entity.
+      description: replace FinancialEvent
       operationId: replaceFinancialEvent
       parameters:
       - name: If-Match
@@ -3091,7 +3218,8 @@ paths:
       tags:
       - FinancialEvent
       summary: Partially update a FinancialEvent entity.
-      operationId: updateFinancialEvent
+      description: Partially update a FinancialEvent
+      operationId: updatePartialFinancialEvent
       parameters:
       - name: If-Match
         in: header
@@ -3148,12 +3276,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF65i
+        example: KEY78pr7bly71Cq5d
   /financial-forecasts/{financialForecastKey}/credit-references:
     get:
       tags:
       - CreditReference
       summary: Retrieve a list of CreditReference entities sco...
+      description: list CreditReference By FinancialForecastKey
       operationId: listCreditReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -3205,6 +3334,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3215,12 +3345,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CreditReference
       summary: Create a new CreditReference entity.
+      description: Create CreditReference
       operationId: createCreditReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3239,7 +3372,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}credit-references/KEY78ym8vgTwqRoG5y"
           content:
             application/json:
               schema:
@@ -3268,6 +3401,7 @@ paths:
       tags:
       - CreditReference
       summary: Retrieve a specific CreditReference entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/credit-references/{creditReferenceKey}"
       operationId: getCreditReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3295,6 +3429,7 @@ paths:
       tags:
       - CreditReference
       summary: Replace a CreditReference entity.
+      description: replace CreditReference
       operationId: replaceCreditReference
       parameters:
       - name: If-Match
@@ -3366,7 +3501,8 @@ paths:
       tags:
       - CreditReference
       summary: Partially update a CreditReference entity.
-      operationId: updateCreditReference
+      description: Partially update a CreditReference
+      operationId: updatePartialCreditReference
       parameters:
       - name: If-Match
         in: header
@@ -3423,12 +3559,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF65i1
+        example: KEY78pr7bly71Cq5dK
   /financial-forecasts/{financialForecastKey}/textual-details:
     get:
       tags:
       - TextualDetail
       summary: Retrieve a list of TextualDetail entities scope...
+      description: list TextualDetail By FinancialForecastKey
       operationId: listTextualDetailByFinancialForecastKey
       parameters:
       - name: sort
@@ -3480,6 +3617,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3490,6 +3628,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -3504,6 +3644,7 @@ paths:
       tags:
       - TextualDetail
       summary: Retrieve a specific TextualDetail entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/textual-details/{textualDetailKey}"
       operationId: getTextualDetailById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3540,12 +3681,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF65i1R
+        example: KEY78pr7bly71Cq5dKu
   /financial-forecasts/{financialForecastKey}/financial-tracks:
     get:
       tags:
       - FinancialTrack
       summary: Retrieve a list of FinancialTrack entities scop...
+      description: list FinancialTrack By FinancialForecastKey
       operationId: listFinancialTrackByFinancialForecastKey
       parameters:
       - name: sort
@@ -3597,6 +3739,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3607,12 +3750,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialTrack
       summary: Create a new FinancialTrack entity.
+      description: Create FinancialTrack
       operationId: createFinancialTrack
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3631,7 +3777,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}financial-tracks/KEY78ym8vgTwqRoG5ybp"
           content:
             application/json:
               schema:
@@ -3660,6 +3806,7 @@ paths:
       tags:
       - FinancialTrack
       summary: Retrieve a specific FinancialTrack entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/financial-tracks/{financialTrackKey}"
       operationId: getFinancialTrackById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3687,6 +3834,7 @@ paths:
       tags:
       - FinancialTrack
       summary: Replace a FinancialTrack entity.
+      description: replace FinancialTrack
       operationId: replaceFinancialTrack
       parameters:
       - name: If-Match
@@ -3758,7 +3906,8 @@ paths:
       tags:
       - FinancialTrack
       summary: Partially update a FinancialTrack entity.
-      operationId: updateFinancialTrack
+      description: Partially update a FinancialTrack
+      operationId: updatePartialFinancialTrack
       parameters:
       - name: If-Match
         in: header
@@ -3815,12 +3964,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF65i1Ri
+        example: KEY78pr7bly71Cq5dKud
   /financial-forecasts/{financialForecastKey}/financial-splits:
     get:
       tags:
       - FinancialSplit
       summary: Retrieve a list of FinancialSplit entities scop...
+      description: list FinancialSplit By FinancialForecastKey
       operationId: listFinancialSplitByFinancialForecastKey
       parameters:
       - name: sort
@@ -3872,6 +4022,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3882,12 +4033,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialSplit
       summary: Create a new FinancialSplit entity.
+      description: Create FinancialSplit
       operationId: createFinancialSplit
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3906,7 +4060,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}financial-splits/KEY78ym8vgTwqRoG5ybpS"
           content:
             application/json:
               schema:
@@ -3935,6 +4089,7 @@ paths:
       tags:
       - FinancialSplit
       summary: Retrieve a specific FinancialSplit entity.
+      description: "Standard GET operation for /financial-forecasts/{financialForecastKey}/financial-splits/{financialSplitKey}"
       operationId: getFinancialSplitById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3962,6 +4117,7 @@ paths:
       tags:
       - FinancialSplit
       summary: Replace a FinancialSplit entity.
+      description: replace FinancialSplit
       operationId: replaceFinancialSplit
       parameters:
       - name: If-Match
@@ -4033,7 +4189,8 @@ paths:
       tags:
       - FinancialSplit
       summary: Partially update a FinancialSplit entity.
-      operationId: updateFinancialSplit
+      description: Partially update a FinancialSplit
+      operationId: updatePartialFinancialSplit
       parameters:
       - name: If-Match
         in: header
@@ -4090,11 +4247,14 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF65i1RiU
+        example: KEY78pr7bly71Cq5dKudS
   /financial-forecasts/health:
     get:
+      tags:
+      - Default
       summary: Health Check
       description: Public endpoint to verify service availability.
+      operationId: getFinancialForecastHealth
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
       responses:
@@ -4127,11 +4287,22 @@ paths:
                     description: Server time in ISO-8601 format.
                     format: date-time
                     example: 2025-12-21T23:00:00Z
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       security:
       - {}
   /financial-forecasts/batch:
     post:
+      tags:
+      - Default
       summary: Bulk create financial-forecasts
+      description: Bulk Create of FinancialForecast
       operationId: createFinancialForecastBatch
       requestBody:
         content:
@@ -4147,6 +4318,12 @@ paths:
       responses:
         "200":
           description: Batch processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /financial-forecasts/batch/2343861192636667751
           content:
             application/json:
               schema:
@@ -4166,9 +4343,23 @@ paths:
                           format: int32
                         error:
                           $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
   /financial-forecasts/exports:
     post:
+      tags:
+      - Default
       summary: Initiate a bulk FinancialForecast export
+      description: Standard POST operation for /financial-forecasts/exports
+      operationId: initiateFinancialForecastExport
       parameters:
       - name: Idempotency-Key
         in: header
@@ -4185,6 +4376,7 @@ paths:
               properties:
                 format:
                   type: string
+                  example: string
                   default: PARQUET
                   enum:
                   - XML
@@ -4239,10 +4431,17 @@ paths:
                   description: "If true, the system validates the request and returns\
                     \ potential violations or metadata (like estimated size) without\
                     \ starting the job."
+                  example: false
                   default: false
       responses:
         "202":
           description: Export job created/accepted
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /financial-forecasts/exports/5706115645516440032
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -4251,6 +4450,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       callbacks:
         onExportCompleted:
           '{$request.body#/notification/webhook_url}':
@@ -4267,7 +4474,11 @@ paths:
                   description: Webhook received
   /financial-forecasts/exports/{exportId}:
     get:
+      tags:
+      - Default
       summary: Get export status
+      description: Get Export Status of FinancialForecast
+      operationId: getFinancialForecastExportStatus
       parameters:
       - name: exportId
         in: path
@@ -4281,8 +4492,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExportJob"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /financial-forecasts/{financialForecastKey}/commands:
     post:
+      tags:
+      - Default
       summary: Execute a business workflow on FinancialForecast
       description: Single entry point for all FinancialForecast state-changing intents.
       operationId: executeFinancialForecastCommand
@@ -4317,6 +4538,12 @@ paths:
       responses:
         "200":
           description: Commands processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: "/financial-forecasts/{financialForecastKey}/commands/8283981481755697094"
           content:
             application/json:
               schema:
@@ -4338,7 +4565,7 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #af3f958f has been successfully cancelled."
+                    example: "Invoice #c49388d9 has been successfully cancelled."
                   commandId:
                     type: string
                     description: The tracking ID for this specific command execution
@@ -4346,7 +4573,7 @@ paths:
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: fbb19b08
+                    example: 9a3c7507
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -4355,6 +4582,7 @@ paths:
                     type: boolean
                     description: "If true, the agent can attempt this command again\
                       \ immediately"
+                    example: false
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -4371,6 +4599,8 @@ paths:
           $ref: "#/components/responses/ServerError"
   /financial-forecasts/{financialForecastKey}/commands/{commandId}:
     get:
+      tags:
+      - Default
       summary: Poll FinancialForecast command status
       description: Check the progress or result of a previously submitted command.
       operationId: getFinancialForecastCommandStatus
@@ -4399,6 +4629,7 @@ paths:
                     type: string
                     description: The unique identifier for the command being tracked
                     format: uuid
+                    readOnly: true
                   status:
                     type: string
                     description: The current lifecycle state of the command
@@ -4426,9 +4657,20 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /financial-forecasts/capabilities:
     get:
+      tags:
+      - Default
       summary: Discover FinancialForecast Capabilities
+      description: Standard GET operation for /financial-forecasts/capabilities
       operationId: getFinancialForecastCapabilities
       parameters:
       - name: include
@@ -4463,6 +4705,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Capabilities"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     Capabilities:
@@ -4557,8 +4807,7 @@ components:
                     example: P7D
                   is_pii_sensitive:
                     type: boolean
-                    description: Indicates if the export contains Personally Identifiable
-                      Information
+                    description: Indicates export contains PII
                     example: false
                   access_tier:
                     type: string
@@ -4577,6 +4826,7 @@ components:
                     rule_id:
                       type: string
                       description: Unique identifier for the business rule
+                      readOnly: true
                       example: IDENTITY_LOCK_STATE
                     constraint_type:
                       type: string
@@ -4610,9 +4860,9 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
+                        item_type: Inventory
                         count: "45"
                         limit: "0"
-                        item_type: Inventory
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -4621,9 +4871,9 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
+                        min: "1"
                         value: "31"
                         unit: days
-                        min: "1"
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -4672,21 +4922,26 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         control_account_reference_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         control_account_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
         control_account:
@@ -4695,6 +4950,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Reference link to the control account.
     ControlAccountReferenceCreate:
       required:
@@ -4711,37 +4967,38 @@ components:
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         control_account:
           $ref: "#/components/schemas/Identifier"
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: ControlAccountReference Update for Patch and Put
     CreditReference:
       type: object
       properties:
         credit_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         credit_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         credit_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
         identifier:
@@ -4750,6 +5007,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Reference to a credit memo or balance.
     CreditReferenceCreate:
       required:
@@ -4768,10 +5026,12 @@ components:
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: CreditReference Update for Patch and Put
     CreditReferences:
       type: array
@@ -4781,26 +5041,25 @@ components:
       type: object
       properties:
         discount_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         discount_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         discount_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
         identifier:
@@ -4809,6 +5068,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Reference to an applied discount.
     DiscountReferenceCreate:
       required:
@@ -4827,10 +5087,12 @@ components:
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: DiscountReference Update for Patch and Put
     DiscountReferences:
       type: array
@@ -4861,43 +5123,50 @@ components:
       type: object
       properties:
         effective_period_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique key identifying the effective per... Pat...
+          example: string
         active_indicator:
           type: boolean
           description: Indicator if the period is currently act...
+          example: true
         exclusive_indicator:
           type: boolean
           description: Indicator if the period is exclusive
+          example: true
         start_date_time:
           type: string
           description: Start date and time of the effective per...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         complete_date_time:
           type: string
           description: Completion date and time of the effectiv...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         duration_value:
           type: string
           description: Value of the duration
+          example: string
         recur_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         recur_count:
           type: string
           description: Count of recurrence
+          example: string
         recur_values:
           $ref: "#/components/schemas/Codes"
         recur_criteria:
           type: string
           description: Criteria defining recurrence
+          example: string
         recur_indicator:
           type: boolean
           description: Indicator if recurrence is enabled
+          example: true
       description: The date range during which this record is valid.
     ErrorDetail:
       required:
@@ -4905,7 +5174,7 @@ components:
       - code
       - message
       - timestamp
-      - traceId
+      - trace_id
       type: object
       properties:
         code:
@@ -4932,11 +5201,12 @@ components:
           description: The time the error occurred (ISO 8601).
           format: date-time
           example: 2025-11-10T10:30:00Z
-        traceId:
+        trace_id:
           type: string
           description: "A unique identifier for this specific request, ..."
+          readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
-        docUrl:
+        doc_url:
           type: string
           description: A URL leading to the documentation page for thi...
           format: uri
@@ -4967,11 +5237,14 @@ components:
           type: integer
           description: Part number
           format: int32
+          example: 1
         download_url:
           type: string
           format: uri
+          example: https://api.example.com
         format:
           type: string
+          example: string
           default: PARQUET
           enum:
           - XML
@@ -4982,15 +5255,20 @@ components:
         expires_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
+          example: string
     ExportJob:
       type: object
       properties:
         id:
           type: string
+          readOnly: true
+          example: string
         status:
           type: string
+          example: string
           enum:
           - PENDING
           - PROCESSING
@@ -5001,6 +5279,7 @@ components:
           minimum: 0
           type: integer
           format: int32
+          example: 1
         files:
           type: array
           items:
@@ -5010,22 +5289,26 @@ components:
       properties:
         event_type:
           type: string
+          example: string
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
         occurred_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         data:
           type: object
           properties:
             job_id:
               type: string
+              readOnly: true
             aggregate:
               type: string
               example: FinancialForecast
             data_product_id:
               type: string
+              readOnly: true
             status:
               type: string
               enum:
@@ -5042,26 +5325,25 @@ components:
       type: object
       properties:
         fee_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         fee_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         fee_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
         fee:
@@ -5070,6 +5352,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Reference to an applicable fee or charge.
     FeeReferenceCreate:
       required:
@@ -5088,10 +5371,12 @@ components:
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: FeeReference Update for Patch and Put
     FeeReferences:
       type: array
@@ -5101,32 +5386,32 @@ components:
       type: object
       properties:
         category_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier value for the financia... Pat...
+          readOnly: true
+          example: string
         category_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique key value for the financial categ... Pat...
+          example: string
         category_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: The unique key identifying the reference... Pat...
+          example: string
         context:
           type: string
           description: Context or domain of the financial categ...
+          example: string
         identifier:
           $ref: "#/components/schemas/Identifier"
         occurrence_date_time:
           type: string
           description: The date and time the financial category...
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Reference to the financial classification.
     FinancialCategoryReferenceCreate:
       required:
@@ -5143,10 +5428,12 @@ components:
         context:
           type: string
           description: Context or domain of the financial categ...
+          example: string
         occurrence_date_time:
           type: string
           description: The date and time the financial category...
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: FinancialCategoryReference Update for Patch and...
     FinancialCategoryReferences:
       type: array
@@ -5158,6 +5445,7 @@ components:
         financial_event_id:
           type: string
           description: System-generated ID for the financial ev...
+          readOnly: true
           example: FE-998877
         financial_event_key:
           type: string
@@ -5166,13 +5454,15 @@ components:
         payment_provider:
           type: string
           description: The payment provider handling this trans...
+          readOnly: true
           example: Stripe
         identifiers:
           $ref: "#/components/schemas/Identifiers"
-        from_voided_apcheck:
+        from_voided_apcheck_indicator:
           type: boolean
           description: Indicates whether this event originated ...
-          example: "false"
+          readOnly: true
+          example: true
         confirmation_code:
           type: string
           description: Confirmation code for the financial tran...
@@ -5180,7 +5470,7 @@ components:
         forecast_indicator:
           type: boolean
           description: Confirmation code for the financial tran...
-          example: CNF-987654
+          example: true
         payment_method_type:
           $ref: "#/components/schemas/PaymentMethodTypes"
         payment_methods_href:
@@ -5223,10 +5513,12 @@ components:
         staff_id:
           type: string
           description: Identifier for the staff member who proc...
+          readOnly: true
           example: staff_001
         provider_transaction_id:
           type: string
           description: Unique transaction ID from the payment p...
+          readOnly: true
           example: txn_87654321
         event_description:
           $ref: "#/components/schemas/TextualDetail"
@@ -5263,6 +5555,7 @@ components:
         deposit_id:
           type: string
           description: Unique identifier for the deposit.
+          readOnly: true
           example: dep_123456
         deposit_addr:
           type: string
@@ -5277,6 +5570,7 @@ components:
         actor_id:
           type: string
           description: Identifier of the actor who initiated or...
+          readOnly: true
           example: actor_123
         financial_categories:
           $ref: "#/components/schemas/FinancialCategoryReferences"
@@ -5345,14 +5639,15 @@ components:
           example: 2025-08-11
         amount:
           $ref: "#/components/schemas/Money"
+        from_voided_apcheck_indicator:
+          type: boolean
+          description: Indicates whether this event originated ...
+          readOnly: true
+          example: true
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         resource_type:
           $ref: "#/components/schemas/ResourceTypes"
-        from_voided_apcheck:
-          type: boolean
-          description: Indicates whether this event originated ...
-          example: "false"
         deposit_addr:
           type: string
           description: The deposit address for cryptocurrency o...
@@ -5380,13 +5675,14 @@ components:
         payment_provider:
           type: string
           description: The payment provider handling this trans...
+          readOnly: true
           example: Stripe
         financial_categories:
           $ref: "#/components/schemas/FinancialCategoryReferences"
         forecast_indicator:
           type: boolean
           description: Confirmation code for the financial tran...
-          example: CNF-987654
+          example: true
         occurrence_date_time:
           type: string
           description: The date and time when the financial eve...
@@ -5413,6 +5709,7 @@ components:
         financial_forecast_id:
           type: string
           description: Unique identifier for the Financial Fore...
+          readOnly: true
           example: po_xyz789
         financial_forecast_number:
           type: string
@@ -5428,16 +5725,21 @@ components:
         account_number:
           type: string
           description: The unique number of the associated gene...
+          example: string
         forecast_units:
           type: integer
           description: The forecasted number of units for the p...
           format: int32
+          example: 1
         forecast_amount:
           type: string
           description: The forecasted monetary amount for the p...
+          example: string
         gl_forecast_months_id:
           type: string
           description: Identifier for the specific month of the...
+          readOnly: true
+          example: string
         financial_events:
           $ref: "#/components/schemas/FinancialEvents"
       description: The projected financial outlook for a future pe...
@@ -5458,6 +5760,7 @@ components:
         account_number:
           type: string
           description: The unique number of the associated gene...
+          example: string
         financial_events:
           $ref: "#/components/schemas/FinancialEvents"
         event_date:
@@ -5468,10 +5771,12 @@ components:
         forecast_amount:
           type: string
           description: The forecasted monetary amount for the p...
+          example: string
         forecast_units:
           type: integer
           description: The forecasted number of units for the p...
           format: int32
+          example: 1
         financial_tracks:
           $ref: "#/components/schemas/FinancialTracks"
         financial_forecast_number:
@@ -5485,6 +5790,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
+          example: string
           enum:
           - CREATED
           - ACTIVE
@@ -5502,6 +5808,7 @@ components:
         financial_split_id:
           type: string
           description: Unique key identifying this financial ev...
+          readOnly: true
           example: fe_123456
         financial_split_key:
           type: string
@@ -5597,6 +5904,7 @@ components:
         financial_track_id:
           type: string
           description: Internal transaction reference for this ...
+          readOnly: true
           example: txn_ref_12345
         financial_track_key:
           type: string
@@ -5612,9 +5920,11 @@ components:
           type: string
           description: Timestamp of the last update for this tr...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         actor_id:
           type: string
           description: Identifier of the actor who updated or i...
+          readOnly: true
           example: actor_123
         financial_splits:
           $ref: "#/components/schemas/FinancialSplits"
@@ -5637,6 +5947,7 @@ components:
           type: string
           description: Timestamp of the last update for this tr...
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: FinancialTrack Update for Patch and Put
     FinancialTracks:
       type: array
@@ -5700,24 +6011,33 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         identifier_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Business key for the identifier Pattern: ^[a-zA..."
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -5736,15 +6056,20 @@ components:
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
       description: Identifier Update for Patch and Put
     Identifiers:
       type: array
@@ -5769,21 +6094,28 @@ components:
         money_key:
           type: string
           description: The unique key for the monetary value.
+          example: string
         money_id:
           type: string
           description: The unique ID for the monetary value.
+          readOnly: true
+          example: string
         currency_code:
           type: string
           description: "ISO currency code, e.g., 'USD'."
+          example: string
         display_value:
           type: string
           description: The locale-specific display format for t...
+          example: string
         locale:
           type: string
           description: "The locale code (e.g., en-US, fr-FR)."
+          example: string
         value:
           type: string
           description: The monetary value.
+          example: string
       description: Monetary value and currency information.
     PaymentMethodTypes:
       type: string
@@ -5856,45 +6188,60 @@ components:
         display_value:
           type: string
           description: Human-readable display value for the pri...
+          example: string
         locale:
           type: string
           description: Locale used for formatting display value...
+          example: string
         value:
           type: string
           description: The numeric value of the price (before t...
+          example: string
         tax_value:
           type: string
           description: The calculated amount of tax applied to ...
+          example: string
         taxable_amount:
           type: string
           description: The portion of the price subject to tax.
+          example: string
         non_taxable_amount:
           type: string
           description: The portion of the price not subject to ...
+          example: string
         total_amount:
           type: string
           description: The total final price including all comp...
+          example: string
         total_cost_amount:
           type: string
           description: The total cost to the provider/seller.
+          example: string
         unit_cost_amount:
           type: string
           description: The unit cost to the provider/seller.
+          example: string
         price_description:
           type: string
           description: "A descriptive title for the price (e.g.,..."
+          example: string
         price_key:
           type: string
           description: Natural key or business identifier for t...
+          example: string
         tax_included_indicator:
           type: boolean
           description: Indicates whether tax is included in the...
+          example: true
         currency_code:
           type: string
           description: "ISO 4217 currency code, e.g., 'USD', 'EU..."
+          example: string
         price_id:
           type: string
           description: Unique system identifier for the price r...
+          readOnly: true
+          example: string
         duration:
           $ref: "#/components/schemas/EffectivePeriod"
         price_types:
@@ -5970,26 +6317,33 @@ components:
         display_value:
           type: string
           description: Human-readable display value for the pri...
+          example: string
         unit_cost_amount:
           type: string
           description: The unit cost to the provider/seller.
+          example: string
         locale:
           type: string
           description: Locale used for formatting display value...
+          example: string
         currency_code:
           type: string
           description: "ISO 4217 currency code, e.g., 'USD', 'EU..."
+          example: string
         duration:
           $ref: "#/components/schemas/EffectivePeriod"
         tax_value:
           type: string
           description: The calculated amount of tax applied to ...
+          example: string
         total_amount:
           type: string
           description: The total final price including all comp...
+          example: string
         total_cost_amount:
           type: string
           description: The total cost to the provider/seller.
+          example: string
         price_types:
           maxItems: 255
           minItems: 1
@@ -6000,18 +6354,23 @@ components:
         tax_included_indicator:
           type: boolean
           description: Indicates whether tax is included in the...
+          example: true
         price_description:
           type: string
           description: "A descriptive title for the price (e.g.,..."
+          example: string
         non_taxable_amount:
           type: string
           description: The portion of the price not subject to ...
+          example: string
         value:
           type: string
           description: The numeric value of the price (before t...
+          example: string
         taxable_amount:
           type: string
           description: The portion of the price subject to tax.
+          example: string
       description: Price Update for Patch and Put
     ProblemDetail:
       type: object
@@ -6033,7 +6392,7 @@ components:
         instance:
           type: string
           format: uri
-          example: /money/exports
+          example: https://api.yourdomain.com/money/exports
         intent:
           type: string
           example: InitiateMoneyExport
@@ -6096,26 +6455,25 @@ components:
       type: object
       properties:
         rebate_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         rebate_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         rebate_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
         identifier:
@@ -6124,6 +6482,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Reference to a calculated rebate or refund.
     RebateReferenceCreate:
       required:
@@ -6142,10 +6501,12 @@ components:
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: RebateReference Update for Patch and Put
     RebateReferences:
       type: array
@@ -6194,26 +6555,25 @@ components:
       type: object
       properties:
         reward_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         reward_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         reward_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
         identifier:
@@ -6222,6 +6582,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Reference to the specific reward or loyalty pro...
     RewardReferenceCreate:
       required:
@@ -6240,10 +6601,12 @@ components:
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: RewardReference Update for Patch and Put
     RewardReferences:
       type: array
@@ -6255,6 +6618,7 @@ components:
         tax_split_id:
           type: string
           description: Unique ID identifying this specific tax ...
+          readOnly: true
           example: ts_789012
         tax_split_key:
           type: string
@@ -6327,9 +6691,12 @@ components:
         textual_detail_key:
           type: string
           description: Natural key or business-friendly key for...
+          example: string
         textual_detail_id:
           type: string
           description: Unique identifier for textual detail.
+          readOnly: true
+          example: string
         comments:
           $ref: "#/components/schemas/Memo"
         locale_codes:
@@ -6339,18 +6706,23 @@ components:
         short_description:
           type: string
           description: Short description for the detail.
+          example: string
         description:
           type: string
           description: Full description in memo format.
+          example: string
         text_key:
           type: string
           description: Key reference for reusable text blocks.
+          example: string
         name:
           type: string
           description: Name or title of the textual detail.
+          example: string
         value:
           type: string
           description: Value associated with the textual detail...
+          example: string
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         groups:
@@ -6358,20 +6730,25 @@ components:
         label:
           type: string
           description: Label for UI representation.
+          example: string
         alt_text:
           type: string
           description: Alternative text for accessibility or im...
+          example: string
         textual_detail_code:
           type: string
           description: Code identifier for textual detail refer...
+          example: string
         tags:
           $ref: "#/components/schemas/Codes"
         uom_display:
           type: string
           description: Unit of Measure display value.
+          example: string
         uom_code:
           type: string
           description: "Unit of Measure code (e.g., EA, PR)."
+          example: string
       description: not nullable
   responses:
     ForbiddenError:

@@ -22,6 +22,7 @@ paths:
       tags:
       - PricePlan
       summary: Retrieve a list of PricePlan entities.
+      description: list PricePlan By
       operationId: listPricePlan
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PricePlan
       summary: Create a new PricePlan entity.
+      description: Create PricePlan
       operationId: createPricePlan
       requestBody:
         description: PricePlan data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /price-plans/KEY780
+                example: /price-plans/KEY78M
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - PricePlan
       summary: Replace a PricePlan entity.
+      description: replace PricePlan
       operationId: replacePricePlan
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - PricePlan
       summary: Partially update a PricePlan entity.
-      operationId: updatePricePlan
+      description: Partially update a PricePlan
+      operationId: updatePartialPricePlan
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY785
+        example: KEY78D
   /price-plans/{pricePlanKey}/product-schedule-references:
     get:
       tags:
       - ProductScheduleReference
       summary: Retrieve a list of ProductScheduleReference entities scoped by pricePlanKey.
+      description: list ProductScheduleReference By PricePlanKey
       operationId: listProductScheduleReferenceByPricePlanKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ProductScheduleReference
       summary: Create a new ProductScheduleReference entity.
+      description: Create ProductScheduleReference
       operationId: createProductScheduleReference
       requestBody:
         description: ProductScheduleReference data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/price-plans{pricePlanKey}product-schedule-references/KEY78Mz"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - ProductScheduleReference
       summary: Replace a ProductScheduleReference entity.
+      description: replace ProductScheduleReference
       operationId: replaceProductScheduleReference
       parameters:
       - name: If-Match
@@ -463,7 +474,8 @@ paths:
       tags:
       - ProductScheduleReference
       summary: Partially update a ProductScheduleReference entity.
-      operationId: updateProductScheduleReference
+      description: Partially update a ProductScheduleReference
+      operationId: updatePartialProductScheduleReference
       parameters:
       - name: If-Match
         in: header
@@ -518,12 +530,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY785D
+        example: KEY78DH
   /price-plans/{pricePlanKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by pricePlanKey.
+      description: list Identifier By PricePlanKey
       operationId: listIdentifierByPricePlanKey
       parameters:
       - name: sort
@@ -581,12 +594,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -603,7 +619,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/price-plans{pricePlanKey}identifiers/KEY78Mzr"
           content:
             application/json:
               schema:
@@ -654,6 +670,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -720,7 +737,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -775,12 +793,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY785DV
+        example: KEY78DHc
   /price-plans/{pricePlanKey}/geographic-boundary-references:
     get:
       tags:
       - GeographicBoundaryReference
       summary: Retrieve a list of GeographicBoundaryReference entities scoped by pricePlanKey.
+      description: list GeographicBoundaryReference By PricePlanKey
       operationId: listGeographicBoundaryReferenceByPricePlanKey
       parameters:
       - name: sort
@@ -838,12 +857,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - GeographicBoundaryReference
       summary: Create a new GeographicBoundaryReference entity.
+      description: Create GeographicBoundaryReference
       operationId: createGeographicBoundaryReference
       requestBody:
         description: GeographicBoundaryReference data to create the new resource.
@@ -860,7 +882,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/price-plans{pricePlanKey}geographic-boundary-references/KEY78Mzrz"
           content:
             application/json:
               schema:
@@ -911,6 +933,7 @@ paths:
       tags:
       - GeographicBoundaryReference
       summary: Replace a GeographicBoundaryReference entity.
+      description: replace GeographicBoundaryReference
       operationId: replaceGeographicBoundaryReference
       parameters:
       - name: If-Match
@@ -978,7 +1001,8 @@ paths:
       tags:
       - GeographicBoundaryReference
       summary: Partially update a GeographicBoundaryReference entity.
-      operationId: updateGeographicBoundaryReference
+      description: Partially update a GeographicBoundaryReference
+      operationId: updatePartialGeographicBoundaryReference
       parameters:
       - name: If-Match
         in: header
@@ -1033,12 +1057,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY785DVb
+        example: KEY78DHcB
   /price-plans/{pricePlanKey}/price-sensitivities:
     get:
       tags:
       - PriceSensitivity
       summary: Retrieve a list of PriceSensitivity entities scoped by pricePlanKey.
+      description: list PriceSensitivity By PricePlanKey
       operationId: listPriceSensitivityByPricePlanKey
       parameters:
       - name: sort
@@ -1096,12 +1121,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PriceSensitivity
       summary: Create a new PriceSensitivity entity.
+      description: Create PriceSensitivity
       operationId: createPriceSensitivity
       requestBody:
         description: PriceSensitivity data to create the new resource.
@@ -1118,7 +1146,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/price-plans{pricePlanKey}price-sensitivities/KEY78MzrzA"
           content:
             application/json:
               schema:
@@ -1169,6 +1197,7 @@ paths:
       tags:
       - PriceSensitivity
       summary: Replace a PriceSensitivity entity.
+      description: replace PriceSensitivity
       operationId: replacePriceSensitivity
       parameters:
       - name: If-Match
@@ -1235,7 +1264,8 @@ paths:
       tags:
       - PriceSensitivity
       summary: Partially update a PriceSensitivity entity.
-      operationId: updatePriceSensitivity
+      description: Partially update a PriceSensitivity
+      operationId: updatePartialPriceSensitivity
       parameters:
       - name: If-Match
         in: header
@@ -1290,12 +1320,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY785DVbs
+        example: KEY78DHcBN
   /price-plans/{pricePlanKey}/financial-split-references:
     get:
       tags:
       - FinancialSplitReference
       summary: Retrieve a list of FinancialSplitReference entities scoped by pricePlanKey.
+      description: list FinancialSplitReference By PricePlanKey
       operationId: listFinancialSplitReferenceByPricePlanKey
       parameters:
       - name: sort
@@ -1353,12 +1384,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialSplitReference
       summary: Create a new FinancialSplitReference entity.
+      description: Create FinancialSplitReference
       operationId: createFinancialSplitReference
       requestBody:
         description: FinancialSplitReference data to create the new resource.
@@ -1375,7 +1409,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/price-plans{pricePlanKey}financial-split-references/KEY78MzrzAC"
           content:
             application/json:
               schema:
@@ -1426,6 +1460,7 @@ paths:
       tags:
       - FinancialSplitReference
       summary: Replace a FinancialSplitReference entity.
+      description: replace FinancialSplitReference
       operationId: replaceFinancialSplitReference
       parameters:
       - name: If-Match
@@ -1493,7 +1528,8 @@ paths:
       tags:
       - FinancialSplitReference
       summary: Partially update a FinancialSplitReference entity.
-      operationId: updateFinancialSplitReference
+      description: Partially update a FinancialSplitReference
+      operationId: updatePartialFinancialSplitReference
       parameters:
       - name: If-Match
         in: header
@@ -1548,6 +1584,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY785DVbsl
+        example: KEY78DHcBNL
 components:
   schemas: {}

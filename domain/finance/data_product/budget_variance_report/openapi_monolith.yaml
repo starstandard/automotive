@@ -19,12 +19,34 @@ security:
   - standard:read
 - member-api-key: []
 - {}
+tags:
+- name: BudgetVarianceLineItem
+  description: Operations related to BudgetVarianceLineItem
+- name: BudgetVarianceReport
+  description: Operations related to BudgetVarianceReport
+- name: Money
+  description: Operations related to Money
+- name: GeneralLedgerReference
+  description: Operations related to GeneralLedgerReference
+- name: Identifier
+  description: Operations related to Identifier
+- name: VarianceDetail
+  description: Operations related to VarianceDetail
+- name: AccountingPeriod
+  description: Operations related to AccountingPeriod
+- name: ControlAccountReference
+  description: Operations related to ControlAccountReference
+- name: Default
+  description: Operations related to Default
+- name: BudgetVarianceReportCriteria
+  description: Operations related to BudgetVarianceReportCriteria
 paths:
   /budget-variance-reports:
     get:
       tags:
       - BudgetVarianceReport
       summary: Retrieve a list of BudgetVarianceReport entities.
+      description: list BudgetVarianceReport By
       operationId: listBudgetVarianceReport
       parameters:
       - name: sort
@@ -76,6 +98,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -86,12 +109,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - BudgetVarianceReport
       summary: Create a new BudgetVarianceReport entity.
+      description: Create BudgetVarianceReport
       operationId: createBudgetVarianceReport
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -110,7 +136,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /budget-variance-reports/KEY78r
+                example: /budget-variance-reports/KEY78U
           content:
             application/json:
               schema:
@@ -132,6 +158,7 @@ paths:
       tags:
       - BudgetVarianceReport
       summary: Retrieve a specific BudgetVarianceReport entity.
+      description: "Standard GET operation for /budget-variance-reports/{budgetVarianceReportKey}"
       operationId: getBudgetVarianceReportById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -159,6 +186,7 @@ paths:
       tags:
       - BudgetVarianceReport
       summary: Replace a BudgetVarianceReport entity.
+      description: replace BudgetVarianceReport
       operationId: replaceBudgetVarianceReport
       parameters:
       - name: If-Match
@@ -230,7 +258,8 @@ paths:
       tags:
       - BudgetVarianceReport
       summary: Partially update a BudgetVarianceReport entity.
-      operationId: updateBudgetVarianceReport
+      description: Partially update a BudgetVarianceReport
+      operationId: updatePartialBudgetVarianceReport
       parameters:
       - name: If-Match
         in: header
@@ -281,12 +310,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78A
+        example: KEY78b
   /budget-variance-reports/{budgetVarianceReportKey}/budget-variance-line-items:
     get:
       tags:
       - BudgetVarianceLineItem
       summary: Retrieve a list of BudgetVarianceLineItem entit...
+      description: list BudgetVarianceLineItem By BudgetVarianceRe...
       operationId: listBudgetVarianceLineItemByBudgetVarianceReportKey
       parameters:
       - name: sort
@@ -338,6 +368,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -348,12 +379,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - BudgetVarianceLineItem
       summary: Create a new BudgetVarianceLineItem entity.
+      description: Create BudgetVarianceLineItem
       operationId: createBudgetVarianceLineItem
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -372,7 +406,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/budget-variance-reports{budgetVarianceReportKey}budget-variance-line-items/KEY78U4"
           content:
             application/json:
               schema:
@@ -401,6 +435,7 @@ paths:
       tags:
       - BudgetVarianceLineItem
       summary: Retrieve a specific BudgetVarianceLineItem entity.
+      description: "Standard GET operation for /budget-variance-reports/{budgetVarianceReportKey}/budget-variance-line-items/{budgetVarianceLineItemKey}"
       operationId: getBudgetVarianceLineItemById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -428,6 +463,7 @@ paths:
       tags:
       - BudgetVarianceLineItem
       summary: Replace a BudgetVarianceLineItem entity.
+      description: replace BudgetVarianceLineItem
       operationId: replaceBudgetVarianceLineItem
       parameters:
       - name: If-Match
@@ -499,7 +535,8 @@ paths:
       tags:
       - BudgetVarianceLineItem
       summary: Partially update a BudgetVarianceLineItem entity.
-      operationId: updateBudgetVarianceLineItem
+      description: Partially update a BudgetVarianceLineItem
+      operationId: updatePartialBudgetVarianceLineItem
       parameters:
       - name: If-Match
         in: header
@@ -556,12 +593,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78AC
+        example: KEY78bI
   /budget-variance-reports/{budgetVarianceReportKey}/money:
     get:
       tags:
       - Money
       summary: Retrieve a list of Money entities scoped by bud...
+      description: list Money By BudgetVarianceReportKey
       operationId: listMoneyByBudgetVarianceReportKey
       parameters:
       - name: sort
@@ -613,6 +651,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -623,6 +662,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -637,6 +678,7 @@ paths:
       tags:
       - Money
       summary: Retrieve a specific Money entity.
+      description: "Standard GET operation for /budget-variance-reports/{budgetVarianceReportKey}/money/{moneyKey}"
       operationId: getMoneyById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -673,12 +715,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ACk
+        example: KEY78bI1
   /budget-variance-reports/{budgetVarianceReportKey}/general-ledger-references:
     get:
       tags:
       - GeneralLedgerReference
       summary: Retrieve a list of GeneralLedgerReference entit...
+      description: list GeneralLedgerReference By BudgetVarianceRe...
       operationId: listGeneralLedgerReferenceByBudgetVarianceReportKey
       parameters:
       - name: sort
@@ -730,6 +773,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -740,12 +784,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - GeneralLedgerReference
       summary: Create a new GeneralLedgerReference entity.
+      description: Create GeneralLedgerReference
       operationId: createGeneralLedgerReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -764,7 +811,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/budget-variance-reports{budgetVarianceReportKey}general-ledger-references/KEY78U4OW"
           content:
             application/json:
               schema:
@@ -793,6 +840,7 @@ paths:
       tags:
       - GeneralLedgerReference
       summary: Retrieve a specific GeneralLedgerReference entity.
+      description: "Standard GET operation for /budget-variance-reports/{budgetVarianceReportKey}/general-ledger-references/{generalLedgerReferenceKey}"
       operationId: getGeneralLedgerReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -820,6 +868,7 @@ paths:
       tags:
       - GeneralLedgerReference
       summary: Replace a GeneralLedgerReference entity.
+      description: replace GeneralLedgerReference
       operationId: replaceGeneralLedgerReference
       parameters:
       - name: If-Match
@@ -891,7 +940,8 @@ paths:
       tags:
       - GeneralLedgerReference
       summary: Partially update a GeneralLedgerReference entity.
-      operationId: updateGeneralLedgerReference
+      description: Partially update a GeneralLedgerReference
+      operationId: updatePartialGeneralLedgerReference
       parameters:
       - name: If-Match
         in: header
@@ -948,12 +998,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ACkZ
+        example: KEY78bI1m
   /budget-variance-reports/{budgetVarianceReportKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped b...
+      description: list Identifier By BudgetVarianceReportKey
       operationId: listIdentifierByBudgetVarianceReportKey
       parameters:
       - name: sort
@@ -1005,6 +1056,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1015,12 +1067,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1039,7 +1094,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/budget-variance-reports{budgetVarianceReportKey}identifiers/KEY78U4OWF"
           content:
             application/json:
               schema:
@@ -1068,6 +1123,7 @@ paths:
       tags:
       - Identifier
       summary: Retrieve a specific Identifier entity.
+      description: "Standard GET operation for /budget-variance-reports/{budgetVarianceReportKey}/identifiers/{identifierKey}"
       operationId: getIdentifierById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1095,6 +1151,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -1166,7 +1223,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -1223,12 +1281,296 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ACkZY
+        example: KEY78bI1mk
+  /budget-variance-reports/{budgetVarianceReportKey}/variance-details:
+    get:
+      tags:
+      - VarianceDetail
+      summary: Retrieve a list of VarianceDetail entities scop...
+      description: list VarianceDetail By BudgetVarianceReportKey
+      operationId: listVarianceDetailByBudgetVarianceReportKey
+      parameters:
+      - name: sort
+        in: query
+        description: Sort Order of Result
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: Filter Result
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of entities to return.
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 50
+      - name: cursor
+        in: query
+        description: starting point for next set of results
+        schema:
+          type: string
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      responses:
+        "200":
+          description: A list of VarianceDetail entities.
+          headers:
+            standards-version:
+              $ref: "#/components/headers/StandardsVersionResponse"
+          content:
+            application/json:
+              schema:
+                required:
+                - data
+                - has_more
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/VarianceDetail"
+                  next_cursor:
+                    type: string
+                    description: Opaque cursor for the next page. Null if no more
+                      results.
+                  has_more:
+                    type: boolean
+                    description: Whether additional results exist beyond this page.
+                    example: true
+                  total_count:
+                    type: integer
+                    description: "Total entities matching the query (optional, may\
+                      \ be expensive)."
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    post:
+      tags:
+      - VarianceDetail
+      summary: Create a new VarianceDetail entity.
+      description: Create VarianceDetail
+      operationId: createVarianceDetail
+      parameters:
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      requestBody:
+        description: VarianceDetail data to create the new resource.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VarianceDetailCreate"
+        required: true
+      responses:
+        "201":
+          description: VarianceDetail created successfully.
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: "/budget-variance-reports{budgetVarianceReportKey}variance-details/KEY78U4OWFR"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VarianceDetail"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    parameters:
+    - name: budgetVarianceReportKey
+      in: path
+      description: The unique identifier for the parent resource.
+      required: true
+      schema:
+        type: string
+  /budget-variance-reports/{budgetVarianceReportKey}/variance-details/{varianceDetailKey}:
+    get:
+      tags:
+      - VarianceDetail
+      summary: Retrieve a specific VarianceDetail entity.
+      description: "Standard GET operation for /budget-variance-reports/{budgetVarianceReportKey}/variance-details/{varianceDetailKey}"
+      operationId: getVarianceDetailById
+      parameters:
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      responses:
+        "200":
+          description: The requested VarianceDetail entity.
+          headers:
+            standards-version:
+              $ref: "#/components/headers/StandardsVersionResponse"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VarianceDetail"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    put:
+      tags:
+      - VarianceDetail
+      summary: Replace a VarianceDetail entity.
+      description: replace VarianceDetail
+      operationId: replaceVarianceDetail
+      parameters:
+      - name: If-Match
+        in: header
+        description: The ETag of the resource to be replaced.
+        required: true
+        schema:
+          type: string
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      requestBody:
+        description: Full entity data to replace the existing resource.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VarianceDetail"
+        required: true
+      responses:
+        "200":
+          description: Entity updated successfully. Returns the update...
+          headers:
+            ETag:
+              description: The new ETag of the replaced resource.
+              schema:
+                type: string
+            standards-version:
+              $ref: "#/components/headers/StandardsVersionResponse"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VarianceDetail"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "412":
+          $ref: "#/components/responses/PreconditionFailedError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    delete:
+      tags:
+      - VarianceDetail
+      summary: Delete a VarianceDetail entity
+      description: Marks the VarianceDetail entity as inactive or ...
+      operationId: deleteVarianceDetailEntity
+      parameters:
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      responses:
+        "204":
+          description: Entity successfully deleted (or deactivated).
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    patch:
+      tags:
+      - VarianceDetail
+      summary: Partially update a VarianceDetail entity.
+      description: Partially update a VarianceDetail
+      operationId: updatePartialVarianceDetail
+      parameters:
+      - name: If-Match
+        in: header
+        description: ETag of the resource being updated. update=succ...
+        required: true
+        schema:
+          type: string
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      requestBody:
+        description: Included Fields to be updated will be modified.
+        content:
+          application/merge-patch+json:
+            schema:
+              $ref: "#/components/schemas/VarianceDetailUpdate"
+        required: true
+      responses:
+        "200":
+          description: Entity updated successfully. Returns the update...
+          headers:
+            ETag:
+              description: The new ETag of the updated resource.
+              schema:
+                type: string
+            standards-version:
+              $ref: "#/components/headers/StandardsVersionResponse"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VarianceDetail"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "412":
+          $ref: "#/components/responses/PreconditionFailedError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    parameters:
+    - name: budgetVarianceReportKey
+      in: path
+      description: The unique identifier for the parent resource.
+      required: true
+      schema:
+        type: string
+    - name: varianceDetailKey
+      in: path
+      description: The unique identifier for the specific VarianceDetail.
+      required: true
+      schema:
+        type: string
+        example: KEY78bI1mkr
   /budget-variance-reports/{budgetVarianceReportKey}/accounting-periods:
     get:
       tags:
       - AccountingPeriod
       summary: Retrieve a list of AccountingPeriod entities sc...
+      description: list AccountingPeriod By BudgetVarianceReportKey
       operationId: listAccountingPeriodByBudgetVarianceReportKey
       parameters:
       - name: sort
@@ -1280,6 +1622,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1290,12 +1633,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - AccountingPeriod
       summary: Create a new AccountingPeriod entity.
+      description: Create AccountingPeriod
       operationId: createAccountingPeriod
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1314,7 +1660,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/budget-variance-reports{budgetVarianceReportKey}accounting-periods/KEY78U4OWFR9"
           content:
             application/json:
               schema:
@@ -1343,6 +1689,7 @@ paths:
       tags:
       - AccountingPeriod
       summary: Retrieve a specific AccountingPeriod entity.
+      description: "Standard GET operation for /budget-variance-reports/{budgetVarianceReportKey}/accounting-periods/{accountingPeriodKey}"
       operationId: getAccountingPeriodById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1370,6 +1717,7 @@ paths:
       tags:
       - AccountingPeriod
       summary: Replace a AccountingPeriod entity.
+      description: replace AccountingPeriod
       operationId: replaceAccountingPeriod
       parameters:
       - name: If-Match
@@ -1441,7 +1789,8 @@ paths:
       tags:
       - AccountingPeriod
       summary: Partially update a AccountingPeriod entity.
-      operationId: updateAccountingPeriod
+      description: Partially update a AccountingPeriod
+      operationId: updatePartialAccountingPeriod
       parameters:
       - name: If-Match
         in: header
@@ -1498,12 +1847,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ACkZYk
+        example: KEY78bI1mkrG
   /budget-variance-reports/{budgetVarianceReportKey}/control-account-references:
     get:
       tags:
       - ControlAccountReference
       summary: Retrieve a list of ControlAccountReference enti...
+      description: list ControlAccountReference By BudgetVarianceR...
       operationId: listControlAccountReferenceByBudgetVarianceReportKey
       parameters:
       - name: sort
@@ -1555,6 +1905,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1565,12 +1916,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ControlAccountReference
       summary: Create a new ControlAccountReference entity.
+      description: Create ControlAccountReference
       operationId: createControlAccountReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1589,7 +1943,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/budget-variance-reports{budgetVarianceReportKey}control-account-references/KEY78U4OWFR9m"
           content:
             application/json:
               schema:
@@ -1618,6 +1972,7 @@ paths:
       tags:
       - ControlAccountReference
       summary: Retrieve a specific ControlAccountReference ent...
+      description: "Standard GET operation for /budget-variance-reports/{budgetVarianceReportKey}/control-account-references/{controlAccountReferenceKey}"
       operationId: getControlAccountReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1645,6 +2000,7 @@ paths:
       tags:
       - ControlAccountReference
       summary: Replace a ControlAccountReference entity.
+      description: replace ControlAccountReference
       operationId: replaceControlAccountReference
       parameters:
       - name: If-Match
@@ -1716,7 +2072,8 @@ paths:
       tags:
       - ControlAccountReference
       summary: Partially update a ControlAccountReference entity.
-      operationId: updateControlAccountReference
+      description: Partially update a ControlAccountReference
+      operationId: updatePartialControlAccountReference
       parameters:
       - name: If-Match
         in: header
@@ -1773,12 +2130,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ACkZYkR
+        example: KEY78bI1mkrG6
   /budget-variance-reports/{budgetVarianceReportKey}/budget-variance-report-criteria:
     get:
       tags:
       - BudgetVarianceReportCriteria
       summary: Retrieve a list of BudgetVarianceReportCriteria...
+      description: list BudgetVarianceReportCriteria By BudgetVari...
       operationId: listBudgetVarianceReportCriteriaByBudgetVarianceReportKey
       parameters:
       - name: sort
@@ -1830,6 +2188,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1840,12 +2199,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - BudgetVarianceReportCriteria
       summary: Create a new BudgetVarianceReportCriteria entity.
+      description: Create BudgetVarianceReportCriteria
       operationId: createBudgetVarianceReportCriteria
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1864,7 +2226,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/budget-variance-reports{budgetVarianceReportKey}budget-variance-report-criteria/KEY78U4OWFR9mR"
           content:
             application/json:
               schema:
@@ -1893,6 +2255,7 @@ paths:
       tags:
       - BudgetVarianceReportCriteria
       summary: Retrieve a specific BudgetVarianceReportCriteri...
+      description: "Standard GET operation for /budget-variance-reports/{budgetVarianceReportKey}/budget-variance-report-criteria/{budgetVarianceReportCriteriaKey}"
       operationId: getBudgetVarianceReportCriteriaById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1920,6 +2283,7 @@ paths:
       tags:
       - BudgetVarianceReportCriteria
       summary: Replace a BudgetVarianceReportCriteria entity.
+      description: replace BudgetVarianceReportCriteria
       operationId: replaceBudgetVarianceReportCriteria
       parameters:
       - name: If-Match
@@ -1991,7 +2355,8 @@ paths:
       tags:
       - BudgetVarianceReportCriteria
       summary: Partially update a BudgetVarianceReportCriteria...
-      operationId: updateBudgetVarianceReportCriteria
+      description: Partially update a BudgetVarianceReportCriteria
+      operationId: updatePartialBudgetVarianceReportCriteria
       parameters:
       - name: If-Match
         in: header
@@ -2048,11 +2413,14 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ACkZYkR8
+        example: KEY78bI1mkrG6y
   /budget-variance-reports/health:
     get:
+      tags:
+      - Default
       summary: Health Check
       description: Public endpoint to verify service availability.
+      operationId: getBudgetVarianceReportHealth
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
       responses:
@@ -2085,11 +2453,22 @@ paths:
                     description: Server time in ISO-8601 format.
                     format: date-time
                     example: 2025-12-21T23:00:00Z
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       security:
       - {}
   /budget-variance-reports/batch:
     post:
+      tags:
+      - Default
       summary: Bulk create budget-variance-reports
+      description: Bulk Create of BudgetVarianceReport
       operationId: createBudgetVarianceReportBatch
       requestBody:
         content:
@@ -2105,6 +2484,12 @@ paths:
       responses:
         "200":
           description: Batch processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /budget-variance-reports/batch/8060432518159134884
           content:
             application/json:
               schema:
@@ -2124,9 +2509,23 @@ paths:
                           format: int32
                         error:
                           $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
   /budget-variance-reports/exports:
     post:
+      tags:
+      - Default
       summary: Initiate a bulk BudgetVarianceReport export
+      description: Standard POST operation for /budget-variance-reports/exports
+      operationId: initiateBudgetVarianceReportExport
       parameters:
       - name: Idempotency-Key
         in: header
@@ -2143,6 +2542,7 @@ paths:
               properties:
                 format:
                   type: string
+                  example: string
                   default: PARQUET
                   enum:
                   - XML
@@ -2197,10 +2597,17 @@ paths:
                   description: "If true, the system validates the request and returns\
                     \ potential violations or metadata (like estimated size) without\
                     \ starting the job."
+                  example: false
                   default: false
       responses:
         "202":
           description: Export job created/accepted
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /budget-variance-reports/exports/2474302024225094108
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -2209,6 +2616,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       callbacks:
         onExportCompleted:
           '{$request.body#/notification/webhook_url}':
@@ -2225,7 +2640,11 @@ paths:
                   description: Webhook received
   /budget-variance-reports/exports/{exportId}:
     get:
+      tags:
+      - Default
       summary: Get export status
+      description: Get Export Status of BudgetVarianceReport
+      operationId: getBudgetVarianceReportExportStatus
       parameters:
       - name: exportId
         in: path
@@ -2239,8 +2658,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExportJob"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /budget-variance-reports/{budgetVarianceReportKey}/commands:
     post:
+      tags:
+      - Default
       summary: Execute a business workflow on BudgetVarianceReport
       description: Single entry point for all BudgetVarianceReport state-changing
         intents.
@@ -2276,6 +2705,12 @@ paths:
       responses:
         "200":
           description: Commands processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: "/budget-variance-reports/{budgetVarianceReportKey}/commands/6591796679133670341"
           content:
             application/json:
               schema:
@@ -2297,7 +2732,7 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #0d7fcf39 has been successfully cancelled."
+                    example: "Invoice #3801cc99 has been successfully cancelled."
                   commandId:
                     type: string
                     description: The tracking ID for this specific command execution
@@ -2305,7 +2740,7 @@ paths:
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: 248de013
+                    example: bf88c7a2
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -2314,6 +2749,7 @@ paths:
                     type: boolean
                     description: "If true, the agent can attempt this command again\
                       \ immediately"
+                    example: false
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -2330,6 +2766,8 @@ paths:
           $ref: "#/components/responses/ServerError"
   /budget-variance-reports/{budgetVarianceReportKey}/commands/{commandId}:
     get:
+      tags:
+      - Default
       summary: Poll BudgetVarianceReport command status
       description: Check the progress or result of a previously submitted command.
       operationId: getBudgetVarianceReportCommandStatus
@@ -2358,6 +2796,7 @@ paths:
                     type: string
                     description: The unique identifier for the command being tracked
                     format: uuid
+                    readOnly: true
                   status:
                     type: string
                     description: The current lifecycle state of the command
@@ -2385,9 +2824,20 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /budget-variance-reports/capabilities:
     get:
+      tags:
+      - Default
       summary: Discover BudgetVarianceReport Capabilities
+      description: Standard GET operation for /budget-variance-reports/capabilities
       operationId: getBudgetVarianceReportCapabilities
       parameters:
       - name: include
@@ -2422,6 +2872,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Capabilities"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     AccountingPeriod:
@@ -2430,35 +2888,41 @@ components:
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         period_desc:
-          maxLength: 255
           type: string
           description: Descriptive name for the accounting peri...
+          example: string
         accounting_period_id:
           pattern: "^[0-9]{6}$"
           type: string
           description: Business key for the accounting period (... Pat...
+          readOnly: true
+          example: string
         accounting_period_key:
           pattern: "^[0-9]{6}$"
           type: string
           description: Business key for the accounting period (... Pat...
+          example: string
         period_name:
-          maxLength: 100
           type: string
           description: Display name of the accounting period.
+          example: string
         start_date:
           type: string
           description: The beginning date of the accounting per...
           format: date
+          example: 2026-01-14
         end_date:
           type: string
           description: The ending date of the accounting period...
           format: date
+          example: 2026-01-14
         accounting_period_status_type:
           $ref: "#/components/schemas/AccountingPeriodStatusTypes"
         fiscal_year:
           type: integer
           description: The fiscal year this period belongs to.
           format: int32
+          example: 1
       description: The fiscal timeframe used for reporting and aud...
     AccountingPeriodCreate:
       required:
@@ -2485,26 +2949,29 @@ components:
           type: string
           description: The ending date of the accounting period...
           format: date
+          example: 2026-01-14
         period_desc:
-          maxLength: 255
           type: string
           description: Descriptive name for the accounting peri...
+          example: string
         fiscal_year:
           type: integer
           description: The fiscal year this period belongs to.
           format: int32
+          example: 1
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         accounting_period_status_type:
           $ref: "#/components/schemas/AccountingPeriodStatusTypes"
         period_name:
-          maxLength: 100
           type: string
           description: Display name of the accounting period.
+          example: string
         start_date:
           type: string
           description: The beginning date of the accounting per...
           format: date
+          example: 2026-01-14
       description: AccountingPeriod Update for Patch and Put
     BudgetVarianceLineItem:
       type: object
@@ -2512,9 +2979,12 @@ components:
         budget_variance_line_item_id:
           type: string
           description: The unique ID for the report line item.
+          readOnly: true
+          example: string
         budget_variance_line_item_key:
           type: string
           description: The unique ID for the report line item.
+          example: string
         general_ledger_account:
           $ref: "#/components/schemas/GeneralLedgerReference"
         control_account:
@@ -2525,6 +2995,8 @@ components:
           $ref: "#/components/schemas/Money"
         actual_amount:
           $ref: "#/components/schemas/Money"
+        variance_detail:
+          $ref: "#/components/schemas/VarianceDetail"
       description: A specific line in a budget variance analysis.
     BudgetVarianceLineItemCreate:
       required:
@@ -2546,6 +3018,8 @@ components:
           $ref: "#/components/schemas/ControlAccountReference"
         financial_category_type:
           $ref: "#/components/schemas/FinancialCategoryTypes"
+        variance_detail:
+          $ref: "#/components/schemas/VarianceDetail"
       description: BudgetVarianceLineItem Update for Patch and Put
     BudgetVarianceReport:
       type: object
@@ -2553,15 +3027,19 @@ components:
         budget_variance_report_id:
           type: string
           description: The unique ID for the generated report.
+          readOnly: true
+          example: string
         budget_variance_report_key:
           type: string
           description: The unique ID for the generated report.
+          example: string
         budget_variance_report_criteria:
           $ref: "#/components/schemas/BudgetVarianceReportCriteria"
         report_date:
           type: string
           description: The date and time the report was generat...
           format: date
+          example: 2026-01-14
         accounting_period:
           $ref: "#/components/schemas/AccountingPeriod"
         line_items:
@@ -2585,12 +3063,16 @@ components:
         budget_variance_report_criteria_id:
           type: string
           description: The Accounting Period Key for which the ...
+          readOnly: true
+          example: string
         budget_variance_report_criteria_key:
           type: string
           description: The Accounting Period Key for which the ...
+          example: string
         accounting_period_key:
           type: string
           description: The Accounting Period Key for which the ...
+          example: string
         gl_account_keys:
           maxItems: 255
           minItems: 1
@@ -2617,11 +3099,13 @@ components:
           minItems: 1
           uniqueItems: true
           type: array
+          readOnly: true
           items:
             type: string
         min_variance_percentage:
           type: string
           description: Minimum absolute variance percentage to ...
+          example: string
       description: Criteria used to generate a variance report.
     BudgetVarianceReportCriteriaCreate:
       required:
@@ -2657,6 +3141,7 @@ components:
         min_variance_percentage:
           type: string
           description: Minimum absolute variance percentage to ...
+          example: string
       description: BudgetVarianceReportCriteria Update for Patch a...
     BudgetVarianceReportResponse:
       allOf:
@@ -2680,6 +3165,7 @@ components:
           type: string
           description: The date and time the report was generat...
           format: date
+          example: 2026-01-14
       description: BudgetVarianceReport Update for Patch and Put
     BudgetVarianceReportWorkflowMetadata:
       type: object
@@ -2687,6 +3173,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
+          example: string
           enum:
           - CREATED
           - ACTIVE
@@ -2790,8 +3277,7 @@ components:
                     example: P7D
                   is_pii_sensitive:
                     type: boolean
-                    description: Indicates if the export contains Personally Identifiable
-                      Information
+                    description: Indicates export contains PII
                     example: false
                   access_tier:
                     type: string
@@ -2810,6 +3296,7 @@ components:
                     rule_id:
                       type: string
                       description: Unique identifier for the business rule
+                      readOnly: true
                       example: IDENTITY_LOCK_STATE
                     constraint_type:
                       type: string
@@ -2843,9 +3330,9 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
+                        item_type: Inventory
                         count: "45"
                         limit: "0"
-                        item_type: Inventory
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -2854,9 +3341,9 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
+                        min: "1"
                         value: "31"
                         unit: days
-                        min: "1"
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -2905,21 +3392,26 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         control_account_reference_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         control_account_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
         control_account:
@@ -2928,6 +3420,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Reference link to the control account.
     ControlAccountReferenceCreate:
       required:
@@ -2944,12 +3437,14 @@ components:
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         control_account:
           $ref: "#/components/schemas/Identifier"
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: ControlAccountReference Update for Patch and Put
     ErrorDetail:
       required:
@@ -2957,7 +3452,7 @@ components:
       - code
       - message
       - timestamp
-      - traceId
+      - trace_id
       type: object
       properties:
         code:
@@ -2984,11 +3479,12 @@ components:
           description: The time the error occurred (ISO 8601).
           format: date-time
           example: 2025-11-10T10:30:00Z
-        traceId:
+        trace_id:
           type: string
           description: "A unique identifier for this specific request, ..."
+          readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
-        docUrl:
+        doc_url:
           type: string
           description: A URL leading to the documentation page for thi...
           format: uri
@@ -3019,11 +3515,14 @@ components:
           type: integer
           description: Part number
           format: int32
+          example: 1
         download_url:
           type: string
           format: uri
+          example: https://api.example.com
         format:
           type: string
+          example: string
           default: PARQUET
           enum:
           - XML
@@ -3034,15 +3533,20 @@ components:
         expires_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
+          example: string
     ExportJob:
       type: object
       properties:
         id:
           type: string
+          readOnly: true
+          example: string
         status:
           type: string
+          example: string
           enum:
           - PENDING
           - PROCESSING
@@ -3053,6 +3557,7 @@ components:
           minimum: 0
           type: integer
           format: int32
+          example: 1
         files:
           type: array
           items:
@@ -3062,22 +3567,26 @@ components:
       properties:
         event_type:
           type: string
+          example: string
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
         occurred_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         data:
           type: object
           properties:
             job_id:
               type: string
+              readOnly: true
             aggregate:
               type: string
               example: BudgetVarianceReport
             data_product_id:
               type: string
+              readOnly: true
             status:
               type: string
               enum:
@@ -3116,21 +3625,26 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique reference value Pattern: ^[a-zA-Z0-9_]+$..."
+          readOnly: true
+          example: string
         general_ledger_reference_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique reference value Pattern: ^[a-zA-Z0-9_]+$..."
+          example: string
         general_ledger_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique reference value Pattern: ^[a-zA-Z0-9_]+$..."
+          example: string
         context:
           type: string
           description: Context or domain of the reference
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
         general_ledger_identifier:
@@ -3139,6 +3653,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Reference to the primary General Ledger.
     GeneralLedgerReferenceCreate:
       required:
@@ -3157,10 +3672,12 @@ components:
         context:
           type: string
           description: Context or domain of the reference
+          example: string
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: GeneralLedgerReference Update for Patch and Put
     Identifier:
       type: object
@@ -3171,24 +3688,33 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         identifier_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Business key for the identifier Pattern: ^[a-zA..."
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -3207,15 +3733,20 @@ components:
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
       description: Identifier Update for Patch and Put
     Identifiers:
       type: array
@@ -3227,21 +3758,28 @@ components:
         money_key:
           type: string
           description: The unique key for the monetary value.
+          example: string
         money_id:
           type: string
           description: The unique ID for the monetary value.
+          readOnly: true
+          example: string
         currency_code:
           type: string
           description: "ISO currency code, e.g., 'USD'."
+          example: string
         display_value:
           type: string
           description: The locale-specific display format for t...
+          example: string
         locale:
           type: string
           description: "The locale code (e.g., en-US, fr-FR)."
+          example: string
         value:
           type: string
           description: The monetary value.
+          example: string
       description: Monetary value and currency information.
     ProblemDetail:
       type: object
@@ -3263,7 +3801,7 @@ components:
         instance:
           type: string
           format: uri
-          example: /money/exports
+          example: https://api.yourdomain.com/money/exports
         intent:
           type: string
           example: InitiateMoneyExport
@@ -3285,6 +3823,41 @@ components:
                 type: object
                 additionalProperties:
                   type: string
+    VarianceDetail:
+      type: object
+      properties:
+        variance_amount:
+          $ref: "#/components/schemas/Money"
+        variance_percentage:
+          type: string
+          description: The variance expressed as a percentage o...
+          example: string
+        favorable_indicator:
+          type: boolean
+          description: Indicator if the variance is favorable (...
+          example: true
+      description: variance.detail.desc
+    VarianceDetailCreate:
+      required:
+      - variance_detail_key
+      type: object
+      description: VarianceDetail Create for Post
+      allOf:
+      - $ref: "#/components/schemas/VarianceDetail"
+    VarianceDetailUpdate:
+      type: object
+      properties:
+        favorable_indicator:
+          type: boolean
+          description: Indicator if the variance is favorable (...
+          example: true
+        variance_amount:
+          $ref: "#/components/schemas/Money"
+        variance_percentage:
+          type: string
+          description: The variance expressed as a percentage o...
+          example: string
+      description: VarianceDetail Update for Patch and Put
   responses:
     ForbiddenError:
       description: The authenticated user does not have the necess...

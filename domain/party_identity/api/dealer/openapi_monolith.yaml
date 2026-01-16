@@ -19,12 +19,54 @@ security:
   - standard:read
 - member-api-key: []
 - {}
+tags:
+- name: PersonName
+  description: Operations related to PersonName
+- name: PayrollRate
+  description: Operations related to PayrollRate
+- name: Address
+  description: Operations related to Address
+- name: StaffMember
+  description: Operations related to StaffMember
+- name: PrivacyEvent
+  description: Operations related to PrivacyEvent
+- name: TimeSlot
+  description: Operations related to TimeSlot
+- name: ControlAccount
+  description: Operations related to ControlAccount
+- name: Default
+  description: Operations related to Default
+- name: CommunicationChannel
+  description: Operations related to CommunicationChannel
+- name: Authorization
+  description: Operations related to Authorization
+- name: Money
+  description: Operations related to Money
+- name: Department
+  description: Operations related to Department
+- name: MetricNameValue
+  description: Operations related to MetricNameValue
+- name: Identifier
+  description: Operations related to Identifier
+- name: DealerService
+  description: Operations related to DealerService
+- name: EffectivePeriod
+  description: Operations related to EffectivePeriod
+- name: PrivacyItem
+  description: Operations related to PrivacyItem
+- name: TextualDetail
+  description: Operations related to TextualDetail
+- name: Person
+  description: Operations related to Person
+- name: Dealer
+  description: Operations related to Dealer
 paths:
   /dealers:
     get:
       tags:
       - Dealer
       summary: Retrieve a list of Dealer entities.
+      description: list Dealer By
       operationId: listDealer
       parameters:
       - name: sort
@@ -76,6 +118,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -86,12 +129,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Dealer
       summary: Create a new Dealer entity.
+      description: Create Dealer
       operationId: createDealer
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -110,7 +156,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /dealers/KEY78c
+                example: /dealers/KEY78G
           content:
             application/json:
               schema:
@@ -132,6 +178,7 @@ paths:
       tags:
       - Dealer
       summary: Retrieve a specific Dealer entity.
+      description: "Standard GET operation for /dealers/{dealerKey}"
       operationId: getDealerById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -159,6 +206,7 @@ paths:
       tags:
       - Dealer
       summary: Replace a Dealer entity.
+      description: replace Dealer
       operationId: replaceDealer
       parameters:
       - name: If-Match
@@ -230,7 +278,8 @@ paths:
       tags:
       - Dealer
       summary: Partially update a Dealer entity.
-      operationId: updateDealer
+      description: Partially update a Dealer
+      operationId: updatePartialDealer
       parameters:
       - name: If-Match
         in: header
@@ -281,12 +330,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78f
+        example: KEY78G
   /dealers/{dealerKey}/person-names:
     get:
       tags:
       - PersonName
       summary: Retrieve a list of PersonName entities scoped b...
+      description: list PersonName By DealerKey
       operationId: listPersonNameByDealerKey
       parameters:
       - name: sort
@@ -338,6 +388,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -348,12 +399,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PersonName
       summary: Create a new PersonName entity.
+      description: Create PersonName
       operationId: createPersonName
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -372,7 +426,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}person-names/KEY78Gm"
           content:
             application/json:
               schema:
@@ -401,6 +455,7 @@ paths:
       tags:
       - PersonName
       summary: Retrieve a specific PersonName entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/person-names/{personNameKey}"
       operationId: getPersonNameById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -428,6 +483,7 @@ paths:
       tags:
       - PersonName
       summary: Replace a PersonName entity.
+      description: replace PersonName
       operationId: replacePersonName
       parameters:
       - name: If-Match
@@ -499,7 +555,8 @@ paths:
       tags:
       - PersonName
       summary: Partially update a PersonName entity.
-      operationId: updatePersonName
+      description: Partially update a PersonName
+      operationId: updatePartialPersonName
       parameters:
       - name: If-Match
         in: header
@@ -556,12 +613,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fu
+        example: KEY78Gf
   /dealers/{dealerKey}/payroll-rates:
     get:
       tags:
       - PayrollRate
       summary: Retrieve a list of PayrollRate entities scoped ...
+      description: list PayrollRate By DealerKey
       operationId: listPayrollRateByDealerKey
       parameters:
       - name: sort
@@ -613,6 +671,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -623,12 +682,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PayrollRate
       summary: Create a new PayrollRate entity.
+      description: Create PayrollRate
       operationId: createPayrollRate
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -647,7 +709,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}payroll-rates/KEY78GmE"
           content:
             application/json:
               schema:
@@ -676,6 +738,7 @@ paths:
       tags:
       - PayrollRate
       summary: Retrieve a specific PayrollRate entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/payroll-rates/{payrollRateKey}"
       operationId: getPayrollRateById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -703,6 +766,7 @@ paths:
       tags:
       - PayrollRate
       summary: Replace a PayrollRate entity.
+      description: replace PayrollRate
       operationId: replacePayrollRate
       parameters:
       - name: If-Match
@@ -774,7 +838,8 @@ paths:
       tags:
       - PayrollRate
       summary: Partially update a PayrollRate entity.
-      operationId: updatePayrollRate
+      description: Partially update a PayrollRate
+      operationId: updatePartialPayrollRate
       parameters:
       - name: If-Match
         in: header
@@ -831,12 +896,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuv
+        example: KEY78Gfi
   /dealers/{dealerKey}/addresses:
     get:
       tags:
       - Address
       summary: Retrieve a list of Address entities scoped by d...
+      description: list Address By DealerKey
       operationId: listAddressByDealerKey
       parameters:
       - name: sort
@@ -888,6 +954,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -898,12 +965,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Address
       summary: Create a new Address entity.
+      description: Create Address
       operationId: createAddress
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -922,7 +992,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}addresses/KEY78GmEc"
           content:
             application/json:
               schema:
@@ -951,6 +1021,7 @@ paths:
       tags:
       - Address
       summary: Retrieve a specific Address entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/addresses/{addressKey}"
       operationId: getAddressById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -978,6 +1049,7 @@ paths:
       tags:
       - Address
       summary: Replace a Address entity.
+      description: replace Address
       operationId: replaceAddress
       parameters:
       - name: If-Match
@@ -1049,7 +1121,8 @@ paths:
       tags:
       - Address
       summary: Partially update a Address entity.
-      operationId: updateAddress
+      description: Partially update a Address
+      operationId: updatePartialAddress
       parameters:
       - name: If-Match
         in: header
@@ -1106,12 +1179,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvE
+        example: KEY78Gfi7
   /dealers/{dealerKey}/staff-members:
     get:
       tags:
       - StaffMember
       summary: Retrieve a list of StaffMember entities scoped ...
+      description: list StaffMember By DealerKey
       operationId: listStaffMemberByDealerKey
       parameters:
       - name: sort
@@ -1163,6 +1237,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1173,12 +1248,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - StaffMember
       summary: Create a new StaffMember entity.
+      description: Create StaffMember
       operationId: createStaffMember
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1197,7 +1275,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}staff-members/KEY78GmEcI"
           content:
             application/json:
               schema:
@@ -1226,6 +1304,7 @@ paths:
       tags:
       - StaffMember
       summary: Retrieve a specific StaffMember entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/staff-members/{staffMemberKey}"
       operationId: getStaffMemberById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1253,6 +1332,7 @@ paths:
       tags:
       - StaffMember
       summary: Replace a StaffMember entity.
+      description: replace StaffMember
       operationId: replaceStaffMember
       parameters:
       - name: If-Match
@@ -1324,7 +1404,8 @@ paths:
       tags:
       - StaffMember
       summary: Partially update a StaffMember entity.
-      operationId: updateStaffMember
+      description: Partially update a StaffMember
+      operationId: updatePartialStaffMember
       parameters:
       - name: If-Match
         in: header
@@ -1381,12 +1462,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEq
+        example: KEY78Gfi7e
   /dealers/{dealerKey}/privacy-events:
     get:
       tags:
       - PrivacyEvent
       summary: Retrieve a list of PrivacyEvent entities scoped...
+      description: list PrivacyEvent By DealerKey
       operationId: listPrivacyEventByDealerKey
       parameters:
       - name: sort
@@ -1438,6 +1520,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1448,12 +1531,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PrivacyEvent
       summary: Create a new PrivacyEvent entity.
+      description: Create PrivacyEvent
       operationId: createPrivacyEvent
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1472,7 +1558,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}privacy-events/KEY78GmEcI5"
           content:
             application/json:
               schema:
@@ -1501,6 +1587,7 @@ paths:
       tags:
       - PrivacyEvent
       summary: Retrieve a specific PrivacyEvent entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/privacy-events/{privacyEventKey}"
       operationId: getPrivacyEventById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1528,6 +1615,7 @@ paths:
       tags:
       - PrivacyEvent
       summary: Replace a PrivacyEvent entity.
+      description: replace PrivacyEvent
       operationId: replacePrivacyEvent
       parameters:
       - name: If-Match
@@ -1599,7 +1687,8 @@ paths:
       tags:
       - PrivacyEvent
       summary: Partially update a PrivacyEvent entity.
-      operationId: updatePrivacyEvent
+      description: Partially update a PrivacyEvent
+      operationId: updatePartialPrivacyEvent
       parameters:
       - name: If-Match
         in: header
@@ -1656,12 +1745,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqK
+        example: KEY78Gfi7er
   /dealers/{dealerKey}/time-slots:
     get:
       tags:
       - TimeSlot
       summary: Retrieve a list of TimeSlot entities scoped by ...
+      description: list TimeSlot By DealerKey
       operationId: listTimeSlotByDealerKey
       parameters:
       - name: sort
@@ -1713,6 +1803,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1723,6 +1814,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1737,6 +1830,7 @@ paths:
       tags:
       - TimeSlot
       summary: Retrieve a specific TimeSlot entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/time-slots/{timeSlotKey}"
       operationId: getTimeSlotById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1773,12 +1867,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqKD
+        example: KEY78Gfi7erg
   /dealers/{dealerKey}/control-accounts:
     get:
       tags:
       - ControlAccount
       summary: Retrieve a list of ControlAccount entities scop...
+      description: list ControlAccount By DealerKey
       operationId: listControlAccountByDealerKey
       parameters:
       - name: sort
@@ -1830,6 +1925,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1840,12 +1936,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ControlAccount
       summary: Create a new ControlAccount entity.
+      description: Create ControlAccount
       operationId: createControlAccount
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1864,7 +1963,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}control-accounts/KEY78GmEcI5EU"
           content:
             application/json:
               schema:
@@ -1893,6 +1992,7 @@ paths:
       tags:
       - ControlAccount
       summary: Retrieve a specific ControlAccount entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/control-accounts/{controlAccountKey}"
       operationId: getControlAccountById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1920,6 +2020,7 @@ paths:
       tags:
       - ControlAccount
       summary: Replace a ControlAccount entity.
+      description: replace ControlAccount
       operationId: replaceControlAccount
       parameters:
       - name: If-Match
@@ -1991,7 +2092,8 @@ paths:
       tags:
       - ControlAccount
       summary: Partially update a ControlAccount entity.
-      operationId: updateControlAccount
+      description: Partially update a ControlAccount
+      operationId: updatePartialControlAccount
       parameters:
       - name: If-Match
         in: header
@@ -2048,12 +2150,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqKDu
+        example: KEY78Gfi7ergS
   /dealers/{dealerKey}/communication-channels:
     get:
       tags:
       - CommunicationChannel
       summary: Retrieve a list of CommunicationChannel entitie...
+      description: list CommunicationChannel By DealerKey
       operationId: listCommunicationChannelByDealerKey
       parameters:
       - name: sort
@@ -2105,6 +2208,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2115,12 +2219,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CommunicationChannel
       summary: Create a new CommunicationChannel entity.
+      description: Create CommunicationChannel
       operationId: createCommunicationChannel
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2139,7 +2246,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}communication-channels/KEY78GmEcI5EU3"
           content:
             application/json:
               schema:
@@ -2168,6 +2275,7 @@ paths:
       tags:
       - CommunicationChannel
       summary: Retrieve a specific CommunicationChannel entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/communication-channels/{communicationChannelKey}"
       operationId: getCommunicationChannelById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2195,6 +2303,7 @@ paths:
       tags:
       - CommunicationChannel
       summary: Replace a CommunicationChannel entity.
+      description: replace CommunicationChannel
       operationId: replaceCommunicationChannel
       parameters:
       - name: If-Match
@@ -2266,7 +2375,8 @@ paths:
       tags:
       - CommunicationChannel
       summary: Partially update a CommunicationChannel entity.
-      operationId: updateCommunicationChannel
+      description: Partially update a CommunicationChannel
+      operationId: updatePartialCommunicationChannel
       parameters:
       - name: If-Match
         in: header
@@ -2323,12 +2433,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqKDuP
+        example: KEY78Gfi7ergSA
   /dealers/{dealerKey}/authorizations:
     get:
       tags:
       - Authorization
       summary: Retrieve a list of Authorization entities scope...
+      description: list Authorization By DealerKey
       operationId: listAuthorizationByDealerKey
       parameters:
       - name: sort
@@ -2380,6 +2491,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2390,12 +2502,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Authorization
       summary: Create a new Authorization entity.
+      description: Create Authorization
       operationId: createAuthorization
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2414,7 +2529,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}authorizations/KEY78GmEcI5EU3d"
           content:
             application/json:
               schema:
@@ -2443,6 +2558,7 @@ paths:
       tags:
       - Authorization
       summary: Retrieve a specific Authorization entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/authorizations/{authorizationKey}"
       operationId: getAuthorizationById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2470,6 +2586,7 @@ paths:
       tags:
       - Authorization
       summary: Replace a Authorization entity.
+      description: replace Authorization
       operationId: replaceAuthorization
       parameters:
       - name: If-Match
@@ -2541,7 +2658,8 @@ paths:
       tags:
       - Authorization
       summary: Partially update a Authorization entity.
-      operationId: updateAuthorization
+      description: Partially update a Authorization
+      operationId: updatePartialAuthorization
       parameters:
       - name: If-Match
         in: header
@@ -2598,12 +2716,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqKDuPm
+        example: KEY78Gfi7ergSAV
   /dealers/{dealerKey}/money:
     get:
       tags:
       - Money
       summary: Retrieve a list of Money entities scoped by dea...
+      description: list Money By DealerKey
       operationId: listMoneyByDealerKey
       parameters:
       - name: sort
@@ -2655,6 +2774,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2665,6 +2785,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -2679,6 +2801,7 @@ paths:
       tags:
       - Money
       summary: Retrieve a specific Money entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/money/{moneyKey}"
       operationId: getMoneyById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2715,12 +2838,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqKDuPmq
+        example: KEY78Gfi7ergSAVn
   /dealers/{dealerKey}/departments:
     get:
       tags:
       - Department
       summary: Retrieve a list of Department entities scoped b...
+      description: list Department By DealerKey
       operationId: listDepartmentByDealerKey
       parameters:
       - name: sort
@@ -2772,6 +2896,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2782,12 +2907,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Department
       summary: Create a new Department entity.
+      description: Create Department
       operationId: createDepartment
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2806,7 +2934,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}departments/KEY78GmEcI5EU3d3u"
           content:
             application/json:
               schema:
@@ -2835,6 +2963,7 @@ paths:
       tags:
       - Department
       summary: Retrieve a specific Department entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/departments/{departmentKey}"
       operationId: getDepartmentById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2862,6 +2991,7 @@ paths:
       tags:
       - Department
       summary: Replace a Department entity.
+      description: replace Department
       operationId: replaceDepartment
       parameters:
       - name: If-Match
@@ -2933,7 +3063,8 @@ paths:
       tags:
       - Department
       summary: Partially update a Department entity.
-      operationId: updateDepartment
+      description: Partially update a Department
+      operationId: updatePartialDepartment
       parameters:
       - name: If-Match
         in: header
@@ -2990,12 +3121,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqKDuPmqn
+        example: KEY78Gfi7ergSAVnD
   /dealers/{dealerKey}/metric-name-values:
     get:
       tags:
       - MetricNameValue
       summary: Retrieve a list of MetricNameValue entities sco...
+      description: list MetricNameValue By DealerKey
       operationId: listMetricNameValueByDealerKey
       parameters:
       - name: sort
@@ -3047,6 +3179,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3057,12 +3190,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - MetricNameValue
       summary: Create a new MetricNameValue entity.
+      description: Create MetricNameValue
       operationId: createMetricNameValue
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3081,7 +3217,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}metric-name-values/KEY78GmEcI5EU3d3up"
           content:
             application/json:
               schema:
@@ -3110,6 +3246,7 @@ paths:
       tags:
       - MetricNameValue
       summary: Retrieve a specific MetricNameValue entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/metric-name-values/{metricNameValueKey}"
       operationId: getMetricNameValueById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3137,6 +3274,7 @@ paths:
       tags:
       - MetricNameValue
       summary: Replace a MetricNameValue entity.
+      description: replace MetricNameValue
       operationId: replaceMetricNameValue
       parameters:
       - name: If-Match
@@ -3208,7 +3346,8 @@ paths:
       tags:
       - MetricNameValue
       summary: Partially update a MetricNameValue entity.
-      operationId: updateMetricNameValue
+      description: Partially update a MetricNameValue
+      operationId: updatePartialMetricNameValue
       parameters:
       - name: If-Match
         in: header
@@ -3265,12 +3404,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqKDuPmqna
+        example: KEY78Gfi7ergSAVnDj
   /dealers/{dealerKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped b...
+      description: list Identifier By DealerKey
       operationId: listIdentifierByDealerKey
       parameters:
       - name: sort
@@ -3322,6 +3462,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3332,12 +3473,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3356,7 +3500,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}identifiers/KEY78GmEcI5EU3d3up4"
           content:
             application/json:
               schema:
@@ -3385,6 +3529,7 @@ paths:
       tags:
       - Identifier
       summary: Retrieve a specific Identifier entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/identifiers/{identifierKey}"
       operationId: getIdentifierById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3412,6 +3557,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -3483,7 +3629,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -3540,12 +3687,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqKDuPmqnaR
+        example: KEY78Gfi7ergSAVnDjx
   /dealers/{dealerKey}/dealer-services:
     get:
       tags:
       - DealerService
       summary: Retrieve a list of DealerService entities scope...
+      description: list DealerService By DealerKey
       operationId: listDealerServiceByDealerKey
       parameters:
       - name: sort
@@ -3597,6 +3745,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3607,12 +3756,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - DealerService
       summary: Create a new DealerService entity.
+      description: Create DealerService
       operationId: createDealerService
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3631,7 +3783,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}dealer-services/KEY78GmEcI5EU3d3up4j"
           content:
             application/json:
               schema:
@@ -3660,6 +3812,7 @@ paths:
       tags:
       - DealerService
       summary: Retrieve a specific DealerService entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/dealer-services/{dealerServiceKey}"
       operationId: getDealerServiceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3687,6 +3840,7 @@ paths:
       tags:
       - DealerService
       summary: Replace a DealerService entity.
+      description: replace DealerService
       operationId: replaceDealerService
       parameters:
       - name: If-Match
@@ -3758,7 +3912,8 @@ paths:
       tags:
       - DealerService
       summary: Partially update a DealerService entity.
-      operationId: updateDealerService
+      description: Partially update a DealerService
+      operationId: updatePartialDealerService
       parameters:
       - name: If-Match
         in: header
@@ -3815,12 +3970,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqKDuPmqnaRD
+        example: KEY78Gfi7ergSAVnDjxb
   /dealers/{dealerKey}/effective-periods:
     get:
       tags:
       - EffectivePeriod
       summary: Retrieve a list of EffectivePeriod entities sco...
+      description: list EffectivePeriod By DealerKey
       operationId: listEffectivePeriodByDealerKey
       parameters:
       - name: sort
@@ -3872,6 +4028,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3882,6 +4039,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -3896,6 +4055,7 @@ paths:
       tags:
       - EffectivePeriod
       summary: Retrieve a specific EffectivePeriod entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/effective-periods/{effectivePeriodKey}"
       operationId: getEffectivePeriodById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3932,12 +4092,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqKDuPmqnaRDf
+        example: KEY78Gfi7ergSAVnDjxbl
   /dealers/{dealerKey}/privacy-items:
     get:
       tags:
       - PrivacyItem
       summary: Retrieve a list of PrivacyItem entities scoped ...
+      description: list PrivacyItem By DealerKey
       operationId: listPrivacyItemByDealerKey
       parameters:
       - name: sort
@@ -3989,6 +4150,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3999,12 +4161,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PrivacyItem
       summary: Create a new PrivacyItem entity.
+      description: Create PrivacyItem
       operationId: createPrivacyItem
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -4023,7 +4188,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}privacy-items/KEY78GmEcI5EU3d3up4jFI"
           content:
             application/json:
               schema:
@@ -4052,6 +4217,7 @@ paths:
       tags:
       - PrivacyItem
       summary: Retrieve a specific PrivacyItem entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/privacy-items/{privacyItemKey}"
       operationId: getPrivacyItemById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -4079,6 +4245,7 @@ paths:
       tags:
       - PrivacyItem
       summary: Replace a PrivacyItem entity.
+      description: replace PrivacyItem
       operationId: replacePrivacyItem
       parameters:
       - name: If-Match
@@ -4150,7 +4317,8 @@ paths:
       tags:
       - PrivacyItem
       summary: Partially update a PrivacyItem entity.
-      operationId: updatePrivacyItem
+      description: Partially update a PrivacyItem
+      operationId: updatePartialPrivacyItem
       parameters:
       - name: If-Match
         in: header
@@ -4207,12 +4375,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqKDuPmqnaRDfP
+        example: KEY78Gfi7ergSAVnDjxblA
   /dealers/{dealerKey}/textual-details:
     get:
       tags:
       - TextualDetail
       summary: Retrieve a list of TextualDetail entities scope...
+      description: list TextualDetail By DealerKey
       operationId: listTextualDetailByDealerKey
       parameters:
       - name: sort
@@ -4264,6 +4433,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -4274,6 +4444,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -4288,6 +4460,7 @@ paths:
       tags:
       - TextualDetail
       summary: Retrieve a specific TextualDetail entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/textual-details/{textualDetailKey}"
       operationId: getTextualDetailById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -4324,12 +4497,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqKDuPmqnaRDfP8
+        example: KEY78Gfi7ergSAVnDjxblAg
   /dealers/{dealerKey}/people:
     get:
       tags:
       - Person
       summary: Retrieve a list of Person entities scoped by de...
+      description: list Person By DealerKey
       operationId: listPersonByDealerKey
       parameters:
       - name: sort
@@ -4381,6 +4555,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -4391,12 +4566,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Person
       summary: Create a new Person entity.
+      description: Create Person
       operationId: createPerson
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -4415,7 +4593,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/dealers{dealerKey}people/KEY78GmEcI5EU3d3up4jFI2x"
           content:
             application/json:
               schema:
@@ -4444,6 +4622,7 @@ paths:
       tags:
       - Person
       summary: Retrieve a specific Person entity.
+      description: "Standard GET operation for /dealers/{dealerKey}/people/{personKey}"
       operationId: getPersonById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -4471,6 +4650,7 @@ paths:
       tags:
       - Person
       summary: Replace a Person entity.
+      description: replace Person
       operationId: replacePerson
       parameters:
       - name: If-Match
@@ -4542,7 +4722,8 @@ paths:
       tags:
       - Person
       summary: Partially update a Person entity.
-      operationId: updatePerson
+      description: Partially update a Person
+      operationId: updatePartialPerson
       parameters:
       - name: If-Match
         in: header
@@ -4599,11 +4780,14 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78fuvEqKDuPmqnaRDfP8R
+        example: KEY78Gfi7ergSAVnDjxblAgm
   /dealers/health:
     get:
+      tags:
+      - Default
       summary: Health Check
       description: Public endpoint to verify service availability.
+      operationId: getDealerHealth
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
       responses:
@@ -4636,11 +4820,22 @@ paths:
                     description: Server time in ISO-8601 format.
                     format: date-time
                     example: 2025-12-21T23:00:00Z
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       security:
       - {}
   /dealers/batch:
     post:
+      tags:
+      - Default
       summary: Bulk create dealers
+      description: Bulk Create of Dealer
       operationId: createDealerBatch
       requestBody:
         content:
@@ -4656,6 +4851,12 @@ paths:
       responses:
         "200":
           description: Batch processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /dealers/batch/3650796484727210654
           content:
             application/json:
               schema:
@@ -4675,9 +4876,23 @@ paths:
                           format: int32
                         error:
                           $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
   /dealers/exports:
     post:
+      tags:
+      - Default
       summary: Initiate a bulk Dealer export
+      description: Standard POST operation for /dealers/exports
+      operationId: initiateDealerExport
       parameters:
       - name: Idempotency-Key
         in: header
@@ -4694,6 +4909,7 @@ paths:
               properties:
                 format:
                   type: string
+                  example: string
                   default: PARQUET
                   enum:
                   - XML
@@ -4748,10 +4964,17 @@ paths:
                   description: "If true, the system validates the request and returns\
                     \ potential violations or metadata (like estimated size) without\
                     \ starting the job."
+                  example: false
                   default: false
       responses:
         "202":
           description: Export job created/accepted
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /dealers/exports/3509302419920538354
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -4760,6 +4983,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       callbacks:
         onExportCompleted:
           '{$request.body#/notification/webhook_url}':
@@ -4776,7 +5007,11 @@ paths:
                   description: Webhook received
   /dealers/exports/{exportId}:
     get:
+      tags:
+      - Default
       summary: Get export status
+      description: Get Export Status of Dealer
+      operationId: getDealerExportStatus
       parameters:
       - name: exportId
         in: path
@@ -4790,8 +5025,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExportJob"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /dealers/{dealerKey}/commands:
     post:
+      tags:
+      - Default
       summary: Execute a business workflow on Dealer
       description: Single entry point for all Dealer state-changing intents.
       operationId: executeDealerCommand
@@ -4826,6 +5071,12 @@ paths:
       responses:
         "200":
           description: Commands processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: "/dealers/{dealerKey}/commands/120004341475794704"
           content:
             application/json:
               schema:
@@ -4847,7 +5098,7 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #05673ff9 has been successfully cancelled."
+                    example: "Invoice #3b1dd3f5 has been successfully cancelled."
                   commandId:
                     type: string
                     description: The tracking ID for this specific command execution
@@ -4855,7 +5106,7 @@ paths:
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: d7f7c7b2
+                    example: 84d30047
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -4864,6 +5115,7 @@ paths:
                     type: boolean
                     description: "If true, the agent can attempt this command again\
                       \ immediately"
+                    example: false
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -4880,6 +5132,8 @@ paths:
           $ref: "#/components/responses/ServerError"
   /dealers/{dealerKey}/commands/{commandId}:
     get:
+      tags:
+      - Default
       summary: Poll Dealer command status
       description: Check the progress or result of a previously submitted command.
       operationId: getDealerCommandStatus
@@ -4908,6 +5162,7 @@ paths:
                     type: string
                     description: The unique identifier for the command being tracked
                     format: uuid
+                    readOnly: true
                   status:
                     type: string
                     description: The current lifecycle state of the command
@@ -4935,9 +5190,20 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /dealers/capabilities:
     get:
+      tags:
+      - Default
       summary: Discover Dealer Capabilities
+      description: Standard GET operation for /dealers/capabilities
       operationId: getDealerCapabilities
       parameters:
       - name: include
@@ -4972,6 +5238,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Capabilities"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     Address:
@@ -4984,12 +5258,14 @@ components:
           minLength: 1
           type: string
           description: Priority indicator for address usage (e....
+          example: string
         city_code:
           maxLength: 20
           minLength: 1
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized city code. Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         address_key:
           maximum: 100
           minimum: 0
@@ -4998,6 +5274,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique business key for the address. Pattern: ^..."
+          example: string
         address_id:
           maximum: 100
           minimum: 0
@@ -5006,32 +5283,40 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the address record... Pat...
+          readOnly: true
+          example: string
         address_input:
           maxLength: 255
           minLength: 1
           type: string
           description: Raw input provided for address processin...
+          example: string
         address_line1:
           maxLength: 100
           minLength: 1
           type: string
           description: "Primary address line (Street, PO Box, et..."
+          example: string
         address_line2:
           maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         address_line3:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line4:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line5:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_types:
           maxItems: 255
           minItems: 1
@@ -5046,34 +5331,41 @@ components:
           minLength: 1
           type: string
           description: Name of the city.
+          example: string
         city_subdivision:
           maxLength: 100
           type: string
           description: "Subdivision within the city (e.g., neigh..."
+          example: string
         country:
           maxLength: 100
           minLength: 2
           type: string
           description: Full name of the country.
+          example: string
         country_code:
           maxLength: 2
           minLength: 2
           pattern: "^[A-Z]{2}$"
           type: string
           description: "ISO 3166-1 Alpha-2 country code. Pattern: ^[A-Z..."
+          example: string
         county:
           maxLength: 100
           type: string
           description: Name of the county.
+          example: string
         county_code:
           maxLength: 20
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
+          example: string
         position:
           $ref: "#/components/schemas/Position"
         postal_code:
@@ -5082,27 +5374,33 @@ components:
           pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
           description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
+          example: string
         postal_code_ext:
           maxLength: 10
           type: string
           description: "Extended postal code (e.g., ZIP+4)."
+          example: string
         preferred_indicator:
           type: boolean
           description: Flag indicating if this address is the p...
+          example: true
         region:
           maxLength: 50
           type: string
           description: "Administrative region (e.g., province, s..."
+          example: string
         state:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
+          example: string
         locale:
           maxLength: 10
           minLength: 2
           pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
           description: Locale code associated with this address... Pat...
+          example: string
       description: Physical or mailing address details.
     AddressCreate:
       required:
@@ -5115,29 +5413,24 @@ components:
       type: object
       properties:
         address_locale_key:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Business key for the address locale. Pattern: ^..."
+          example: string
         address_locale_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the address locale... Pat...
+          readOnly: true
+          example: string
         region_code:
-          maxLength: 20
           type: string
           description: Code representing the region for the loc...
+          example: string
         region_name:
-          maxLength: 100
           type: string
           description: Name of the region for the locale.
+          example: string
         region_aliases:
           $ref: "#/components/schemas/Codes"
         location_type:
@@ -5154,17 +5447,17 @@ components:
       type: object
       properties:
         region_name:
-          maxLength: 100
           type: string
           description: Name of the region for the locale.
+          example: string
         region_aliases:
           $ref: "#/components/schemas/Codes"
         location_type:
           $ref: "#/components/schemas/LocationTypes"
         region_code:
-          maxLength: 20
           type: string
           description: Code representing the region for the loc...
+          example: string
       description: AddressLocale Update for Patch and Put
     AddressLocales:
       type: array
@@ -5211,86 +5504,104 @@ components:
           minLength: 1
           type: string
           description: Raw input provided for address processin...
+          example: string
         country:
           maxLength: 100
           minLength: 2
           type: string
           description: Full name of the country.
+          example: string
         city:
           maxLength: 100
           minLength: 1
           type: string
           description: Name of the city.
+          example: string
         county_code:
           maxLength: 20
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         authorizations:
           $ref: "#/components/schemas/Authorizations"
         county:
           maxLength: 100
           type: string
           description: Name of the county.
+          example: string
         city_code:
           maxLength: 20
           minLength: 1
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized city code. Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         locale:
           maxLength: 10
           minLength: 2
           pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
           description: Locale code associated with this address... Pat...
+          example: string
         address_locales:
           $ref: "#/components/schemas/AddressLocales"
         address_line5:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line4:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line3:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line2:
           maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         address_line1:
           maxLength: 100
           minLength: 1
           type: string
           description: "Primary address line (Street, PO Box, et..."
+          example: string
         postal_code_ext:
           maxLength: 10
           type: string
           description: "Extended postal code (e.g., ZIP+4)."
+          example: string
         state:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
+          example: string
         preferred_indicator:
           type: boolean
           description: Flag indicating if this address is the p...
+          example: true
         city_subdivision:
           maxLength: 100
           type: string
           description: "Subdivision within the city (e.g., neigh..."
+          example: string
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
+          example: string
         priority:
           maxLength: 10
           minLength: 1
           type: string
           description: Priority indicator for address usage (e....
+          example: string
         address_types:
           maxItems: 255
           minItems: 1
@@ -5304,6 +5615,7 @@ components:
           pattern: "^[A-Z]{2}$"
           type: string
           description: "ISO 3166-1 Alpha-2 country code. Pattern: ^[A-Z..."
+          example: string
         position:
           $ref: "#/components/schemas/Position"
         postal_code:
@@ -5312,10 +5624,12 @@ components:
           pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
           description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
+          example: string
         region:
           maxLength: 50
           type: string
           description: "Administrative region (e.g., province, s..."
+          example: string
       description: Address Update for Patch and Put
     Addresses:
       type: array
@@ -5328,15 +5642,16 @@ components:
           type: string
           description: Timestamp of the last update to this aut...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is c...
+          example: true
         authorization_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Business key uniquely identifying the au... Pat...
+          example: string
       description: General authorization or permission status.
     AuthorizationCreate:
       required:
@@ -5351,10 +5666,12 @@ components:
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is c...
+          example: true
         update_date_time:
           type: string
           description: Timestamp of the last update to this aut...
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Authorization Update for Patch and Put
     Authorizations:
       type: array
@@ -5452,8 +5769,7 @@ components:
                     example: P7D
                   is_pii_sensitive:
                     type: boolean
-                    description: Indicates if the export contains Personally Identifiable
-                      Information
+                    description: Indicates export contains PII
                     example: false
                   access_tier:
                     type: string
@@ -5472,6 +5788,7 @@ components:
                     rule_id:
                       type: string
                       description: Unique identifier for the business rule
+                      readOnly: true
                       example: IDENTITY_LOCK_STATE
                     constraint_type:
                       type: string
@@ -5505,9 +5822,9 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
+                        item_type: Inventory
                         count: "45"
                         limit: "0"
-                        item_type: Inventory
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -5516,9 +5833,9 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
+                        min: "1"
                         value: "31"
                         unit: days
-                        min: "1"
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -5564,26 +5881,34 @@ components:
         communication_channel_key:
           type: string
           description: The unique key for the communication cha...
+          example: string
         communication_channel_id:
           type: string
           description: The unique ID for the communication chan...
+          readOnly: true
+          example: string
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
         value:
           type: string
           description: The value of the communication channel (...
+          example: string
         value_extension:
           type: string
           description: An optional extension for the communicat...
+          example: string
         label:
           type: string
           description: A label for the communication channel (e...
+          example: string
         country:
           type: string
           description: The country associated with the communic...
+          example: string
         preferred_indicator:
           type: boolean
           description: A boolean indicator of whether this is t...
+          example: true
         preferences:
           maxItems: 255
           minItems: 1
@@ -5624,6 +5949,7 @@ components:
         country:
           type: string
           description: The country associated with the communic...
+          example: string
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
         preferences:
@@ -5638,15 +5964,19 @@ components:
         label:
           type: string
           description: A label for the communication channel (e...
+          example: string
         value:
           type: string
           description: The value of the communication channel (...
+          example: string
         value_extension:
           type: string
           description: An optional extension for the communicat...
+          example: string
         preferred_indicator:
           type: boolean
           description: A boolean indicator of whether this is t...
+          example: true
       description: CommunicationChannel Update for Patch and Put
     CommunicationChannels:
       type: array
@@ -5658,43 +5988,44 @@ components:
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         control_account_desc:
-          maxLength: 255
           type: string
           description: Description of the control account.
+          example: string
         control_account_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the control accoun... Pat...
+          readOnly: true
+          example: string
         control_account_key:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Business key for the control account. Pattern: ..."
+          example: string
         control_account_name:
-          maxLength: 100
           type: string
           description: Display name of the control account.
+          example: string
         control_account_type:
           $ref: "#/components/schemas/ControlAccountTypes"
         control_type_id:
           type: string
           description: Identifier for the control type of the a...
+          readOnly: true
+          example: string
         bank_account_id:
           type: string
           description: Associated bank account identifier.
+          readOnly: true
+          example: string
         is_counted:
           type: boolean
           description: Indicates if the account is a counted ac...
+          example: true
         prefix:
           type: string
           description: The prefix of the account number.
+          example: string
         control_account_role_type:
           $ref: "#/components/schemas/ControlAccountRoleTypes"
         control_account_status_types:
@@ -5779,10 +6110,11 @@ components:
         prefix:
           type: string
           description: The prefix of the account number.
+          example: string
         control_account_desc:
-          maxLength: 255
           type: string
           description: Description of the control account.
+          example: string
         control_account_type:
           $ref: "#/components/schemas/ControlAccountTypes"
         control_account_status_types:
@@ -5790,10 +6122,11 @@ components:
         is_counted:
           type: boolean
           description: Indicates if the account is a counted ac...
+          example: true
         control_account_name:
-          maxLength: 100
           type: string
           description: Display name of the control account.
+          example: string
         financial_category_type:
           $ref: "#/components/schemas/FinancialCategoryTypes"
       description: ControlAccount Update for Patch and Put
@@ -5807,28 +6140,35 @@ components:
         daily_hour_key:
           type: string
           description: A unique key for the daily hour record
+          example: string
         start_day:
           type: string
           description: The starting day of the week for the hou...
+          example: string
         end_day:
           type: string
           description: The ending day of the week for the hours
+          example: string
         opening_time:
           type: string
           description: The opening time for the given day
           format: date-time
+          example: 2026-01-14T12:00:00Z
         closing_time:
           type: string
           description: The closing time for the given day
           format: date-time
+          example: 2026-01-14T12:00:00Z
         week_starting_date:
           type: string
           description: The starting date of the week
           format: date
+          example: 2026-01-14
         week_ending_date:
           type: string
           description: The ending date of the week
           format: date
+          example: 2026-01-14
       description: Daily Hour
     DailyHourCreate:
       required:
@@ -5843,25 +6183,31 @@ components:
         end_day:
           type: string
           description: The ending day of the week for the hours
+          example: string
         week_starting_date:
           type: string
           description: The starting date of the week
           format: date
+          example: 2026-01-14
         week_ending_date:
           type: string
           description: The ending date of the week
           format: date
+          example: 2026-01-14
         start_day:
           type: string
           description: The starting day of the week for the hou...
+          example: string
         closing_time:
           type: string
           description: The closing time for the given day
           format: date-time
+          example: 2026-01-14T12:00:00Z
         opening_time:
           type: string
           description: The opening time for the given day
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: DailyHour Update for Patch and Put
     DaysOfWeekTypes:
       type: string
@@ -5880,33 +6226,43 @@ components:
         dealer_key:
           type: string
           description: A unique key for the dealer record.
+          example: string
         dealer_id:
           type: string
           description: The unique ID for the dealer.
+          readOnly: true
+          example: string
         business_code:
           type: string
           description: A business code for the dealership.
+          example: string
         business_category_codes:
           $ref: "#/components/schemas/Codes"
         comments:
           type: string
           description: Comments about the dealer.
+          example: string
         country_code:
           type: string
           description: The country code for the dealership.
+          example: string
         dealer_bac:
           type: string
           description: The dealer's Business Associate Code (BA...
+          example: string
         dealer_contact:
           type: string
           description: The dealer's contact information.
+          example: string
         dealer_name:
           type: string
           description: The name of the dealership.
+          example: string
         departments_href:
           type: string
           description: A hyper-reference to departments.
           format: href
+          example: string
         language_codes:
           $ref: "#/components/schemas/Codes"
         links:
@@ -5919,13 +6275,16 @@ components:
         preferred_language_code:
           type: string
           description: The preferred language code for the deal...
+          example: string
         special_remarks_description:
           type: string
           description: A description for special remarks.
+          example: string
         stores_href:
           type: string
           description: A hyper-reference to stores.
           format: href
+          example: string
         dealer_services:
           $ref: "#/components/schemas/DealerServices"
         service_center_codes:
@@ -5935,6 +6294,7 @@ components:
           minItems: 1
           uniqueItems: true
           type: array
+          readOnly: true
           items:
             $ref: "#/components/schemas/Identifier"
         staff:
@@ -5943,6 +6303,7 @@ components:
           type: string
           description: A hyper-reference to staff.
           format: href
+          example: string
       description: Dealer
     DealerCreate:
       required:
@@ -5961,6 +6322,7 @@ components:
         dealer_service_key:
           type: string
           description: The unique key for the dealer service.
+          example: string
         dealer_service_type:
           $ref: "#/components/schemas/DealerServiceTypes"
         dealer_service_codes:
@@ -5999,45 +6361,56 @@ components:
         comments:
           type: string
           description: Comments about the dealer.
+          example: string
         dealer_contact:
           type: string
           description: The dealer's contact information.
+          example: string
         identifiers:
           maxItems: 255
           minItems: 1
           uniqueItems: true
           type: array
+          readOnly: true
           items:
             $ref: "#/components/schemas/Identifier"
         special_remarks_description:
           type: string
           description: A description for special remarks.
+          example: string
         business_code:
           type: string
           description: A business code for the dealership.
+          example: string
         staff:
           $ref: "#/components/schemas/Staff"
         preferred_language_code:
           type: string
           description: The preferred language code for the deal...
+          example: string
         stores_href:
           type: string
           description: A hyper-reference to stores.
           format: href
+          example: string
         staff_href:
           type: string
           description: A hyper-reference to staff.
           format: href
+          example: string
         country_code:
           type: string
           description: The country code for the dealership.
+          example: string
         dealer_bac:
           type: string
           description: The dealer's Business Associate Code (BA...
+          example: string
         departments_href:
           type: string
           description: A hyper-reference to departments.
           format: href
+          example: string
         dealer_services:
           $ref: "#/components/schemas/DealerServices"
         business_category_codes:
@@ -6045,6 +6418,7 @@ components:
         dealer_name:
           type: string
           description: The name of the dealership.
+          example: string
         links:
           maxItems: 255
           minItems: 1
@@ -6063,6 +6437,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
+          example: string
           enum:
           - CREATED
           - ACTIVE
@@ -6080,14 +6455,18 @@ components:
         department_key:
           type: string
           description: A unique key for the department.
+          example: string
         department_id:
           type: string
           description: The unique ID for the department.
+          readOnly: true
+          example: string
         department_codes:
           $ref: "#/components/schemas/Codes"
         department_name:
           type: string
           description: The name of the department.
+          example: string
         department_function:
           maxItems: 255
           minItems: 1
@@ -6098,20 +6477,25 @@ components:
         department_contact:
           type: string
           description: The contact name for the department.
+          example: string
         comments:
           type: string
           description: General comments about the department.
+          example: string
         special_remarks_description:
           type: string
           description: A description of special remarks about t...
+          example: string
         contact_methods_href:
           type: string
           description: A hyperlink to the department's contact ...
           format: href
+          example: string
         departments_href:
           type: string
           description: A hyperlink to related departments.
           format: href
+          example: string
         daily_hours:
           maxItems: 255
           minItems: 1
@@ -6165,6 +6549,7 @@ components:
           type: string
           description: A hyperlink to related departments.
           format: href
+          example: string
         department_function:
           maxItems: 255
           minItems: 1
@@ -6175,14 +6560,17 @@ components:
         comments:
           type: string
           description: General comments about the department.
+          example: string
         control_accounts:
           $ref: "#/components/schemas/ControlAccounts"
         department_name:
           type: string
           description: The name of the department.
+          example: string
         special_remarks_description:
           type: string
           description: A description of special remarks about t...
+          example: string
         links:
           maxItems: 255
           minItems: 1
@@ -6202,10 +6590,12 @@ components:
         department_contact:
           type: string
           description: The contact name for the department.
+          example: string
         contact_methods_href:
           type: string
           description: A hyperlink to the department's contact ...
           format: href
+          example: string
         daily_hours:
           maxItems: 255
           minItems: 1
@@ -6239,43 +6629,50 @@ components:
       type: object
       properties:
         effective_period_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique key identifying the effective per... Pat...
+          example: string
         active_indicator:
           type: boolean
           description: Indicator if the period is currently act...
+          example: true
         exclusive_indicator:
           type: boolean
           description: Indicator if the period is exclusive
+          example: true
         start_date_time:
           type: string
           description: Start date and time of the effective per...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         complete_date_time:
           type: string
           description: Completion date and time of the effectiv...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         duration_value:
           type: string
           description: Value of the duration
+          example: string
         recur_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         recur_count:
           type: string
           description: Count of recurrence
+          example: string
         recur_values:
           $ref: "#/components/schemas/Codes"
         recur_criteria:
           type: string
           description: Criteria defining recurrence
+          example: string
         recur_indicator:
           type: boolean
           description: Indicator if recurrence is enabled
+          example: true
         timeslot:
           $ref: "#/components/schemas/TimeSlot"
       description: The date range during which this record is valid.
@@ -6285,7 +6682,7 @@ components:
       - code
       - message
       - timestamp
-      - traceId
+      - trace_id
       type: object
       properties:
         code:
@@ -6312,11 +6709,12 @@ components:
           description: The time the error occurred (ISO 8601).
           format: date-time
           example: 2025-11-10T10:30:00Z
-        traceId:
+        trace_id:
           type: string
           description: "A unique identifier for this specific request, ..."
+          readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
-        docUrl:
+        doc_url:
           type: string
           description: A URL leading to the documentation page for thi...
           format: uri
@@ -6347,11 +6745,14 @@ components:
           type: integer
           description: Part number
           format: int32
+          example: 1
         download_url:
           type: string
           format: uri
+          example: https://api.example.com
         format:
           type: string
+          example: string
           default: PARQUET
           enum:
           - XML
@@ -6362,15 +6763,20 @@ components:
         expires_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
+          example: string
     ExportJob:
       type: object
       properties:
         id:
           type: string
+          readOnly: true
+          example: string
         status:
           type: string
+          example: string
           enum:
           - PENDING
           - PROCESSING
@@ -6381,6 +6787,7 @@ components:
           minimum: 0
           type: integer
           format: int32
+          example: 1
         files:
           type: array
           items:
@@ -6390,22 +6797,26 @@ components:
       properties:
         event_type:
           type: string
+          example: string
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
         occurred_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         data:
           type: object
           properties:
             job_id:
               type: string
+              readOnly: true
             aggregate:
               type: string
               example: Dealer
             data_product_id:
               type: string
+              readOnly: true
             status:
               type: string
               enum:
@@ -6454,24 +6865,33 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         identifier_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Business key for the identifier Pattern: ^[a-zA..."
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -6490,15 +6910,20 @@ components:
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
       description: Identifier Update for Patch and Put
     Identifiers:
       type: array
@@ -6510,18 +6935,23 @@ components:
         link_key:
           type: string
           description: The unique key for the link.
+          example: string
         href:
           type: string
           description: The URL of the related resource.
+          example: string
         method:
           type: string
           description: The HTTP method to be used to access the...
+          example: string
         rel:
           type: string
           description: "The link relation, which describes the r..."
+          example: string
         title:
           type: string
           description: A human-readable title for the link.
+          example: string
       description: Link
     LocationTypes:
       type: string
@@ -6572,26 +7002,34 @@ components:
         metric_name_value_key:
           type: string
           description: A unique key for the metric name value r...
+          example: string
         metric_name_value_id:
           type: string
           description: The unique ID for the metric name value.
+          readOnly: true
+          example: string
         header_sequence:
           type: string
           description: The header sequence for the metric value...
+          example: string
         uom:
           $ref: "#/components/schemas/NarrativeUomTypes"
         value:
           type: string
           description: The value of the metric.
+          example: string
         value_category:
           type: string
           description: The category of the metric value.
+          example: string
         value_description:
           type: string
           description: A description of the metric value.
+          example: string
         value_name:
           type: string
           description: The name of the metric value.
+          example: string
         codes:
           $ref: "#/components/schemas/Codes"
       description: Metric Name Value
@@ -6608,6 +7046,7 @@ components:
         header_sequence:
           type: string
           description: The header sequence for the metric value...
+          example: string
         codes:
           $ref: "#/components/schemas/Codes"
         uom:
@@ -6615,15 +7054,19 @@ components:
         value_category:
           type: string
           description: The category of the metric value.
+          example: string
         value_description:
           type: string
           description: A description of the metric value.
+          example: string
         value:
           type: string
           description: The value of the metric.
+          example: string
         value_name:
           type: string
           description: The name of the metric value.
+          example: string
       description: MetricNameValue Update for Patch and Put
     MetricNameValues:
       type: array
@@ -6635,21 +7078,28 @@ components:
         money_key:
           type: string
           description: The unique key for the monetary value.
+          example: string
         money_id:
           type: string
           description: The unique ID for the monetary value.
+          readOnly: true
+          example: string
         currency_code:
           type: string
           description: "ISO currency code, e.g., 'USD'."
+          example: string
         display_value:
           type: string
           description: The locale-specific display format for t...
+          example: string
         locale:
           type: string
           description: "The locale code (e.g., en-US, fr-FR)."
+          example: string
         value:
           type: string
           description: The monetary value.
+          example: string
       description: Monetary value and currency information.
     NarrativeUomTypes:
       type: string
@@ -6775,9 +7225,12 @@ components:
         payroll_rate_id:
           type: string
           description: A unique identifier for the payroll rate...
+          readOnly: true
+          example: string
         payroll_rate_key:
           type: string
           description: A unique identifier for the payroll rate...
+          example: string
         staff_member_key:
           type: string
           description: Business key or code for the staff membe...
@@ -6792,6 +7245,7 @@ components:
           type: string
           description: The date and time the rate occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
         textual_details:
           $ref: "#/components/schemas/TextualDetails"
         staff_pay_type:
@@ -6821,6 +7275,7 @@ components:
           type: string
           description: The date and time the rate occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: PayrollRate Update for Patch and Put
     PayrollRates:
       type: array
@@ -6830,11 +7285,11 @@ components:
       type: object
       properties:
         person_id:
-          maxLength: 40
           type: string
           description: Unique person identifier.
+          readOnly: true
+          example: string
         person_key:
-          maxLength: 40
           type: string
           description: Business key for the person.
           example: PER-12345
@@ -6846,14 +7301,13 @@ components:
           type: integer
           description: Age of the person in years.
           format: int32
-          example: "35"
+          example: 35
         birth_date:
           type: string
           description: Birth date of the person.
           format: date
           example: 1985-08-25
         comments:
-          maxLength: 1000
           type: string
           description: Additional comments about the person.
           example: No known allergies.
@@ -6879,10 +7333,11 @@ components:
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         identifiers_href:
-          maxLength: 255
           type: string
           description: Link to identifiers resource.
           format: href
+          readOnly: true
+          example: string
         language_codes:
           maxItems: 255
           minItems: 1
@@ -6893,12 +7348,11 @@ components:
         marital_status_type:
           $ref: "#/components/schemas/MaritalStatusTypes"
         org_profiles_href:
-          maxLength: 255
           type: string
           description: Link to organizational profiles resource...
           format: href
+          example: string
         party_key:
-          maxLength: 40
           type: string
           description: Business key for the party.
           example: PTY-12345
@@ -6919,14 +7373,14 @@ components:
         privacies:
           $ref: "#/components/schemas/PrivacyItems"
         privacies_href:
-          maxLength: 255
           type: string
           description: Link to privacy settings resource.
           format: href
+          example: string
         special_remarks_description:
-          maxLength: 1000
           type: string
           description: Special remarks about the person.
+          example: string
         person_name:
           $ref: "#/components/schemas/PersonName"
       description: Person
@@ -6941,70 +7395,58 @@ components:
       type: object
       properties:
         alias:
-          maxLength: 40
           type: string
           description: Alternative or informal name.
           example: AJ
         family_name:
-          maxLength: 50
-          minLength: 3
           type: string
           description: Family or last name.
           example: Smith
         full_name:
-          maxLength: 50
           type: string
           description: Complete name as one string.
           example: Alice Jane Smith
         given_name:
-          maxLength: 50
-          minLength: 1
           type: string
           description: First or given name.
           example: Alice
         identifiers_href:
-          maxLength: 255
           type: string
           description: Reference to external identifiers.
           format: href
+          readOnly: true
           example: /identifiers/12345
         maiden_name:
-          maxLength: 50
           type: string
           description: Previous family name before marriage.
+          readOnly: true
           example: Johnson
         middle_name:
-          maxLength: 50
           type: string
           description: Middle name(s).
+          readOnly: true
           example: Jane
         name_suffix:
-          maxLength: 20
           type: string
           description: "Suffix such as Jr., Sr., III."
           example: Jr.
         party_key:
-          maxLength: 40
           type: string
           description: External party key.
           example: PARTY-KEY-123
         person_key:
-          maxLength: 40
           type: string
           description: External person key.
           example: PERSON-KEY-789
         person_name_key:
-          maxLength: 40
           type: string
           description: Unique person name key.
           example: NAME-KEY-456
         preferred_name:
-          maxLength: 40
           type: string
           description: Preferred name used in informal situatio...
           example: Ali
         salutation:
-          maxLength: 20
           type: string
           description: "Salutation or title such as Mr., Ms., Dr..."
           example: Dr.
@@ -7013,32 +7455,27 @@ components:
           description: Prefix title used before the person's na...
           example: Dr.
         honorific_suffix:
-          maxLength: 20
           type: string
           description: Suffix title used after the person's nam...
           example: Jr.
         locale:
-          maxLength: 20
           type: string
           description: Locale or language region associated wit...
           example: en-US
         phonetic_family_name:
-          maxLength: 60
           type: string
           description: Phonetic representation of the family na...
           example: FAM-nee
         phonetic_given_name:
-          maxLength: 60
           type: string
           description: Phonetic representation of the given nam...
           example: GA-vin
         phonetic_middle_name:
-          maxLength: 60
           type: string
           description: Phonetic representation of the middle na...
+          readOnly: true
           example: MI-chal
         nationality:
-          maxLength: 60
           type: string
           description: Nationality of the person.
           example: Canadian
@@ -7054,17 +7491,15 @@ components:
       type: object
       properties:
         phonetic_family_name:
-          maxLength: 60
           type: string
           description: Phonetic representation of the family na...
           example: FAM-nee
         maiden_name:
-          maxLength: 50
           type: string
           description: Previous family name before marriage.
+          readOnly: true
           example: Johnson
         name_suffix:
-          maxLength: 20
           type: string
           description: "Suffix such as Jr., Sr., III."
           example: Jr.
@@ -7073,70 +7508,58 @@ components:
           description: Prefix title used before the person's na...
           example: Dr.
         given_name:
-          maxLength: 50
-          minLength: 1
           type: string
           description: First or given name.
           example: Alice
         middle_name:
-          maxLength: 50
           type: string
           description: Middle name(s).
+          readOnly: true
           example: Jane
         locale:
-          maxLength: 20
           type: string
           description: Locale or language region associated wit...
           example: en-US
         honorific_suffix:
-          maxLength: 20
           type: string
           description: Suffix title used after the person's nam...
           example: Jr.
         phonetic_given_name:
-          maxLength: 60
           type: string
           description: Phonetic representation of the given nam...
           example: GA-vin
         full_name:
-          maxLength: 50
           type: string
           description: Complete name as one string.
           example: Alice Jane Smith
         phonetic_middle_name:
-          maxLength: 60
           type: string
           description: Phonetic representation of the middle na...
+          readOnly: true
           example: MI-chal
         nationality:
-          maxLength: 60
           type: string
           description: Nationality of the person.
           example: Canadian
         alias:
-          maxLength: 40
           type: string
           description: Alternative or informal name.
           example: AJ
         salutation:
-          maxLength: 20
           type: string
           description: "Salutation or title such as Mr., Ms., Dr..."
           example: Dr.
         family_name:
-          maxLength: 50
-          minLength: 3
           type: string
           description: Family or last name.
           example: Smith
         identifiers_href:
-          maxLength: 255
           type: string
           description: Reference to external identifiers.
           format: href
+          readOnly: true
           example: /identifiers/12345
         preferred_name:
-          maxLength: 40
           type: string
           description: Preferred name used in informal situatio...
           example: Ali
@@ -7151,7 +7574,6 @@ components:
         communication_channels:
           $ref: "#/components/schemas/CommunicationChannels"
         comments:
-          maxLength: 1000
           type: string
           description: Additional comments about the person.
           example: No known allergies.
@@ -7165,14 +7587,14 @@ components:
           format: date
           example: 1985-08-25
         special_remarks_description:
-          maxLength: 1000
           type: string
           description: Special remarks about the person.
+          example: string
         privacies_href:
-          maxLength: 255
           type: string
           description: Link to privacy settings resource.
           format: href
+          example: string
         marital_status_type:
           $ref: "#/components/schemas/MaritalStatusTypes"
         person_name:
@@ -7207,22 +7629,23 @@ components:
         gender_type:
           $ref: "#/components/schemas/GenderTypes"
         identifiers_href:
-          maxLength: 255
           type: string
           description: Link to identifiers resource.
           format: href
+          readOnly: true
+          example: string
         age:
           maximum: 130
           minimum: 0
           type: integer
           description: Age of the person in years.
           format: int32
-          example: "35"
+          example: 35
         org_profiles_href:
-          maxLength: 255
           type: string
           description: Link to organizational profiles resource...
           format: href
+          example: string
         language_codes:
           maxItems: 255
           minItems: 1
@@ -7235,14 +7658,11 @@ components:
       type: object
       properties:
         position_id:
-          maxLength: 64
-          minLength: 1
           type: string
           description: Unique identifier for this position
+          readOnly: true
           example: pos-001
         position_key:
-          maxLength: 64
-          minLength: 1
           type: string
           description: Business key for this position record
           example: POS-ATL-WEST
@@ -7263,8 +7683,6 @@ components:
           description: Bearing direction (compass)
           example: NW
         postal_code:
-          maxLength: 16
-          minLength: 3
           type: string
           description: Postal code of the location
           example: "30303"
@@ -7273,6 +7691,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         position_codes:
           maxItems: 255
           minItems: 1
@@ -7300,6 +7719,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         bearing:
           type: string
           description: Bearing direction (compass)
@@ -7309,8 +7729,6 @@ components:
           description: Latitude of the location
           example: "33.7490"
         postal_code:
-          maxLength: 16
-          minLength: 3
           type: string
           description: Postal code of the location
           example: "30303"
@@ -7346,9 +7764,12 @@ components:
         privacy_event_id:
           type: string
           description: A unique identifier for the privacy even...
+          readOnly: true
+          example: string
         privacy_event_key:
           type: string
           description: A unique identifier for the privacy even...
+          example: string
         legal_basis_type:
           $ref: "#/components/schemas/PrivacyLegalBasisTypes"
         privacy_context_type:
@@ -7358,13 +7779,16 @@ components:
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         event_reference:
           type: string
           description: Event Reference for this event
+          example: string
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Privacy Event
     PrivacyEventCreate:
       required:
@@ -7383,15 +7807,18 @@ components:
         event_reference:
           type: string
           description: Event Reference for this event
+          example: string
         legal_basis_type:
           $ref: "#/components/schemas/PrivacyLegalBasisTypes"
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: PrivacyEvent Update for Patch and Put
     PrivacyEvents:
       type: array
@@ -7403,9 +7830,12 @@ components:
         privacy_id:
           type: string
           description: A unique key for the privacy record.
+          readOnly: true
+          example: string
         privacy_key:
           type: string
           description: A unique key for the privacy record.
+          example: string
         privacy_event:
           $ref: "#/components/schemas/PrivacyEvents"
         privacy_type:
@@ -7413,15 +7843,18 @@ components:
         encrypted_value:
           type: string
           description: The encrypted value of the sensitive inf...
+          example: string
         hash_value:
           type: string
           description: A one-way hash of the sensitive informat...
+          example: string
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         last_updated_date_time:
           type: string
           description: The date and time when the privacy recor...
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Privacy Item
     PrivacyItemCreate:
       required:
@@ -7439,14 +7872,17 @@ components:
           type: string
           description: The date and time when the privacy recor...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         encrypted_value:
           type: string
           description: The encrypted value of the sensitive inf...
+          example: string
         hash_value:
           type: string
           description: A one-way hash of the sensitive informat...
+          example: string
         privacy_event:
           $ref: "#/components/schemas/PrivacyEvents"
       description: PrivacyItem Update for Patch and Put
@@ -7537,7 +7973,7 @@ components:
         instance:
           type: string
           format: uri
-          example: /money/exports
+          example: https://api.yourdomain.com/money/exports
         intent:
           type: string
           example: InitiateMoneyExport
@@ -7588,6 +8024,7 @@ components:
         staff_member_id:
           type: string
           description: Unique identifier for the staff member.
+          readOnly: true
           example: sm_123456
         staff_member_key:
           type: string
@@ -7614,7 +8051,7 @@ components:
         active_indicator:
           type: boolean
           description: Indicates if the staff member is current...
-          example: "true"
+          example: true
         job_title:
           type: string
           description: Job title of the staff member.
@@ -7641,6 +8078,7 @@ components:
         team_id:
           type: string
           description: Identifier of the team the staff member ...
+          readOnly: true
           example: team_007
         team_key:
           type: string
@@ -7750,7 +8188,7 @@ components:
         active_indicator:
           type: boolean
           description: Indicates if the staff member is current...
-          example: "true"
+          example: true
         contact_methods_href:
           type: string
           description: Reference URL to the contact methods for...
@@ -7779,9 +8217,12 @@ components:
         textual_detail_key:
           type: string
           description: Natural key or business-friendly key for...
+          example: string
         textual_detail_id:
           type: string
           description: Unique identifier for textual detail.
+          readOnly: true
+          example: string
         comments:
           $ref: "#/components/schemas/Memo"
         locale_codes:
@@ -7791,18 +8232,23 @@ components:
         short_description:
           type: string
           description: Short description for the detail.
+          example: string
         description:
           type: string
           description: Full description in memo format.
+          example: string
         text_key:
           type: string
           description: Key reference for reusable text blocks.
+          example: string
         name:
           type: string
           description: Name or title of the textual detail.
+          example: string
         value:
           type: string
           description: Value associated with the textual detail...
+          example: string
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         groups:
@@ -7810,20 +8256,25 @@ components:
         label:
           type: string
           description: Label for UI representation.
+          example: string
         alt_text:
           type: string
           description: Alternative text for accessibility or im...
+          example: string
         textual_detail_code:
           type: string
           description: Code identifier for textual detail refer...
+          example: string
         tags:
           $ref: "#/components/schemas/Codes"
         uom_display:
           type: string
           description: Unit of Measure display value.
+          example: string
         uom_code:
           type: string
           description: "Unit of Measure code (e.g., EA, PR)."
+          example: string
       description: not nullable
     TextualDetails:
       type: array
@@ -7833,13 +8284,10 @@ components:
       type: object
       properties:
         time_slot_key:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique business key for the time slot. Pattern:...
+          example: string
         end_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         end_time:
@@ -7848,9 +8296,11 @@ components:
           type: string
           description: "End time in HH:mm format. Pattern: ^([01]\\d|2[0..."
           format: date-time
+          example: 2026-01-14T12:00:00Z
         recurring_indicator:
           type: boolean
           description: Indicates if the time slot is recurring.
+          example: true
         recurring_period:
           $ref: "#/components/schemas/EffectivePeriod"
         start_day:
@@ -7861,6 +8311,7 @@ components:
           type: string
           description: "Start time in HH:mm format. Pattern: ^([01]\\d|2..."
           format: date-time
+          example: 2026-01-14T12:00:00Z
         timeslot_directive_types:
           maxItems: 255
           minItems: 1
@@ -7869,13 +8320,11 @@ components:
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the time slot reco... Pat...
+          readOnly: true
+          example: string
         week_of_date:
           maxItems: 255
           minItems: 1

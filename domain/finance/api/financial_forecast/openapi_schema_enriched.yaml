@@ -85,22 +85,16 @@ components:
       type: object
       properties:
         credit_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
             \ and underscores allowed)"
         credit_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
             \ and underscores allowed)"
         credit_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
@@ -147,22 +141,16 @@ components:
       type: object
       properties:
         discount_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
             \ and underscores allowed)"
         discount_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
             \ and underscores allowed)"
         discount_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
@@ -230,8 +218,6 @@ components:
       type: object
       properties:
         effective_period_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique key identifying the effective per... Pattern: ^[a-zA-Z0-9_]+$\
@@ -273,22 +259,16 @@ components:
       type: object
       properties:
         fee_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
             \ and underscores allowed)"
         fee_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
             \ and underscores allowed)"
         fee_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
@@ -335,22 +315,16 @@ components:
       type: object
       properties:
         category_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value for the financia... Pattern: ^[a-zA-Z0-9_]+$\
             \ (Alphanumeric and underscores allowed)"
         category_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique key value for the financial categ... Pattern: ^[a-zA-Z0-9_]+$\
             \ (Alphanumeric and underscores allowed)"
         category_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "The unique key identifying the reference... Pattern: ^[a-zA-Z0-9_]+$\
@@ -406,10 +380,9 @@ components:
           example: Stripe
         identifiers:
           $ref: "#/components/schemas/Identifiers"
-        from_voided_apcheck:
+        from_voided_apcheck_indicator:
           type: boolean
           description: Indicates whether this event originated ...
-          example: "false"
         confirmation_code:
           type: string
           description: Confirmation code for the financial tran...
@@ -417,7 +390,6 @@ components:
         forecast_indicator:
           type: boolean
           description: Confirmation code for the financial tran...
-          example: CNF-987654
         payment_method_type:
           $ref: "#/components/schemas/PaymentMethodTypes"
         payment_methods_href:
@@ -582,14 +554,13 @@ components:
           example: 2025-08-11
         amount:
           $ref: "#/components/schemas/Money"
+        from_voided_apcheck_indicator:
+          type: boolean
+          description: Indicates whether this event originated ...
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         resource_type:
           $ref: "#/components/schemas/ResourceTypes"
-        from_voided_apcheck:
-          type: boolean
-          description: Indicates whether this event originated ...
-          example: "false"
         deposit_addr:
           type: string
           description: The deposit address for cryptocurrency o...
@@ -623,7 +594,6 @@ components:
         forecast_indicator:
           type: boolean
           description: Confirmation code for the financial tran...
-          example: CNF-987654
         occurrence_date_time:
           type: string
           description: The date and time when the financial eve...
@@ -1272,22 +1242,16 @@ components:
       type: object
       properties:
         rebate_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
             \ and underscores allowed)"
         rebate_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
             \ and underscores allowed)"
         rebate_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
@@ -1373,22 +1337,16 @@ components:
       type: object
       properties:
         reward_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
             \ and underscores allowed)"
         reward_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
             \ and underscores allowed)"
         reward_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\

@@ -19,12 +19,30 @@ security:
   - standard:read
 - member-api-key: []
 - {}
+tags:
+- name: Identifier
+  description: Operations related to Identifier
+- name: Price
+  description: Operations related to Price
+- name: PriceSensitivity
+  description: Operations related to PriceSensitivity
+- name: EffectivePeriod
+  description: Operations related to EffectivePeriod
+- name: LifecycleEvent
+  description: Operations related to LifecycleEvent
+- name: TimeSlot
+  description: Operations related to TimeSlot
+- name: PriceList
+  description: Operations related to PriceList
+- name: Default
+  description: Operations related to Default
 paths:
   /price-lists:
     get:
       tags:
       - PriceList
       summary: Retrieve a list of PriceList entities.
+      description: list PriceList By
       operationId: listPriceList
       parameters:
       - name: sort
@@ -76,6 +94,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -86,12 +105,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PriceList
       summary: Create a new PriceList entity.
+      description: Create PriceList
       operationId: createPriceList
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -110,7 +132,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /price-lists/KEY78z
+                example: /price-lists/KEY78B
           content:
             application/json:
               schema:
@@ -132,6 +154,7 @@ paths:
       tags:
       - PriceList
       summary: Retrieve a specific PriceList entity.
+      description: "Standard GET operation for /price-lists/{priceListKey}"
       operationId: getPriceListById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -159,6 +182,7 @@ paths:
       tags:
       - PriceList
       summary: Replace a PriceList entity.
+      description: replace PriceList
       operationId: replacePriceList
       parameters:
       - name: If-Match
@@ -230,7 +254,8 @@ paths:
       tags:
       - PriceList
       summary: Partially update a PriceList entity.
-      operationId: updatePriceList
+      description: Partially update a PriceList
+      operationId: updatePartialPriceList
       parameters:
       - name: If-Match
         in: header
@@ -281,12 +306,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78z
+        example: KEY78x
   /price-lists/{priceListKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped b...
+      description: list Identifier By PriceListKey
       operationId: listIdentifierByPriceListKey
       parameters:
       - name: sort
@@ -338,6 +364,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -348,12 +375,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -372,7 +402,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/price-lists{priceListKey}identifiers/KEY78BN"
           content:
             application/json:
               schema:
@@ -401,6 +431,7 @@ paths:
       tags:
       - Identifier
       summary: Retrieve a specific Identifier entity.
+      description: "Standard GET operation for /price-lists/{priceListKey}/identifiers/{identifierKey}"
       operationId: getIdentifierById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -428,6 +459,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -499,7 +531,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -556,12 +589,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zZ
+        example: KEY78xn
   /price-lists/{priceListKey}/prices:
     get:
       tags:
       - Price
       summary: Retrieve a list of Price entities scoped by pri...
+      description: list Price By PriceListKey
       operationId: listPriceByPriceListKey
       parameters:
       - name: sort
@@ -613,6 +647,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -623,12 +658,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Price
       summary: Create a new Price entity.
+      description: Create Price
       operationId: createPrice
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -647,7 +685,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/price-lists{priceListKey}prices/KEY78BNG"
           content:
             application/json:
               schema:
@@ -676,6 +714,7 @@ paths:
       tags:
       - Price
       summary: Retrieve a specific Price entity.
+      description: "Standard GET operation for /price-lists/{priceListKey}/prices/{priceKey}"
       operationId: getPriceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -703,6 +742,7 @@ paths:
       tags:
       - Price
       summary: Replace a Price entity.
+      description: replace Price
       operationId: replacePrice
       parameters:
       - name: If-Match
@@ -774,7 +814,8 @@ paths:
       tags:
       - Price
       summary: Partially update a Price entity.
-      operationId: updatePrice
+      description: Partially update a Price
+      operationId: updatePartialPrice
       parameters:
       - name: If-Match
         in: header
@@ -831,12 +872,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zZ7
+        example: KEY78xnj
   /price-lists/{priceListKey}/price-sensitivities:
     get:
       tags:
       - PriceSensitivity
       summary: Retrieve a list of PriceSensitivity entities sc...
+      description: list PriceSensitivity By PriceListKey
       operationId: listPriceSensitivityByPriceListKey
       parameters:
       - name: sort
@@ -888,6 +930,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -898,12 +941,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PriceSensitivity
       summary: Create a new PriceSensitivity entity.
+      description: Create PriceSensitivity
       operationId: createPriceSensitivity
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -922,7 +968,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/price-lists{priceListKey}price-sensitivities/KEY78BNGz"
           content:
             application/json:
               schema:
@@ -951,6 +997,7 @@ paths:
       tags:
       - PriceSensitivity
       summary: Retrieve a specific PriceSensitivity entity.
+      description: "Standard GET operation for /price-lists/{priceListKey}/price-sensitivities/{priceSensitivityKey}"
       operationId: getPriceSensitivityById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -978,6 +1025,7 @@ paths:
       tags:
       - PriceSensitivity
       summary: Replace a PriceSensitivity entity.
+      description: replace PriceSensitivity
       operationId: replacePriceSensitivity
       parameters:
       - name: If-Match
@@ -1049,7 +1097,8 @@ paths:
       tags:
       - PriceSensitivity
       summary: Partially update a PriceSensitivity entity.
-      operationId: updatePriceSensitivity
+      description: Partially update a PriceSensitivity
+      operationId: updatePartialPriceSensitivity
       parameters:
       - name: If-Match
         in: header
@@ -1106,12 +1155,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zZ7O
+        example: KEY78xnjM
   /price-lists/{priceListKey}/effective-periods:
     get:
       tags:
       - EffectivePeriod
       summary: Retrieve a list of EffectivePeriod entities sco...
+      description: list EffectivePeriod By PriceListKey
       operationId: listEffectivePeriodByPriceListKey
       parameters:
       - name: sort
@@ -1163,6 +1213,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1173,6 +1224,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1187,6 +1240,7 @@ paths:
       tags:
       - EffectivePeriod
       summary: Retrieve a specific EffectivePeriod entity.
+      description: "Standard GET operation for /price-lists/{priceListKey}/effective-periods/{effectivePeriodKey}"
       operationId: getEffectivePeriodById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1223,12 +1277,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zZ7O2
+        example: KEY78xnjMK
   /price-lists/{priceListKey}/lifecycle-events:
     get:
       tags:
       - LifecycleEvent
       summary: Retrieve a list of LifecycleEvent entities scop...
+      description: list LifecycleEvent By PriceListKey
       operationId: listLifecycleEventByPriceListKey
       parameters:
       - name: sort
@@ -1280,6 +1335,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1290,12 +1346,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - LifecycleEvent
       summary: Create a new LifecycleEvent entity.
+      description: Create LifecycleEvent
       operationId: createLifecycleEvent
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1314,7 +1373,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/price-lists{priceListKey}lifecycle-events/KEY78BNGzEb"
           content:
             application/json:
               schema:
@@ -1343,6 +1402,7 @@ paths:
       tags:
       - LifecycleEvent
       summary: Retrieve a specific LifecycleEvent entity.
+      description: "Standard GET operation for /price-lists/{priceListKey}/lifecycle-events/{lifecycleEventKey}"
       operationId: getLifecycleEventById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1370,6 +1430,7 @@ paths:
       tags:
       - LifecycleEvent
       summary: Replace a LifecycleEvent entity.
+      description: replace LifecycleEvent
       operationId: replaceLifecycleEvent
       parameters:
       - name: If-Match
@@ -1441,7 +1502,8 @@ paths:
       tags:
       - LifecycleEvent
       summary: Partially update a LifecycleEvent entity.
-      operationId: updateLifecycleEvent
+      description: Partially update a LifecycleEvent
+      operationId: updatePartialLifecycleEvent
       parameters:
       - name: If-Match
         in: header
@@ -1498,12 +1560,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zZ7O2x
+        example: KEY78xnjMKy
   /price-lists/{priceListKey}/time-slots:
     get:
       tags:
       - TimeSlot
       summary: Retrieve a list of TimeSlot entities scoped by ...
+      description: list TimeSlot By PriceListKey
       operationId: listTimeSlotByPriceListKey
       parameters:
       - name: sort
@@ -1555,6 +1618,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1565,6 +1629,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1579,6 +1645,7 @@ paths:
       tags:
       - TimeSlot
       summary: Retrieve a specific TimeSlot entity.
+      description: "Standard GET operation for /price-lists/{priceListKey}/time-slots/{timeSlotKey}"
       operationId: getTimeSlotById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1615,11 +1682,14 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zZ7O2x9
+        example: KEY78xnjMKy8
   /price-lists/health:
     get:
+      tags:
+      - Default
       summary: Health Check
       description: Public endpoint to verify service availability.
+      operationId: getPriceListHealth
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
       responses:
@@ -1652,11 +1722,22 @@ paths:
                     description: Server time in ISO-8601 format.
                     format: date-time
                     example: 2025-12-21T23:00:00Z
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       security:
       - {}
   /price-lists/batch:
     post:
+      tags:
+      - Default
       summary: Bulk create price-lists
+      description: Bulk Create of PriceList
       operationId: createPriceListBatch
       requestBody:
         content:
@@ -1672,6 +1753,12 @@ paths:
       responses:
         "200":
           description: Batch processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /price-lists/batch/8311664207756956144
           content:
             application/json:
               schema:
@@ -1691,9 +1778,23 @@ paths:
                           format: int32
                         error:
                           $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
   /price-lists/exports:
     post:
+      tags:
+      - Default
       summary: Initiate a bulk PriceList export
+      description: Standard POST operation for /price-lists/exports
+      operationId: initiatePriceListExport
       parameters:
       - name: Idempotency-Key
         in: header
@@ -1710,6 +1811,7 @@ paths:
               properties:
                 format:
                   type: string
+                  example: string
                   default: PARQUET
                   enum:
                   - XML
@@ -1764,10 +1866,17 @@ paths:
                   description: "If true, the system validates the request and returns\
                     \ potential violations or metadata (like estimated size) without\
                     \ starting the job."
+                  example: false
                   default: false
       responses:
         "202":
           description: Export job created/accepted
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /price-lists/exports/6492369492444809676
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -1776,6 +1885,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       callbacks:
         onExportCompleted:
           '{$request.body#/notification/webhook_url}':
@@ -1792,7 +1909,11 @@ paths:
                   description: Webhook received
   /price-lists/exports/{exportId}:
     get:
+      tags:
+      - Default
       summary: Get export status
+      description: Get Export Status of PriceList
+      operationId: getPriceListExportStatus
       parameters:
       - name: exportId
         in: path
@@ -1806,8 +1927,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExportJob"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /price-lists/{priceListKey}/commands:
     post:
+      tags:
+      - Default
       summary: Execute a business workflow on PriceList
       description: Single entry point for all PriceList state-changing intents.
       operationId: executePriceListCommand
@@ -1842,6 +1973,12 @@ paths:
       responses:
         "200":
           description: Commands processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: "/price-lists/{priceListKey}/commands/1459429735195354776"
           content:
             application/json:
               schema:
@@ -1863,7 +2000,7 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #98b9f294 has been successfully cancelled."
+                    example: "Invoice #dd8c97ef has been successfully cancelled."
                   commandId:
                     type: string
                     description: The tracking ID for this specific command execution
@@ -1871,7 +2008,7 @@ paths:
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: 477ea699
+                    example: 731bfd33
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -1880,6 +2017,7 @@ paths:
                     type: boolean
                     description: "If true, the agent can attempt this command again\
                       \ immediately"
+                    example: false
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -1896,6 +2034,8 @@ paths:
           $ref: "#/components/responses/ServerError"
   /price-lists/{priceListKey}/commands/{commandId}:
     get:
+      tags:
+      - Default
       summary: Poll PriceList command status
       description: Check the progress or result of a previously submitted command.
       operationId: getPriceListCommandStatus
@@ -1924,6 +2064,7 @@ paths:
                     type: string
                     description: The unique identifier for the command being tracked
                     format: uuid
+                    readOnly: true
                   status:
                     type: string
                     description: The current lifecycle state of the command
@@ -1951,9 +2092,20 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /price-lists/capabilities:
     get:
+      tags:
+      - Default
       summary: Discover PriceList Capabilities
+      description: Standard GET operation for /price-lists/capabilities
       operationId: getPriceListCapabilities
       parameters:
       - name: include
@@ -1988,6 +2140,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Capabilities"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     Capabilities:
@@ -2082,8 +2242,7 @@ components:
                     example: P7D
                   is_pii_sensitive:
                     type: boolean
-                    description: Indicates if the export contains Personally Identifiable
-                      Information
+                    description: Indicates export contains PII
                     example: false
                   access_tier:
                     type: string
@@ -2102,6 +2261,7 @@ components:
                     rule_id:
                       type: string
                       description: Unique identifier for the business rule
+                      readOnly: true
                       example: IDENTITY_LOCK_STATE
                     constraint_type:
                       type: string
@@ -2135,9 +2295,9 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
+                        item_type: Inventory
                         count: "45"
                         limit: "0"
-                        item_type: Inventory
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -2146,9 +2306,9 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
+                        min: "1"
                         value: "31"
                         unit: days
-                        min: "1"
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -2224,43 +2384,50 @@ components:
       type: object
       properties:
         effective_period_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique key identifying the effective per... Pat...
+          example: string
         active_indicator:
           type: boolean
           description: Indicator if the period is currently act...
+          example: true
         exclusive_indicator:
           type: boolean
           description: Indicator if the period is exclusive
+          example: true
         start_date_time:
           type: string
           description: Start date and time of the effective per...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         complete_date_time:
           type: string
           description: Completion date and time of the effectiv...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         duration_value:
           type: string
           description: Value of the duration
+          example: string
         recur_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         recur_count:
           type: string
           description: Count of recurrence
+          example: string
         recur_values:
           $ref: "#/components/schemas/Codes"
         recur_criteria:
           type: string
           description: Criteria defining recurrence
+          example: string
         recur_indicator:
           type: boolean
           description: Indicator if recurrence is enabled
+          example: true
         timeslot:
           $ref: "#/components/schemas/TimeSlot"
       description: The date range during which this record is valid.
@@ -2270,7 +2437,7 @@ components:
       - code
       - message
       - timestamp
-      - traceId
+      - trace_id
       type: object
       properties:
         code:
@@ -2297,11 +2464,12 @@ components:
           description: The time the error occurred (ISO 8601).
           format: date-time
           example: 2025-11-10T10:30:00Z
-        traceId:
+        trace_id:
           type: string
           description: "A unique identifier for this specific request, ..."
+          readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
-        docUrl:
+        doc_url:
           type: string
           description: A URL leading to the documentation page for thi...
           format: uri
@@ -2332,11 +2500,14 @@ components:
           type: integer
           description: Part number
           format: int32
+          example: 1
         download_url:
           type: string
           format: uri
+          example: https://api.example.com
         format:
           type: string
+          example: string
           default: PARQUET
           enum:
           - XML
@@ -2347,15 +2518,20 @@ components:
         expires_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
+          example: string
     ExportJob:
       type: object
       properties:
         id:
           type: string
+          readOnly: true
+          example: string
         status:
           type: string
+          example: string
           enum:
           - PENDING
           - PROCESSING
@@ -2366,6 +2542,7 @@ components:
           minimum: 0
           type: integer
           format: int32
+          example: 1
         files:
           type: array
           items:
@@ -2375,22 +2552,26 @@ components:
       properties:
         event_type:
           type: string
+          example: string
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
         occurred_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         data:
           type: object
           properties:
             job_id:
               type: string
+              readOnly: true
             aggregate:
               type: string
               example: PriceList
             data_product_id:
               type: string
+              readOnly: true
             status:
               type: string
               enum:
@@ -2412,24 +2593,33 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         identifier_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Business key for the identifier Pattern: ^[a-zA..."
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -2448,15 +2638,20 @@ components:
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
       description: Identifier Update for Patch and Put
     Identifiers:
       type: array
@@ -2468,6 +2663,7 @@ components:
         lifecycle_event_id:
           type: string
           description: The unique ID for the lifecycle event.
+          readOnly: true
           example: EVT-99887766
         lifecycle_event_key:
           type: string
@@ -2477,9 +2673,11 @@ components:
           type: string
           description: The href of the actor who initiated the ...
           format: href
+          example: string
         actor_id:
           type: string
           description: The unique identifier of the actor who i...
+          readOnly: true
           example: USR-24681357
         actor_name:
           type: string
@@ -2491,13 +2689,16 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date
+          example: 2026-01-14
         resource_href:
           type: string
           description: The href of the resource associated with...
           format: href
+          example: string
         resource_identifier:
           type: string
           description: The unique identifier of the resource as...
+          readOnly: true
           example: RSC-88776655
         detail_name:
           type: string
@@ -2557,10 +2758,12 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date
+          example: 2026-01-14
         resource_href:
           type: string
           description: The href of the resource associated with...
           format: href
+          example: string
         detail_name:
           type: string
           description: The name of the event detail.
@@ -2570,6 +2773,7 @@ components:
         resource_identifier:
           type: string
           description: The unique identifier of the resource as...
+          readOnly: true
           example: RSC-88776655
         actor_name:
           type: string
@@ -2591,6 +2795,7 @@ components:
           type: string
           description: The href of the actor who initiated the ...
           format: href
+          example: string
         resource_types:
           $ref: "#/components/schemas/ResourceTypes"
       description: LifecycleEvent Update for Patch and Put
@@ -2604,45 +2809,60 @@ components:
         display_value:
           type: string
           description: Human-readable display value for the pri...
+          example: string
         locale:
           type: string
           description: Locale used for formatting display value...
+          example: string
         value:
           type: string
           description: The numeric value of the price (before t...
+          example: string
         tax_value:
           type: string
           description: The calculated amount of tax applied to ...
+          example: string
         taxable_amount:
           type: string
           description: The portion of the price subject to tax.
+          example: string
         non_taxable_amount:
           type: string
           description: The portion of the price not subject to ...
+          example: string
         total_amount:
           type: string
           description: The total final price including all comp...
+          example: string
         total_cost_amount:
           type: string
           description: The total cost to the provider/seller.
+          example: string
         unit_cost_amount:
           type: string
           description: The unit cost to the provider/seller.
+          example: string
         price_description:
           type: string
           description: "A descriptive title for the price (e.g.,..."
+          example: string
         price_key:
           type: string
           description: Natural key or business identifier for t...
+          example: string
         tax_included_indicator:
           type: boolean
           description: Indicates whether tax is included in the...
+          example: true
         currency_code:
           type: string
           description: "ISO 4217 currency code, e.g., 'USD', 'EU..."
+          example: string
         price_id:
           type: string
           description: Unique system identifier for the price r...
+          readOnly: true
+          example: string
         duration:
           $ref: "#/components/schemas/EffectivePeriod"
         price_types:
@@ -2706,25 +2926,20 @@ components:
       type: object
       properties:
         price_list_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier for the price list. Pattern: ..."
+          readOnly: true
+          example: string
         price_list_key:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier for the price list. Pattern: ..."
+          example: string
         price_description:
-          maxLength: 255
           type: string
           description: Description of the price list.
+          example: string
         product_schedules:
           $ref: "#/components/schemas/Identifiers"
         lifecycle_event_type:
@@ -2739,13 +2954,13 @@ components:
           items:
             $ref: "#/components/schemas/PriceClassTypes"
         locale:
-          maxLength: 10
           type: string
           description: Locale information for regional pricing.
+          example: string
         currency:
-          maxLength: 5
           type: string
           description: Currency code for the price (ISO 4217).
+          example: string
         financial_splits:
           $ref: "#/components/schemas/Identifiers"
         price:
@@ -2809,9 +3024,9 @@ components:
         geographic_boundaries:
           $ref: "#/components/schemas/Identifiers"
         locale:
-          maxLength: 10
           type: string
           description: Locale information for regional pricing.
+          example: string
         part_identifiers:
           $ref: "#/components/schemas/Identifiers"
         price_class_types:
@@ -2841,13 +3056,13 @@ components:
         lifecycle_events:
           $ref: "#/components/schemas/LifecycleEvents"
         price_description:
-          maxLength: 255
           type: string
           description: Description of the price list.
+          example: string
         currency:
-          maxLength: 5
           type: string
           description: Currency code for the price (ISO 4217).
+          example: string
         product_group:
           $ref: "#/components/schemas/Identifiers"
         part_names:
@@ -2859,6 +3074,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
+          example: string
           enum:
           - CREATED
           - ACTIVE
@@ -2879,12 +3095,15 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the price sensitiv... Pat...
+          readOnly: true
+          example: string
         price_sensitivity_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Business key for the price sensitivity c... Pat...
+          example: string
         sensitivity_level_types:
           $ref: "#/components/schemas/PriceSensitivityTypes"
         quantity_level_types:
@@ -2892,6 +3111,7 @@ components:
         description:
           type: string
           description: Description of this price sensitivity cl...
+          example: string
         alias:
           $ref: "#/components/schemas/Codes"
       description: nullable
@@ -2919,6 +3139,7 @@ components:
         description:
           type: string
           description: Description of this price sensitivity cl...
+          example: string
         alias:
           $ref: "#/components/schemas/Codes"
         sensitivity_level_types:
@@ -2982,26 +3203,33 @@ components:
         display_value:
           type: string
           description: Human-readable display value for the pri...
+          example: string
         unit_cost_amount:
           type: string
           description: The unit cost to the provider/seller.
+          example: string
         locale:
           type: string
           description: Locale used for formatting display value...
+          example: string
         currency_code:
           type: string
           description: "ISO 4217 currency code, e.g., 'USD', 'EU..."
+          example: string
         duration:
           $ref: "#/components/schemas/EffectivePeriod"
         tax_value:
           type: string
           description: The calculated amount of tax applied to ...
+          example: string
         total_amount:
           type: string
           description: The total final price including all comp...
+          example: string
         total_cost_amount:
           type: string
           description: The total cost to the provider/seller.
+          example: string
         price_types:
           maxItems: 255
           minItems: 1
@@ -3012,18 +3240,23 @@ components:
         tax_included_indicator:
           type: boolean
           description: Indicates whether tax is included in the...
+          example: true
         price_description:
           type: string
           description: "A descriptive title for the price (e.g.,..."
+          example: string
         non_taxable_amount:
           type: string
           description: The portion of the price not subject to ...
+          example: string
         value:
           type: string
           description: The numeric value of the price (before t...
+          example: string
         taxable_amount:
           type: string
           description: The portion of the price subject to tax.
+          example: string
       description: Price Update for Patch and Put
     ProblemDetail:
       type: object
@@ -3045,7 +3278,7 @@ components:
         instance:
           type: string
           format: uri
-          example: /money/exports
+          example: https://api.yourdomain.com/money/exports
         intent:
           type: string
           example: InitiateMoneyExport
@@ -3110,13 +3343,10 @@ components:
       type: object
       properties:
         time_slot_key:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique business key for the time slot. Pattern:...
+          example: string
         end_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         end_time:
@@ -3125,9 +3355,11 @@ components:
           type: string
           description: "End time in HH:mm format. Pattern: ^([01]\\d|2[0..."
           format: date-time
+          example: 2026-01-14T12:00:00Z
         recurring_indicator:
           type: boolean
           description: Indicates if the time slot is recurring.
+          example: true
         recurring_period:
           $ref: "#/components/schemas/EffectivePeriod"
         start_day:
@@ -3138,6 +3370,7 @@ components:
           type: string
           description: "Start time in HH:mm format. Pattern: ^([01]\\d|2..."
           format: date-time
+          example: 2026-01-14T12:00:00Z
         timeslot_directive_types:
           maxItems: 255
           minItems: 1
@@ -3146,13 +3379,11 @@ components:
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the time slot reco... Pat...
+          readOnly: true
+          example: string
         week_of_date:
           maxItems: 255
           minItems: 1

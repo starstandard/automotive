@@ -22,6 +22,7 @@ paths:
       tags:
       - PaymentMethod
       summary: Retrieve a list of PaymentMethod entities.
+      description: list PaymentMethod By
       operationId: listPaymentMethod
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PaymentMethod
       summary: Create a new PaymentMethod entity.
+      description: Create PaymentMethod
       operationId: createPaymentMethod
       requestBody:
         description: PaymentMethod data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /payment-methods/KEY78D
+                example: /payment-methods/KEY78w
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - PaymentMethod
       summary: Replace a PaymentMethod entity.
+      description: replace PaymentMethod
       operationId: replacePaymentMethod
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - PaymentMethod
       summary: Partially update a PaymentMethod entity.
-      operationId: updatePaymentMethod
+      description: Partially update a PaymentMethod
+      operationId: updatePartialPaymentMethod
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY789
+        example: KEY78Y
   /payment-methods/{paymentMethodKey}/reward-payments:
     get:
       tags:
       - RewardPayment
       summary: Retrieve a list of RewardPayment entities scoped by paymentMethodKey.
+      description: list RewardPayment By PaymentMethodKey
       operationId: listRewardPaymentByPaymentMethodKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - RewardPayment
       summary: Create a new RewardPayment entity.
+      description: Create RewardPayment
       operationId: createRewardPayment
       requestBody:
         description: RewardPayment data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}reward-payments/KEY78ww"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - RewardPayment
       summary: Replace a RewardPayment entity.
+      description: replace RewardPayment
       operationId: replaceRewardPayment
       parameters:
       - name: If-Match
@@ -462,7 +473,8 @@ paths:
       tags:
       - RewardPayment
       summary: Partially update a RewardPayment entity.
-      operationId: updateRewardPayment
+      description: Partially update a RewardPayment
+      operationId: updatePartialRewardPayment
       parameters:
       - name: If-Match
         in: header
@@ -517,12 +529,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891
+        example: KEY78YK
   /payment-methods/{paymentMethodKey}/person-names:
     get:
       tags:
       - PersonName
       summary: Retrieve a list of PersonName entities scoped by paymentMethodKey.
+      description: list PersonName By PaymentMethodKey
       operationId: listPersonNameByPaymentMethodKey
       parameters:
       - name: sort
@@ -580,12 +593,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PersonName
       summary: Create a new PersonName entity.
+      description: Create PersonName
       operationId: createPersonName
       requestBody:
         description: PersonName data to create the new resource.
@@ -602,7 +618,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}person-names/KEY78ww5"
           content:
             application/json:
               schema:
@@ -653,6 +669,7 @@ paths:
       tags:
       - PersonName
       summary: Replace a PersonName entity.
+      description: replace PersonName
       operationId: replacePersonName
       parameters:
       - name: If-Match
@@ -719,7 +736,8 @@ paths:
       tags:
       - PersonName
       summary: Partially update a PersonName entity.
-      operationId: updatePersonName
+      description: Partially update a PersonName
+      operationId: updatePartialPersonName
       parameters:
       - name: If-Match
         in: header
@@ -774,12 +792,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891q
+        example: KEY78YKS
   /payment-methods/{paymentMethodKey}/addresses:
     get:
       tags:
       - Address
       summary: Retrieve a list of Address entities scoped by paymentMethodKey.
+      description: list Address By PaymentMethodKey
       operationId: listAddressByPaymentMethodKey
       parameters:
       - name: sort
@@ -837,12 +856,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Address
       summary: Create a new Address entity.
+      description: Create Address
       operationId: createAddress
       requestBody:
         description: Address data to create the new resource.
@@ -859,7 +881,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}addresses/KEY78ww5R"
           content:
             application/json:
               schema:
@@ -910,6 +932,7 @@ paths:
       tags:
       - Address
       summary: Replace a Address entity.
+      description: replace Address
       operationId: replaceAddress
       parameters:
       - name: If-Match
@@ -976,7 +999,8 @@ paths:
       tags:
       - Address
       summary: Partially update a Address entity.
-      operationId: updateAddress
+      description: Partially update a Address
+      operationId: updatePartialAddress
       parameters:
       - name: If-Match
         in: header
@@ -1031,12 +1055,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qO
+        example: KEY78YKSz
   /payment-methods/{paymentMethodKey}/positions:
     get:
       tags:
       - Position
       summary: Retrieve a list of Position entities scoped by paymentMethodKey.
+      description: list Position By PaymentMethodKey
       operationId: listPositionByPaymentMethodKey
       parameters:
       - name: sort
@@ -1094,12 +1119,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Position
       summary: Create a new Position entity.
+      description: Create Position
       operationId: createPosition
       requestBody:
         description: Position data to create the new resource.
@@ -1116,7 +1144,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}positions/KEY78ww5R3"
           content:
             application/json:
               schema:
@@ -1167,6 +1195,7 @@ paths:
       tags:
       - Position
       summary: Replace a Position entity.
+      description: replace Position
       operationId: replacePosition
       parameters:
       - name: If-Match
@@ -1233,7 +1262,8 @@ paths:
       tags:
       - Position
       summary: Partially update a Position entity.
-      operationId: updatePosition
+      description: Partially update a Position
+      operationId: updatePartialPosition
       parameters:
       - name: If-Match
         in: header
@@ -1288,12 +1318,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOL
+        example: KEY78YKSzP
   /payment-methods/{paymentMethodKey}/cash-payments:
     get:
       tags:
       - CashPayment
       summary: Retrieve a list of CashPayment entities scoped by paymentMethodKey.
+      description: list CashPayment By PaymentMethodKey
       operationId: listCashPaymentByPaymentMethodKey
       parameters:
       - name: sort
@@ -1351,12 +1382,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CashPayment
       summary: Create a new CashPayment entity.
+      description: Create CashPayment
       operationId: createCashPayment
       requestBody:
         description: CashPayment data to create the new resource.
@@ -1373,7 +1407,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}cash-payments/KEY78ww5R3v"
           content:
             application/json:
               schema:
@@ -1424,6 +1458,7 @@ paths:
       tags:
       - CashPayment
       summary: Replace a CashPayment entity.
+      description: replace CashPayment
       operationId: replaceCashPayment
       parameters:
       - name: If-Match
@@ -1490,7 +1525,8 @@ paths:
       tags:
       - CashPayment
       summary: Partially update a CashPayment entity.
-      operationId: updateCashPayment
+      description: Partially update a CashPayment
+      operationId: updatePartialCashPayment
       parameters:
       - name: If-Match
         in: header
@@ -1545,12 +1581,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLP
+        example: KEY78YKSzPF
   /payment-methods/{paymentMethodKey}/bank-beneficiaries:
     get:
       tags:
       - BankBeneficiary
       summary: Retrieve a list of BankBeneficiary entities scoped by paymentMethodKey.
+      description: list BankBeneficiary By PaymentMethodKey
       operationId: listBankBeneficiaryByPaymentMethodKey
       parameters:
       - name: sort
@@ -1608,12 +1645,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - BankBeneficiary
       summary: Create a new BankBeneficiary entity.
+      description: Create BankBeneficiary
       operationId: createBankBeneficiary
       requestBody:
         description: BankBeneficiary data to create the new resource.
@@ -1630,7 +1670,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}bank-beneficiaries/KEY78ww5R3vn"
           content:
             application/json:
               schema:
@@ -1681,6 +1721,7 @@ paths:
       tags:
       - BankBeneficiary
       summary: Replace a BankBeneficiary entity.
+      description: replace BankBeneficiary
       operationId: replaceBankBeneficiary
       parameters:
       - name: If-Match
@@ -1747,7 +1788,8 @@ paths:
       tags:
       - BankBeneficiary
       summary: Partially update a BankBeneficiary entity.
-      operationId: updateBankBeneficiary
+      description: Partially update a BankBeneficiary
+      operationId: updatePartialBankBeneficiary
       parameters:
       - name: If-Match
         in: header
@@ -1802,12 +1844,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPd
+        example: KEY78YKSzPFy
   /payment-methods/{paymentMethodKey}/credit-cards:
     get:
       tags:
       - CreditCard
       summary: Retrieve a list of CreditCard entities scoped by paymentMethodKey.
+      description: list CreditCard By PaymentMethodKey
       operationId: listCreditCardByPaymentMethodKey
       parameters:
       - name: sort
@@ -1865,12 +1908,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CreditCard
       summary: Create a new CreditCard entity.
+      description: Create CreditCard
       operationId: createCreditCard
       requestBody:
         description: CreditCard data to create the new resource.
@@ -1887,7 +1933,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}credit-cards/KEY78ww5R3vnY"
           content:
             application/json:
               schema:
@@ -1938,6 +1984,7 @@ paths:
       tags:
       - CreditCard
       summary: Replace a CreditCard entity.
+      description: replace CreditCard
       operationId: replaceCreditCard
       parameters:
       - name: If-Match
@@ -2004,7 +2051,8 @@ paths:
       tags:
       - CreditCard
       summary: Partially update a CreditCard entity.
-      operationId: updateCreditCard
+      description: Partially update a CreditCard
+      operationId: updatePartialCreditCard
       parameters:
       - name: If-Match
         in: header
@@ -2059,12 +2107,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPda
+        example: KEY78YKSzPFyO
   /payment-methods/{paymentMethodKey}/address-locales:
     get:
       tags:
       - AddressLocale
       summary: Retrieve a list of AddressLocale entities scoped by paymentMethodKey.
+      description: list AddressLocale By PaymentMethodKey
       operationId: listAddressLocaleByPaymentMethodKey
       parameters:
       - name: sort
@@ -2122,12 +2171,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - AddressLocale
       summary: Create a new AddressLocale entity.
+      description: Create AddressLocale
       operationId: createAddressLocale
       requestBody:
         description: AddressLocale data to create the new resource.
@@ -2144,7 +2196,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}address-locales/KEY78ww5R3vnYz"
           content:
             application/json:
               schema:
@@ -2195,6 +2247,7 @@ paths:
       tags:
       - AddressLocale
       summary: Replace a AddressLocale entity.
+      description: replace AddressLocale
       operationId: replaceAddressLocale
       parameters:
       - name: If-Match
@@ -2261,7 +2314,8 @@ paths:
       tags:
       - AddressLocale
       summary: Partially update a AddressLocale entity.
-      operationId: updateAddressLocale
+      description: Partially update a AddressLocale
+      operationId: updatePartialAddressLocale
       parameters:
       - name: If-Match
         in: header
@@ -2316,12 +2370,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF
+        example: KEY78YKSzPFyO1
   /payment-methods/{paymentMethodKey}/bank-intermediaries:
     get:
       tags:
       - BankIntermediary
       summary: Retrieve a list of BankIntermediary entities scoped by paymentMethodKey.
+      description: list BankIntermediary By PaymentMethodKey
       operationId: listBankIntermediaryByPaymentMethodKey
       parameters:
       - name: sort
@@ -2379,12 +2434,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - BankIntermediary
       summary: Create a new BankIntermediary entity.
+      description: Create BankIntermediary
       operationId: createBankIntermediary
       requestBody:
         description: BankIntermediary data to create the new resource.
@@ -2401,7 +2459,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}bank-intermediaries/KEY78ww5R3vnYzL"
           content:
             application/json:
               schema:
@@ -2452,6 +2510,7 @@ paths:
       tags:
       - BankIntermediary
       summary: Replace a BankIntermediary entity.
+      description: replace BankIntermediary
       operationId: replaceBankIntermediary
       parameters:
       - name: If-Match
@@ -2518,7 +2577,8 @@ paths:
       tags:
       - BankIntermediary
       summary: Partially update a BankIntermediary entity.
-      operationId: updateBankIntermediary
+      description: Partially update a BankIntermediary
+      operationId: updatePartialBankIntermediary
       parameters:
       - name: If-Match
         in: header
@@ -2573,12 +2633,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF3
+        example: KEY78YKSzPFyO1i
   /payment-methods/{paymentMethodKey}/authorizations:
     get:
       tags:
       - Authorization
       summary: Retrieve a list of Authorization entities scoped by paymentMethodKey.
+      description: list Authorization By PaymentMethodKey
       operationId: listAuthorizationByPaymentMethodKey
       parameters:
       - name: sort
@@ -2636,12 +2697,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Authorization
       summary: Create a new Authorization entity.
+      description: Create Authorization
       operationId: createAuthorization
       requestBody:
         description: Authorization data to create the new resource.
@@ -2658,7 +2722,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}authorizations/KEY78ww5R3vnYzLa"
           content:
             application/json:
               schema:
@@ -2709,6 +2773,7 @@ paths:
       tags:
       - Authorization
       summary: Replace a Authorization entity.
+      description: replace Authorization
       operationId: replaceAuthorization
       parameters:
       - name: If-Match
@@ -2775,7 +2840,8 @@ paths:
       tags:
       - Authorization
       summary: Partially update a Authorization entity.
-      operationId: updateAuthorization
+      description: Partially update a Authorization
+      operationId: updatePartialAuthorization
       parameters:
       - name: If-Match
         in: header
@@ -2830,12 +2896,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF3F
+        example: KEY78YKSzPFyO1iY
   /payment-methods/{paymentMethodKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by paymentMethodKey.
+      description: list Identifier By PaymentMethodKey
       operationId: listIdentifierByPaymentMethodKey
       parameters:
       - name: sort
@@ -2893,12 +2960,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -2915,7 +2985,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}identifiers/KEY78ww5R3vnYzLaN"
           content:
             application/json:
               schema:
@@ -2966,6 +3036,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -3032,7 +3103,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -3087,12 +3159,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF3FO
+        example: KEY78YKSzPFyO1iYN
   /payment-methods/{paymentMethodKey}/check-payments:
     get:
       tags:
       - CheckPayment
       summary: Retrieve a list of CheckPayment entities scoped by paymentMethodKey.
+      description: list CheckPayment By PaymentMethodKey
       operationId: listCheckPaymentByPaymentMethodKey
       parameters:
       - name: sort
@@ -3150,12 +3223,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CheckPayment
       summary: Create a new CheckPayment entity.
+      description: Create CheckPayment
       operationId: createCheckPayment
       requestBody:
         description: CheckPayment data to create the new resource.
@@ -3172,7 +3248,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}check-payments/KEY78ww5R3vnYzLaNX"
           content:
             application/json:
               schema:
@@ -3223,6 +3299,7 @@ paths:
       tags:
       - CheckPayment
       summary: Replace a CheckPayment entity.
+      description: replace CheckPayment
       operationId: replaceCheckPayment
       parameters:
       - name: If-Match
@@ -3289,7 +3366,8 @@ paths:
       tags:
       - CheckPayment
       summary: Partially update a CheckPayment entity.
-      operationId: updateCheckPayment
+      description: Partially update a CheckPayment
+      operationId: updatePartialCheckPayment
       parameters:
       - name: If-Match
         in: header
@@ -3344,12 +3422,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF3FOn
+        example: KEY78YKSzPFyO1iYNu
   /payment-methods/{paymentMethodKey}/electronic-payments:
     get:
       tags:
       - ElectronicPayment
       summary: Retrieve a list of ElectronicPayment entities scoped by paymentMethodKey.
+      description: list ElectronicPayment By PaymentMethodKey
       operationId: listElectronicPaymentByPaymentMethodKey
       parameters:
       - name: sort
@@ -3407,12 +3486,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ElectronicPayment
       summary: Create a new ElectronicPayment entity.
+      description: Create ElectronicPayment
       operationId: createElectronicPayment
       requestBody:
         description: ElectronicPayment data to create the new resource.
@@ -3429,7 +3511,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}electronic-payments/KEY78ww5R3vnYzLaNXh"
           content:
             application/json:
               schema:
@@ -3480,6 +3562,7 @@ paths:
       tags:
       - ElectronicPayment
       summary: Replace a ElectronicPayment entity.
+      description: replace ElectronicPayment
       operationId: replaceElectronicPayment
       parameters:
       - name: If-Match
@@ -3546,7 +3629,8 @@ paths:
       tags:
       - ElectronicPayment
       summary: Partially update a ElectronicPayment entity.
-      operationId: updateElectronicPayment
+      description: Partially update a ElectronicPayment
+      operationId: updatePartialElectronicPayment
       parameters:
       - name: If-Match
         in: header
@@ -3601,12 +3685,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF3FOnX
+        example: KEY78YKSzPFyO1iYNue
   /payment-methods/{paymentMethodKey}/platform-payments:
     get:
       tags:
       - PlatformPayment
       summary: Retrieve a list of PlatformPayment entities scoped by paymentMethodKey.
+      description: list PlatformPayment By PaymentMethodKey
       operationId: listPlatformPaymentByPaymentMethodKey
       parameters:
       - name: sort
@@ -3664,12 +3749,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PlatformPayment
       summary: Create a new PlatformPayment entity.
+      description: Create PlatformPayment
       operationId: createPlatformPayment
       requestBody:
         description: PlatformPayment data to create the new resource.
@@ -3686,7 +3774,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}platform-payments/KEY78ww5R3vnYzLaNXhX"
           content:
             application/json:
               schema:
@@ -3737,6 +3825,7 @@ paths:
       tags:
       - PlatformPayment
       summary: Replace a PlatformPayment entity.
+      description: replace PlatformPayment
       operationId: replacePlatformPayment
       parameters:
       - name: If-Match
@@ -3803,7 +3892,8 @@ paths:
       tags:
       - PlatformPayment
       summary: Partially update a PlatformPayment entity.
-      operationId: updatePlatformPayment
+      description: Partially update a PlatformPayment
+      operationId: updatePartialPlatformPayment
       parameters:
       - name: If-Match
         in: header
@@ -3858,6 +3948,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF3FOnXA
+        example: KEY78YKSzPFyO1iYNueB
 components:
   schemas: {}

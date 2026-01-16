@@ -22,6 +22,7 @@ paths:
       tags:
       - PaymentEvent
       summary: Retrieve a list of PaymentEvent entities.
+      description: list PaymentEvent By
       operationId: listPaymentEvent
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PaymentEvent
       summary: Create a new PaymentEvent entity.
+      description: Create PaymentEvent
       operationId: createPaymentEvent
       requestBody:
         description: PaymentEvent data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /payment-events/KEY78G
+                example: /payment-events/KEY78v
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - PaymentEvent
       summary: Replace a PaymentEvent entity.
+      description: replace PaymentEvent
       operationId: replacePaymentEvent
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - PaymentEvent
       summary: Partially update a PaymentEvent entity.
-      operationId: updatePaymentEvent
+      description: Partially update a PaymentEvent
+      operationId: updatePartialPaymentEvent
       parameters:
       - name: If-Match
         in: header
@@ -260,6 +266,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY785
+        example: KEY788
 components:
   schemas: {}

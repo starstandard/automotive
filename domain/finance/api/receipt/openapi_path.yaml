@@ -22,6 +22,7 @@ paths:
       tags:
       - Receipt
       summary: Retrieve a list of Receipt entities.
+      description: list Receipt By
       operationId: listReceipt
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Receipt
       summary: Create a new Receipt entity.
+      description: Create Receipt
       operationId: createReceipt
       requestBody:
         description: Receipt data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /receipts/KEY781
+                example: /receipts/KEY78B
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - Receipt
       summary: Replace a Receipt entity.
+      description: replace Receipt
       operationId: replaceReceipt
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - Receipt
       summary: Partially update a Receipt entity.
-      operationId: updateReceipt
+      description: Partially update a Receipt
+      operationId: updatePartialReceipt
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782
+        example: KEY78f
   /receipts/{receiptKey}/shipment-references:
     get:
       tags:
       - ShipmentReference
       summary: Retrieve a list of ShipmentReference entities scoped by receiptKey.
+      description: list ShipmentReference By ReceiptKey
       operationId: listShipmentReferenceByReceiptKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ShipmentReference
       summary: Create a new ShipmentReference entity.
+      description: Create ShipmentReference
       operationId: createShipmentReference
       requestBody:
         description: ShipmentReference data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}shipment-references/KEY78By"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - ShipmentReference
       summary: Replace a ShipmentReference entity.
+      description: replace ShipmentReference
       operationId: replaceShipmentReference
       parameters:
       - name: If-Match
@@ -462,7 +473,8 @@ paths:
       tags:
       - ShipmentReference
       summary: Partially update a ShipmentReference entity.
-      operationId: updateShipmentReference
+      description: Partially update a ShipmentReference
+      operationId: updatePartialShipmentReference
       parameters:
       - name: If-Match
         in: header
@@ -517,12 +529,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782z
+        example: KEY78fi
   /receipts/{receiptKey}/unit-of-measures:
     get:
       tags:
       - UnitOfMeasure
       summary: Retrieve a list of UnitOfMeasure entities scoped by receiptKey.
+      description: list UnitOfMeasure By ReceiptKey
       operationId: listUnitOfMeasureByReceiptKey
       parameters:
       - name: sort
@@ -580,6 +593,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -625,12 +640,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zM
+        example: KEY78fi4
   /receipts/{receiptKey}/positions:
     get:
       tags:
       - Position
       summary: Retrieve a list of Position entities scoped by receiptKey.
+      description: list Position By ReceiptKey
       operationId: listPositionByReceiptKey
       parameters:
       - name: sort
@@ -688,12 +704,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Position
       summary: Create a new Position entity.
+      description: Create Position
       operationId: createPosition
       requestBody:
         description: Position data to create the new resource.
@@ -710,7 +729,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}positions/KEY78Byxi"
           content:
             application/json:
               schema:
@@ -761,6 +780,7 @@ paths:
       tags:
       - Position
       summary: Replace a Position entity.
+      description: replace Position
       operationId: replacePosition
       parameters:
       - name: If-Match
@@ -827,7 +847,8 @@ paths:
       tags:
       - Position
       summary: Partially update a Position entity.
-      operationId: updatePosition
+      description: Partially update a Position
+      operationId: updatePartialPosition
       parameters:
       - name: If-Match
         in: header
@@ -882,12 +903,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zME
+        example: KEY78fi4Y
   /receipts/{receiptKey}/time-slots:
     get:
       tags:
       - TimeSlot
       summary: Retrieve a list of TimeSlot entities scoped by receiptKey.
+      description: list TimeSlot By ReceiptKey
       operationId: listTimeSlotByReceiptKey
       parameters:
       - name: sort
@@ -945,6 +967,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -990,12 +1014,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEa
+        example: KEY78fi4YN
   /receipts/{receiptKey}/address-references:
     get:
       tags:
       - AddressReference
       summary: Retrieve a list of AddressReference entities scoped by receiptKey.
+      description: list AddressReference By ReceiptKey
       operationId: listAddressReferenceByReceiptKey
       parameters:
       - name: sort
@@ -1053,12 +1078,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - AddressReference
       summary: Create a new AddressReference entity.
+      description: Create AddressReference
       operationId: createAddressReference
       requestBody:
         description: AddressReference data to create the new resource.
@@ -1075,7 +1103,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}address-references/KEY78Byxi8p"
           content:
             application/json:
               schema:
@@ -1126,6 +1154,7 @@ paths:
       tags:
       - AddressReference
       summary: Replace a AddressReference entity.
+      description: replace AddressReference
       operationId: replaceAddressReference
       parameters:
       - name: If-Match
@@ -1192,7 +1221,8 @@ paths:
       tags:
       - AddressReference
       summary: Partially update a AddressReference entity.
-      operationId: updateAddressReference
+      description: Partially update a AddressReference
+      operationId: updatePartialAddressReference
       parameters:
       - name: If-Match
         in: header
@@ -1247,12 +1277,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEaE
+        example: KEY78fi4YNK
   /receipts/{receiptKey}/party-references:
     get:
       tags:
       - PartyReference
       summary: Retrieve a list of PartyReference entities scoped by receiptKey.
+      description: list PartyReference By ReceiptKey
       operationId: listPartyReferenceByReceiptKey
       parameters:
       - name: sort
@@ -1310,12 +1341,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartyReference
       summary: Create a new PartyReference entity.
+      description: Create PartyReference
       operationId: createPartyReference
       requestBody:
         description: PartyReference data to create the new resource.
@@ -1332,7 +1366,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}party-references/KEY78Byxi8pD"
           content:
             application/json:
               schema:
@@ -1383,6 +1417,7 @@ paths:
       tags:
       - PartyReference
       summary: Replace a PartyReference entity.
+      description: replace PartyReference
       operationId: replacePartyReference
       parameters:
       - name: If-Match
@@ -1449,7 +1484,8 @@ paths:
       tags:
       - PartyReference
       summary: Partially update a PartyReference entity.
-      operationId: updatePartyReference
+      description: Partially update a PartyReference
+      operationId: updatePartialPartyReference
       parameters:
       - name: If-Match
         in: header
@@ -1504,12 +1540,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEaEx
+        example: KEY78fi4YNKa
   /receipts/{receiptKey}/staff-assignment-references:
     get:
       tags:
       - StaffAssignmentReference
       summary: Retrieve a list of StaffAssignmentReference entities scoped by receiptKey.
+      description: list StaffAssignmentReference By ReceiptKey
       operationId: listStaffAssignmentReferenceByReceiptKey
       parameters:
       - name: sort
@@ -1567,12 +1604,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - StaffAssignmentReference
       summary: Create a new StaffAssignmentReference entity.
+      description: Create StaffAssignmentReference
       operationId: createStaffAssignmentReference
       requestBody:
         description: StaffAssignmentReference data to create the new resource.
@@ -1589,7 +1629,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}staff-assignment-references/KEY78Byxi8pDj"
           content:
             application/json:
               schema:
@@ -1640,6 +1680,7 @@ paths:
       tags:
       - StaffAssignmentReference
       summary: Replace a StaffAssignmentReference entity.
+      description: replace StaffAssignmentReference
       operationId: replaceStaffAssignmentReference
       parameters:
       - name: If-Match
@@ -1707,7 +1748,8 @@ paths:
       tags:
       - StaffAssignmentReference
       summary: Partially update a StaffAssignmentReference entity.
-      operationId: updateStaffAssignmentReference
+      description: Partially update a StaffAssignmentReference
+      operationId: updatePartialStaffAssignmentReference
       parameters:
       - name: If-Match
         in: header
@@ -1762,12 +1804,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEaExi
+        example: KEY78fi4YNKa1
   /receipts/{receiptKey}/shipment-events:
     get:
       tags:
       - ShipmentEvent
       summary: Retrieve a list of ShipmentEvent entities scoped by receiptKey.
+      description: list ShipmentEvent By ReceiptKey
       operationId: listShipmentEventByReceiptKey
       parameters:
       - name: sort
@@ -1825,12 +1868,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ShipmentEvent
       summary: Create a new ShipmentEvent entity.
+      description: Create ShipmentEvent
       operationId: createShipmentEvent
       requestBody:
         description: ShipmentEvent data to create the new resource.
@@ -1847,7 +1893,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}shipment-events/KEY78Byxi8pDje"
           content:
             application/json:
               schema:
@@ -1898,6 +1944,7 @@ paths:
       tags:
       - ShipmentEvent
       summary: Replace a ShipmentEvent entity.
+      description: replace ShipmentEvent
       operationId: replaceShipmentEvent
       parameters:
       - name: If-Match
@@ -1964,7 +2011,8 @@ paths:
       tags:
       - ShipmentEvent
       summary: Partially update a ShipmentEvent entity.
-      operationId: updateShipmentEvent
+      description: Partially update a ShipmentEvent
+      operationId: updatePartialShipmentEvent
       parameters:
       - name: If-Match
         in: header
@@ -2019,12 +2067,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEaExiN
+        example: KEY78fi4YNKa1C
   /receipts/{receiptKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by receiptKey.
+      description: list Identifier By ReceiptKey
       operationId: listIdentifierByReceiptKey
       parameters:
       - name: sort
@@ -2082,12 +2131,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -2104,7 +2156,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}identifiers/KEY78Byxi8pDjeb"
           content:
             application/json:
               schema:
@@ -2155,6 +2207,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -2221,7 +2274,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -2276,12 +2330,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEaExiNu
+        example: KEY78fi4YNKa1CQ
   /receipts/{receiptKey}/prices:
     get:
       tags:
       - Price
       summary: Retrieve a list of Price entities scoped by receiptKey.
+      description: list Price By ReceiptKey
       operationId: listPriceByReceiptKey
       parameters:
       - name: sort
@@ -2339,12 +2394,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Price
       summary: Create a new Price entity.
+      description: Create Price
       operationId: createPrice
       requestBody:
         description: Price data to create the new resource.
@@ -2361,7 +2419,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}prices/KEY78Byxi8pDjebQ"
           content:
             application/json:
               schema:
@@ -2412,6 +2470,7 @@ paths:
       tags:
       - Price
       summary: Replace a Price entity.
+      description: replace Price
       operationId: replacePrice
       parameters:
       - name: If-Match
@@ -2478,7 +2537,8 @@ paths:
       tags:
       - Price
       summary: Partially update a Price entity.
-      operationId: updatePrice
+      description: Partially update a Price
+      operationId: updatePartialPrice
       parameters:
       - name: If-Match
         in: header
@@ -2533,12 +2593,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEaExiNuo
+        example: KEY78fi4YNKa1CQ6
   /receipts/{receiptKey}/purchase-order-references:
     get:
       tags:
       - PurchaseOrderReference
       summary: Retrieve a list of PurchaseOrderReference entities scoped by receiptKey.
+      description: list PurchaseOrderReference By ReceiptKey
       operationId: listPurchaseOrderReferenceByReceiptKey
       parameters:
       - name: sort
@@ -2596,12 +2657,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PurchaseOrderReference
       summary: Create a new PurchaseOrderReference entity.
+      description: Create PurchaseOrderReference
       operationId: createPurchaseOrderReference
       requestBody:
         description: PurchaseOrderReference data to create the new resource.
@@ -2618,7 +2682,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}purchase-order-references/KEY78Byxi8pDjebQE"
           content:
             application/json:
               schema:
@@ -2669,6 +2733,7 @@ paths:
       tags:
       - PurchaseOrderReference
       summary: Replace a PurchaseOrderReference entity.
+      description: replace PurchaseOrderReference
       operationId: replacePurchaseOrderReference
       parameters:
       - name: If-Match
@@ -2736,7 +2801,8 @@ paths:
       tags:
       - PurchaseOrderReference
       summary: Partially update a PurchaseOrderReference entity.
-      operationId: updatePurchaseOrderReference
+      description: Partially update a PurchaseOrderReference
+      operationId: updatePartialPurchaseOrderReference
       parameters:
       - name: If-Match
         in: header
@@ -2791,12 +2857,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEaExiNuof
+        example: KEY78fi4YNKa1CQ6U
   /receipts/{receiptKey}/receipt-line-items:
     get:
       tags:
       - ReceiptLineItem
       summary: Retrieve a list of ReceiptLineItem entities scoped by receiptKey.
+      description: list ReceiptLineItem By ReceiptKey
       operationId: listReceiptLineItemByReceiptKey
       parameters:
       - name: sort
@@ -2854,12 +2921,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ReceiptLineItem
       summary: Create a new ReceiptLineItem entity.
+      description: Create ReceiptLineItem
       operationId: createReceiptLineItem
       requestBody:
         description: ReceiptLineItem data to create the new resource.
@@ -2876,7 +2946,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}receipt-line-items/KEY78Byxi8pDjebQEy"
           content:
             application/json:
               schema:
@@ -2927,6 +2997,7 @@ paths:
       tags:
       - ReceiptLineItem
       summary: Replace a ReceiptLineItem entity.
+      description: replace ReceiptLineItem
       operationId: replaceReceiptLineItem
       parameters:
       - name: If-Match
@@ -2993,7 +3064,8 @@ paths:
       tags:
       - ReceiptLineItem
       summary: Partially update a ReceiptLineItem entity.
-      operationId: updateReceiptLineItem
+      description: Partially update a ReceiptLineItem
+      operationId: updatePartialReceiptLineItem
       parameters:
       - name: If-Match
         in: header
@@ -3048,12 +3120,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEaExiNuofM
+        example: KEY78fi4YNKa1CQ6UE
   /receipts/{receiptKey}/part-references:
     get:
       tags:
       - PartReference
       summary: Retrieve a list of PartReference entities scoped by receiptKey.
+      description: list PartReference By ReceiptKey
       operationId: listPartReferenceByReceiptKey
       parameters:
       - name: sort
@@ -3111,12 +3184,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartReference
       summary: Create a new PartReference entity.
+      description: Create PartReference
       operationId: createPartReference
       requestBody:
         description: PartReference data to create the new resource.
@@ -3133,7 +3209,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}part-references/KEY78Byxi8pDjebQEyQ"
           content:
             application/json:
               schema:
@@ -3184,6 +3260,7 @@ paths:
       tags:
       - PartReference
       summary: Replace a PartReference entity.
+      description: replace PartReference
       operationId: replacePartReference
       parameters:
       - name: If-Match
@@ -3250,7 +3327,8 @@ paths:
       tags:
       - PartReference
       summary: Partially update a PartReference entity.
-      operationId: updatePartReference
+      description: Partially update a PartReference
+      operationId: updatePartialPartReference
       parameters:
       - name: If-Match
         in: header
@@ -3305,12 +3383,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEaExiNuofMV
+        example: KEY78fi4YNKa1CQ6UE9
   /receipts/{receiptKey}/effective-periods:
     get:
       tags:
       - EffectivePeriod
       summary: Retrieve a list of EffectivePeriod entities scoped by receiptKey.
+      description: list EffectivePeriod By ReceiptKey
       operationId: listEffectivePeriodByReceiptKey
       parameters:
       - name: sort
@@ -3368,6 +3447,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -3413,12 +3494,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEaExiNuofMVk
+        example: KEY78fi4YNKa1CQ6UE9y
   /receipts/{receiptKey}/lifecycle-events:
     get:
       tags:
       - LifecycleEvent
       summary: Retrieve a list of LifecycleEvent entities scoped by receiptKey.
+      description: list LifecycleEvent By ReceiptKey
       operationId: listLifecycleEventByReceiptKey
       parameters:
       - name: sort
@@ -3476,12 +3558,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - LifecycleEvent
       summary: Create a new LifecycleEvent entity.
+      description: Create LifecycleEvent
       operationId: createLifecycleEvent
       requestBody:
         description: LifecycleEvent data to create the new resource.
@@ -3498,7 +3583,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}lifecycle-events/KEY78Byxi8pDjebQEyQDH"
           content:
             application/json:
               schema:
@@ -3549,6 +3634,7 @@ paths:
       tags:
       - LifecycleEvent
       summary: Replace a LifecycleEvent entity.
+      description: replace LifecycleEvent
       operationId: replaceLifecycleEvent
       parameters:
       - name: If-Match
@@ -3615,7 +3701,8 @@ paths:
       tags:
       - LifecycleEvent
       summary: Partially update a LifecycleEvent entity.
-      operationId: updateLifecycleEvent
+      description: Partially update a LifecycleEvent
+      operationId: updatePartialLifecycleEvent
       parameters:
       - name: If-Match
         in: header
@@ -3670,12 +3757,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEaExiNuofMVkX
+        example: KEY78fi4YNKa1CQ6UE9yI
   /receipts/{receiptKey}/warehouse-references:
     get:
       tags:
       - WarehouseReference
       summary: Retrieve a list of WarehouseReference entities scoped by receiptKey.
+      description: list WarehouseReference By ReceiptKey
       operationId: listWarehouseReferenceByReceiptKey
       parameters:
       - name: sort
@@ -3733,12 +3821,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - WarehouseReference
       summary: Create a new WarehouseReference entity.
+      description: Create WarehouseReference
       operationId: createWarehouseReference
       requestBody:
         description: WarehouseReference data to create the new resource.
@@ -3755,7 +3846,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}warehouse-references/KEY78Byxi8pDjebQEyQDHz"
           content:
             application/json:
               schema:
@@ -3806,6 +3897,7 @@ paths:
       tags:
       - WarehouseReference
       summary: Replace a WarehouseReference entity.
+      description: replace WarehouseReference
       operationId: replaceWarehouseReference
       parameters:
       - name: If-Match
@@ -3872,7 +3964,8 @@ paths:
       tags:
       - WarehouseReference
       summary: Partially update a WarehouseReference entity.
-      operationId: updateWarehouseReference
+      description: Partially update a WarehouseReference
+      operationId: updatePartialWarehouseReference
       parameters:
       - name: If-Match
         in: header
@@ -3927,12 +4020,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEaExiNuofMVkXG
+        example: KEY78fi4YNKa1CQ6UE9yIw
   /receipts/{receiptKey}/financial-track-references:
     get:
       tags:
       - FinancialTrackReference
       summary: Retrieve a list of FinancialTrackReference entities scoped by receiptKey.
+      description: list FinancialTrackReference By ReceiptKey
       operationId: listFinancialTrackReferenceByReceiptKey
       parameters:
       - name: sort
@@ -3990,12 +4084,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialTrackReference
       summary: Create a new FinancialTrackReference entity.
+      description: Create FinancialTrackReference
       operationId: createFinancialTrackReference
       requestBody:
         description: FinancialTrackReference data to create the new resource.
@@ -4012,7 +4109,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/receipts{receiptKey}financial-track-references/KEY78Byxi8pDjebQEyQDHzL"
           content:
             application/json:
               schema:
@@ -4063,6 +4160,7 @@ paths:
       tags:
       - FinancialTrackReference
       summary: Replace a FinancialTrackReference entity.
+      description: replace FinancialTrackReference
       operationId: replaceFinancialTrackReference
       parameters:
       - name: If-Match
@@ -4130,7 +4228,8 @@ paths:
       tags:
       - FinancialTrackReference
       summary: Partially update a FinancialTrackReference entity.
-      operationId: updateFinancialTrackReference
+      description: Partially update a FinancialTrackReference
+      operationId: updatePartialFinancialTrackReference
       parameters:
       - name: If-Match
         in: header
@@ -4185,6 +4284,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY782zMEaExiNuofMVkXGQ
+        example: KEY78fi4YNKa1CQ6UE9yIwz
 components:
   schemas: {}

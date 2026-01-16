@@ -19,12 +19,24 @@ security:
   - standard:read
 - member-api-key: []
 - {}
+tags:
+- name: FinancialSnapshotLineItem
+  description: Operations related to FinancialSnapshotLineItem
+- name: FinancialSnapshot
+  description: Operations related to FinancialSnapshot
+- name: Money
+  description: Operations related to Money
+- name: FinancialSnapshotCriteria
+  description: Operations related to FinancialSnapshotCriteria
+- name: Default
+  description: Operations related to Default
 paths:
   /financial-snapshots:
     get:
       tags:
       - FinancialSnapshot
       summary: Retrieve a list of FinancialSnapshot entities.
+      description: list FinancialSnapshot By
       operationId: listFinancialSnapshot
       parameters:
       - name: sort
@@ -76,6 +88,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -86,12 +99,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialSnapshot
       summary: Create a new FinancialSnapshot entity.
+      description: Create FinancialSnapshot
       operationId: createFinancialSnapshot
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -110,7 +126,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /financial-snapshots/KEY78H
+                example: /financial-snapshots/KEY78m
           content:
             application/json:
               schema:
@@ -132,6 +148,7 @@ paths:
       tags:
       - FinancialSnapshot
       summary: Retrieve a specific FinancialSnapshot entity.
+      description: "Standard GET operation for /financial-snapshots/{financialSnapshotKey}"
       operationId: getFinancialSnapshotById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -159,6 +176,7 @@ paths:
       tags:
       - FinancialSnapshot
       summary: Replace a FinancialSnapshot entity.
+      description: replace FinancialSnapshot
       operationId: replaceFinancialSnapshot
       parameters:
       - name: If-Match
@@ -230,7 +248,8 @@ paths:
       tags:
       - FinancialSnapshot
       summary: Partially update a FinancialSnapshot entity.
-      operationId: updateFinancialSnapshot
+      description: Partially update a FinancialSnapshot
+      operationId: updatePartialFinancialSnapshot
       parameters:
       - name: If-Match
         in: header
@@ -281,12 +300,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78z
+        example: KEY78r
   /financial-snapshots/{financialSnapshotKey}/financial-snapshot-line-items:
     get:
       tags:
       - FinancialSnapshotLineItem
       summary: Retrieve a list of FinancialSnapshotLineItem en...
+      description: list FinancialSnapshotLineItem By FinancialSnap...
       operationId: listFinancialSnapshotLineItemByFinancialSnapshotKey
       parameters:
       - name: sort
@@ -338,6 +358,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -348,12 +369,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialSnapshotLineItem
       summary: Create a new FinancialSnapshotLineItem entity.
+      description: Create FinancialSnapshotLineItem
       operationId: createFinancialSnapshotLineItem
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -372,7 +396,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-snapshots{financialSnapshotKey}financial-snapshot-line-items/KEY78mO"
           content:
             application/json:
               schema:
@@ -401,6 +425,7 @@ paths:
       tags:
       - FinancialSnapshotLineItem
       summary: Retrieve a specific FinancialSnapshotLineItem e...
+      description: "Standard GET operation for /financial-snapshots/{financialSnapshotKey}/financial-snapshot-line-items/{financialSnapshotLineItemKey}"
       operationId: getFinancialSnapshotLineItemById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -428,6 +453,7 @@ paths:
       tags:
       - FinancialSnapshotLineItem
       summary: Replace a FinancialSnapshotLineItem entity.
+      description: replace FinancialSnapshotLineItem
       operationId: replaceFinancialSnapshotLineItem
       parameters:
       - name: If-Match
@@ -499,7 +525,8 @@ paths:
       tags:
       - FinancialSnapshotLineItem
       summary: Partially update a FinancialSnapshotLineItem en...
-      operationId: updateFinancialSnapshotLineItem
+      description: Partially update a FinancialSnapshotLineItem
+      operationId: updatePartialFinancialSnapshotLineItem
       parameters:
       - name: If-Match
         in: header
@@ -556,12 +583,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zX
+        example: KEY78rp
   /financial-snapshots/{financialSnapshotKey}/money:
     get:
       tags:
       - Money
       summary: Retrieve a list of Money entities scoped by fin...
+      description: list Money By FinancialSnapshotKey
       operationId: listMoneyByFinancialSnapshotKey
       parameters:
       - name: sort
@@ -613,6 +641,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -623,6 +652,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -637,6 +668,7 @@ paths:
       tags:
       - Money
       summary: Retrieve a specific Money entity.
+      description: "Standard GET operation for /financial-snapshots/{financialSnapshotKey}/money/{moneyKey}"
       operationId: getMoneyById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -673,12 +705,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXT
+        example: KEY78rp0
   /financial-snapshots/{financialSnapshotKey}/financial-snapshot-criteria:
     get:
       tags:
       - FinancialSnapshotCriteria
       summary: Retrieve a list of FinancialSnapshotCriteria en...
+      description: list FinancialSnapshotCriteria By FinancialSnap...
       operationId: listFinancialSnapshotCriteriaByFinancialSnapshotKey
       parameters:
       - name: sort
@@ -730,6 +763,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -740,12 +774,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialSnapshotCriteria
       summary: Create a new FinancialSnapshotCriteria entity.
+      description: Create FinancialSnapshotCriteria
       operationId: createFinancialSnapshotCriteria
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -764,7 +801,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-snapshots{financialSnapshotKey}financial-snapshot-criteria/KEY78mOqG"
           content:
             application/json:
               schema:
@@ -793,6 +830,7 @@ paths:
       tags:
       - FinancialSnapshotCriteria
       summary: Retrieve a specific FinancialSnapshotCriteria e...
+      description: "Standard GET operation for /financial-snapshots/{financialSnapshotKey}/financial-snapshot-criteria/{financialSnapshotCriteriaKey}"
       operationId: getFinancialSnapshotCriteriaById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -820,6 +858,7 @@ paths:
       tags:
       - FinancialSnapshotCriteria
       summary: Replace a FinancialSnapshotCriteria entity.
+      description: replace FinancialSnapshotCriteria
       operationId: replaceFinancialSnapshotCriteria
       parameters:
       - name: If-Match
@@ -891,7 +930,8 @@ paths:
       tags:
       - FinancialSnapshotCriteria
       summary: Partially update a FinancialSnapshotCriteria en...
-      operationId: updateFinancialSnapshotCriteria
+      description: Partially update a FinancialSnapshotCriteria
+      operationId: updatePartialFinancialSnapshotCriteria
       parameters:
       - name: If-Match
         in: header
@@ -948,11 +988,14 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXTw
+        example: KEY78rp0w
   /financial-snapshots/health:
     get:
+      tags:
+      - Default
       summary: Health Check
       description: Public endpoint to verify service availability.
+      operationId: getFinancialSnapshotHealth
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
       responses:
@@ -985,11 +1028,22 @@ paths:
                     description: Server time in ISO-8601 format.
                     format: date-time
                     example: 2025-12-21T23:00:00Z
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       security:
       - {}
   /financial-snapshots/batch:
     post:
+      tags:
+      - Default
       summary: Bulk create financial-snapshots
+      description: Bulk Create of FinancialSnapshot
       operationId: createFinancialSnapshotBatch
       requestBody:
         content:
@@ -1005,6 +1059,12 @@ paths:
       responses:
         "200":
           description: Batch processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /financial-snapshots/batch/8635431429797994152
           content:
             application/json:
               schema:
@@ -1024,9 +1084,23 @@ paths:
                           format: int32
                         error:
                           $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
   /financial-snapshots/exports:
     post:
+      tags:
+      - Default
       summary: Initiate a bulk FinancialSnapshot export
+      description: Standard POST operation for /financial-snapshots/exports
+      operationId: initiateFinancialSnapshotExport
       parameters:
       - name: Idempotency-Key
         in: header
@@ -1043,6 +1117,7 @@ paths:
               properties:
                 format:
                   type: string
+                  example: string
                   default: PARQUET
                   enum:
                   - XML
@@ -1097,10 +1172,17 @@ paths:
                   description: "If true, the system validates the request and returns\
                     \ potential violations or metadata (like estimated size) without\
                     \ starting the job."
+                  example: false
                   default: false
       responses:
         "202":
           description: Export job created/accepted
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /financial-snapshots/exports/381603769997943568
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -1109,6 +1191,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       callbacks:
         onExportCompleted:
           '{$request.body#/notification/webhook_url}':
@@ -1125,7 +1215,11 @@ paths:
                   description: Webhook received
   /financial-snapshots/exports/{exportId}:
     get:
+      tags:
+      - Default
       summary: Get export status
+      description: Get Export Status of FinancialSnapshot
+      operationId: getFinancialSnapshotExportStatus
       parameters:
       - name: exportId
         in: path
@@ -1139,8 +1233,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExportJob"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /financial-snapshots/{financialSnapshotKey}/commands:
     post:
+      tags:
+      - Default
       summary: Execute a business workflow on FinancialSnapshot
       description: Single entry point for all FinancialSnapshot state-changing intents.
       operationId: executeFinancialSnapshotCommand
@@ -1175,6 +1279,12 @@ paths:
       responses:
         "200":
           description: Commands processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: "/financial-snapshots/{financialSnapshotKey}/commands/1743783754726154743"
           content:
             application/json:
               schema:
@@ -1196,7 +1306,7 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #8baa6baa has been successfully cancelled."
+                    example: "Invoice #f9ba66e4 has been successfully cancelled."
                   commandId:
                     type: string
                     description: The tracking ID for this specific command execution
@@ -1204,7 +1314,7 @@ paths:
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: 4b921351
+                    example: 25076f35
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -1213,6 +1323,7 @@ paths:
                     type: boolean
                     description: "If true, the agent can attempt this command again\
                       \ immediately"
+                    example: false
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -1229,6 +1340,8 @@ paths:
           $ref: "#/components/responses/ServerError"
   /financial-snapshots/{financialSnapshotKey}/commands/{commandId}:
     get:
+      tags:
+      - Default
       summary: Poll FinancialSnapshot command status
       description: Check the progress or result of a previously submitted command.
       operationId: getFinancialSnapshotCommandStatus
@@ -1257,6 +1370,7 @@ paths:
                     type: string
                     description: The unique identifier for the command being tracked
                     format: uuid
+                    readOnly: true
                   status:
                     type: string
                     description: The current lifecycle state of the command
@@ -1284,9 +1398,20 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /financial-snapshots/capabilities:
     get:
+      tags:
+      - Default
       summary: Discover FinancialSnapshot Capabilities
+      description: Standard GET operation for /financial-snapshots/capabilities
       operationId: getFinancialSnapshotCapabilities
       parameters:
       - name: include
@@ -1321,6 +1446,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Capabilities"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     Capabilities:
@@ -1415,8 +1548,7 @@ components:
                     example: P7D
                   is_pii_sensitive:
                     type: boolean
-                    description: Indicates if the export contains Personally Identifiable
-                      Information
+                    description: Indicates export contains PII
                     example: false
                   access_tier:
                     type: string
@@ -1435,6 +1567,7 @@ components:
                     rule_id:
                       type: string
                       description: Unique identifier for the business rule
+                      readOnly: true
                       example: IDENTITY_LOCK_STATE
                     constraint_type:
                       type: string
@@ -1468,9 +1601,9 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
+                        item_type: Inventory
                         count: "45"
                         limit: "0"
-                        item_type: Inventory
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -1479,9 +1612,9 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
+                        min: "1"
                         value: "31"
                         unit: days
-                        min: "1"
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -1523,7 +1656,7 @@ components:
       - code
       - message
       - timestamp
-      - traceId
+      - trace_id
       type: object
       properties:
         code:
@@ -1550,11 +1683,12 @@ components:
           description: The time the error occurred (ISO 8601).
           format: date-time
           example: 2025-11-10T10:30:00Z
-        traceId:
+        trace_id:
           type: string
           description: "A unique identifier for this specific request, ..."
+          readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
-        docUrl:
+        doc_url:
           type: string
           description: A URL leading to the documentation page for thi...
           format: uri
@@ -1585,11 +1719,14 @@ components:
           type: integer
           description: Part number
           format: int32
+          example: 1
         download_url:
           type: string
           format: uri
+          example: https://api.example.com
         format:
           type: string
+          example: string
           default: PARQUET
           enum:
           - XML
@@ -1600,15 +1737,20 @@ components:
         expires_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
+          example: string
     ExportJob:
       type: object
       properties:
         id:
           type: string
+          readOnly: true
+          example: string
         status:
           type: string
+          example: string
           enum:
           - PENDING
           - PROCESSING
@@ -1619,6 +1761,7 @@ components:
           minimum: 0
           type: integer
           format: int32
+          example: 1
         files:
           type: array
           items:
@@ -1628,22 +1771,26 @@ components:
       properties:
         event_type:
           type: string
+          example: string
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
         occurred_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         data:
           type: object
           properties:
             job_id:
               type: string
+              readOnly: true
             aggregate:
               type: string
               example: FinancialSnapshot
             data_product_id:
               type: string
+              readOnly: true
             status:
               type: string
               enum:
@@ -1690,13 +1837,17 @@ components:
         financial_snapshot_id:
           type: string
           description: The unique ID for this generated snapsho...
+          readOnly: true
+          example: string
         financial_snapshot_key:
           type: string
           description: The unique ID for this generated snapsho...
+          example: string
         as_of_date:
           type: string
           description: The date and time the snapshot was proce...
           format: date
+          example: 2026-01-14
         criteria:
           $ref: "#/components/schemas/FinancialSnapshotCriteria"
         lines:
@@ -1715,25 +1866,33 @@ components:
         financial_snapshot_criteria_id:
           type: string
           description: The unique ID for this generated snapsho...
+          readOnly: true
+          example: string
         financial_snapshot_criteria_key:
           type: string
           description: The unique ID for this generated snapsho...
+          example: string
         organization_id:
           type: string
           description: The unique identifier for the organizati...
+          readOnly: true
+          example: string
         financial_report_type:
           $ref: "#/components/schemas/FinancialReportTypes"
         as_of_date:
           type: string
           description: The exact date for which the financial d...
           format: date
+          example: 2026-01-14
         comparison_date:
           type: string
           description: Optional date defining a previous period...
           format: date
+          example: 2026-01-14
         gl_account_filter_key:
           type: string
           description: Optional key for filtering the report to...
+          example: string
       description: The parameters used to capture a snapshot.
     FinancialSnapshotCriteriaCreate:
       required:
@@ -1751,10 +1910,12 @@ components:
           type: string
           description: The exact date for which the financial d...
           format: date
+          example: 2026-01-14
         comparison_date:
           type: string
           description: Optional date defining a previous period...
           format: date
+          example: 2026-01-14
       description: FinancialSnapshotCriteria Update for Patch and Put
     FinancialSnapshotLineItem:
       type: object
@@ -1762,12 +1923,16 @@ components:
         financial_snapshot_line_item_id:
           type: string
           description: The unique ID for this generated snapsho...
+          readOnly: true
+          example: string
         financial_snapshot_line_item_key:
           type: string
           description: The unique ID for this generated snapsho...
+          example: string
         account_name:
           type: string
           description: The descriptive name of the account line...
+          example: string
         financial_category_type:
           $ref: "#/components/schemas/FinancialCategoryTypes"
         current_balance:
@@ -1788,6 +1953,7 @@ components:
         account_name:
           type: string
           description: The descriptive name of the account line...
+          example: string
         comparison_balance:
           $ref: "#/components/schemas/Money"
         current_balance:
@@ -1810,6 +1976,7 @@ components:
           type: string
           description: The date and time the snapshot was proce...
           format: date
+          example: 2026-01-14
         criteria:
           $ref: "#/components/schemas/FinancialSnapshotCriteria"
         lines:
@@ -1821,6 +1988,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
+          example: string
           enum:
           - CREATED
           - ACTIVE
@@ -1838,21 +2006,28 @@ components:
         money_key:
           type: string
           description: The unique key for the monetary value.
+          example: string
         money_id:
           type: string
           description: The unique ID for the monetary value.
+          readOnly: true
+          example: string
         currency_code:
           type: string
           description: "ISO currency code, e.g., 'USD'."
+          example: string
         display_value:
           type: string
           description: The locale-specific display format for t...
+          example: string
         locale:
           type: string
           description: "The locale code (e.g., en-US, fr-FR)."
+          example: string
         value:
           type: string
           description: The monetary value.
+          example: string
       description: Monetary value and currency information.
     ProblemDetail:
       type: object
@@ -1874,7 +2049,7 @@ components:
         instance:
           type: string
           format: uri
-          example: /money/exports
+          example: https://api.yourdomain.com/money/exports
         intent:
           type: string
           example: InitiateMoneyExport

@@ -22,6 +22,7 @@ paths:
       tags:
       - OrgProfile
       summary: Retrieve a list of OrgProfile entities.
+      description: list OrgProfile By
       operationId: listOrgProfile
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - OrgProfile
       summary: Create a new OrgProfile entity.
+      description: Create OrgProfile
       operationId: createOrgProfile
       requestBody:
         description: OrgProfile data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /org-profiles/KEY78T
+                example: /org-profiles/KEY78M
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - OrgProfile
       summary: Replace a OrgProfile entity.
+      description: replace OrgProfile
       operationId: replaceOrgProfile
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - OrgProfile
       summary: Partially update a OrgProfile entity.
-      operationId: updateOrgProfile
+      description: Partially update a OrgProfile
+      operationId: updatePartialOrgProfile
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78b
+        example: KEY78T
   /org-profiles/{orgProfileKey}/payment-term-references:
     get:
       tags:
       - PaymentTermReference
       summary: Retrieve a list of PaymentTermReference entities scoped by orgProfileKey.
+      description: list PaymentTermReference By OrgProfileKey
       operationId: listPaymentTermReferenceByOrgProfileKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PaymentTermReference
       summary: Create a new PaymentTermReference entity.
+      description: Create PaymentTermReference
       operationId: createPaymentTermReference
       requestBody:
         description: PaymentTermReference data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}payment-term-references/KEY78MD"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - PaymentTermReference
       summary: Replace a PaymentTermReference entity.
+      description: replace PaymentTermReference
       operationId: replacePaymentTermReference
       parameters:
       - name: If-Match
@@ -463,7 +474,8 @@ paths:
       tags:
       - PaymentTermReference
       summary: Partially update a PaymentTermReference entity.
-      operationId: updatePaymentTermReference
+      description: Partially update a PaymentTermReference
+      operationId: updatePartialPaymentTermReference
       parameters:
       - name: If-Match
         in: header
@@ -518,12 +530,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bz
+        example: KEY78T4
   /org-profiles/{orgProfileKey}/discounts:
     get:
       tags:
       - Discount
       summary: Retrieve a list of Discount entities scoped by orgProfileKey.
+      description: list Discount By OrgProfileKey
       operationId: listDiscountByOrgProfileKey
       parameters:
       - name: sort
@@ -581,12 +594,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Discount
       summary: Create a new Discount entity.
+      description: Create Discount
       operationId: createDiscount
       requestBody:
         description: Discount data to create the new resource.
@@ -603,7 +619,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}discounts/KEY78MDL"
           content:
             application/json:
               schema:
@@ -654,6 +670,7 @@ paths:
       tags:
       - Discount
       summary: Replace a Discount entity.
+      description: replace Discount
       operationId: replaceDiscount
       parameters:
       - name: If-Match
@@ -720,7 +737,8 @@ paths:
       tags:
       - Discount
       summary: Partially update a Discount entity.
-      operationId: updateDiscount
+      description: Partially update a Discount
+      operationId: updatePartialDiscount
       parameters:
       - name: If-Match
         in: header
@@ -775,12 +793,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzO
+        example: KEY78T41
   /org-profiles/{orgProfileKey}/addresses:
     get:
       tags:
       - Address
       summary: Retrieve a list of Address entities scoped by orgProfileKey.
+      description: list Address By OrgProfileKey
       operationId: listAddressByOrgProfileKey
       parameters:
       - name: sort
@@ -838,12 +857,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Address
       summary: Create a new Address entity.
+      description: Create Address
       operationId: createAddress
       requestBody:
         description: Address data to create the new resource.
@@ -860,7 +882,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}addresses/KEY78MDL9"
           content:
             application/json:
               schema:
@@ -911,6 +933,7 @@ paths:
       tags:
       - Address
       summary: Replace a Address entity.
+      description: replace Address
       operationId: replaceAddress
       parameters:
       - name: If-Match
@@ -977,7 +1000,8 @@ paths:
       tags:
       - Address
       summary: Partially update a Address entity.
-      operationId: updateAddress
+      description: Partially update a Address
+      operationId: updatePartialAddress
       parameters:
       - name: If-Match
         in: header
@@ -1032,12 +1056,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOm
+        example: KEY78T41R
   /org-profiles/{orgProfileKey}/org-names:
     get:
       tags:
       - OrgName
       summary: Retrieve a list of OrgName entities scoped by orgProfileKey.
+      description: list OrgName By OrgProfileKey
       operationId: listOrgNameByOrgProfileKey
       parameters:
       - name: sort
@@ -1095,12 +1120,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - OrgName
       summary: Create a new OrgName entity.
+      description: Create OrgName
       operationId: createOrgName
       requestBody:
         description: OrgName data to create the new resource.
@@ -1117,7 +1145,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}org-names/KEY78MDL9O"
           content:
             application/json:
               schema:
@@ -1168,6 +1196,7 @@ paths:
       tags:
       - OrgName
       summary: Replace a OrgName entity.
+      description: replace OrgName
       operationId: replaceOrgName
       parameters:
       - name: If-Match
@@ -1234,7 +1263,8 @@ paths:
       tags:
       - OrgName
       summary: Partially update a OrgName entity.
-      operationId: updateOrgName
+      description: Partially update a OrgName
+      operationId: updatePartialOrgName
       parameters:
       - name: If-Match
         in: header
@@ -1289,12 +1319,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi
+        example: KEY78T41Rt
   /org-profiles/{orgProfileKey}/staff-members:
     get:
       tags:
       - StaffMember
       summary: Retrieve a list of StaffMember entities scoped by orgProfileKey.
+      description: list StaffMember By OrgProfileKey
       operationId: listStaffMemberByOrgProfileKey
       parameters:
       - name: sort
@@ -1352,12 +1383,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - StaffMember
       summary: Create a new StaffMember entity.
+      description: Create StaffMember
       operationId: createStaffMember
       requestBody:
         description: StaffMember data to create the new resource.
@@ -1374,7 +1408,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}staff-members/KEY78MDL9Oc"
           content:
             application/json:
               schema:
@@ -1425,6 +1459,7 @@ paths:
       tags:
       - StaffMember
       summary: Replace a StaffMember entity.
+      description: replace StaffMember
       operationId: replaceStaffMember
       parameters:
       - name: If-Match
@@ -1491,7 +1526,8 @@ paths:
       tags:
       - StaffMember
       summary: Partially update a StaffMember entity.
-      operationId: updateStaffMember
+      description: Partially update a StaffMember
+      operationId: updatePartialStaffMember
       parameters:
       - name: If-Match
         in: header
@@ -1546,12 +1582,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3
+        example: KEY78T41RtA
   /org-profiles/{orgProfileKey}/privacy-events:
     get:
       tags:
       - PrivacyEvent
       summary: Retrieve a list of PrivacyEvent entities scoped by orgProfileKey.
+      description: list PrivacyEvent By OrgProfileKey
       operationId: listPrivacyEventByOrgProfileKey
       parameters:
       - name: sort
@@ -1609,12 +1646,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PrivacyEvent
       summary: Create a new PrivacyEvent entity.
+      description: Create PrivacyEvent
       operationId: createPrivacyEvent
       requestBody:
         description: PrivacyEvent data to create the new resource.
@@ -1631,7 +1671,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}privacy-events/KEY78MDL9Oci"
           content:
             application/json:
               schema:
@@ -1682,6 +1722,7 @@ paths:
       tags:
       - PrivacyEvent
       summary: Replace a PrivacyEvent entity.
+      description: replace PrivacyEvent
       operationId: replacePrivacyEvent
       parameters:
       - name: If-Match
@@ -1748,7 +1789,8 @@ paths:
       tags:
       - PrivacyEvent
       summary: Partially update a PrivacyEvent entity.
-      operationId: updatePrivacyEvent
+      description: Partially update a PrivacyEvent
+      operationId: updatePartialPrivacyEvent
       parameters:
       - name: If-Match
         in: header
@@ -1803,12 +1845,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3N
+        example: KEY78T41RtAK
   /org-profiles/{orgProfileKey}/time-slots:
     get:
       tags:
       - TimeSlot
       summary: Retrieve a list of TimeSlot entities scoped by orgProfileKey.
+      description: list TimeSlot By OrgProfileKey
       operationId: listTimeSlotByOrgProfileKey
       parameters:
       - name: sort
@@ -1866,6 +1909,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1911,12 +1956,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3Nd
+        example: KEY78T41RtAKx
   /org-profiles/{orgProfileKey}/control-accounts:
     get:
       tags:
       - ControlAccount
       summary: Retrieve a list of ControlAccount entities scoped by orgProfileKey.
+      description: list ControlAccount By OrgProfileKey
       operationId: listControlAccountByOrgProfileKey
       parameters:
       - name: sort
@@ -1974,12 +2020,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ControlAccount
       summary: Create a new ControlAccount entity.
+      description: Create ControlAccount
       operationId: createControlAccount
       requestBody:
         description: ControlAccount data to create the new resource.
@@ -1996,7 +2045,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}control-accounts/KEY78MDL9Oci6t"
           content:
             application/json:
               schema:
@@ -2047,6 +2096,7 @@ paths:
       tags:
       - ControlAccount
       summary: Replace a ControlAccount entity.
+      description: replace ControlAccount
       operationId: replaceControlAccount
       parameters:
       - name: If-Match
@@ -2113,7 +2163,8 @@ paths:
       tags:
       - ControlAccount
       summary: Partially update a ControlAccount entity.
-      operationId: updateControlAccount
+      description: Partially update a ControlAccount
+      operationId: updatePartialControlAccount
       parameters:
       - name: If-Match
         in: header
@@ -2168,12 +2219,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdV
+        example: KEY78T41RtAKxV
   /org-profiles/{orgProfileKey}/authorizations:
     get:
       tags:
       - Authorization
       summary: Retrieve a list of Authorization entities scoped by orgProfileKey.
+      description: list Authorization By OrgProfileKey
       operationId: listAuthorizationByOrgProfileKey
       parameters:
       - name: sort
@@ -2231,12 +2283,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Authorization
       summary: Create a new Authorization entity.
+      description: Create Authorization
       operationId: createAuthorization
       requestBody:
         description: Authorization data to create the new resource.
@@ -2253,7 +2308,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}authorizations/KEY78MDL9Oci6tc"
           content:
             application/json:
               schema:
@@ -2304,6 +2359,7 @@ paths:
       tags:
       - Authorization
       summary: Replace a Authorization entity.
+      description: replace Authorization
       operationId: replaceAuthorization
       parameters:
       - name: If-Match
@@ -2370,7 +2426,8 @@ paths:
       tags:
       - Authorization
       summary: Partially update a Authorization entity.
-      operationId: updateAuthorization
+      description: Partially update a Authorization
+      operationId: updatePartialAuthorization
       parameters:
       - name: If-Match
         in: header
@@ -2425,12 +2482,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVx
+        example: KEY78T41RtAKxVR
   /org-profiles/{orgProfileKey}/money:
     get:
       tags:
       - Money
       summary: Retrieve a list of Money entities scoped by orgProfileKey.
+      description: list Money By OrgProfileKey
       operationId: listMoneyByOrgProfileKey
       parameters:
       - name: sort
@@ -2488,6 +2546,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -2533,12 +2593,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxx
+        example: KEY78T41RtAKxVRC
   /org-profiles/{orgProfileKey}/departments:
     get:
       tags:
       - Department
       summary: Retrieve a list of Department entities scoped by orgProfileKey.
+      description: list Department By OrgProfileKey
       operationId: listDepartmentByOrgProfileKey
       parameters:
       - name: sort
@@ -2596,12 +2657,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Department
       summary: Create a new Department entity.
+      description: Create Department
       operationId: createDepartment
       requestBody:
         description: Department data to create the new resource.
@@ -2618,7 +2682,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}departments/KEY78MDL9Oci6tcub"
           content:
             application/json:
               schema:
@@ -2669,6 +2733,7 @@ paths:
       tags:
       - Department
       summary: Replace a Department entity.
+      description: replace Department
       operationId: replaceDepartment
       parameters:
       - name: If-Match
@@ -2735,7 +2800,8 @@ paths:
       tags:
       - Department
       summary: Partially update a Department entity.
-      operationId: updateDepartment
+      description: Partially update a Department
+      operationId: updatePartialDepartment
       parameters:
       - name: If-Match
         in: header
@@ -2790,12 +2856,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxE
+        example: KEY78T41RtAKxVRCn
   /org-profiles/{orgProfileKey}/metric-name-values:
     get:
       tags:
       - MetricNameValue
       summary: Retrieve a list of MetricNameValue entities scoped by orgProfileKey.
+      description: list MetricNameValue By OrgProfileKey
       operationId: listMetricNameValueByOrgProfileKey
       parameters:
       - name: sort
@@ -2853,12 +2920,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - MetricNameValue
       summary: Create a new MetricNameValue entity.
+      description: Create MetricNameValue
       operationId: createMetricNameValue
       requestBody:
         description: MetricNameValue data to create the new resource.
@@ -2875,7 +2945,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}metric-name-values/KEY78MDL9Oci6tcubZ"
           content:
             application/json:
               schema:
@@ -2926,6 +2996,7 @@ paths:
       tags:
       - MetricNameValue
       summary: Replace a MetricNameValue entity.
+      description: replace MetricNameValue
       operationId: replaceMetricNameValue
       parameters:
       - name: If-Match
@@ -2992,7 +3063,8 @@ paths:
       tags:
       - MetricNameValue
       summary: Partially update a MetricNameValue entity.
-      operationId: updateMetricNameValue
+      description: Partially update a MetricNameValue
+      operationId: updatePartialMetricNameValue
       parameters:
       - name: If-Match
         in: header
@@ -3047,12 +3119,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxEg
+        example: KEY78T41RtAKxVRCnG
   /org-profiles/{orgProfileKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by orgProfileKey.
+      description: list Identifier By OrgProfileKey
       operationId: listIdentifierByOrgProfileKey
       parameters:
       - name: sort
@@ -3110,12 +3183,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -3132,7 +3208,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}identifiers/KEY78MDL9Oci6tcubZt"
           content:
             application/json:
               schema:
@@ -3183,6 +3259,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -3249,7 +3326,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -3304,12 +3382,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxEgM
+        example: KEY78T41RtAKxVRCnG3
   /org-profiles/{orgProfileKey}/effective-periods:
     get:
       tags:
       - EffectivePeriod
       summary: Retrieve a list of EffectivePeriod entities scoped by orgProfileKey.
+      description: list EffectivePeriod By OrgProfileKey
       operationId: listEffectivePeriodByOrgProfileKey
       parameters:
       - name: sort
@@ -3367,6 +3446,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -3412,12 +3493,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxEgM6
+        example: KEY78T41RtAKxVRCnG34
   /org-profiles/{orgProfileKey}/discount-policies:
     get:
       tags:
       - DiscountPolicy
       summary: Retrieve a list of DiscountPolicy entities scoped by orgProfileKey.
+      description: list DiscountPolicy By OrgProfileKey
       operationId: listDiscountPolicyByOrgProfileKey
       parameters:
       - name: sort
@@ -3475,12 +3557,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - DiscountPolicy
       summary: Create a new DiscountPolicy entity.
+      description: Create DiscountPolicy
       operationId: createDiscountPolicy
       requestBody:
         description: DiscountPolicy data to create the new resource.
@@ -3497,7 +3582,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}discount-policies/KEY78MDL9Oci6tcubZtkj"
           content:
             application/json:
               schema:
@@ -3548,6 +3633,7 @@ paths:
       tags:
       - DiscountPolicy
       summary: Replace a DiscountPolicy entity.
+      description: replace DiscountPolicy
       operationId: replaceDiscountPolicy
       parameters:
       - name: If-Match
@@ -3614,7 +3700,8 @@ paths:
       tags:
       - DiscountPolicy
       summary: Partially update a DiscountPolicy entity.
-      operationId: updateDiscountPolicy
+      description: Partially update a DiscountPolicy
+      operationId: updatePartialDiscountPolicy
       parameters:
       - name: If-Match
         in: header
@@ -3669,12 +3756,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxEgM6b
+        example: KEY78T41RtAKxVRCnG34u
   /org-profiles/{orgProfileKey}/privacy-items:
     get:
       tags:
       - PrivacyItem
       summary: Retrieve a list of PrivacyItem entities scoped by orgProfileKey.
+      description: list PrivacyItem By OrgProfileKey
       operationId: listPrivacyItemByOrgProfileKey
       parameters:
       - name: sort
@@ -3732,12 +3820,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PrivacyItem
       summary: Create a new PrivacyItem entity.
+      description: Create PrivacyItem
       operationId: createPrivacyItem
       requestBody:
         description: PrivacyItem data to create the new resource.
@@ -3754,7 +3845,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}privacy-items/KEY78MDL9Oci6tcubZtkjV"
           content:
             application/json:
               schema:
@@ -3805,6 +3896,7 @@ paths:
       tags:
       - PrivacyItem
       summary: Replace a PrivacyItem entity.
+      description: replace PrivacyItem
       operationId: replacePrivacyItem
       parameters:
       - name: If-Match
@@ -3871,7 +3963,8 @@ paths:
       tags:
       - PrivacyItem
       summary: Partially update a PrivacyItem entity.
-      operationId: updatePrivacyItem
+      description: Partially update a PrivacyItem
+      operationId: updatePartialPrivacyItem
       parameters:
       - name: If-Match
         in: header
@@ -3926,12 +4019,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxEgM6b4
+        example: KEY78T41RtAKxVRCnG34uE
   /org-profiles/{orgProfileKey}/person-names:
     get:
       tags:
       - PersonName
       summary: Retrieve a list of PersonName entities scoped by orgProfileKey.
+      description: list PersonName By OrgProfileKey
       operationId: listPersonNameByOrgProfileKey
       parameters:
       - name: sort
@@ -3989,12 +4083,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PersonName
       summary: Create a new PersonName entity.
+      description: Create PersonName
       operationId: createPersonName
       requestBody:
         description: PersonName data to create the new resource.
@@ -4011,7 +4108,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}person-names/KEY78MDL9Oci6tcubZtkjVB"
           content:
             application/json:
               schema:
@@ -4062,6 +4159,7 @@ paths:
       tags:
       - PersonName
       summary: Replace a PersonName entity.
+      description: replace PersonName
       operationId: replacePersonName
       parameters:
       - name: If-Match
@@ -4128,7 +4226,8 @@ paths:
       tags:
       - PersonName
       summary: Partially update a PersonName entity.
-      operationId: updatePersonName
+      description: Partially update a PersonName
+      operationId: updatePartialPersonName
       parameters:
       - name: If-Match
         in: header
@@ -4183,12 +4282,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxEgM6b48
+        example: KEY78T41RtAKxVRCnG34uE2
   /org-profiles/{orgProfileKey}/payroll-rates:
     get:
       tags:
       - PayrollRate
       summary: Retrieve a list of PayrollRate entities scoped by orgProfileKey.
+      description: list PayrollRate By OrgProfileKey
       operationId: listPayrollRateByOrgProfileKey
       parameters:
       - name: sort
@@ -4246,12 +4346,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PayrollRate
       summary: Create a new PayrollRate entity.
+      description: Create PayrollRate
       operationId: createPayrollRate
       requestBody:
         description: PayrollRate data to create the new resource.
@@ -4268,7 +4371,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}payroll-rates/KEY78MDL9Oci6tcubZtkjVBX"
           content:
             application/json:
               schema:
@@ -4319,6 +4422,7 @@ paths:
       tags:
       - PayrollRate
       summary: Replace a PayrollRate entity.
+      description: replace PayrollRate
       operationId: replacePayrollRate
       parameters:
       - name: If-Match
@@ -4385,7 +4489,8 @@ paths:
       tags:
       - PayrollRate
       summary: Partially update a PayrollRate entity.
-      operationId: updatePayrollRate
+      description: Partially update a PayrollRate
+      operationId: updatePartialPayrollRate
       parameters:
       - name: If-Match
         in: header
@@ -4440,12 +4545,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxEgM6b48U
+        example: KEY78T41RtAKxVRCnG34uE22
   /org-profiles/{orgProfileKey}/control-account-references:
     get:
       tags:
       - ControlAccountReference
       summary: Retrieve a list of ControlAccountReference entities scoped by orgProfileKey.
+      description: list ControlAccountReference By OrgProfileKey
       operationId: listControlAccountReferenceByOrgProfileKey
       parameters:
       - name: sort
@@ -4503,12 +4609,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ControlAccountReference
       summary: Create a new ControlAccountReference entity.
+      description: Create ControlAccountReference
       operationId: createControlAccountReference
       requestBody:
         description: ControlAccountReference data to create the new resource.
@@ -4525,7 +4634,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}control-account-references/KEY78MDL9Oci6tcubZtkjVBXF"
           content:
             application/json:
               schema:
@@ -4576,6 +4685,7 @@ paths:
       tags:
       - ControlAccountReference
       summary: Replace a ControlAccountReference entity.
+      description: replace ControlAccountReference
       operationId: replaceControlAccountReference
       parameters:
       - name: If-Match
@@ -4643,7 +4753,8 @@ paths:
       tags:
       - ControlAccountReference
       summary: Partially update a ControlAccountReference entity.
-      operationId: updateControlAccountReference
+      description: Partially update a ControlAccountReference
+      operationId: updatePartialControlAccountReference
       parameters:
       - name: If-Match
         in: header
@@ -4698,12 +4809,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxEgM6b48Uy
+        example: KEY78T41RtAKxVRCnG34uE22p
   /org-profiles/{orgProfileKey}/communication-channels:
     get:
       tags:
       - CommunicationChannel
       summary: Retrieve a list of CommunicationChannel entities scoped by orgProfileKey.
+      description: list CommunicationChannel By OrgProfileKey
       operationId: listCommunicationChannelByOrgProfileKey
       parameters:
       - name: sort
@@ -4761,12 +4873,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CommunicationChannel
       summary: Create a new CommunicationChannel entity.
+      description: Create CommunicationChannel
       operationId: createCommunicationChannel
       requestBody:
         description: CommunicationChannel data to create the new resource.
@@ -4783,7 +4898,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}communication-channels/KEY78MDL9Oci6tcubZtkjVBXFg"
           content:
             application/json:
               schema:
@@ -4834,6 +4949,7 @@ paths:
       tags:
       - CommunicationChannel
       summary: Replace a CommunicationChannel entity.
+      description: replace CommunicationChannel
       operationId: replaceCommunicationChannel
       parameters:
       - name: If-Match
@@ -4901,7 +5017,8 @@ paths:
       tags:
       - CommunicationChannel
       summary: Partially update a CommunicationChannel entity.
-      operationId: updateCommunicationChannel
+      description: Partially update a CommunicationChannel
+      operationId: updatePartialCommunicationChannel
       parameters:
       - name: If-Match
         in: header
@@ -4956,12 +5073,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxEgM6b48UyW
+        example: KEY78T41RtAKxVRCnG34uE22pk
   /org-profiles/{orgProfileKey}/discount-metric-values:
     get:
       tags:
       - DiscountMetricValue
       summary: Retrieve a list of DiscountMetricValue entities scoped by orgProfileKey.
+      description: list DiscountMetricValue By OrgProfileKey
       operationId: listDiscountMetricValueByOrgProfileKey
       parameters:
       - name: sort
@@ -5019,12 +5137,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - DiscountMetricValue
       summary: Create a new DiscountMetricValue entity.
+      description: Create DiscountMetricValue
       operationId: createDiscountMetricValue
       requestBody:
         description: DiscountMetricValue data to create the new resource.
@@ -5041,7 +5162,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}discount-metric-values/KEY78MDL9Oci6tcubZtkjVBXFgn"
           content:
             application/json:
               schema:
@@ -5092,6 +5213,7 @@ paths:
       tags:
       - DiscountMetricValue
       summary: Replace a DiscountMetricValue entity.
+      description: replace DiscountMetricValue
       operationId: replaceDiscountMetricValue
       parameters:
       - name: If-Match
@@ -5159,7 +5281,8 @@ paths:
       tags:
       - DiscountMetricValue
       summary: Partially update a DiscountMetricValue entity.
-      operationId: updateDiscountMetricValue
+      description: Partially update a DiscountMetricValue
+      operationId: updatePartialDiscountMetricValue
       parameters:
       - name: If-Match
         in: header
@@ -5214,12 +5337,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxEgM6b48UyWN
+        example: KEY78T41RtAKxVRCnG34uE22pkn
   /org-profiles/{orgProfileKey}/prices:
     get:
       tags:
       - Price
       summary: Retrieve a list of Price entities scoped by orgProfileKey.
+      description: list Price By OrgProfileKey
       operationId: listPriceByOrgProfileKey
       parameters:
       - name: sort
@@ -5277,12 +5401,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Price
       summary: Create a new Price entity.
+      description: Create Price
       operationId: createPrice
       requestBody:
         description: Price data to create the new resource.
@@ -5299,7 +5426,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}prices/KEY78MDL9Oci6tcubZtkjVBXFgn0"
           content:
             application/json:
               schema:
@@ -5350,6 +5477,7 @@ paths:
       tags:
       - Price
       summary: Replace a Price entity.
+      description: replace Price
       operationId: replacePrice
       parameters:
       - name: If-Match
@@ -5416,7 +5544,8 @@ paths:
       tags:
       - Price
       summary: Partially update a Price entity.
-      operationId: updatePrice
+      description: Partially update a Price
+      operationId: updatePartialPrice
       parameters:
       - name: If-Match
         in: header
@@ -5471,12 +5600,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxEgM6b48UyWN0
+        example: KEY78T41RtAKxVRCnG34uE22pknj
   /org-profiles/{orgProfileKey}/textual-details:
     get:
       tags:
       - TextualDetail
       summary: Retrieve a list of TextualDetail entities scoped by orgProfileKey.
+      description: list TextualDetail By OrgProfileKey
       operationId: listTextualDetailByOrgProfileKey
       parameters:
       - name: sort
@@ -5534,6 +5664,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -5579,12 +5711,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxEgM6b48UyWN0a
+        example: KEY78T41RtAKxVRCnG34uE22pknjd
   /org-profiles/{orgProfileKey}/people:
     get:
       tags:
       - Person
       summary: Retrieve a list of Person entities scoped by orgProfileKey.
+      description: list Person By OrgProfileKey
       operationId: listPersonByOrgProfileKey
       parameters:
       - name: sort
@@ -5642,12 +5775,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Person
       summary: Create a new Person entity.
+      description: Create Person
       operationId: createPerson
       requestBody:
         description: Person data to create the new resource.
@@ -5664,7 +5800,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/org-profiles{orgProfileKey}people/KEY78MDL9Oci6tcubZtkjVBXFgn0aB"
           content:
             application/json:
               schema:
@@ -5715,6 +5851,7 @@ paths:
       tags:
       - Person
       summary: Replace a Person entity.
+      description: replace Person
       operationId: replacePerson
       parameters:
       - name: If-Match
@@ -5781,7 +5918,8 @@ paths:
       tags:
       - Person
       summary: Partially update a Person entity.
-      operationId: updatePerson
+      description: Partially update a Person
+      operationId: updatePartialPerson
       parameters:
       - name: If-Match
         in: header
@@ -5836,6 +5974,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78bzOmi3NdVxxEgM6b48UyWN0ae
+        example: KEY78T41RtAKxVRCnG34uE22pknjdl
 components:
   schemas: {}

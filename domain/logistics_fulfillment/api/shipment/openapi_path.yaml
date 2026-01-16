@@ -22,6 +22,7 @@ paths:
       tags:
       - Shipment
       summary: Retrieve a list of Shipment entities.
+      description: list Shipment By
       operationId: listShipment
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Shipment
       summary: Create a new Shipment entity.
+      description: Create Shipment
       operationId: createShipment
       requestBody:
         description: Shipment data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /shipments/KEY78n
+                example: /shipments/KEY78q
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - Shipment
       summary: Replace a Shipment entity.
+      description: replace Shipment
       operationId: replaceShipment
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - Shipment
       summary: Partially update a Shipment entity.
-      operationId: updateShipment
+      description: Partially update a Shipment
+      operationId: updatePartialShipment
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78c
+        example: KEY78V
   /shipments/{shipmentKey}/invoice-references:
     get:
       tags:
       - InvoiceReference
       summary: Retrieve a list of InvoiceReference entities scoped by shipmentKey.
+      description: list InvoiceReference By ShipmentKey
       operationId: listInvoiceReferenceByShipmentKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - InvoiceReference
       summary: Create a new InvoiceReference entity.
+      description: Create InvoiceReference
       operationId: createInvoiceReference
       requestBody:
         description: InvoiceReference data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/shipments{shipmentKey}invoice-references/KEY78qz"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - InvoiceReference
       summary: Replace a InvoiceReference entity.
+      description: replace InvoiceReference
       operationId: replaceInvoiceReference
       parameters:
       - name: If-Match
@@ -462,7 +473,8 @@ paths:
       tags:
       - InvoiceReference
       summary: Partially update a InvoiceReference entity.
-      operationId: updateInvoiceReference
+      description: Partially update a InvoiceReference
+      operationId: updatePartialInvoiceReference
       parameters:
       - name: If-Match
         in: header
@@ -517,12 +529,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ce
+        example: KEY78VE
   /shipments/{shipmentKey}/party-references:
     get:
       tags:
       - PartyReference
       summary: Retrieve a list of PartyReference entities scoped by shipmentKey.
+      description: list PartyReference By ShipmentKey
       operationId: listPartyReferenceByShipmentKey
       parameters:
       - name: sort
@@ -580,12 +593,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartyReference
       summary: Create a new PartyReference entity.
+      description: Create PartyReference
       operationId: createPartyReference
       requestBody:
         description: PartyReference data to create the new resource.
@@ -602,7 +618,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/shipments{shipmentKey}party-references/KEY78qzd"
           content:
             application/json:
               schema:
@@ -653,6 +669,7 @@ paths:
       tags:
       - PartyReference
       summary: Replace a PartyReference entity.
+      description: replace PartyReference
       operationId: replacePartyReference
       parameters:
       - name: If-Match
@@ -719,7 +736,8 @@ paths:
       tags:
       - PartyReference
       summary: Partially update a PartyReference entity.
-      operationId: updatePartyReference
+      description: Partially update a PartyReference
+      operationId: updatePartialPartyReference
       parameters:
       - name: If-Match
         in: header
@@ -774,12 +792,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cej
+        example: KEY78VEk
   /shipments/{shipmentKey}/shipment-events:
     get:
       tags:
       - ShipmentEvent
       summary: Retrieve a list of ShipmentEvent entities scoped by shipmentKey.
+      description: list ShipmentEvent By ShipmentKey
       operationId: listShipmentEventByShipmentKey
       parameters:
       - name: sort
@@ -837,12 +856,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ShipmentEvent
       summary: Create a new ShipmentEvent entity.
+      description: Create ShipmentEvent
       operationId: createShipmentEvent
       requestBody:
         description: ShipmentEvent data to create the new resource.
@@ -859,7 +881,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/shipments{shipmentKey}shipment-events/KEY78qzdd"
           content:
             application/json:
               schema:
@@ -910,6 +932,7 @@ paths:
       tags:
       - ShipmentEvent
       summary: Replace a ShipmentEvent entity.
+      description: replace ShipmentEvent
       operationId: replaceShipmentEvent
       parameters:
       - name: If-Match
@@ -976,7 +999,8 @@ paths:
       tags:
       - ShipmentEvent
       summary: Partially update a ShipmentEvent entity.
-      operationId: updateShipmentEvent
+      description: Partially update a ShipmentEvent
+      operationId: updatePartialShipmentEvent
       parameters:
       - name: If-Match
         in: header
@@ -1031,12 +1055,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejB
+        example: KEY78VEkD
   /shipments/{shipmentKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by shipmentKey.
+      description: list Identifier By ShipmentKey
       operationId: listIdentifierByShipmentKey
       parameters:
       - name: sort
@@ -1094,12 +1119,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -1116,7 +1144,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/shipments{shipmentKey}identifiers/KEY78qzdd2"
           content:
             application/json:
               schema:
@@ -1167,6 +1195,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -1233,7 +1262,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -1288,12 +1318,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejBR
+        example: KEY78VEkD4
   /shipments/{shipmentKey}/unit-of-measures:
     get:
       tags:
       - UnitOfMeasure
       summary: Retrieve a list of UnitOfMeasure entities scoped by shipmentKey.
+      description: list UnitOfMeasure By ShipmentKey
       operationId: listUnitOfMeasureByShipmentKey
       parameters:
       - name: sort
@@ -1351,6 +1382,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1396,12 +1429,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejBRu
+        example: KEY78VEkD4C
   /shipments/{shipmentKey}/positions:
     get:
       tags:
       - Position
       summary: Retrieve a list of Position entities scoped by shipmentKey.
+      description: list Position By ShipmentKey
       operationId: listPositionByShipmentKey
       parameters:
       - name: sort
@@ -1459,12 +1493,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Position
       summary: Create a new Position entity.
+      description: Create Position
       operationId: createPosition
       requestBody:
         description: Position data to create the new resource.
@@ -1481,7 +1518,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/shipments{shipmentKey}positions/KEY78qzdd2oc"
           content:
             application/json:
               schema:
@@ -1532,6 +1569,7 @@ paths:
       tags:
       - Position
       summary: Replace a Position entity.
+      description: replace Position
       operationId: replacePosition
       parameters:
       - name: If-Match
@@ -1598,7 +1636,8 @@ paths:
       tags:
       - Position
       summary: Partially update a Position entity.
-      operationId: updatePosition
+      description: Partially update a Position
+      operationId: updatePartialPosition
       parameters:
       - name: If-Match
         in: header
@@ -1653,12 +1692,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejBRuU
+        example: KEY78VEkD4CJ
   /shipments/{shipmentKey}/effective-periods:
     get:
       tags:
       - EffectivePeriod
       summary: Retrieve a list of EffectivePeriod entities scoped by shipmentKey.
+      description: list EffectivePeriod By ShipmentKey
       operationId: listEffectivePeriodByShipmentKey
       parameters:
       - name: sort
@@ -1716,6 +1756,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1761,12 +1803,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejBRuUv
+        example: KEY78VEkD4CJf
   /shipments/{shipmentKey}/time-slots:
     get:
       tags:
       - TimeSlot
       summary: Retrieve a list of TimeSlot entities scoped by shipmentKey.
+      description: list TimeSlot By ShipmentKey
       operationId: listTimeSlotByShipmentKey
       parameters:
       - name: sort
@@ -1824,6 +1867,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1869,12 +1914,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejBRuUvw
+        example: KEY78VEkD4CJfP
   /shipments/{shipmentKey}/address-references:
     get:
       tags:
       - AddressReference
       summary: Retrieve a list of AddressReference entities scoped by shipmentKey.
+      description: list AddressReference By ShipmentKey
       operationId: listAddressReferenceByShipmentKey
       parameters:
       - name: sort
@@ -1932,12 +1978,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - AddressReference
       summary: Create a new AddressReference entity.
+      description: Create AddressReference
       operationId: createAddressReference
       requestBody:
         description: AddressReference data to create the new resource.
@@ -1954,7 +2003,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/shipments{shipmentKey}address-references/KEY78qzdd2ocF7a"
           content:
             application/json:
               schema:
@@ -2005,6 +2054,7 @@ paths:
       tags:
       - AddressReference
       summary: Replace a AddressReference entity.
+      description: replace AddressReference
       operationId: replaceAddressReference
       parameters:
       - name: If-Match
@@ -2071,7 +2121,8 @@ paths:
       tags:
       - AddressReference
       summary: Partially update a AddressReference entity.
-      operationId: updateAddressReference
+      description: Partially update a AddressReference
+      operationId: updatePartialAddressReference
       parameters:
       - name: If-Match
         in: header
@@ -2126,6 +2177,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejBRuUvwP
+        example: KEY78VEkD4CJfPq
 components:
   schemas: {}

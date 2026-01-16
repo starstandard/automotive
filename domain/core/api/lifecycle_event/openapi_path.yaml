@@ -22,6 +22,7 @@ paths:
       tags:
       - LifecycleEvent
       summary: Retrieve a list of LifecycleEvent entities.
+      description: list LifecycleEvent By
       operationId: listLifecycleEvent
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - LifecycleEvent
       summary: Create a new LifecycleEvent entity.
+      description: Create LifecycleEvent
       operationId: createLifecycleEvent
       requestBody:
         description: LifecycleEvent data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /lifecycle-events/KEY785
+                example: /lifecycle-events/KEY78t
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - LifecycleEvent
       summary: Replace a LifecycleEvent entity.
+      description: replace LifecycleEvent
       operationId: replaceLifecycleEvent
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - LifecycleEvent
       summary: Partially update a LifecycleEvent entity.
-      operationId: updateLifecycleEvent
+      description: Partially update a LifecycleEvent
+      operationId: updatePartialLifecycleEvent
       parameters:
       - name: If-Match
         in: header
@@ -260,6 +266,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78x
+        example: KEY786
 components:
   schemas: {}

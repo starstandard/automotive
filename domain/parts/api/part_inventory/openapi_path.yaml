@@ -22,6 +22,7 @@ paths:
       tags:
       - PartInventory
       summary: Retrieve a list of PartInventory entities.
+      description: list PartInventory By
       operationId: listPartInventory
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartInventory
       summary: Create a new PartInventory entity.
+      description: Create PartInventory
       operationId: createPartInventory
       requestBody:
         description: PartInventory data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-inventories/KEY78w
+                example: /part-inventories/KEY78W
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - PartInventory
       summary: Replace a PartInventory entity.
+      description: replace PartInventory
       operationId: replacePartInventory
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - PartInventory
       summary: Partially update a PartInventory entity.
-      operationId: updatePartInventory
+      description: Partially update a PartInventory
+      operationId: updatePartialPartInventory
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78y
+        example: KEY78x
   /part-inventories/{partInventoryKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by partInventoryKey.
+      description: list Identifier By PartInventoryKey
       operationId: listIdentifierByPartInventoryKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-inventories{partInventoryKey}identifiers/KEY78WU"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -462,7 +473,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -517,12 +529,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78yu
+        example: KEY78xF
   /part-inventories/{partInventoryKey}/part-inventory-events:
     get:
       tags:
       - PartInventoryEvent
       summary: Retrieve a list of PartInventoryEvent entities scoped by partInventoryKey.
+      description: list PartInventoryEvent By PartInventoryKey
       operationId: listPartInventoryEventByPartInventoryKey
       parameters:
       - name: sort
@@ -580,12 +593,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartInventoryEvent
       summary: Create a new PartInventoryEvent entity.
+      description: Create PartInventoryEvent
       operationId: createPartInventoryEvent
       requestBody:
         description: PartInventoryEvent data to create the new resource.
@@ -602,7 +618,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-inventories{partInventoryKey}part-inventory-events/KEY78WUu"
           content:
             application/json:
               schema:
@@ -653,6 +669,7 @@ paths:
       tags:
       - PartInventoryEvent
       summary: Replace a PartInventoryEvent entity.
+      description: replace PartInventoryEvent
       operationId: replacePartInventoryEvent
       parameters:
       - name: If-Match
@@ -719,7 +736,8 @@ paths:
       tags:
       - PartInventoryEvent
       summary: Partially update a PartInventoryEvent entity.
-      operationId: updatePartInventoryEvent
+      description: Partially update a PartInventoryEvent
+      operationId: updatePartialPartInventoryEvent
       parameters:
       - name: If-Match
         in: header
@@ -774,12 +792,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78yu7
+        example: KEY78xFa
   /part-inventories/{partInventoryKey}/part-references:
     get:
       tags:
       - PartReference
       summary: Retrieve a list of PartReference entities scoped by partInventoryKey.
+      description: list PartReference By PartInventoryKey
       operationId: listPartReferenceByPartInventoryKey
       parameters:
       - name: sort
@@ -837,12 +856,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartReference
       summary: Create a new PartReference entity.
+      description: Create PartReference
       operationId: createPartReference
       requestBody:
         description: PartReference data to create the new resource.
@@ -859,7 +881,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-inventories{partInventoryKey}part-references/KEY78WUuo"
           content:
             application/json:
               schema:
@@ -910,6 +932,7 @@ paths:
       tags:
       - PartReference
       summary: Replace a PartReference entity.
+      description: replace PartReference
       operationId: replacePartReference
       parameters:
       - name: If-Match
@@ -976,7 +999,8 @@ paths:
       tags:
       - PartReference
       summary: Partially update a PartReference entity.
-      operationId: updatePartReference
+      description: Partially update a PartReference
+      operationId: updatePartialPartReference
       parameters:
       - name: If-Match
         in: header
@@ -1031,12 +1055,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78yu74
+        example: KEY78xFaW
   /part-inventories/{partInventoryKey}/prices:
     get:
       tags:
       - Price
       summary: Retrieve a list of Price entities scoped by partInventoryKey.
+      description: list Price By PartInventoryKey
       operationId: listPriceByPartInventoryKey
       parameters:
       - name: sort
@@ -1094,12 +1119,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Price
       summary: Create a new Price entity.
+      description: Create Price
       operationId: createPrice
       requestBody:
         description: Price data to create the new resource.
@@ -1116,7 +1144,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-inventories{partInventoryKey}prices/KEY78WUuo4"
           content:
             application/json:
               schema:
@@ -1167,6 +1195,7 @@ paths:
       tags:
       - Price
       summary: Replace a Price entity.
+      description: replace Price
       operationId: replacePrice
       parameters:
       - name: If-Match
@@ -1233,7 +1262,8 @@ paths:
       tags:
       - Price
       summary: Partially update a Price entity.
-      operationId: updatePrice
+      description: Partially update a Price
+      operationId: updatePartialPrice
       parameters:
       - name: If-Match
         in: header
@@ -1288,12 +1318,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78yu74G
+        example: KEY78xFaWT
   /part-inventories/{partInventoryKey}/effective-periods:
     get:
       tags:
       - EffectivePeriod
       summary: Retrieve a list of EffectivePeriod entities scoped by partInventoryKey.
+      description: list EffectivePeriod By PartInventoryKey
       operationId: listEffectivePeriodByPartInventoryKey
       parameters:
       - name: sort
@@ -1351,6 +1382,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1396,12 +1429,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78yu74Gs
+        example: KEY78xFaWTm
   /part-inventories/{partInventoryKey}/control-account-references:
     get:
       tags:
       - ControlAccountReference
       summary: Retrieve a list of ControlAccountReference entities scoped by partInventoryKey.
+      description: list ControlAccountReference By PartInventoryKey
       operationId: listControlAccountReferenceByPartInventoryKey
       parameters:
       - name: sort
@@ -1459,12 +1493,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ControlAccountReference
       summary: Create a new ControlAccountReference entity.
+      description: Create ControlAccountReference
       operationId: createControlAccountReference
       requestBody:
         description: ControlAccountReference data to create the new resource.
@@ -1481,7 +1518,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-inventories{partInventoryKey}control-account-references/KEY78WUuo4zC"
           content:
             application/json:
               schema:
@@ -1532,6 +1569,7 @@ paths:
       tags:
       - ControlAccountReference
       summary: Replace a ControlAccountReference entity.
+      description: replace ControlAccountReference
       operationId: replaceControlAccountReference
       parameters:
       - name: If-Match
@@ -1599,7 +1637,8 @@ paths:
       tags:
       - ControlAccountReference
       summary: Partially update a ControlAccountReference entity.
-      operationId: updateControlAccountReference
+      description: Partially update a ControlAccountReference
+      operationId: updatePartialControlAccountReference
       parameters:
       - name: If-Match
         in: header
@@ -1654,12 +1693,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78yu74Gsf
+        example: KEY78xFaWTm0
   /part-inventories/{partInventoryKey}/time-slots:
     get:
       tags:
       - TimeSlot
       summary: Retrieve a list of TimeSlot entities scoped by partInventoryKey.
+      description: list TimeSlot By PartInventoryKey
       operationId: listTimeSlotByPartInventoryKey
       parameters:
       - name: sort
@@ -1717,6 +1757,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1762,12 +1804,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78yu74GsfH
+        example: KEY78xFaWTm0B
   /part-inventories/{partInventoryKey}/part-inventory-metrics:
     get:
       tags:
       - PartInventoryMetric
       summary: Retrieve a list of PartInventoryMetric entities scoped by partInventoryKey.
+      description: list PartInventoryMetric By PartInventoryKey
       operationId: listPartInventoryMetricByPartInventoryKey
       parameters:
       - name: sort
@@ -1825,12 +1868,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartInventoryMetric
       summary: Create a new PartInventoryMetric entity.
+      description: Create PartInventoryMetric
       operationId: createPartInventoryMetric
       requestBody:
         description: PartInventoryMetric data to create the new resource.
@@ -1847,7 +1893,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-inventories{partInventoryKey}part-inventory-metrics/KEY78WUuo4zCQ7"
           content:
             application/json:
               schema:
@@ -1898,6 +1944,7 @@ paths:
       tags:
       - PartInventoryMetric
       summary: Replace a PartInventoryMetric entity.
+      description: replace PartInventoryMetric
       operationId: replacePartInventoryMetric
       parameters:
       - name: If-Match
@@ -1965,7 +2012,8 @@ paths:
       tags:
       - PartInventoryMetric
       summary: Partially update a PartInventoryMetric entity.
-      operationId: updatePartInventoryMetric
+      description: Partially update a PartInventoryMetric
+      operationId: updatePartialPartInventoryMetric
       parameters:
       - name: If-Match
         in: header
@@ -2020,6 +2068,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78yu74GsfHY
+        example: KEY78xFaWTm0Bq
 components:
   schemas: {}

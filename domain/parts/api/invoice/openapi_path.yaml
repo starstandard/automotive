@@ -22,6 +22,7 @@ paths:
       tags:
       - Invoice
       summary: Retrieve a list of Invoice entities.
+      description: list Invoice By
       operationId: listInvoice
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Invoice
       summary: Create a new Invoice entity.
+      description: Create Invoice
       operationId: createInvoice
       requestBody:
         description: Invoice data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /invoices/KEY78q
+                example: /invoices/KEY78B
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - Invoice
       summary: Replace a Invoice entity.
+      description: replace Invoice
       operationId: replaceInvoice
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - Invoice
       summary: Partially update a Invoice entity.
-      operationId: updateInvoice
+      description: Partially update a Invoice
+      operationId: updatePartialInvoice
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787
+        example: KEY78M
   /invoices/{invoiceKey}/payment-term-references:
     get:
       tags:
       - PaymentTermReference
       summary: Retrieve a list of PaymentTermReference entities scoped by invoiceKey.
+      description: list PaymentTermReference By InvoiceKey
       operationId: listPaymentTermReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PaymentTermReference
       summary: Create a new PaymentTermReference entity.
+      description: Create PaymentTermReference
       operationId: createPaymentTermReference
       requestBody:
         description: PaymentTermReference data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}payment-term-references/KEY78BG"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - PaymentTermReference
       summary: Replace a PaymentTermReference entity.
+      description: replace PaymentTermReference
       operationId: replacePaymentTermReference
       parameters:
       - name: If-Match
@@ -463,7 +474,8 @@ paths:
       tags:
       - PaymentTermReference
       summary: Partially update a PaymentTermReference entity.
-      operationId: updatePaymentTermReference
+      description: Partially update a PaymentTermReference
+      operationId: updatePartialPaymentTermReference
       parameters:
       - name: If-Match
         in: header
@@ -518,12 +530,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p
+        example: KEY78MW
   /invoices/{invoiceKey}/invoice-items:
     get:
       tags:
       - InvoiceItem
       summary: Retrieve a list of InvoiceItem entities scoped by invoiceKey.
+      description: list InvoiceItem By InvoiceKey
       operationId: listInvoiceItemByInvoiceKey
       parameters:
       - name: sort
@@ -581,12 +594,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - InvoiceItem
       summary: Create a new InvoiceItem entity.
+      description: Create InvoiceItem
       operationId: createInvoiceItem
       requestBody:
         description: InvoiceItem data to create the new resource.
@@ -603,7 +619,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}invoice-items/KEY78BGR"
           content:
             application/json:
               schema:
@@ -654,6 +670,7 @@ paths:
       tags:
       - InvoiceItem
       summary: Replace a InvoiceItem entity.
+      description: replace InvoiceItem
       operationId: replaceInvoiceItem
       parameters:
       - name: If-Match
@@ -720,7 +737,8 @@ paths:
       tags:
       - InvoiceItem
       summary: Partially update a InvoiceItem entity.
-      operationId: updateInvoiceItem
+      description: Partially update a InvoiceItem
+      operationId: updatePartialInvoiceItem
       parameters:
       - name: If-Match
         in: header
@@ -775,12 +793,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7
+        example: KEY78MWe
   /invoices/{invoiceKey}/discount-references:
     get:
       tags:
       - DiscountReference
       summary: Retrieve a list of DiscountReference entities scoped by invoiceKey.
+      description: list DiscountReference By InvoiceKey
       operationId: listDiscountReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -838,12 +857,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - DiscountReference
       summary: Create a new DiscountReference entity.
+      description: Create DiscountReference
       operationId: createDiscountReference
       requestBody:
         description: DiscountReference data to create the new resource.
@@ -860,7 +882,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}discount-references/KEY78BGRH"
           content:
             application/json:
               schema:
@@ -911,6 +933,7 @@ paths:
       tags:
       - DiscountReference
       summary: Replace a DiscountReference entity.
+      description: replace DiscountReference
       operationId: replaceDiscountReference
       parameters:
       - name: If-Match
@@ -977,7 +1000,8 @@ paths:
       tags:
       - DiscountReference
       summary: Partially update a DiscountReference entity.
-      operationId: updateDiscountReference
+      description: Partially update a DiscountReference
+      operationId: updatePartialDiscountReference
       parameters:
       - name: If-Match
         in: header
@@ -1032,12 +1056,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7d
+        example: KEY78MWeQ
   /invoices/{invoiceKey}/address-references:
     get:
       tags:
       - AddressReference
       summary: Retrieve a list of AddressReference entities scoped by invoiceKey.
+      description: list AddressReference By InvoiceKey
       operationId: listAddressReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -1095,12 +1120,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - AddressReference
       summary: Create a new AddressReference entity.
+      description: Create AddressReference
       operationId: createAddressReference
       requestBody:
         description: AddressReference data to create the new resource.
@@ -1117,7 +1145,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}address-references/KEY78BGRHq"
           content:
             application/json:
               schema:
@@ -1168,6 +1196,7 @@ paths:
       tags:
       - AddressReference
       summary: Replace a AddressReference entity.
+      description: replace AddressReference
       operationId: replaceAddressReference
       parameters:
       - name: If-Match
@@ -1234,7 +1263,8 @@ paths:
       tags:
       - AddressReference
       summary: Partially update a AddressReference entity.
-      operationId: updateAddressReference
+      description: Partially update a AddressReference
+      operationId: updatePartialAddressReference
       parameters:
       - name: If-Match
         in: header
@@ -1289,12 +1319,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dO
+        example: KEY78MWeQ5
   /invoices/{invoiceKey}/financial-category-references:
     get:
       tags:
       - FinancialCategoryReference
       summary: Retrieve a list of FinancialCategoryReference entities scoped by invoiceKey.
+      description: list FinancialCategoryReference By InvoiceKey
       operationId: listFinancialCategoryReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -1352,12 +1383,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialCategoryReference
       summary: Create a new FinancialCategoryReference entity.
+      description: Create FinancialCategoryReference
       operationId: createFinancialCategoryReference
       requestBody:
         description: FinancialCategoryReference data to create the new resource.
@@ -1374,7 +1408,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}financial-category-references/KEY78BGRHqe"
           content:
             application/json:
               schema:
@@ -1425,6 +1459,7 @@ paths:
       tags:
       - FinancialCategoryReference
       summary: Replace a FinancialCategoryReference entity.
+      description: replace FinancialCategoryReference
       operationId: replaceFinancialCategoryReference
       parameters:
       - name: If-Match
@@ -1492,7 +1527,8 @@ paths:
       tags:
       - FinancialCategoryReference
       summary: Partially update a FinancialCategoryReference entity.
-      operationId: updateFinancialCategoryReference
+      description: Partially update a FinancialCategoryReference
+      operationId: updatePartialFinancialCategoryReference
       parameters:
       - name: If-Match
         in: header
@@ -1547,12 +1583,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOm
+        example: KEY78MWeQ5v
   /invoices/{invoiceKey}/fee-references:
     get:
       tags:
       - FeeReference
       summary: Retrieve a list of FeeReference entities scoped by invoiceKey.
+      description: list FeeReference By InvoiceKey
       operationId: listFeeReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -1610,12 +1647,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FeeReference
       summary: Create a new FeeReference entity.
+      description: Create FeeReference
       operationId: createFeeReference
       requestBody:
         description: FeeReference data to create the new resource.
@@ -1632,7 +1672,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}fee-references/KEY78BGRHqef"
           content:
             application/json:
               schema:
@@ -1683,6 +1723,7 @@ paths:
       tags:
       - FeeReference
       summary: Replace a FeeReference entity.
+      description: replace FeeReference
       operationId: replaceFeeReference
       parameters:
       - name: If-Match
@@ -1749,7 +1790,8 @@ paths:
       tags:
       - FeeReference
       summary: Partially update a FeeReference entity.
-      operationId: updateFeeReference
+      description: Partially update a FeeReference
+      operationId: updatePartialFeeReference
       parameters:
       - name: If-Match
         in: header
@@ -1804,12 +1846,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE
+        example: KEY78MWeQ5v8
   /invoices/{invoiceKey}/money:
     get:
       tags:
       - Money
       summary: Retrieve a list of Money entities scoped by invoiceKey.
+      description: list Money By InvoiceKey
       operationId: listMoneyByInvoiceKey
       parameters:
       - name: sort
@@ -1867,6 +1910,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1912,12 +1957,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8
+        example: KEY78MWeQ5v8v
   /invoices/{invoiceKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by invoiceKey.
+      description: list Identifier By InvoiceKey
       operationId: listIdentifierByInvoiceKey
       parameters:
       - name: sort
@@ -1975,12 +2021,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -1997,7 +2046,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}identifiers/KEY78BGRHqefqG"
           content:
             application/json:
               schema:
@@ -2048,6 +2097,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -2114,7 +2164,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -2169,12 +2220,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8b
+        example: KEY78MWeQ5v8vW
   /invoices/{invoiceKey}/part-references:
     get:
       tags:
       - PartReference
       summary: Retrieve a list of PartReference entities scoped by invoiceKey.
+      description: list PartReference By InvoiceKey
       operationId: listPartReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -2232,12 +2284,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartReference
       summary: Create a new PartReference entity.
+      description: Create PartReference
       operationId: createPartReference
       requestBody:
         description: PartReference data to create the new resource.
@@ -2254,7 +2309,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}part-references/KEY78BGRHqefqGq"
           content:
             application/json:
               schema:
@@ -2305,6 +2360,7 @@ paths:
       tags:
       - PartReference
       summary: Replace a PartReference entity.
+      description: replace PartReference
       operationId: replacePartReference
       parameters:
       - name: If-Match
@@ -2371,7 +2427,8 @@ paths:
       tags:
       - PartReference
       summary: Partially update a PartReference entity.
-      operationId: updatePartReference
+      description: Partially update a PartReference
+      operationId: updatePartialPartReference
       parameters:
       - name: If-Match
         in: header
@@ -2426,12 +2483,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bK
+        example: KEY78MWeQ5v8vWA
   /invoices/{invoiceKey}/effective-periods:
     get:
       tags:
       - EffectivePeriod
       summary: Retrieve a list of EffectivePeriod entities scoped by invoiceKey.
+      description: list EffectivePeriod By InvoiceKey
       operationId: listEffectivePeriodByInvoiceKey
       parameters:
       - name: sort
@@ -2489,6 +2547,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -2534,12 +2594,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo
+        example: KEY78MWeQ5v8vWAy
   /invoices/{invoiceKey}/credit-references:
     get:
       tags:
       - CreditReference
       summary: Retrieve a list of CreditReference entities scoped by invoiceKey.
+      description: list CreditReference By InvoiceKey
       operationId: listCreditReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -2597,12 +2658,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CreditReference
       summary: Create a new CreditReference entity.
+      description: Create CreditReference
       operationId: createCreditReference
       requestBody:
         description: CreditReference data to create the new resource.
@@ -2619,7 +2683,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}credit-references/KEY78BGRHqefqGqC7"
           content:
             application/json:
               schema:
@@ -2670,6 +2734,7 @@ paths:
       tags:
       - CreditReference
       summary: Replace a CreditReference entity.
+      description: replace CreditReference
       operationId: replaceCreditReference
       parameters:
       - name: If-Match
@@ -2736,7 +2801,8 @@ paths:
       tags:
       - CreditReference
       summary: Partially update a CreditReference entity.
-      operationId: updateCreditReference
+      description: Partially update a CreditReference
+      operationId: updatePartialCreditReference
       parameters:
       - name: If-Match
         in: header
@@ -2791,12 +2857,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5
+        example: KEY78MWeQ5v8vWAyz
   /invoices/{invoiceKey}/rebate-references:
     get:
       tags:
       - RebateReference
       summary: Retrieve a list of RebateReference entities scoped by invoiceKey.
+      description: list RebateReference By InvoiceKey
       operationId: listRebateReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -2854,12 +2921,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - RebateReference
       summary: Create a new RebateReference entity.
+      description: Create RebateReference
       operationId: createRebateReference
       requestBody:
         description: RebateReference data to create the new resource.
@@ -2876,7 +2946,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}rebate-references/KEY78BGRHqefqGqC7U"
           content:
             application/json:
               schema:
@@ -2927,6 +2997,7 @@ paths:
       tags:
       - RebateReference
       summary: Replace a RebateReference entity.
+      description: replace RebateReference
       operationId: replaceRebateReference
       parameters:
       - name: If-Match
@@ -2993,7 +3064,8 @@ paths:
       tags:
       - RebateReference
       summary: Partially update a RebateReference entity.
-      operationId: updateRebateReference
+      description: Partially update a RebateReference
+      operationId: updatePartialRebateReference
       parameters:
       - name: If-Match
         in: header
@@ -3048,12 +3120,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5u
+        example: KEY78MWeQ5v8vWAyzS
   /invoices/{invoiceKey}/shipment-references:
     get:
       tags:
       - ShipmentReference
       summary: Retrieve a list of ShipmentReference entities scoped by invoiceKey.
+      description: list ShipmentReference By InvoiceKey
       operationId: listShipmentReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -3111,12 +3184,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ShipmentReference
       summary: Create a new ShipmentReference entity.
+      description: Create ShipmentReference
       operationId: createShipmentReference
       requestBody:
         description: ShipmentReference data to create the new resource.
@@ -3133,7 +3209,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}shipment-references/KEY78BGRHqefqGqC7Ut"
           content:
             application/json:
               schema:
@@ -3184,6 +3260,7 @@ paths:
       tags:
       - ShipmentReference
       summary: Replace a ShipmentReference entity.
+      description: replace ShipmentReference
       operationId: replaceShipmentReference
       parameters:
       - name: If-Match
@@ -3250,7 +3327,8 @@ paths:
       tags:
       - ShipmentReference
       summary: Partially update a ShipmentReference entity.
-      operationId: updateShipmentReference
+      description: Partially update a ShipmentReference
+      operationId: updatePartialShipmentReference
       parameters:
       - name: If-Match
         in: header
@@ -3305,12 +3383,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ul
+        example: KEY78MWeQ5v8vWAyzS3
   /invoices/{invoiceKey}/unit-of-measures:
     get:
       tags:
       - UnitOfMeasure
       summary: Retrieve a list of UnitOfMeasure entities scoped by invoiceKey.
+      description: list UnitOfMeasure By InvoiceKey
       operationId: listUnitOfMeasureByInvoiceKey
       parameters:
       - name: sort
@@ -3368,6 +3447,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -3413,12 +3494,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ulb
+        example: KEY78MWeQ5v8vWAyzS3N
   /invoices/{invoiceKey}/tax-splits:
     get:
       tags:
       - TaxSplit
       summary: Retrieve a list of TaxSplit entities scoped by invoiceKey.
+      description: list TaxSplit By InvoiceKey
       operationId: listTaxSplitByInvoiceKey
       parameters:
       - name: sort
@@ -3476,12 +3558,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - TaxSplit
       summary: Create a new TaxSplit entity.
+      description: Create TaxSplit
       operationId: createTaxSplit
       requestBody:
         description: TaxSplit data to create the new resource.
@@ -3498,7 +3583,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}tax-splits/KEY78BGRHqefqGqC7UteZ"
           content:
             application/json:
               schema:
@@ -3549,6 +3634,7 @@ paths:
       tags:
       - TaxSplit
       summary: Replace a TaxSplit entity.
+      description: replace TaxSplit
       operationId: replaceTaxSplit
       parameters:
       - name: If-Match
@@ -3615,7 +3701,8 @@ paths:
       tags:
       - TaxSplit
       summary: Partially update a TaxSplit entity.
-      operationId: updateTaxSplit
+      description: Partially update a TaxSplit
+      operationId: updatePartialTaxSplit
       parameters:
       - name: If-Match
         in: header
@@ -3670,12 +3757,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ulbB
+        example: KEY78MWeQ5v8vWAyzS3NN
   /invoices/{invoiceKey}/payment-schedule-references:
     get:
       tags:
       - PaymentScheduleReference
       summary: Retrieve a list of PaymentScheduleReference entities scoped by invoiceKey.
+      description: list PaymentScheduleReference By InvoiceKey
       operationId: listPaymentScheduleReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -3733,12 +3821,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PaymentScheduleReference
       summary: Create a new PaymentScheduleReference entity.
+      description: Create PaymentScheduleReference
       operationId: createPaymentScheduleReference
       requestBody:
         description: PaymentScheduleReference data to create the new resource.
@@ -3755,7 +3846,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}payment-schedule-references/KEY78BGRHqefqGqC7UteZk"
           content:
             application/json:
               schema:
@@ -3806,6 +3897,7 @@ paths:
       tags:
       - PaymentScheduleReference
       summary: Replace a PaymentScheduleReference entity.
+      description: replace PaymentScheduleReference
       operationId: replacePaymentScheduleReference
       parameters:
       - name: If-Match
@@ -3873,7 +3965,8 @@ paths:
       tags:
       - PaymentScheduleReference
       summary: Partially update a PaymentScheduleReference entity.
-      operationId: updatePaymentScheduleReference
+      description: Partially update a PaymentScheduleReference
+      operationId: updatePartialPaymentScheduleReference
       parameters:
       - name: If-Match
         in: header
@@ -3928,12 +4021,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ulbBH
+        example: KEY78MWeQ5v8vWAyzS3NNx
   /invoices/{invoiceKey}/price-plan-references:
     get:
       tags:
       - PricePlanReference
       summary: Retrieve a list of PricePlanReference entities scoped by invoiceKey.
+      description: list PricePlanReference By InvoiceKey
       operationId: listPricePlanReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -3991,12 +4085,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PricePlanReference
       summary: Create a new PricePlanReference entity.
+      description: Create PricePlanReference
       operationId: createPricePlanReference
       requestBody:
         description: PricePlanReference data to create the new resource.
@@ -4013,7 +4110,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}price-plan-references/KEY78BGRHqefqGqC7UteZkE"
           content:
             application/json:
               schema:
@@ -4064,6 +4161,7 @@ paths:
       tags:
       - PricePlanReference
       summary: Replace a PricePlanReference entity.
+      description: replace PricePlanReference
       operationId: replacePricePlanReference
       parameters:
       - name: If-Match
@@ -4130,7 +4228,8 @@ paths:
       tags:
       - PricePlanReference
       summary: Partially update a PricePlanReference entity.
-      operationId: updatePricePlanReference
+      description: Partially update a PricePlanReference
+      operationId: updatePartialPricePlanReference
       parameters:
       - name: If-Match
         in: header
@@ -4185,12 +4284,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ulbBHR
+        example: KEY78MWeQ5v8vWAyzS3NNxZ
   /invoices/{invoiceKey}/control-account-references:
     get:
       tags:
       - ControlAccountReference
       summary: Retrieve a list of ControlAccountReference entities scoped by invoiceKey.
+      description: list ControlAccountReference By InvoiceKey
       operationId: listControlAccountReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -4248,12 +4348,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ControlAccountReference
       summary: Create a new ControlAccountReference entity.
+      description: Create ControlAccountReference
       operationId: createControlAccountReference
       requestBody:
         description: ControlAccountReference data to create the new resource.
@@ -4270,7 +4373,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}control-account-references/KEY78BGRHqefqGqC7UteZkER"
           content:
             application/json:
               schema:
@@ -4321,6 +4424,7 @@ paths:
       tags:
       - ControlAccountReference
       summary: Replace a ControlAccountReference entity.
+      description: replace ControlAccountReference
       operationId: replaceControlAccountReference
       parameters:
       - name: If-Match
@@ -4388,7 +4492,8 @@ paths:
       tags:
       - ControlAccountReference
       summary: Partially update a ControlAccountReference entity.
-      operationId: updateControlAccountReference
+      description: Partially update a ControlAccountReference
+      operationId: updatePartialControlAccountReference
       parameters:
       - name: If-Match
         in: header
@@ -4443,12 +4548,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ulbBHRU
+        example: KEY78MWeQ5v8vWAyzS3NNxZO
   /invoices/{invoiceKey}/reward-references:
     get:
       tags:
       - RewardReference
       summary: Retrieve a list of RewardReference entities scoped by invoiceKey.
+      description: list RewardReference By InvoiceKey
       operationId: listRewardReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -4506,12 +4612,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - RewardReference
       summary: Create a new RewardReference entity.
+      description: Create RewardReference
       operationId: createRewardReference
       requestBody:
         description: RewardReference data to create the new resource.
@@ -4528,7 +4637,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}reward-references/KEY78BGRHqefqGqC7UteZkERb"
           content:
             application/json:
               schema:
@@ -4579,6 +4688,7 @@ paths:
       tags:
       - RewardReference
       summary: Replace a RewardReference entity.
+      description: replace RewardReference
       operationId: replaceRewardReference
       parameters:
       - name: If-Match
@@ -4645,7 +4755,8 @@ paths:
       tags:
       - RewardReference
       summary: Partially update a RewardReference entity.
-      operationId: updateRewardReference
+      description: Partially update a RewardReference
+      operationId: updatePartialRewardReference
       parameters:
       - name: If-Match
         in: header
@@ -4700,12 +4811,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ulbBHRUY
+        example: KEY78MWeQ5v8vWAyzS3NNxZOV
   /invoices/{invoiceKey}/payment-authorizations:
     get:
       tags:
       - PaymentAuthorization
       summary: Retrieve a list of PaymentAuthorization entities scoped by invoiceKey.
+      description: list PaymentAuthorization By InvoiceKey
       operationId: listPaymentAuthorizationByInvoiceKey
       parameters:
       - name: sort
@@ -4763,12 +4875,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PaymentAuthorization
       summary: Create a new PaymentAuthorization entity.
+      description: Create PaymentAuthorization
       operationId: createPaymentAuthorization
       requestBody:
         description: PaymentAuthorization data to create the new resource.
@@ -4785,7 +4900,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}payment-authorizations/KEY78BGRHqefqGqC7UteZkERbx"
           content:
             application/json:
               schema:
@@ -4836,6 +4951,7 @@ paths:
       tags:
       - PaymentAuthorization
       summary: Replace a PaymentAuthorization entity.
+      description: replace PaymentAuthorization
       operationId: replacePaymentAuthorization
       parameters:
       - name: If-Match
@@ -4903,7 +5019,8 @@ paths:
       tags:
       - PaymentAuthorization
       summary: Partially update a PaymentAuthorization entity.
-      operationId: updatePaymentAuthorization
+      description: Partially update a PaymentAuthorization
+      operationId: updatePartialPaymentAuthorization
       parameters:
       - name: If-Match
         in: header
@@ -4958,12 +5075,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ulbBHRUYY
+        example: KEY78MWeQ5v8vWAyzS3NNxZOVt
   /invoices/{invoiceKey}/prices:
     get:
       tags:
       - Price
       summary: Retrieve a list of Price entities scoped by invoiceKey.
+      description: list Price By InvoiceKey
       operationId: listPriceByInvoiceKey
       parameters:
       - name: sort
@@ -5021,12 +5139,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Price
       summary: Create a new Price entity.
+      description: Create Price
       operationId: createPrice
       requestBody:
         description: Price data to create the new resource.
@@ -5043,7 +5164,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}prices/KEY78BGRHqefqGqC7UteZkERbxg"
           content:
             application/json:
               schema:
@@ -5094,6 +5215,7 @@ paths:
       tags:
       - Price
       summary: Replace a Price entity.
+      description: replace Price
       operationId: replacePrice
       parameters:
       - name: If-Match
@@ -5160,7 +5282,8 @@ paths:
       tags:
       - Price
       summary: Partially update a Price entity.
-      operationId: updatePrice
+      description: Partially update a Price
+      operationId: updatePartialPrice
       parameters:
       - name: If-Match
         in: header
@@ -5215,12 +5338,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ulbBHRUYY7
+        example: KEY78MWeQ5v8vWAyzS3NNxZOVtU
   /invoices/{invoiceKey}/financial-events:
     get:
       tags:
       - FinancialEvent
       summary: Retrieve a list of FinancialEvent entities scoped by invoiceKey.
+      description: list FinancialEvent By InvoiceKey
       operationId: listFinancialEventByInvoiceKey
       parameters:
       - name: sort
@@ -5278,12 +5402,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialEvent
       summary: Create a new FinancialEvent entity.
+      description: Create FinancialEvent
       operationId: createFinancialEvent
       requestBody:
         description: FinancialEvent data to create the new resource.
@@ -5300,7 +5427,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}financial-events/KEY78BGRHqefqGqC7UteZkERbxgl"
           content:
             application/json:
               schema:
@@ -5351,6 +5478,7 @@ paths:
       tags:
       - FinancialEvent
       summary: Replace a FinancialEvent entity.
+      description: replace FinancialEvent
       operationId: replaceFinancialEvent
       parameters:
       - name: If-Match
@@ -5417,7 +5545,8 @@ paths:
       tags:
       - FinancialEvent
       summary: Partially update a FinancialEvent entity.
-      operationId: updateFinancialEvent
+      description: Partially update a FinancialEvent
+      operationId: updatePartialFinancialEvent
       parameters:
       - name: If-Match
         in: header
@@ -5472,12 +5601,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ulbBHRUYY77
+        example: KEY78MWeQ5v8vWAyzS3NNxZOVtUx
   /invoices/{invoiceKey}/payment-method-references:
     get:
       tags:
       - PaymentMethodReference
       summary: Retrieve a list of PaymentMethodReference entities scoped by invoiceKey.
+      description: list PaymentMethodReference By InvoiceKey
       operationId: listPaymentMethodReferenceByInvoiceKey
       parameters:
       - name: sort
@@ -5535,12 +5665,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PaymentMethodReference
       summary: Create a new PaymentMethodReference entity.
+      description: Create PaymentMethodReference
       operationId: createPaymentMethodReference
       requestBody:
         description: PaymentMethodReference data to create the new resource.
@@ -5557,7 +5690,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}payment-method-references/KEY78BGRHqefqGqC7UteZkERbxgl4"
           content:
             application/json:
               schema:
@@ -5608,6 +5741,7 @@ paths:
       tags:
       - PaymentMethodReference
       summary: Replace a PaymentMethodReference entity.
+      description: replace PaymentMethodReference
       operationId: replacePaymentMethodReference
       parameters:
       - name: If-Match
@@ -5675,7 +5809,8 @@ paths:
       tags:
       - PaymentMethodReference
       summary: Partially update a PaymentMethodReference entity.
-      operationId: updatePaymentMethodReference
+      description: Partially update a PaymentMethodReference
+      operationId: updatePartialPaymentMethodReference
       parameters:
       - name: If-Match
         in: header
@@ -5730,12 +5865,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ulbBHRUYY77z
+        example: KEY78MWeQ5v8vWAyzS3NNxZOVtUxm
   /invoices/{invoiceKey}/textual-details:
     get:
       tags:
       - TextualDetail
       summary: Retrieve a list of TextualDetail entities scoped by invoiceKey.
+      description: list TextualDetail By InvoiceKey
       operationId: listTextualDetailByInvoiceKey
       parameters:
       - name: sort
@@ -5793,6 +5929,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -5838,12 +5976,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ulbBHRUYY77z9
+        example: KEY78MWeQ5v8vWAyzS3NNxZOVtUxml
   /invoices/{invoiceKey}/financial-splits:
     get:
       tags:
       - FinancialSplit
       summary: Retrieve a list of FinancialSplit entities scoped by invoiceKey.
+      description: list FinancialSplit By InvoiceKey
       operationId: listFinancialSplitByInvoiceKey
       parameters:
       - name: sort
@@ -5901,12 +6040,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialSplit
       summary: Create a new FinancialSplit entity.
+      description: Create FinancialSplit
       operationId: createFinancialSplit
       requestBody:
         description: FinancialSplit data to create the new resource.
@@ -5923,7 +6065,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}financial-splits/KEY78BGRHqefqGqC7UteZkERbxgl4Le"
           content:
             application/json:
               schema:
@@ -5974,6 +6116,7 @@ paths:
       tags:
       - FinancialSplit
       summary: Replace a FinancialSplit entity.
+      description: replace FinancialSplit
       operationId: replaceFinancialSplit
       parameters:
       - name: If-Match
@@ -6040,7 +6183,8 @@ paths:
       tags:
       - FinancialSplit
       summary: Partially update a FinancialSplit entity.
-      operationId: updateFinancialSplit
+      description: Partially update a FinancialSplit
+      operationId: updatePartialFinancialSplit
       parameters:
       - name: If-Match
         in: header
@@ -6095,12 +6239,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ulbBHRUYY77z97
+        example: KEY78MWeQ5v8vWAyzS3NNxZOVtUxml9
   /invoices/{invoiceKey}/financial-tracks:
     get:
       tags:
       - FinancialTrack
       summary: Retrieve a list of FinancialTrack entities scoped by invoiceKey.
+      description: list FinancialTrack By InvoiceKey
       operationId: listFinancialTrackByInvoiceKey
       parameters:
       - name: sort
@@ -6158,12 +6303,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialTrack
       summary: Create a new FinancialTrack entity.
+      description: Create FinancialTrack
       operationId: createFinancialTrack
       requestBody:
         description: FinancialTrack data to create the new resource.
@@ -6180,7 +6328,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/invoices{invoiceKey}financial-tracks/KEY78BGRHqefqGqC7UteZkERbxgl4LeL"
           content:
             application/json:
               schema:
@@ -6231,6 +6379,7 @@ paths:
       tags:
       - FinancialTrack
       summary: Replace a FinancialTrack entity.
+      description: replace FinancialTrack
       operationId: replaceFinancialTrack
       parameters:
       - name: If-Match
@@ -6297,7 +6446,8 @@ paths:
       tags:
       - FinancialTrack
       summary: Partially update a FinancialTrack entity.
-      operationId: updateFinancialTrack
+      description: Partially update a FinancialTrack
+      operationId: updatePartialFinancialTrack
       parameters:
       - name: If-Match
         in: header
@@ -6352,6 +6502,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY787p7dOmE8bKo5ulbBHRUYY77z97i
+        example: KEY78MWeQ5v8vWAyzS3NNxZOVtUxml9Z
 components:
   schemas: {}

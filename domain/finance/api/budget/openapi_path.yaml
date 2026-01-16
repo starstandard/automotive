@@ -22,6 +22,7 @@ paths:
       tags:
       - Budget
       summary: Retrieve a list of Budget entities.
+      description: list Budget By
       operationId: listBudget
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Budget
       summary: Create a new Budget entity.
+      description: Create Budget
       operationId: createBudget
       requestBody:
         description: Budget data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /budgets/KEY78o
+                example: /budgets/KEY78w
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - Budget
       summary: Replace a Budget entity.
+      description: replace Budget
       operationId: replaceBudget
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - Budget
       summary: Partially update a Budget entity.
-      operationId: updateBudget
+      description: Partially update a Budget
+      operationId: updatePartialBudget
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78J
+        example: KEY78T
   /budgets/{budgetKey}/money:
     get:
       tags:
       - Money
       summary: Retrieve a list of Money entities scoped by budgetKey.
+      description: list Money By BudgetKey
       operationId: listMoneyByBudgetKey
       parameters:
       - name: sort
@@ -323,6 +330,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -368,12 +377,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78JJ
+        example: KEY78TY
   /budgets/{budgetKey}/general-ledger-references:
     get:
       tags:
       - GeneralLedgerReference
       summary: Retrieve a list of GeneralLedgerReference entities scoped by budgetKey.
+      description: list GeneralLedgerReference By BudgetKey
       operationId: listGeneralLedgerReferenceByBudgetKey
       parameters:
       - name: sort
@@ -431,12 +441,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - GeneralLedgerReference
       summary: Create a new GeneralLedgerReference entity.
+      description: Create GeneralLedgerReference
       operationId: createGeneralLedgerReference
       requestBody:
         description: GeneralLedgerReference data to create the new resource.
@@ -453,7 +466,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/budgets{budgetKey}general-ledger-references/KEY78wH9"
           content:
             application/json:
               schema:
@@ -504,6 +517,7 @@ paths:
       tags:
       - GeneralLedgerReference
       summary: Replace a GeneralLedgerReference entity.
+      description: replace GeneralLedgerReference
       operationId: replaceGeneralLedgerReference
       parameters:
       - name: If-Match
@@ -571,7 +585,8 @@ paths:
       tags:
       - GeneralLedgerReference
       summary: Partially update a GeneralLedgerReference entity.
-      operationId: updateGeneralLedgerReference
+      description: Partially update a GeneralLedgerReference
+      operationId: updatePartialGeneralLedgerReference
       parameters:
       - name: If-Match
         in: header
@@ -626,12 +641,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78JJX
+        example: KEY78TYQ
   /budgets/{budgetKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by budgetKey.
+      description: list Identifier By BudgetKey
       operationId: listIdentifierByBudgetKey
       parameters:
       - name: sort
@@ -689,12 +705,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -711,7 +730,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/budgets{budgetKey}identifiers/KEY78wH9I"
           content:
             application/json:
               schema:
@@ -762,6 +781,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -828,7 +848,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -883,12 +904,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78JJXU
+        example: KEY78TYQi
   /budgets/{budgetKey}/budget-items:
     get:
       tags:
       - BudgetItem
       summary: Retrieve a list of BudgetItem entities scoped by budgetKey.
+      description: list BudgetItem By BudgetKey
       operationId: listBudgetItemByBudgetKey
       parameters:
       - name: sort
@@ -946,12 +968,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - BudgetItem
       summary: Create a new BudgetItem entity.
+      description: Create BudgetItem
       operationId: createBudgetItem
       requestBody:
         description: BudgetItem data to create the new resource.
@@ -968,7 +993,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/budgets{budgetKey}budget-items/KEY78wH9IJ"
           content:
             application/json:
               schema:
@@ -1019,6 +1044,7 @@ paths:
       tags:
       - BudgetItem
       summary: Replace a BudgetItem entity.
+      description: replace BudgetItem
       operationId: replaceBudgetItem
       parameters:
       - name: If-Match
@@ -1085,7 +1111,8 @@ paths:
       tags:
       - BudgetItem
       summary: Partially update a BudgetItem entity.
-      operationId: updateBudgetItem
+      description: Partially update a BudgetItem
+      operationId: updatePartialBudgetItem
       parameters:
       - name: If-Match
         in: header
@@ -1140,12 +1167,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78JJXUJ
+        example: KEY78TYQil
   /budgets/{budgetKey}/accounting-periods:
     get:
       tags:
       - AccountingPeriod
       summary: Retrieve a list of AccountingPeriod entities scoped by budgetKey.
+      description: list AccountingPeriod By BudgetKey
       operationId: listAccountingPeriodByBudgetKey
       parameters:
       - name: sort
@@ -1203,12 +1231,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - AccountingPeriod
       summary: Create a new AccountingPeriod entity.
+      description: Create AccountingPeriod
       operationId: createAccountingPeriod
       requestBody:
         description: AccountingPeriod data to create the new resource.
@@ -1225,7 +1256,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/budgets{budgetKey}accounting-periods/KEY78wH9IJc"
           content:
             application/json:
               schema:
@@ -1276,6 +1307,7 @@ paths:
       tags:
       - AccountingPeriod
       summary: Replace a AccountingPeriod entity.
+      description: replace AccountingPeriod
       operationId: replaceAccountingPeriod
       parameters:
       - name: If-Match
@@ -1342,7 +1374,8 @@ paths:
       tags:
       - AccountingPeriod
       summary: Partially update a AccountingPeriod entity.
-      operationId: updateAccountingPeriod
+      description: Partially update a AccountingPeriod
+      operationId: updatePartialAccountingPeriod
       parameters:
       - name: If-Match
         in: header
@@ -1397,12 +1430,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78JJXUJC
+        example: KEY78TYQilW
   /budgets/{budgetKey}/control-account-references:
     get:
       tags:
       - ControlAccountReference
       summary: Retrieve a list of ControlAccountReference entities scoped by budgetKey.
+      description: list ControlAccountReference By BudgetKey
       operationId: listControlAccountReferenceByBudgetKey
       parameters:
       - name: sort
@@ -1460,12 +1494,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ControlAccountReference
       summary: Create a new ControlAccountReference entity.
+      description: Create ControlAccountReference
       operationId: createControlAccountReference
       requestBody:
         description: ControlAccountReference data to create the new resource.
@@ -1482,7 +1519,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/budgets{budgetKey}control-account-references/KEY78wH9IJc7"
           content:
             application/json:
               schema:
@@ -1533,6 +1570,7 @@ paths:
       tags:
       - ControlAccountReference
       summary: Replace a ControlAccountReference entity.
+      description: replace ControlAccountReference
       operationId: replaceControlAccountReference
       parameters:
       - name: If-Match
@@ -1600,7 +1638,8 @@ paths:
       tags:
       - ControlAccountReference
       summary: Partially update a ControlAccountReference entity.
-      operationId: updateControlAccountReference
+      description: Partially update a ControlAccountReference
+      operationId: updatePartialControlAccountReference
       parameters:
       - name: If-Match
         in: header
@@ -1655,6 +1694,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78JJXUJCX
+        example: KEY78TYQilWl
 components:
   schemas: {}

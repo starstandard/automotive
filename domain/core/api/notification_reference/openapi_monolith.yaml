@@ -19,12 +19,20 @@ security:
   - standard:read
 - member-api-key: []
 - {}
+tags:
+- name: Identifier
+  description: Operations related to Identifier
+- name: NotificationReference
+  description: Operations related to NotificationReference
+- name: Default
+  description: Operations related to Default
 paths:
   /notification-references:
     get:
       tags:
       - NotificationReference
       summary: Retrieve a list of NotificationReference entities.
+      description: list NotificationReference By
       operationId: listNotificationReference
       parameters:
       - name: sort
@@ -76,6 +84,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -86,12 +95,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - NotificationReference
       summary: Create a new NotificationReference entity.
+      description: Create NotificationReference
       operationId: createNotificationReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -110,7 +122,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /notification-references/KEY78n
+                example: /notification-references/KEY78M
           content:
             application/json:
               schema:
@@ -132,6 +144,7 @@ paths:
       tags:
       - NotificationReference
       summary: Retrieve a specific NotificationReference entity.
+      description: "Standard GET operation for /notification-references/{notificationReferenceKey}"
       operationId: getNotificationReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -159,6 +172,7 @@ paths:
       tags:
       - NotificationReference
       summary: Replace a NotificationReference entity.
+      description: replace NotificationReference
       operationId: replaceNotificationReference
       parameters:
       - name: If-Match
@@ -230,7 +244,8 @@ paths:
       tags:
       - NotificationReference
       summary: Partially update a NotificationReference entity.
-      operationId: updateNotificationReference
+      description: Partially update a NotificationReference
+      operationId: updatePartialNotificationReference
       parameters:
       - name: If-Match
         in: header
@@ -281,12 +296,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78x
+        example: KEY78K
   /notification-references/{notificationReferenceKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped b...
+      description: list Identifier By NotificationReferenceKey
       operationId: listIdentifierByNotificationReferenceKey
       parameters:
       - name: sort
@@ -338,6 +354,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -348,12 +365,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -372,7 +392,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/notification-references{notificationReferenceKey}identifiers/KEY78Mj"
           content:
             application/json:
               schema:
@@ -401,6 +421,7 @@ paths:
       tags:
       - Identifier
       summary: Retrieve a specific Identifier entity.
+      description: "Standard GET operation for /notification-references/{notificationReferenceKey}/identifiers/{identifierKey}"
       operationId: getIdentifierById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -428,6 +449,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -499,7 +521,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -556,11 +579,14 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78xi
+        example: KEY78KD
   /notification-references/health:
     get:
+      tags:
+      - Default
       summary: Health Check
       description: Public endpoint to verify service availability.
+      operationId: getNotificationReferenceHealth
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
       responses:
@@ -593,11 +619,22 @@ paths:
                     description: Server time in ISO-8601 format.
                     format: date-time
                     example: 2025-12-21T23:00:00Z
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       security:
       - {}
   /notification-references/batch:
     post:
+      tags:
+      - Default
       summary: Bulk create notification-references
+      description: Bulk Create of NotificationReference
       operationId: createNotificationReferenceBatch
       requestBody:
         content:
@@ -613,6 +650,12 @@ paths:
       responses:
         "200":
           description: Batch processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /notification-references/batch/7594588926471015045
           content:
             application/json:
               schema:
@@ -632,9 +675,23 @@ paths:
                           format: int32
                         error:
                           $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
   /notification-references/exports:
     post:
+      tags:
+      - Default
       summary: Initiate a bulk NotificationReference export
+      description: Standard POST operation for /notification-references/exports
+      operationId: initiateNotificationReferenceExport
       parameters:
       - name: Idempotency-Key
         in: header
@@ -651,6 +708,7 @@ paths:
               properties:
                 format:
                   type: string
+                  example: string
                   default: PARQUET
                   enum:
                   - XML
@@ -705,10 +763,17 @@ paths:
                   description: "If true, the system validates the request and returns\
                     \ potential violations or metadata (like estimated size) without\
                     \ starting the job."
+                  example: false
                   default: false
       responses:
         "202":
           description: Export job created/accepted
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /notification-references/exports/2976994415067144163
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -717,6 +782,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       callbacks:
         onExportCompleted:
           '{$request.body#/notification/webhook_url}':
@@ -733,7 +806,11 @@ paths:
                   description: Webhook received
   /notification-references/exports/{exportId}:
     get:
+      tags:
+      - Default
       summary: Get export status
+      description: Get Export Status of NotificationReference
+      operationId: getNotificationReferenceExportStatus
       parameters:
       - name: exportId
         in: path
@@ -747,8 +824,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExportJob"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /notification-references/{notificationReferenceKey}/commands:
     post:
+      tags:
+      - Default
       summary: Execute a business workflow on NotificationReference
       description: Single entry point for all NotificationReference state-changing
         intents.
@@ -784,6 +871,12 @@ paths:
       responses:
         "200":
           description: Commands processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: "/notification-references/{notificationReferenceKey}/commands/551045228759523734"
           content:
             application/json:
               schema:
@@ -805,7 +898,7 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #16ceaf96 has been successfully cancelled."
+                    example: "Invoice #b6bb3d12 has been successfully cancelled."
                   commandId:
                     type: string
                     description: The tracking ID for this specific command execution
@@ -813,7 +906,7 @@ paths:
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: 7672663b
+                    example: 85e6e523
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -822,6 +915,7 @@ paths:
                     type: boolean
                     description: "If true, the agent can attempt this command again\
                       \ immediately"
+                    example: false
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -838,6 +932,8 @@ paths:
           $ref: "#/components/responses/ServerError"
   /notification-references/{notificationReferenceKey}/commands/{commandId}:
     get:
+      tags:
+      - Default
       summary: Poll NotificationReference command status
       description: Check the progress or result of a previously submitted command.
       operationId: getNotificationReferenceCommandStatus
@@ -866,6 +962,7 @@ paths:
                     type: string
                     description: The unique identifier for the command being tracked
                     format: uuid
+                    readOnly: true
                   status:
                     type: string
                     description: The current lifecycle state of the command
@@ -893,9 +990,20 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /notification-references/capabilities:
     get:
+      tags:
+      - Default
       summary: Discover NotificationReference Capabilities
+      description: Standard GET operation for /notification-references/capabilities
       operationId: getNotificationReferenceCapabilities
       parameters:
       - name: include
@@ -930,6 +1038,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Capabilities"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     Capabilities:
@@ -1024,8 +1140,7 @@ components:
                     example: P7D
                   is_pii_sensitive:
                     type: boolean
-                    description: Indicates if the export contains Personally Identifiable
-                      Information
+                    description: Indicates export contains PII
                     example: false
                   access_tier:
                     type: string
@@ -1044,6 +1159,7 @@ components:
                     rule_id:
                       type: string
                       description: Unique identifier for the business rule
+                      readOnly: true
                       example: IDENTITY_LOCK_STATE
                     constraint_type:
                       type: string
@@ -1077,8 +1193,8 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
-                        count: "45"
                         limit: "0"
+                        count: "45"
                         item_type: Inventory
                     rule_constraints:
                       type: object
@@ -1088,8 +1204,8 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
-                        value: "31"
                         unit: days
+                        value: "31"
                         min: "1"
                     limit_rule:
                       type: string
@@ -1136,7 +1252,7 @@ components:
       - code
       - message
       - timestamp
-      - traceId
+      - trace_id
       type: object
       properties:
         code:
@@ -1163,11 +1279,12 @@ components:
           description: The time the error occurred (ISO 8601).
           format: date-time
           example: 2025-11-10T10:30:00Z
-        traceId:
+        trace_id:
           type: string
           description: "A unique identifier for this specific request, ..."
+          readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
-        docUrl:
+        doc_url:
           type: string
           description: A URL leading to the documentation page for thi...
           format: uri
@@ -1204,11 +1321,14 @@ components:
           type: integer
           description: Part number
           format: int32
+          example: 1
         download_url:
           type: string
           format: uri
+          example: https://api.example.com
         format:
           type: string
+          example: string
           default: PARQUET
           enum:
           - XML
@@ -1219,15 +1339,20 @@ components:
         expires_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
+          example: string
     ExportJob:
       type: object
       properties:
         id:
           type: string
+          readOnly: true
+          example: string
         status:
           type: string
+          example: string
           enum:
           - PENDING
           - PROCESSING
@@ -1238,6 +1363,7 @@ components:
           minimum: 0
           type: integer
           format: int32
+          example: 1
         files:
           type: array
           items:
@@ -1247,24 +1373,30 @@ components:
       properties:
         event_type:
           type: string
+          example: EXPORT_COMPLETED
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
         occurred_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         data:
           type: object
           properties:
             job_id:
               type: string
+              readOnly: true
+              example: dee20b07
             aggregate:
               type: string
               example: NotificationReference
             data_product_id:
               type: string
+              readOnly: true
             status:
               type: string
+              example: FAILED
               enum:
               - COMPLETED
               - FAILED
@@ -1281,27 +1413,34 @@ components:
         identifier_id:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          description: Unique identifier value
+          readOnly: true
+          example: string
         identifier_key:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Business key for the identifier Pattern: ^[a-zA..."
+          description: Business key for the identifier
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -1320,46 +1459,49 @@ components:
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
       description: Identifier Update for Patch and Put
     NotificationReference:
       type: object
       properties:
         notification_reference_id:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique identifier value for the referenc... Pat...
+          description: Unique identifier value for the referenc...
+          readOnly: true
+          example: string
         notification_reference_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique key value for the reference recor... Pat...
+          description: Unique key value for the reference recor...
+          example: string
         source_key:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: The unique key identifying the reference... Pat...
+          description: The unique key identifying the reference...
+          example: string
         source_actor:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: The unique key identifying the reference... Pat...
+          description: The unique key identifying the reference...
+          example: string
         context:
           type: string
           description: Context or domain of the identifier (e.g...
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
         identifier:
@@ -1368,6 +1510,7 @@ components:
           type: string
           description: The date and time the reference was crea...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         event_type:
           $ref: "#/components/schemas/EventTypes"
       description: Link to the associated system notification.
@@ -1394,16 +1537,18 @@ components:
         context:
           type: string
           description: Context or domain of the identifier (e.g...
+          example: string
         source_actor:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: The unique key identifying the reference... Pat...
+          description: The unique key identifying the reference...
+          example: string
         occurrence_date_time:
           type: string
           description: The date and time the reference was crea...
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: NotificationReference Update for Patch and Put
     NotificationReferenceWorkflowMetadata:
       type: object
@@ -1411,6 +1556,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
+          example: string
           enum:
           - CREATED
           - ACTIVE
@@ -1442,7 +1588,7 @@ components:
         instance:
           type: string
           format: uri
-          example: /money/exports
+          example: https://api.yourdomain.com/money/exports
         intent:
           type: string
           example: InitiateMoneyExport

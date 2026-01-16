@@ -19,12 +19,24 @@ security:
   - standard:read
 - member-api-key: []
 - {}
+tags:
+- name: Money
+  description: Operations related to Money
+- name: Identifier
+  description: Operations related to Identifier
+- name: ControlAccountReference
+  description: Operations related to ControlAccountReference
+- name: Default
+  description: Operations related to Default
+- name: SubsidiaryLedgerTransaction
+  description: Operations related to SubsidiaryLedgerTransaction
 paths:
   /subsidiary-ledger-transactions:
     get:
       tags:
       - SubsidiaryLedgerTransaction
       summary: Retrieve a list of SubsidiaryLedgerTransaction ...
+      description: list SubsidiaryLedgerTransaction By
       operationId: listSubsidiaryLedgerTransaction
       parameters:
       - name: sort
@@ -76,6 +88,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -86,12 +99,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - SubsidiaryLedgerTransaction
       summary: Create a new SubsidiaryLedgerTransaction entity.
+      description: Create SubsidiaryLedgerTransaction
       operationId: createSubsidiaryLedgerTransaction
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -110,7 +126,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /subsidiary-ledger-transactions/KEY78l
+                example: /subsidiary-ledger-transactions/KEY78Y
           content:
             application/json:
               schema:
@@ -132,6 +148,7 @@ paths:
       tags:
       - SubsidiaryLedgerTransaction
       summary: Retrieve a specific SubsidiaryLedgerTransaction...
+      description: "Standard GET operation for /subsidiary-ledger-transactions/{subsidiaryLedgerTransactionKey}"
       operationId: getSubsidiaryLedgerTransactionById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -159,6 +176,7 @@ paths:
       tags:
       - SubsidiaryLedgerTransaction
       summary: Replace a SubsidiaryLedgerTransaction entity.
+      description: replace SubsidiaryLedgerTransaction
       operationId: replaceSubsidiaryLedgerTransaction
       parameters:
       - name: If-Match
@@ -230,7 +248,8 @@ paths:
       tags:
       - SubsidiaryLedgerTransaction
       summary: Partially update a SubsidiaryLedgerTransaction ...
-      operationId: updateSubsidiaryLedgerTransaction
+      description: Partially update a SubsidiaryLedgerTransaction
+      operationId: updatePartialSubsidiaryLedgerTransaction
       parameters:
       - name: If-Match
         in: header
@@ -281,12 +300,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78g
+        example: KEY78V
   /subsidiary-ledger-transactions/{subsidiaryLedgerTransactionKey}/money:
     get:
       tags:
       - Money
       summary: Retrieve a list of Money entities scoped by sub...
+      description: list Money By SubsidiaryLedgerTransactionKey
       operationId: listMoneyBySubsidiaryLedgerTransactionKey
       parameters:
       - name: sort
@@ -338,6 +358,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -348,6 +369,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -362,6 +385,7 @@ paths:
       tags:
       - Money
       summary: Retrieve a specific Money entity.
+      description: "Standard GET operation for /subsidiary-ledger-transactions/{subsidiaryLedgerTransactionKey}/money/{moneyKey}"
       operationId: getMoneyById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -398,12 +422,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78gI
+        example: KEY78VJ
   /subsidiary-ledger-transactions/{subsidiaryLedgerTransactionKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped b...
+      description: list Identifier By SubsidiaryLedgerTransactionKey
       operationId: listIdentifierBySubsidiaryLedgerTransactionKey
       parameters:
       - name: sort
@@ -455,6 +480,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -465,12 +491,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -489,7 +518,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/subsidiary-ledger-transactions{subsidiaryLedgerTransactionKey}identifiers/KEY78YHM"
           content:
             application/json:
               schema:
@@ -518,6 +547,7 @@ paths:
       tags:
       - Identifier
       summary: Retrieve a specific Identifier entity.
+      description: "Standard GET operation for /subsidiary-ledger-transactions/{subsidiaryLedgerTransactionKey}/identifiers/{identifierKey}"
       operationId: getIdentifierById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -545,6 +575,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -616,7 +647,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -673,12 +705,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78gIR
+        example: KEY78VJ3
   /subsidiary-ledger-transactions/{subsidiaryLedgerTransactionKey}/control-account-references:
     get:
       tags:
       - ControlAccountReference
       summary: Retrieve a list of ControlAccountReference enti...
+      description: list ControlAccountReference By SubsidiaryLedge...
       operationId: listControlAccountReferenceBySubsidiaryLedgerTransactionKey
       parameters:
       - name: sort
@@ -730,6 +763,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -740,12 +774,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ControlAccountReference
       summary: Create a new ControlAccountReference entity.
+      description: Create ControlAccountReference
       operationId: createControlAccountReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -764,7 +801,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/subsidiary-ledger-transactions{subsidiaryLedgerTransactionKey}control-account-references/KEY78YHM1"
           content:
             application/json:
               schema:
@@ -793,6 +830,7 @@ paths:
       tags:
       - ControlAccountReference
       summary: Retrieve a specific ControlAccountReference ent...
+      description: "Standard GET operation for /subsidiary-ledger-transactions/{subsidiaryLedgerTransactionKey}/control-account-references/{controlAccountReferenceKey}"
       operationId: getControlAccountReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -820,6 +858,7 @@ paths:
       tags:
       - ControlAccountReference
       summary: Replace a ControlAccountReference entity.
+      description: replace ControlAccountReference
       operationId: replaceControlAccountReference
       parameters:
       - name: If-Match
@@ -891,7 +930,8 @@ paths:
       tags:
       - ControlAccountReference
       summary: Partially update a ControlAccountReference entity.
-      operationId: updateControlAccountReference
+      description: Partially update a ControlAccountReference
+      operationId: updatePartialControlAccountReference
       parameters:
       - name: If-Match
         in: header
@@ -948,11 +988,14 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78gIRk
+        example: KEY78VJ3z
   /subsidiary-ledger-transactions/health:
     get:
+      tags:
+      - Default
       summary: Health Check
       description: Public endpoint to verify service availability.
+      operationId: getSubsidiaryLedgerTransactionHealth
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
       responses:
@@ -985,11 +1028,22 @@ paths:
                     description: Server time in ISO-8601 format.
                     format: date-time
                     example: 2025-12-21T23:00:00Z
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       security:
       - {}
   /subsidiary-ledger-transactions/batch:
     post:
+      tags:
+      - Default
       summary: Bulk create subsidiary-ledger-transactions
+      description: Bulk Create of SubsidiaryLedgerTransaction
       operationId: createSubsidiaryLedgerTransactionBatch
       requestBody:
         content:
@@ -1005,6 +1059,12 @@ paths:
       responses:
         "200":
           description: Batch processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /subsidiary-ledger-transactions/batch/1625996706700512120
           content:
             application/json:
               schema:
@@ -1024,9 +1084,23 @@ paths:
                           format: int32
                         error:
                           $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
   /subsidiary-ledger-transactions/exports:
     post:
+      tags:
+      - Default
       summary: Initiate a bulk SubsidiaryLedgerTransaction export
+      description: Standard POST operation for /subsidiary-ledger-transactions/exports
+      operationId: initiateSubsidiaryLedgerTransactionExport
       parameters:
       - name: Idempotency-Key
         in: header
@@ -1043,6 +1117,7 @@ paths:
               properties:
                 format:
                   type: string
+                  example: string
                   default: PARQUET
                   enum:
                   - XML
@@ -1097,10 +1172,17 @@ paths:
                   description: "If true, the system validates the request and returns\
                     \ potential violations or metadata (like estimated size) without\
                     \ starting the job."
+                  example: false
                   default: false
       responses:
         "202":
           description: Export job created/accepted
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /subsidiary-ledger-transactions/exports/7314151104206502646
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -1109,6 +1191,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       callbacks:
         onExportCompleted:
           '{$request.body#/notification/webhook_url}':
@@ -1125,7 +1215,11 @@ paths:
                   description: Webhook received
   /subsidiary-ledger-transactions/exports/{exportId}:
     get:
+      tags:
+      - Default
       summary: Get export status
+      description: Get Export Status of SubsidiaryLedgerTransaction
+      operationId: getSubsidiaryLedgerTransactionExportStatus
       parameters:
       - name: exportId
         in: path
@@ -1139,8 +1233,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExportJob"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /subsidiary-ledger-transactions/{subsidiaryLedgerTransactionKey}/commands:
     post:
+      tags:
+      - Default
       summary: Execute a business workflow on SubsidiaryLedgerTransaction
       description: Single entry point for all SubsidiaryLedgerTransaction state-changing
         intents.
@@ -1176,6 +1280,12 @@ paths:
       responses:
         "200":
           description: Commands processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: "/subsidiary-ledger-transactions/{subsidiaryLedgerTransactionKey}/commands/5074576207186591518"
           content:
             application/json:
               schema:
@@ -1197,7 +1307,7 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #551e5514 has been successfully cancelled."
+                    example: "Invoice #c670a082 has been successfully cancelled."
                   commandId:
                     type: string
                     description: The tracking ID for this specific command execution
@@ -1205,7 +1315,7 @@ paths:
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: 41294a62
+                    example: d8c6836e
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -1214,6 +1324,7 @@ paths:
                     type: boolean
                     description: "If true, the agent can attempt this command again\
                       \ immediately"
+                    example: false
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -1230,6 +1341,8 @@ paths:
           $ref: "#/components/responses/ServerError"
   /subsidiary-ledger-transactions/{subsidiaryLedgerTransactionKey}/commands/{commandId}:
     get:
+      tags:
+      - Default
       summary: Poll SubsidiaryLedgerTransaction command status
       description: Check the progress or result of a previously submitted command.
       operationId: getSubsidiaryLedgerTransactionCommandStatus
@@ -1258,6 +1371,7 @@ paths:
                     type: string
                     description: The unique identifier for the command being tracked
                     format: uuid
+                    readOnly: true
                   status:
                     type: string
                     description: The current lifecycle state of the command
@@ -1285,9 +1399,20 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /subsidiary-ledger-transactions/capabilities:
     get:
+      tags:
+      - Default
       summary: Discover SubsidiaryLedgerTransaction Capabilities
+      description: Standard GET operation for /subsidiary-ledger-transactions/capabilities
       operationId: getSubsidiaryLedgerTransactionCapabilities
       parameters:
       - name: include
@@ -1322,6 +1447,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Capabilities"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     Capabilities:
@@ -1416,8 +1549,7 @@ components:
                     example: P7D
                   is_pii_sensitive:
                     type: boolean
-                    description: Indicates if the export contains Personally Identifiable
-                      Information
+                    description: Indicates export contains PII
                     example: false
                   access_tier:
                     type: string
@@ -1436,6 +1568,7 @@ components:
                     rule_id:
                       type: string
                       description: Unique identifier for the business rule
+                      readOnly: true
                       example: IDENTITY_LOCK_STATE
                     constraint_type:
                       type: string
@@ -1469,9 +1602,9 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
+                        item_type: Inventory
                         count: "45"
                         limit: "0"
-                        item_type: Inventory
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -1480,9 +1613,9 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
+                        min: "1"
                         value: "31"
                         unit: days
-                        min: "1"
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -1531,21 +1664,26 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         control_account_reference_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         control_account_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
         control_account:
@@ -1554,6 +1692,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Reference link to the control account.
     ControlAccountReferenceCreate:
       required:
@@ -1570,12 +1709,14 @@ components:
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         control_account:
           $ref: "#/components/schemas/Identifier"
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: ControlAccountReference Update for Patch and Put
     ErrorDetail:
       required:
@@ -1583,7 +1724,7 @@ components:
       - code
       - message
       - timestamp
-      - traceId
+      - trace_id
       type: object
       properties:
         code:
@@ -1610,11 +1751,12 @@ components:
           description: The time the error occurred (ISO 8601).
           format: date-time
           example: 2025-11-10T10:30:00Z
-        traceId:
+        trace_id:
           type: string
           description: "A unique identifier for this specific request, ..."
+          readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
-        docUrl:
+        doc_url:
           type: string
           description: A URL leading to the documentation page for thi...
           format: uri
@@ -1645,11 +1787,14 @@ components:
           type: integer
           description: Part number
           format: int32
+          example: 1
         download_url:
           type: string
           format: uri
+          example: https://api.example.com
         format:
           type: string
+          example: string
           default: PARQUET
           enum:
           - XML
@@ -1660,15 +1805,20 @@ components:
         expires_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
+          example: string
     ExportJob:
       type: object
       properties:
         id:
           type: string
+          readOnly: true
+          example: string
         status:
           type: string
+          example: string
           enum:
           - PENDING
           - PROCESSING
@@ -1679,6 +1829,7 @@ components:
           minimum: 0
           type: integer
           format: int32
+          example: 1
         files:
           type: array
           items:
@@ -1688,22 +1839,26 @@ components:
       properties:
         event_type:
           type: string
+          example: string
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
         occurred_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         data:
           type: object
           properties:
             job_id:
               type: string
+              readOnly: true
             aggregate:
               type: string
               example: SubsidiaryLedgerTransaction
             data_product_id:
               type: string
+              readOnly: true
             status:
               type: string
               enum:
@@ -1774,24 +1929,33 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         identifier_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Business key for the identifier Pattern: ^[a-zA..."
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -1810,15 +1974,20 @@ components:
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
       description: Identifier Update for Patch and Put
     Money:
       type: object
@@ -1826,21 +1995,28 @@ components:
         money_key:
           type: string
           description: The unique key for the monetary value.
+          example: string
         money_id:
           type: string
           description: The unique ID for the monetary value.
+          readOnly: true
+          example: string
         currency_code:
           type: string
           description: "ISO currency code, e.g., 'USD'."
+          example: string
         display_value:
           type: string
           description: The locale-specific display format for t...
+          example: string
         locale:
           type: string
           description: "The locale code (e.g., en-US, fr-FR)."
+          example: string
         value:
           type: string
           description: The monetary value.
+          example: string
       description: Monetary value and currency information.
     OrganizationTypes:
       type: string
@@ -1877,7 +2053,7 @@ components:
         instance:
           type: string
           format: uri
-          example: /money/exports
+          example: https://api.yourdomain.com/money/exports
         intent:
           type: string
           example: InitiateMoneyExport
@@ -1903,32 +2079,35 @@ components:
       type: object
       properties:
         subsidiary_ledger_transaction_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the Subsidiary Led... Pat...
+          readOnly: true
+          example: string
         subsidiary_ledger_transaction_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the Subsidiary Led... Pat...
+          readOnly: true
+          example: string
         control_account_key:
           $ref: "#/components/schemas/ControlAccountReference"
         transaction_date:
           type: string
           description: The date the source transaction occurred...
           format: date
+          example: 2026-01-14
         posting_date:
           type: string
           description: The date the source transaction occurred...
           format: date
+          example: 2026-01-14
         transaction_type:
           $ref: "#/components/schemas/FinancialTransactionTypes"
         org_id:
           type: string
           description: The ID of the organization (cost or prof...
+          readOnly: true
           example: "1"
         account_key:
           type: string
@@ -1939,9 +2118,9 @@ components:
         total_money:
           $ref: "#/components/schemas/Money"
         description:
-          maxLength: 255
           type: string
           description: A description of the transaction.
+          example: string
         subsidiary_ledger_transaction_status_type:
           $ref: "#/components/schemas/SubsidiaryLedgerTransactionStatusTypes"
       description: nullable
@@ -1973,20 +2152,22 @@ components:
           type: string
           description: The date the source transaction occurred...
           format: date
+          example: 2026-01-14
         subsidiary_ledger_transaction_status_type:
           $ref: "#/components/schemas/SubsidiaryLedgerTransactionStatusTypes"
         org_type:
           $ref: "#/components/schemas/OrganizationTypes"
         description:
-          maxLength: 255
           type: string
           description: A description of the transaction.
+          example: string
         total_money:
           $ref: "#/components/schemas/Money"
         posting_date:
           type: string
           description: The date the source transaction occurred...
           format: date
+          example: 2026-01-14
         transaction_type:
           $ref: "#/components/schemas/FinancialTransactionTypes"
       description: SubsidiaryLedgerTransaction Update for Patch an...
@@ -1996,6 +2177,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
+          example: string
           enum:
           - CREATED
           - ACTIVE
