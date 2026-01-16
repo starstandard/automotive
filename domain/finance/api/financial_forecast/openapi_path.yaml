@@ -22,6 +22,7 @@ paths:
       tags:
       - FinancialForecast
       summary: Retrieve a list of FinancialForecast entities.
+      description: list FinancialForecast By
       operationId: listFinancialForecast
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialForecast
       summary: Create a new FinancialForecast entity.
+      description: Create FinancialForecast
       operationId: createFinancialForecast
       requestBody:
         description: FinancialForecast data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /financial-forecasts/KEY785
+                example: /financial-forecasts/KEY78y
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - FinancialForecast
       summary: Replace a FinancialForecast entity.
+      description: replace FinancialForecast
       operationId: replaceFinancialForecast
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - FinancialForecast
       summary: Partially update a FinancialForecast entity.
-      operationId: updateFinancialForecast
+      description: Partially update a FinancialForecast
+      operationId: updatePartialFinancialForecast
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78E
+        example: KEY78p
   /financial-forecasts/{financialForecastKey}/rebate-references:
     get:
       tags:
       - RebateReference
       summary: Retrieve a list of RebateReference entities scoped by financialForecastKey.
+      description: list RebateReference By FinancialForecastKey
       operationId: listRebateReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - RebateReference
       summary: Create a new RebateReference entity.
+      description: Create RebateReference
       operationId: createRebateReference
       requestBody:
         description: RebateReference data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}rebate-references/KEY78ym"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - RebateReference
       summary: Replace a RebateReference entity.
+      description: replace RebateReference
       operationId: replaceRebateReference
       parameters:
       - name: If-Match
@@ -462,7 +473,8 @@ paths:
       tags:
       - RebateReference
       summary: Partially update a RebateReference entity.
-      operationId: updateRebateReference
+      description: Partially update a RebateReference
+      operationId: updatePartialRebateReference
       parameters:
       - name: If-Match
         in: header
@@ -517,12 +529,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJ
+        example: KEY78pr
   /financial-forecasts/{financialForecastKey}/tax-splits:
     get:
       tags:
       - TaxSplit
       summary: Retrieve a list of TaxSplit entities scoped by financialForecastKey.
+      description: list TaxSplit By FinancialForecastKey
       operationId: listTaxSplitByFinancialForecastKey
       parameters:
       - name: sort
@@ -580,12 +593,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - TaxSplit
       summary: Create a new TaxSplit entity.
+      description: Create TaxSplit
       operationId: createTaxSplit
       requestBody:
         description: TaxSplit data to create the new resource.
@@ -602,7 +618,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}tax-splits/KEY78ym8"
           content:
             application/json:
               schema:
@@ -653,6 +669,7 @@ paths:
       tags:
       - TaxSplit
       summary: Replace a TaxSplit entity.
+      description: replace TaxSplit
       operationId: replaceTaxSplit
       parameters:
       - name: If-Match
@@ -719,7 +736,8 @@ paths:
       tags:
       - TaxSplit
       summary: Partially update a TaxSplit entity.
-      operationId: updateTaxSplit
+      description: Partially update a TaxSplit
+      operationId: updatePartialTaxSplit
       parameters:
       - name: If-Match
         in: header
@@ -774,12 +792,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJd
+        example: KEY78pr7
   /financial-forecasts/{financialForecastKey}/discount-references:
     get:
       tags:
       - DiscountReference
       summary: Retrieve a list of DiscountReference entities scoped by financialForecastKey.
+      description: list DiscountReference By FinancialForecastKey
       operationId: listDiscountReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -837,12 +856,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - DiscountReference
       summary: Create a new DiscountReference entity.
+      description: Create DiscountReference
       operationId: createDiscountReference
       requestBody:
         description: DiscountReference data to create the new resource.
@@ -859,7 +881,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}discount-references/KEY78ym8v"
           content:
             application/json:
               schema:
@@ -910,6 +932,7 @@ paths:
       tags:
       - DiscountReference
       summary: Replace a DiscountReference entity.
+      description: replace DiscountReference
       operationId: replaceDiscountReference
       parameters:
       - name: If-Match
@@ -976,7 +999,8 @@ paths:
       tags:
       - DiscountReference
       summary: Partially update a DiscountReference entity.
-      operationId: updateDiscountReference
+      description: Partially update a DiscountReference
+      operationId: updatePartialDiscountReference
       parameters:
       - name: If-Match
         in: header
@@ -1031,12 +1055,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdY
+        example: KEY78pr7b
   /financial-forecasts/{financialForecastKey}/control-account-references:
     get:
       tags:
       - ControlAccountReference
       summary: Retrieve a list of ControlAccountReference entities scoped by financialForecastKey.
+      description: list ControlAccountReference By FinancialForecastKey
       operationId: listControlAccountReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -1094,12 +1119,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ControlAccountReference
       summary: Create a new ControlAccountReference entity.
+      description: Create ControlAccountReference
       operationId: createControlAccountReference
       requestBody:
         description: ControlAccountReference data to create the new resource.
@@ -1116,7 +1144,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}control-account-references/KEY78ym8vg"
           content:
             application/json:
               schema:
@@ -1167,6 +1195,7 @@ paths:
       tags:
       - ControlAccountReference
       summary: Replace a ControlAccountReference entity.
+      description: replace ControlAccountReference
       operationId: replaceControlAccountReference
       parameters:
       - name: If-Match
@@ -1234,7 +1263,8 @@ paths:
       tags:
       - ControlAccountReference
       summary: Partially update a ControlAccountReference entity.
-      operationId: updateControlAccountReference
+      description: Partially update a ControlAccountReference
+      operationId: updatePartialControlAccountReference
       parameters:
       - name: If-Match
         in: header
@@ -1289,12 +1319,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD
+        example: KEY78pr7bl
   /financial-forecasts/{financialForecastKey}/reward-references:
     get:
       tags:
       - RewardReference
       summary: Retrieve a list of RewardReference entities scoped by financialForecastKey.
+      description: list RewardReference By FinancialForecastKey
       operationId: listRewardReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -1352,12 +1383,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - RewardReference
       summary: Create a new RewardReference entity.
+      description: Create RewardReference
       operationId: createRewardReference
       requestBody:
         description: RewardReference data to create the new resource.
@@ -1374,7 +1408,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}reward-references/KEY78ym8vgT"
           content:
             application/json:
               schema:
@@ -1425,6 +1459,7 @@ paths:
       tags:
       - RewardReference
       summary: Replace a RewardReference entity.
+      description: replace RewardReference
       operationId: replaceRewardReference
       parameters:
       - name: If-Match
@@ -1491,7 +1526,8 @@ paths:
       tags:
       - RewardReference
       summary: Partially update a RewardReference entity.
-      operationId: updateRewardReference
+      description: Partially update a RewardReference
+      operationId: updatePartialRewardReference
       parameters:
       - name: If-Match
         in: header
@@ -1546,12 +1582,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4
+        example: KEY78pr7bly
   /financial-forecasts/{financialForecastKey}/financial-category-references:
     get:
       tags:
       - FinancialCategoryReference
       summary: Retrieve a list of FinancialCategoryReference entities scoped by financialForecastKey.
+      description: list FinancialCategoryReference By FinancialForecastKey
       operationId: listFinancialCategoryReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -1609,12 +1646,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialCategoryReference
       summary: Create a new FinancialCategoryReference entity.
+      description: Create FinancialCategoryReference
       operationId: createFinancialCategoryReference
       requestBody:
         description: FinancialCategoryReference data to create the new resource.
@@ -1631,7 +1671,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}financial-category-references/KEY78ym8vgTw"
           content:
             application/json:
               schema:
@@ -1682,6 +1722,7 @@ paths:
       tags:
       - FinancialCategoryReference
       summary: Replace a FinancialCategoryReference entity.
+      description: replace FinancialCategoryReference
       operationId: replaceFinancialCategoryReference
       parameters:
       - name: If-Match
@@ -1749,7 +1790,8 @@ paths:
       tags:
       - FinancialCategoryReference
       summary: Partially update a FinancialCategoryReference entity.
-      operationId: updateFinancialCategoryReference
+      description: Partially update a FinancialCategoryReference
+      operationId: updatePartialFinancialCategoryReference
       parameters:
       - name: If-Match
         in: header
@@ -1804,12 +1846,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4k
+        example: KEY78pr7bly7
   /financial-forecasts/{financialForecastKey}/money:
     get:
       tags:
       - Money
       summary: Retrieve a list of Money entities scoped by financialForecastKey.
+      description: list Money By FinancialForecastKey
       operationId: listMoneyByFinancialForecastKey
       parameters:
       - name: sort
@@ -1867,6 +1910,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1912,12 +1957,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kf
+        example: KEY78pr7bly71
   /financial-forecasts/{financialForecastKey}/fee-references:
     get:
       tags:
       - FeeReference
       summary: Retrieve a list of FeeReference entities scoped by financialForecastKey.
+      description: list FeeReference By FinancialForecastKey
       operationId: listFeeReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -1975,12 +2021,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FeeReference
       summary: Create a new FeeReference entity.
+      description: Create FeeReference
       operationId: createFeeReference
       requestBody:
         description: FeeReference data to create the new resource.
@@ -1997,7 +2046,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}fee-references/KEY78ym8vgTwqR"
           content:
             application/json:
               schema:
@@ -2048,6 +2097,7 @@ paths:
       tags:
       - FeeReference
       summary: Replace a FeeReference entity.
+      description: replace FeeReference
       operationId: replaceFeeReference
       parameters:
       - name: If-Match
@@ -2114,7 +2164,8 @@ paths:
       tags:
       - FeeReference
       summary: Partially update a FeeReference entity.
-      operationId: updateFeeReference
+      description: Partially update a FeeReference
+      operationId: updatePartialFeeReference
       parameters:
       - name: If-Match
         in: header
@@ -2169,12 +2220,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF
+        example: KEY78pr7bly71C
   /financial-forecasts/{financialForecastKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by financialForecastKey.
+      description: list Identifier By FinancialForecastKey
       operationId: listIdentifierByFinancialForecastKey
       parameters:
       - name: sort
@@ -2232,12 +2284,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -2254,7 +2309,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}identifiers/KEY78ym8vgTwqRo"
           content:
             application/json:
               schema:
@@ -2305,6 +2360,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -2371,7 +2427,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -2426,12 +2483,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF6
+        example: KEY78pr7bly71Cq
   /financial-forecasts/{financialForecastKey}/prices:
     get:
       tags:
       - Price
       summary: Retrieve a list of Price entities scoped by financialForecastKey.
+      description: list Price By FinancialForecastKey
       operationId: listPriceByFinancialForecastKey
       parameters:
       - name: sort
@@ -2489,12 +2547,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Price
       summary: Create a new Price entity.
+      description: Create Price
       operationId: createPrice
       requestBody:
         description: Price data to create the new resource.
@@ -2511,7 +2572,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}prices/KEY78ym8vgTwqRoG"
           content:
             application/json:
               schema:
@@ -2562,6 +2623,7 @@ paths:
       tags:
       - Price
       summary: Replace a Price entity.
+      description: replace Price
       operationId: replacePrice
       parameters:
       - name: If-Match
@@ -2628,7 +2690,8 @@ paths:
       tags:
       - Price
       summary: Partially update a Price entity.
-      operationId: updatePrice
+      description: Partially update a Price
+      operationId: updatePartialPrice
       parameters:
       - name: If-Match
         in: header
@@ -2683,12 +2746,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF65
+        example: KEY78pr7bly71Cq5
   /financial-forecasts/{financialForecastKey}/financial-events:
     get:
       tags:
       - FinancialEvent
       summary: Retrieve a list of FinancialEvent entities scoped by financialForecastKey.
+      description: list FinancialEvent By FinancialForecastKey
       operationId: listFinancialEventByFinancialForecastKey
       parameters:
       - name: sort
@@ -2746,12 +2810,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialEvent
       summary: Create a new FinancialEvent entity.
+      description: Create FinancialEvent
       operationId: createFinancialEvent
       requestBody:
         description: FinancialEvent data to create the new resource.
@@ -2768,7 +2835,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}financial-events/KEY78ym8vgTwqRoG5"
           content:
             application/json:
               schema:
@@ -2819,6 +2886,7 @@ paths:
       tags:
       - FinancialEvent
       summary: Replace a FinancialEvent entity.
+      description: replace FinancialEvent
       operationId: replaceFinancialEvent
       parameters:
       - name: If-Match
@@ -2885,7 +2953,8 @@ paths:
       tags:
       - FinancialEvent
       summary: Partially update a FinancialEvent entity.
-      operationId: updateFinancialEvent
+      description: Partially update a FinancialEvent
+      operationId: updatePartialFinancialEvent
       parameters:
       - name: If-Match
         in: header
@@ -2940,12 +3009,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF65i
+        example: KEY78pr7bly71Cq5d
   /financial-forecasts/{financialForecastKey}/credit-references:
     get:
       tags:
       - CreditReference
       summary: Retrieve a list of CreditReference entities scoped by financialForecastKey.
+      description: list CreditReference By FinancialForecastKey
       operationId: listCreditReferenceByFinancialForecastKey
       parameters:
       - name: sort
@@ -3003,12 +3073,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CreditReference
       summary: Create a new CreditReference entity.
+      description: Create CreditReference
       operationId: createCreditReference
       requestBody:
         description: CreditReference data to create the new resource.
@@ -3025,7 +3098,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}credit-references/KEY78ym8vgTwqRoG5y"
           content:
             application/json:
               schema:
@@ -3076,6 +3149,7 @@ paths:
       tags:
       - CreditReference
       summary: Replace a CreditReference entity.
+      description: replace CreditReference
       operationId: replaceCreditReference
       parameters:
       - name: If-Match
@@ -3142,7 +3216,8 @@ paths:
       tags:
       - CreditReference
       summary: Partially update a CreditReference entity.
-      operationId: updateCreditReference
+      description: Partially update a CreditReference
+      operationId: updatePartialCreditReference
       parameters:
       - name: If-Match
         in: header
@@ -3197,12 +3272,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF65i1
+        example: KEY78pr7bly71Cq5dK
   /financial-forecasts/{financialForecastKey}/textual-details:
     get:
       tags:
       - TextualDetail
       summary: Retrieve a list of TextualDetail entities scoped by financialForecastKey.
+      description: list TextualDetail By FinancialForecastKey
       operationId: listTextualDetailByFinancialForecastKey
       parameters:
       - name: sort
@@ -3260,6 +3336,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -3305,12 +3383,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF65i1R
+        example: KEY78pr7bly71Cq5dKu
   /financial-forecasts/{financialForecastKey}/financial-tracks:
     get:
       tags:
       - FinancialTrack
       summary: Retrieve a list of FinancialTrack entities scoped by financialForecastKey.
+      description: list FinancialTrack By FinancialForecastKey
       operationId: listFinancialTrackByFinancialForecastKey
       parameters:
       - name: sort
@@ -3368,12 +3447,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialTrack
       summary: Create a new FinancialTrack entity.
+      description: Create FinancialTrack
       operationId: createFinancialTrack
       requestBody:
         description: FinancialTrack data to create the new resource.
@@ -3390,7 +3472,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}financial-tracks/KEY78ym8vgTwqRoG5ybp"
           content:
             application/json:
               schema:
@@ -3441,6 +3523,7 @@ paths:
       tags:
       - FinancialTrack
       summary: Replace a FinancialTrack entity.
+      description: replace FinancialTrack
       operationId: replaceFinancialTrack
       parameters:
       - name: If-Match
@@ -3507,7 +3590,8 @@ paths:
       tags:
       - FinancialTrack
       summary: Partially update a FinancialTrack entity.
-      operationId: updateFinancialTrack
+      description: Partially update a FinancialTrack
+      operationId: updatePartialFinancialTrack
       parameters:
       - name: If-Match
         in: header
@@ -3562,12 +3646,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF65i1Ri
+        example: KEY78pr7bly71Cq5dKud
   /financial-forecasts/{financialForecastKey}/financial-splits:
     get:
       tags:
       - FinancialSplit
       summary: Retrieve a list of FinancialSplit entities scoped by financialForecastKey.
+      description: list FinancialSplit By FinancialForecastKey
       operationId: listFinancialSplitByFinancialForecastKey
       parameters:
       - name: sort
@@ -3625,12 +3710,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialSplit
       summary: Create a new FinancialSplit entity.
+      description: Create FinancialSplit
       operationId: createFinancialSplit
       requestBody:
         description: FinancialSplit data to create the new resource.
@@ -3647,7 +3735,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/financial-forecasts{financialForecastKey}financial-splits/KEY78ym8vgTwqRoG5ybpS"
           content:
             application/json:
               schema:
@@ -3698,6 +3786,7 @@ paths:
       tags:
       - FinancialSplit
       summary: Replace a FinancialSplit entity.
+      description: replace FinancialSplit
       operationId: replaceFinancialSplit
       parameters:
       - name: If-Match
@@ -3764,7 +3853,8 @@ paths:
       tags:
       - FinancialSplit
       summary: Partially update a FinancialSplit entity.
-      operationId: updateFinancialSplit
+      description: Partially update a FinancialSplit
+      operationId: updatePartialFinancialSplit
       parameters:
       - name: If-Match
         in: header
@@ -3819,6 +3909,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78EJdYD4kfF65i1RiU
+        example: KEY78pr7bly71Cq5dKudS
 components:
   schemas: {}

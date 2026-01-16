@@ -22,6 +22,7 @@ paths:
       tags:
       - PayrollRun
       summary: Retrieve a list of PayrollRun entities.
+      description: list PayrollRun By
       operationId: listPayrollRun
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PayrollRun
       summary: Create a new PayrollRun entity.
+      description: Create PayrollRun
       operationId: createPayrollRun
       requestBody:
         description: PayrollRun data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /payroll-runs/KEY78a
+                example: /payroll-runs/KEY788
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - PayrollRun
       summary: Replace a PayrollRun entity.
+      description: replace PayrollRun
       operationId: replacePayrollRun
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - PayrollRun
       summary: Partially update a PayrollRun entity.
-      operationId: updatePayrollRun
+      description: Partially update a PayrollRun
+      operationId: updatePartialPayrollRun
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78m
+        example: KEY78h
   /payroll-runs/{payrollRunKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by payrollRunKey.
+      description: list Identifier By PayrollRunKey
       operationId: listIdentifierByPayrollRunKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payroll-runs{payrollRunKey}identifiers/KEY7880"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -462,7 +473,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -517,12 +529,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78mo
+        example: KEY78hj
   /payroll-runs/{payrollRunKey}/addresses:
     get:
       tags:
       - Address
       summary: Retrieve a list of Address entities scoped by payrollRunKey.
+      description: list Address By PayrollRunKey
       operationId: listAddressByPayrollRunKey
       parameters:
       - name: sort
@@ -580,12 +593,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Address
       summary: Create a new Address entity.
+      description: Create Address
       operationId: createAddress
       requestBody:
         description: Address data to create the new resource.
@@ -602,7 +618,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payroll-runs{payrollRunKey}addresses/KEY7880C"
           content:
             application/json:
               schema:
@@ -653,6 +669,7 @@ paths:
       tags:
       - Address
       summary: Replace a Address entity.
+      description: replace Address
       operationId: replaceAddress
       parameters:
       - name: If-Match
@@ -719,7 +736,8 @@ paths:
       tags:
       - Address
       summary: Partially update a Address entity.
-      operationId: updateAddress
+      description: Partially update a Address
+      operationId: updatePartialAddress
       parameters:
       - name: If-Match
         in: header
@@ -774,12 +792,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78moM
+        example: KEY78hjt
   /payroll-runs/{payrollRunKey}/effective-periods:
     get:
       tags:
       - EffectivePeriod
       summary: Retrieve a list of EffectivePeriod entities scoped by payrollRunKey.
+      description: list EffectivePeriod By PayrollRunKey
       operationId: listEffectivePeriodByPayrollRunKey
       parameters:
       - name: sort
@@ -837,6 +856,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -882,12 +903,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78moM1
+        example: KEY78hjtm
   /payroll-runs/{payrollRunKey}/product-subjects:
     get:
       tags:
       - ProductSubject
       summary: Retrieve a list of ProductSubject entities scoped by payrollRunKey.
+      description: list ProductSubject By PayrollRunKey
       operationId: listProductSubjectByPayrollRunKey
       parameters:
       - name: sort
@@ -945,12 +967,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ProductSubject
       summary: Create a new ProductSubject entity.
+      description: Create ProductSubject
       operationId: createProductSubject
       requestBody:
         description: ProductSubject data to create the new resource.
@@ -967,7 +992,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payroll-runs{payrollRunKey}product-subjects/KEY7880CmA"
           content:
             application/json:
               schema:
@@ -1018,6 +1043,7 @@ paths:
       tags:
       - ProductSubject
       summary: Replace a ProductSubject entity.
+      description: replace ProductSubject
       operationId: replaceProductSubject
       parameters:
       - name: If-Match
@@ -1084,7 +1110,8 @@ paths:
       tags:
       - ProductSubject
       summary: Partially update a ProductSubject entity.
-      operationId: updateProductSubject
+      description: Partially update a ProductSubject
+      operationId: updatePartialProductSubject
       parameters:
       - name: If-Match
         in: header
@@ -1139,12 +1166,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78moM12
+        example: KEY78hjtmW
   /payroll-runs/{payrollRunKey}/payroll-payments:
     get:
       tags:
       - PayrollPayment
       summary: Retrieve a list of PayrollPayment entities scoped by payrollRunKey.
+      description: list PayrollPayment By PayrollRunKey
       operationId: listPayrollPaymentByPayrollRunKey
       parameters:
       - name: sort
@@ -1202,12 +1230,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PayrollPayment
       summary: Create a new PayrollPayment entity.
+      description: Create PayrollPayment
       operationId: createPayrollPayment
       requestBody:
         description: PayrollPayment data to create the new resource.
@@ -1224,7 +1255,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payroll-runs{payrollRunKey}payroll-payments/KEY7880CmA0"
           content:
             application/json:
               schema:
@@ -1275,6 +1306,7 @@ paths:
       tags:
       - PayrollPayment
       summary: Replace a PayrollPayment entity.
+      description: replace PayrollPayment
       operationId: replacePayrollPayment
       parameters:
       - name: If-Match
@@ -1341,7 +1373,8 @@ paths:
       tags:
       - PayrollPayment
       summary: Partially update a PayrollPayment entity.
-      operationId: updatePayrollPayment
+      description: Partially update a PayrollPayment
+      operationId: updatePartialPayrollPayment
       parameters:
       - name: If-Match
         in: header
@@ -1396,12 +1429,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78moM12G
+        example: KEY78hjtmWo
   /payroll-runs/{payrollRunKey}/time-slots:
     get:
       tags:
       - TimeSlot
       summary: Retrieve a list of TimeSlot entities scoped by payrollRunKey.
+      description: list TimeSlot By PayrollRunKey
       operationId: listTimeSlotByPayrollRunKey
       parameters:
       - name: sort
@@ -1459,6 +1493,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1504,12 +1540,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78moM12GR
+        example: KEY78hjtmWoi
   /payroll-runs/{payrollRunKey}/contact-methods:
     get:
       tags:
       - ContactMethod
       summary: Retrieve a list of ContactMethod entities scoped by payrollRunKey.
+      description: list ContactMethod By PayrollRunKey
       operationId: listContactMethodByPayrollRunKey
       parameters:
       - name: sort
@@ -1567,12 +1604,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ContactMethod
       summary: Create a new ContactMethod entity.
+      description: Create ContactMethod
       operationId: createContactMethod
       requestBody:
         description: ContactMethod data to create the new resource.
@@ -1589,7 +1629,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payroll-runs{payrollRunKey}contact-methods/KEY7880CmA0iZ"
           content:
             application/json:
               schema:
@@ -1640,6 +1680,7 @@ paths:
       tags:
       - ContactMethod
       summary: Replace a ContactMethod entity.
+      description: replace ContactMethod
       operationId: replaceContactMethod
       parameters:
       - name: If-Match
@@ -1706,7 +1747,8 @@ paths:
       tags:
       - ContactMethod
       summary: Partially update a ContactMethod entity.
-      operationId: updateContactMethod
+      description: Partially update a ContactMethod
+      operationId: updatePartialContactMethod
       parameters:
       - name: If-Match
         in: header
@@ -1761,12 +1803,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78moM12GRa
+        example: KEY78hjtmWoi4
   /payroll-runs/{payrollRunKey}/communication-channels:
     get:
       tags:
       - CommunicationChannel
       summary: Retrieve a list of CommunicationChannel entities scoped by payrollRunKey.
+      description: list CommunicationChannel By PayrollRunKey
       operationId: listCommunicationChannelByPayrollRunKey
       parameters:
       - name: sort
@@ -1824,12 +1867,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CommunicationChannel
       summary: Create a new CommunicationChannel entity.
+      description: Create CommunicationChannel
       operationId: createCommunicationChannel
       requestBody:
         description: CommunicationChannel data to create the new resource.
@@ -1846,7 +1892,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payroll-runs{payrollRunKey}communication-channels/KEY7880CmA0iZY"
           content:
             application/json:
               schema:
@@ -1897,6 +1943,7 @@ paths:
       tags:
       - CommunicationChannel
       summary: Replace a CommunicationChannel entity.
+      description: replace CommunicationChannel
       operationId: replaceCommunicationChannel
       parameters:
       - name: If-Match
@@ -1964,7 +2011,8 @@ paths:
       tags:
       - CommunicationChannel
       summary: Partially update a CommunicationChannel entity.
-      operationId: updateCommunicationChannel
+      description: Partially update a CommunicationChannel
+      operationId: updatePartialCommunicationChannel
       parameters:
       - name: If-Match
         in: header
@@ -2019,6 +2067,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78moM12GRaE
+        example: KEY78hjtmWoi44
 components:
   schemas: {}

@@ -22,6 +22,7 @@ paths:
       tags:
       - BillOfMaterial
       summary: Retrieve a list of BillOfMaterial entities.
+      description: list BillOfMaterial By
       operationId: listBillOfMaterial
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - BillOfMaterial
       summary: Create a new BillOfMaterial entity.
+      description: Create BillOfMaterial
       operationId: createBillOfMaterial
       requestBody:
         description: BillOfMaterial data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /bill-of-materials/KEY78O
+                example: /bill-of-materials/KEY782
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - BillOfMaterial
       summary: Replace a BillOfMaterial entity.
+      description: replace BillOfMaterial
       operationId: replaceBillOfMaterial
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - BillOfMaterial
       summary: Partially update a BillOfMaterial entity.
-      operationId: updateBillOfMaterial
+      description: Partially update a BillOfMaterial
+      operationId: updatePartialBillOfMaterial
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78K
+        example: KEY78Y
   /bill-of-materials/{billOfMaterialKey}/bom-components:
     get:
       tags:
       - BomComponent
       summary: Retrieve a list of BomComponent entities scoped by billOfMaterialKey.
+      description: list BomComponent By BillOfMaterialKey
       operationId: listBomComponentByBillOfMaterialKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - BomComponent
       summary: Create a new BomComponent entity.
+      description: Create BomComponent
       operationId: createBomComponent
       requestBody:
         description: BomComponent data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/bill-of-materials{billOfMaterialKey}bom-components/KEY782u"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - BomComponent
       summary: Replace a BomComponent entity.
+      description: replace BomComponent
       operationId: replaceBomComponent
       parameters:
       - name: If-Match
@@ -462,7 +473,8 @@ paths:
       tags:
       - BomComponent
       summary: Partially update a BomComponent entity.
-      operationId: updateBomComponent
+      description: Partially update a BomComponent
+      operationId: updatePartialBomComponent
       parameters:
       - name: If-Match
         in: header
@@ -517,12 +529,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78KM
+        example: KEY78YS
   /bill-of-materials/{billOfMaterialKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by billOfMaterialKey.
+      description: list Identifier By BillOfMaterialKey
       operationId: listIdentifierByBillOfMaterialKey
       parameters:
       - name: sort
@@ -580,12 +593,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -602,7 +618,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/bill-of-materials{billOfMaterialKey}identifiers/KEY782u5"
           content:
             application/json:
               schema:
@@ -653,6 +669,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -719,7 +736,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -774,12 +792,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78KMj
+        example: KEY78YSx
   /bill-of-materials/{billOfMaterialKey}/part-names:
     get:
       tags:
       - PartName
       summary: Retrieve a list of PartName entities scoped by billOfMaterialKey.
+      description: list PartName By BillOfMaterialKey
       operationId: listPartNameByBillOfMaterialKey
       parameters:
       - name: sort
@@ -837,12 +856,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartName
       summary: Create a new PartName entity.
+      description: Create PartName
       operationId: createPartName
       requestBody:
         description: PartName data to create the new resource.
@@ -859,7 +881,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/bill-of-materials{billOfMaterialKey}part-names/KEY782u5r"
           content:
             application/json:
               schema:
@@ -910,6 +932,7 @@ paths:
       tags:
       - PartName
       summary: Replace a PartName entity.
+      description: replace PartName
       operationId: replacePartName
       parameters:
       - name: If-Match
@@ -976,7 +999,8 @@ paths:
       tags:
       - PartName
       summary: Partially update a PartName entity.
-      operationId: updatePartName
+      description: Partially update a PartName
+      operationId: updatePartialPartName
       parameters:
       - name: If-Match
         in: header
@@ -1031,12 +1055,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78KMjb
+        example: KEY78YSxL
   /bill-of-materials/{billOfMaterialKey}/unit-of-measures:
     get:
       tags:
       - UnitOfMeasure
       summary: Retrieve a list of UnitOfMeasure entities scoped by billOfMaterialKey.
+      description: list UnitOfMeasure By BillOfMaterialKey
       operationId: listUnitOfMeasureByBillOfMaterialKey
       parameters:
       - name: sort
@@ -1094,6 +1119,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1139,12 +1166,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78KMjbN
+        example: KEY78YSxLo
   /bill-of-materials/{billOfMaterialKey}/part-identifiers:
     get:
       tags:
       - PartIdentifier
       summary: Retrieve a list of PartIdentifier entities scoped by billOfMaterialKey.
+      description: list PartIdentifier By BillOfMaterialKey
       operationId: listPartIdentifierByBillOfMaterialKey
       parameters:
       - name: sort
@@ -1202,12 +1230,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartIdentifier
       summary: Create a new PartIdentifier entity.
+      description: Create PartIdentifier
       operationId: createPartIdentifier
       requestBody:
         description: PartIdentifier data to create the new resource.
@@ -1224,7 +1255,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/bill-of-materials{billOfMaterialKey}part-identifiers/KEY782u5rcC"
           content:
             application/json:
               schema:
@@ -1275,6 +1306,7 @@ paths:
       tags:
       - PartIdentifier
       summary: Replace a PartIdentifier entity.
+      description: replace PartIdentifier
       operationId: replacePartIdentifier
       parameters:
       - name: If-Match
@@ -1341,7 +1373,8 @@ paths:
       tags:
       - PartIdentifier
       summary: Partially update a PartIdentifier entity.
-      operationId: updatePartIdentifier
+      description: Partially update a PartIdentifier
+      operationId: updatePartialPartIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -1396,12 +1429,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78KMjbNr
+        example: KEY78YSxLo4
   /bill-of-materials/{billOfMaterialKey}/effective-periods:
     get:
       tags:
       - EffectivePeriod
       summary: Retrieve a list of EffectivePeriod entities scoped by billOfMaterialKey.
+      description: list EffectivePeriod By BillOfMaterialKey
       operationId: listEffectivePeriodByBillOfMaterialKey
       parameters:
       - name: sort
@@ -1459,6 +1493,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1504,12 +1540,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78KMjbNrD
+        example: KEY78YSxLo4s
   /bill-of-materials/{billOfMaterialKey}/part-specifications:
     get:
       tags:
       - PartSpecification
       summary: Retrieve a list of PartSpecification entities scoped by billOfMaterialKey.
+      description: list PartSpecification By BillOfMaterialKey
       operationId: listPartSpecificationByBillOfMaterialKey
       parameters:
       - name: sort
@@ -1567,12 +1604,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartSpecification
       summary: Create a new PartSpecification entity.
+      description: Create PartSpecification
       operationId: createPartSpecification
       requestBody:
         description: PartSpecification data to create the new resource.
@@ -1589,7 +1629,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/bill-of-materials{billOfMaterialKey}part-specifications/KEY782u5rcCMI"
           content:
             application/json:
               schema:
@@ -1640,6 +1680,7 @@ paths:
       tags:
       - PartSpecification
       summary: Replace a PartSpecification entity.
+      description: replace PartSpecification
       operationId: replacePartSpecification
       parameters:
       - name: If-Match
@@ -1706,7 +1747,8 @@ paths:
       tags:
       - PartSpecification
       summary: Partially update a PartSpecification entity.
-      operationId: updatePartSpecification
+      description: Partially update a PartSpecification
+      operationId: updatePartialPartSpecification
       parameters:
       - name: If-Match
         in: header
@@ -1761,12 +1803,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78KMjbNrD7
+        example: KEY78YSxLo4sj
   /bill-of-materials/{billOfMaterialKey}/textual-details:
     get:
       tags:
       - TextualDetail
       summary: Retrieve a list of TextualDetail entities scoped by billOfMaterialKey.
+      description: list TextualDetail By BillOfMaterialKey
       operationId: listTextualDetailByBillOfMaterialKey
       parameters:
       - name: sort
@@ -1824,6 +1867,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1869,12 +1914,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78KMjbNrD7d
+        example: KEY78YSxLo4sjj
   /bill-of-materials/{billOfMaterialKey}/time-slots:
     get:
       tags:
       - TimeSlot
       summary: Retrieve a list of TimeSlot entities scoped by billOfMaterialKey.
+      description: list TimeSlot By BillOfMaterialKey
       operationId: listTimeSlotByBillOfMaterialKey
       parameters:
       - name: sort
@@ -1932,6 +1978,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1977,6 +2025,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78KMjbNrD7dZ
+        example: KEY78YSxLo4sjjk
 components:
   schemas: {}

@@ -39,38 +39,27 @@ components:
           types:
           - "array"
         address_line1:
-          maxLength: 100
-          minLength: 1
           type: "string"
           description: "Primary address line (Street, PO Box, et..."
         address_line2:
-          maxLength: 100
           type: "string"
           description: "Secondary address line (Suite, Apt, etc)..."
         address_line3:
-          maxLength: 100
           type: "string"
           description: "Secondary address line (Suite, Apt, etc)..."
         address_line4:
-          maxLength: 100
           type: "string"
           description: "Secondary address line (Suite, Apt, etc)..."
         address_line5:
-          maxLength: 100
           type: "string"
           description: "Secondary address line (Suite, Apt, etc)..."
         city:
-          maxLength: 100
-          minLength: 1
           type: "string"
           description: "Name of the city."
         country_code:
-          maxLength: 100
-          minLength: 2
           type: "string"
           description: "Full name of the country."
         district:
-          maxLength: 100
           type: "string"
           description: "Name of the district."
         label:
@@ -80,10 +69,8 @@ components:
         postal_code:
           maxLength: 20
           minLength: 3
-          pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: "string"
-          description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-Z\\-\\s]+$\
-            \ (Alphanumeric, dash, and spaces allowed)"
+          description: "Primary postal or ZIP code."
         state_province:
           maxLength: 50
           type: "string"
@@ -138,24 +125,18 @@ components:
         control_account_reference_id:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         control_account_reference_key:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         control_account_key:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         context:
           type: "string"
           description: "Context or domain of the identifier"
@@ -174,26 +155,14 @@ components:
       type: "object"
       properties:
         credit_reference_id:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         credit_reference_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         credit_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         context:
           type: "string"
           description: "Context or domain of the identifier"
@@ -216,26 +185,14 @@ components:
       type: "object"
       properties:
         discount_reference_id:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         discount_reference_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         discount_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         context:
           type: "string"
           description: "Context or domain of the identifier"
@@ -279,12 +236,8 @@ components:
       type: "object"
       properties:
         effective_period_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique key identifying the effective per... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric characters and underscores only)"
+          description: "Unique key identifying the effective per..."
         active_indicator:
           type: "boolean"
           description: "Indicator if the period is currently act..."
@@ -334,26 +287,14 @@ components:
       type: "object"
       properties:
         fee_reference_id:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         fee_reference_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         fee_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         context:
           type: "string"
           description: "Context or domain of the identifier"
@@ -376,26 +317,14 @@ components:
       type: "object"
       properties:
         category_reference_id:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value for the financia... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique identifier value for the financia..."
         category_reference_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique key value for the financial categ... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique key value for the financial categ..."
         category_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "The unique key identifying the reference... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "The unique key identifying the reference..."
         context:
           type: "string"
           description: "Context or domain of the financial categ..."
@@ -429,10 +358,9 @@ components:
           example: "Stripe"
         identifiers:
           $ref: "#/components/schemas/Identifiers"
-        from_voided_apcheck:
+        from_voided_apcheck_indicator:
           type: "boolean"
           description: "Indicates whether this event originated ..."
-          example: "false"
         confirmation_code:
           type: "string"
           description: "Confirmation code for the financial tran..."
@@ -440,7 +368,6 @@ components:
         forecast_indicator:
           type: "boolean"
           description: "Confirmation code for the financial tran..."
-          example: "CNF-987654"
         payment_method_type:
           $ref: "#/components/schemas/PaymentMethodTypes"
         payment_methods_href:
@@ -702,17 +629,13 @@ components:
         identifier_id:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         identifier_key:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Business key for the identifier Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Business key for the identifier"
         context:
           type: "string"
           description: "Context or domain of the identifier"
@@ -738,8 +661,6 @@ components:
       type: "object"
       properties:
         order_ref_id:
-          maxLength: 50
-          minLength: 1
           type: "string"
           description: "Identifier of the associated Purchase Or..."
           example: "PO-2025-00001"
@@ -869,12 +790,8 @@ components:
         invoice_items:
           $ref: "#/components/schemas/InvoiceItems"
         status:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique key value for the reference recor... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique key value for the reference recor..."
       description: "not nullable"
       types:
       - "object"
@@ -986,10 +903,8 @@ components:
         status:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique key value for the reference recor... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique key value for the reference recor..."
         shipment_references:
           $ref: "#/components/schemas/ShipmentReferences"
         part_condition_grade_type:
@@ -1206,38 +1121,22 @@ components:
       type: "object"
       properties:
         part_reference_id:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         part_reference_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         name:
           type: "string"
           description: "Product Name."
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         part_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         part_master_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         context:
           type: "string"
           description: "Context or domain of the identifier"
@@ -1267,19 +1166,11 @@ components:
       type: "object"
       properties:
         payment_authorization_id:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value for the referenc... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique identifier value for the referenc..."
         payment_authorization_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value for the referenc... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique identifier value for the referenc..."
         auth_reasons:
           $ref: "#/components/schemas/Codes"
         auth_amount:
@@ -1316,24 +1207,18 @@ components:
         payment_method_reference_id:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value for the referenc... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique identifier value for the referenc..."
         payment_method_reference_key:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique key value for the reference recor... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique key value for the reference recor..."
         payment_method_key:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "The unique key identifying the reference... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "The unique key identifying the reference..."
         context:
           type: "string"
           description: "Context or domain of the reference."
@@ -1386,26 +1271,14 @@ components:
       type: "object"
       properties:
         schedule_reference_id:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value for the referenc... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique identifier value for the referenc..."
         schedule_reference_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique key value for the reference recor... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique key value for the reference recor..."
         schedule_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "The unique key identifying the reference... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "The unique key identifying the reference..."
         context:
           type: "string"
           description: "Context or domain of the payment schedul..."
@@ -1465,26 +1338,14 @@ components:
       type: "object"
       properties:
         term_reference_id:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value for the referenc... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique identifier value for the referenc..."
         term_reference_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique key value for the reference recor... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique key value for the reference recor..."
         term_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "The unique key identifying the reference... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "The unique key identifying the reference..."
         context:
           type: "string"
           description: "Context or domain of the payment term."
@@ -1618,26 +1479,14 @@ components:
       type: "object"
       properties:
         price_plan_reference_id:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         price_plan_reference_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         price_plan_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         context:
           type: "string"
           description: "Context or domain of the identifier"
@@ -1772,26 +1621,14 @@ components:
       type: "object"
       properties:
         rebate_reference_id:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         rebate_reference_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         rebate_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         context:
           type: "string"
           description: "Context or domain of the identifier"
@@ -1853,26 +1690,14 @@ components:
       type: "object"
       properties:
         reward_reference_id:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         reward_reference_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         reward_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         context:
           type: "string"
           description: "Context or domain of the identifier"
@@ -1895,26 +1720,14 @@ components:
       type: "object"
       properties:
         shipment_reference_id:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         shipment_reference_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         shipment_key:
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric\
-            \ and underscores allowed)"
+          description: "Unique identifier value"
         context:
           type: "string"
           description: "Context or domain of the identifier"
@@ -2040,23 +1853,13 @@ components:
       type: "object"
       properties:
         time_slot_key:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique business key for the time slot. Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique business key for the time slot."
         end_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         end_time:
-          pattern: "^([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(\\.\\d+)?(Z|[+-][01]\\d:[0-5]\\\
-            d)?$"
           type: "string"
-          description: "End time in HH:mm format. Pattern: ^([01]\\d|2[0-3]):[0-5]\\\
-            d:[0-5]\\d(\\.\\d+)?(Z|[+-][01]\\d:[0-5]\\d)?$ (Must be a valid ISO 8601\
-            \ time format (e.g., HH:mm:ss, HH:mm:ssZ, or HH:mm:ss.SSSZ))"
+          description: "End time in HH:mm format."
           format: "date-time"
         recurring_indicator:
           type: "boolean"
@@ -2066,12 +1869,8 @@ components:
         start_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         start_time:
-          pattern: "^([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(\\.\\d+)?(Z|[+-][01]\\d:[0-5]\\\
-            d)?$"
           type: "string"
-          description: "Start time in HH:mm format. Pattern: ^([01]\\d|2[0-3]):[0-5]\\\
-            d:[0-5]\\d(\\.\\d+)?(Z|[+-][01]\\d:[0-5]\\d)?$ (Must be a valid ISO 8601\
-            \ time format (e.g., HH:mm:ss, HH:mm:ssZ, or HH:mm:ss.SSSZ))"
+          description: "Start time in HH:mm format."
           format: "date-time"
         timeslot_directive_types:
           maxItems: 255
@@ -2083,14 +1882,8 @@ components:
           types:
           - "array"
         time_slot_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unique identifier for the time slot reco... Pattern: ^[a-zA-Z0-9_]+$\
-            \ (Alphanumeric and underscores allowed)"
+          description: "Unique identifier for the time slot reco..."
         week_of_date:
           maxItems: 255
           minItems: 1
@@ -2149,26 +1942,16 @@ components:
       type: "object"
       properties:
         unit_of_measure_key:
-          maxLength: 100
-          minLength: 1
-          pattern: "^[a-zA-Z0-9_.-]+$"
           type: "string"
-          description: "Unit of Measure Value Pattern: ^[a-zA-Z0-9_.-]+$ (Alphanumeric,\
-            \ dash, dot, and underscore allowed)"
+          description: "Unit of Measure Value"
         unit_name:
-          maxLength: 50
-          minLength: 1
-          pattern: "^[a-zA-Z0-9_]+$"
           type: "string"
-          description: "Unit of Measure Pattern: ^[a-zA-Z0-9_]+$ (Alphanumeric and\
-            \ underscores allowed)"
+          description: "Unit of Measure"
         uom_value:
           maxLength: 100
           minLength: 1
-          pattern: "^[a-zA-Z0-9_.-]+$"
           type: "string"
-          description: "Unit of Measure Value Pattern: ^[a-zA-Z0-9_.-]+$ (Alphanumeric,\
-            \ dash, dot, and underscore allowed)"
+          description: "Unit of Measure Value"
         uom_quantity_category_type:
           $ref: "#/components/schemas/UOMQuantityCategoryTypes"
       description: "Standard unit used for quantity (e.g., kg, liters, units)."

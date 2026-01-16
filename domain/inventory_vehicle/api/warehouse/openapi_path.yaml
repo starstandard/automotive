@@ -22,6 +22,7 @@ paths:
       tags:
       - Warehouse
       summary: Retrieve a list of Warehouse entities.
+      description: list Warehouse By
       operationId: listWarehouse
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Warehouse
       summary: Create a new Warehouse entity.
+      description: Create Warehouse
       operationId: createWarehouse
       requestBody:
         description: Warehouse data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /warehouses/KEY78a
+                example: /warehouses/KEY787
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - Warehouse
       summary: Replace a Warehouse entity.
+      description: replace Warehouse
       operationId: replaceWarehouse
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - Warehouse
       summary: Partially update a Warehouse entity.
-      operationId: updateWarehouse
+      description: Partially update a Warehouse
+      operationId: updatePartialWarehouse
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Z
+        example: KEY78e
   /warehouses/{warehouseKey}/authorizations:
     get:
       tags:
       - Authorization
       summary: Retrieve a list of Authorization entities scoped by warehouseKey.
+      description: list Authorization By WarehouseKey
       operationId: listAuthorizationByWarehouseKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Authorization
       summary: Create a new Authorization entity.
+      description: Create Authorization
       operationId: createAuthorization
       requestBody:
         description: Authorization data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/warehouses{warehouseKey}authorizations/KEY787U"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - Authorization
       summary: Replace a Authorization entity.
+      description: replace Authorization
       operationId: replaceAuthorization
       parameters:
       - name: If-Match
@@ -462,7 +473,8 @@ paths:
       tags:
       - Authorization
       summary: Partially update a Authorization entity.
-      operationId: updateAuthorization
+      description: Partially update a Authorization
+      operationId: updatePartialAuthorization
       parameters:
       - name: If-Match
         in: header
@@ -517,12 +529,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ZJ
+        example: KEY78e4
   /warehouses/{warehouseKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by warehouseKey.
+      description: list Identifier By WarehouseKey
       operationId: listIdentifierByWarehouseKey
       parameters:
       - name: sort
@@ -580,12 +593,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -602,7 +618,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/warehouses{warehouseKey}identifiers/KEY787UT"
           content:
             application/json:
               schema:
@@ -653,6 +669,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -719,7 +736,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -774,12 +792,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ZJE
+        example: KEY78e4o
   /warehouses/{warehouseKey}/addresses:
     get:
       tags:
       - Address
       summary: Retrieve a list of Address entities scoped by warehouseKey.
+      description: list Address By WarehouseKey
       operationId: listAddressByWarehouseKey
       parameters:
       - name: sort
@@ -837,12 +856,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Address
       summary: Create a new Address entity.
+      description: Create Address
       operationId: createAddress
       requestBody:
         description: Address data to create the new resource.
@@ -859,7 +881,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/warehouses{warehouseKey}addresses/KEY787UT5"
           content:
             application/json:
               schema:
@@ -910,6 +932,7 @@ paths:
       tags:
       - Address
       summary: Replace a Address entity.
+      description: replace Address
       operationId: replaceAddress
       parameters:
       - name: If-Match
@@ -976,7 +999,8 @@ paths:
       tags:
       - Address
       summary: Partially update a Address entity.
-      operationId: updateAddress
+      description: Partially update a Address
+      operationId: updatePartialAddress
       parameters:
       - name: If-Match
         in: header
@@ -1031,12 +1055,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ZJEN
+        example: KEY78e4oO
   /warehouses/{warehouseKey}/positions:
     get:
       tags:
       - Position
       summary: Retrieve a list of Position entities scoped by warehouseKey.
+      description: list Position By WarehouseKey
       operationId: listPositionByWarehouseKey
       parameters:
       - name: sort
@@ -1094,12 +1119,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Position
       summary: Create a new Position entity.
+      description: Create Position
       operationId: createPosition
       requestBody:
         description: Position data to create the new resource.
@@ -1116,7 +1144,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/warehouses{warehouseKey}positions/KEY787UT5y"
           content:
             application/json:
               schema:
@@ -1167,6 +1195,7 @@ paths:
       tags:
       - Position
       summary: Replace a Position entity.
+      description: replace Position
       operationId: replacePosition
       parameters:
       - name: If-Match
@@ -1233,7 +1262,8 @@ paths:
       tags:
       - Position
       summary: Partially update a Position entity.
-      operationId: updatePosition
+      description: Partially update a Position
+      operationId: updatePartialPosition
       parameters:
       - name: If-Match
         in: header
@@ -1288,12 +1318,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ZJENu
+        example: KEY78e4oOf
   /warehouses/{warehouseKey}/address-locales:
     get:
       tags:
       - AddressLocale
       summary: Retrieve a list of AddressLocale entities scoped by warehouseKey.
+      description: list AddressLocale By WarehouseKey
       operationId: listAddressLocaleByWarehouseKey
       parameters:
       - name: sort
@@ -1351,12 +1382,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - AddressLocale
       summary: Create a new AddressLocale entity.
+      description: Create AddressLocale
       operationId: createAddressLocale
       requestBody:
         description: AddressLocale data to create the new resource.
@@ -1373,7 +1407,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/warehouses{warehouseKey}address-locales/KEY787UT5yg"
           content:
             application/json:
               schema:
@@ -1424,6 +1458,7 @@ paths:
       tags:
       - AddressLocale
       summary: Replace a AddressLocale entity.
+      description: replace AddressLocale
       operationId: replaceAddressLocale
       parameters:
       - name: If-Match
@@ -1490,7 +1525,8 @@ paths:
       tags:
       - AddressLocale
       summary: Partially update a AddressLocale entity.
-      operationId: updateAddressLocale
+      description: Partially update a AddressLocale
+      operationId: updatePartialAddressLocale
       parameters:
       - name: If-Match
         in: header
@@ -1545,6 +1581,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ZJENul
+        example: KEY78e4oOf0
 components:
   schemas: {}

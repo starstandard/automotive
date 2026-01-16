@@ -19,12 +19,28 @@ security:
   - standard:read
 - member-api-key: []
 - {}
+tags:
+- name: Authorization
+  description: Operations related to Authorization
+- name: Warehouse
+  description: Operations related to Warehouse
+- name: Identifier
+  description: Operations related to Identifier
+- name: Address
+  description: Operations related to Address
+- name: Position
+  description: Operations related to Position
+- name: Default
+  description: Operations related to Default
+- name: AddressLocale
+  description: Operations related to AddressLocale
 paths:
   /warehouses:
     get:
       tags:
       - Warehouse
       summary: Retrieve a list of Warehouse entities.
+      description: list Warehouse By
       operationId: listWarehouse
       parameters:
       - name: sort
@@ -76,6 +92,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -86,12 +103,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Warehouse
       summary: Create a new Warehouse entity.
+      description: Create Warehouse
       operationId: createWarehouse
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -110,7 +130,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /warehouses/KEY78a
+                example: /warehouses/KEY787
           content:
             application/json:
               schema:
@@ -132,6 +152,7 @@ paths:
       tags:
       - Warehouse
       summary: Retrieve a specific Warehouse entity.
+      description: "Standard GET operation for /warehouses/{warehouseKey}"
       operationId: getWarehouseById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -159,6 +180,7 @@ paths:
       tags:
       - Warehouse
       summary: Replace a Warehouse entity.
+      description: replace Warehouse
       operationId: replaceWarehouse
       parameters:
       - name: If-Match
@@ -230,7 +252,8 @@ paths:
       tags:
       - Warehouse
       summary: Partially update a Warehouse entity.
-      operationId: updateWarehouse
+      description: Partially update a Warehouse
+      operationId: updatePartialWarehouse
       parameters:
       - name: If-Match
         in: header
@@ -281,12 +304,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Z
+        example: KEY78e
   /warehouses/{warehouseKey}/authorizations:
     get:
       tags:
       - Authorization
       summary: Retrieve a list of Authorization entities scope...
+      description: list Authorization By WarehouseKey
       operationId: listAuthorizationByWarehouseKey
       parameters:
       - name: sort
@@ -338,6 +362,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -348,12 +373,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Authorization
       summary: Create a new Authorization entity.
+      description: Create Authorization
       operationId: createAuthorization
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -372,7 +400,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/warehouses{warehouseKey}authorizations/KEY787U"
           content:
             application/json:
               schema:
@@ -401,6 +429,7 @@ paths:
       tags:
       - Authorization
       summary: Retrieve a specific Authorization entity.
+      description: "Standard GET operation for /warehouses/{warehouseKey}/authorizations/{authorizationKey}"
       operationId: getAuthorizationById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -428,6 +457,7 @@ paths:
       tags:
       - Authorization
       summary: Replace a Authorization entity.
+      description: replace Authorization
       operationId: replaceAuthorization
       parameters:
       - name: If-Match
@@ -499,7 +529,8 @@ paths:
       tags:
       - Authorization
       summary: Partially update a Authorization entity.
-      operationId: updateAuthorization
+      description: Partially update a Authorization
+      operationId: updatePartialAuthorization
       parameters:
       - name: If-Match
         in: header
@@ -556,12 +587,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ZJ
+        example: KEY78e4
   /warehouses/{warehouseKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped b...
+      description: list Identifier By WarehouseKey
       operationId: listIdentifierByWarehouseKey
       parameters:
       - name: sort
@@ -613,6 +645,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -623,12 +656,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -647,7 +683,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/warehouses{warehouseKey}identifiers/KEY787UT"
           content:
             application/json:
               schema:
@@ -676,6 +712,7 @@ paths:
       tags:
       - Identifier
       summary: Retrieve a specific Identifier entity.
+      description: "Standard GET operation for /warehouses/{warehouseKey}/identifiers/{identifierKey}"
       operationId: getIdentifierById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -703,6 +740,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -774,7 +812,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -831,12 +870,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ZJE
+        example: KEY78e4o
   /warehouses/{warehouseKey}/addresses:
     get:
       tags:
       - Address
       summary: Retrieve a list of Address entities scoped by w...
+      description: list Address By WarehouseKey
       operationId: listAddressByWarehouseKey
       parameters:
       - name: sort
@@ -888,6 +928,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -898,12 +939,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Address
       summary: Create a new Address entity.
+      description: Create Address
       operationId: createAddress
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -922,7 +966,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/warehouses{warehouseKey}addresses/KEY787UT5"
           content:
             application/json:
               schema:
@@ -951,6 +995,7 @@ paths:
       tags:
       - Address
       summary: Retrieve a specific Address entity.
+      description: "Standard GET operation for /warehouses/{warehouseKey}/addresses/{addressKey}"
       operationId: getAddressById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -978,6 +1023,7 @@ paths:
       tags:
       - Address
       summary: Replace a Address entity.
+      description: replace Address
       operationId: replaceAddress
       parameters:
       - name: If-Match
@@ -1049,7 +1095,8 @@ paths:
       tags:
       - Address
       summary: Partially update a Address entity.
-      operationId: updateAddress
+      description: Partially update a Address
+      operationId: updatePartialAddress
       parameters:
       - name: If-Match
         in: header
@@ -1106,12 +1153,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ZJEN
+        example: KEY78e4oO
   /warehouses/{warehouseKey}/positions:
     get:
       tags:
       - Position
       summary: Retrieve a list of Position entities scoped by ...
+      description: list Position By WarehouseKey
       operationId: listPositionByWarehouseKey
       parameters:
       - name: sort
@@ -1163,6 +1211,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1173,12 +1222,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Position
       summary: Create a new Position entity.
+      description: Create Position
       operationId: createPosition
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1197,7 +1249,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/warehouses{warehouseKey}positions/KEY787UT5y"
           content:
             application/json:
               schema:
@@ -1226,6 +1278,7 @@ paths:
       tags:
       - Position
       summary: Retrieve a specific Position entity.
+      description: "Standard GET operation for /warehouses/{warehouseKey}/positions/{positionKey}"
       operationId: getPositionById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1253,6 +1306,7 @@ paths:
       tags:
       - Position
       summary: Replace a Position entity.
+      description: replace Position
       operationId: replacePosition
       parameters:
       - name: If-Match
@@ -1324,7 +1378,8 @@ paths:
       tags:
       - Position
       summary: Partially update a Position entity.
-      operationId: updatePosition
+      description: Partially update a Position
+      operationId: updatePartialPosition
       parameters:
       - name: If-Match
         in: header
@@ -1381,12 +1436,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ZJENu
+        example: KEY78e4oOf
   /warehouses/{warehouseKey}/address-locales:
     get:
       tags:
       - AddressLocale
       summary: Retrieve a list of AddressLocale entities scope...
+      description: list AddressLocale By WarehouseKey
       operationId: listAddressLocaleByWarehouseKey
       parameters:
       - name: sort
@@ -1438,6 +1494,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1448,12 +1505,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - AddressLocale
       summary: Create a new AddressLocale entity.
+      description: Create AddressLocale
       operationId: createAddressLocale
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1472,7 +1532,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/warehouses{warehouseKey}address-locales/KEY787UT5yg"
           content:
             application/json:
               schema:
@@ -1501,6 +1561,7 @@ paths:
       tags:
       - AddressLocale
       summary: Retrieve a specific AddressLocale entity.
+      description: "Standard GET operation for /warehouses/{warehouseKey}/address-locales/{addressLocaleKey}"
       operationId: getAddressLocaleById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1528,6 +1589,7 @@ paths:
       tags:
       - AddressLocale
       summary: Replace a AddressLocale entity.
+      description: replace AddressLocale
       operationId: replaceAddressLocale
       parameters:
       - name: If-Match
@@ -1599,7 +1661,8 @@ paths:
       tags:
       - AddressLocale
       summary: Partially update a AddressLocale entity.
-      operationId: updateAddressLocale
+      description: Partially update a AddressLocale
+      operationId: updatePartialAddressLocale
       parameters:
       - name: If-Match
         in: header
@@ -1656,11 +1719,14 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ZJENul
+        example: KEY78e4oOf0
   /warehouses/health:
     get:
+      tags:
+      - Default
       summary: Health Check
       description: Public endpoint to verify service availability.
+      operationId: getWarehouseHealth
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
       responses:
@@ -1693,11 +1759,22 @@ paths:
                     description: Server time in ISO-8601 format.
                     format: date-time
                     example: 2025-12-21T23:00:00Z
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       security:
       - {}
   /warehouses/batch:
     post:
+      tags:
+      - Default
       summary: Bulk create warehouses
+      description: Bulk Create of Warehouse
       operationId: createWarehouseBatch
       requestBody:
         content:
@@ -1713,6 +1790,12 @@ paths:
       responses:
         "200":
           description: Batch processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /warehouses/batch/5403566151367515771
           content:
             application/json:
               schema:
@@ -1732,9 +1815,23 @@ paths:
                           format: int32
                         error:
                           $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
   /warehouses/exports:
     post:
+      tags:
+      - Default
       summary: Initiate a bulk Warehouse export
+      description: Standard POST operation for /warehouses/exports
+      operationId: initiateWarehouseExport
       parameters:
       - name: Idempotency-Key
         in: header
@@ -1751,6 +1848,7 @@ paths:
               properties:
                 format:
                   type: string
+                  example: string
                   default: PARQUET
                   enum:
                   - XML
@@ -1805,10 +1903,17 @@ paths:
                   description: "If true, the system validates the request and returns\
                     \ potential violations or metadata (like estimated size) without\
                     \ starting the job."
+                  example: false
                   default: false
       responses:
         "202":
           description: Export job created/accepted
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /warehouses/exports/2670900984126185708
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -1817,6 +1922,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       callbacks:
         onExportCompleted:
           '{$request.body#/notification/webhook_url}':
@@ -1833,7 +1946,11 @@ paths:
                   description: Webhook received
   /warehouses/exports/{exportId}:
     get:
+      tags:
+      - Default
       summary: Get export status
+      description: Get Export Status of Warehouse
+      operationId: getWarehouseExportStatus
       parameters:
       - name: exportId
         in: path
@@ -1847,8 +1964,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExportJob"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /warehouses/{warehouseKey}/commands:
     post:
+      tags:
+      - Default
       summary: Execute a business workflow on Warehouse
       description: Single entry point for all Warehouse state-changing intents.
       operationId: executeWarehouseCommand
@@ -1883,6 +2010,12 @@ paths:
       responses:
         "200":
           description: Commands processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: "/warehouses/{warehouseKey}/commands/5546444993473578180"
           content:
             application/json:
               schema:
@@ -1904,7 +2037,7 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #3b174538 has been successfully cancelled."
+                    example: "Invoice #01ce93f6 has been successfully cancelled."
                   commandId:
                     type: string
                     description: The tracking ID for this specific command execution
@@ -1912,7 +2045,7 @@ paths:
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: 1c4e7a2f
+                    example: fe57ca3b
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -1921,6 +2054,7 @@ paths:
                     type: boolean
                     description: "If true, the agent can attempt this command again\
                       \ immediately"
+                    example: false
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -1937,6 +2071,8 @@ paths:
           $ref: "#/components/responses/ServerError"
   /warehouses/{warehouseKey}/commands/{commandId}:
     get:
+      tags:
+      - Default
       summary: Poll Warehouse command status
       description: Check the progress or result of a previously submitted command.
       operationId: getWarehouseCommandStatus
@@ -1965,6 +2101,7 @@ paths:
                     type: string
                     description: The unique identifier for the command being tracked
                     format: uuid
+                    readOnly: true
                   status:
                     type: string
                     description: The current lifecycle state of the command
@@ -1992,9 +2129,20 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /warehouses/capabilities:
     get:
+      tags:
+      - Default
       summary: Discover Warehouse Capabilities
+      description: Standard GET operation for /warehouses/capabilities
       operationId: getWarehouseCapabilities
       parameters:
       - name: include
@@ -2029,6 +2177,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Capabilities"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     Address:
@@ -2041,12 +2197,14 @@ components:
           minLength: 1
           type: string
           description: Priority indicator for address usage (e....
+          example: string
         city_code:
           maxLength: 20
           minLength: 1
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized city code. Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         address_key:
           maximum: 100
           minimum: 0
@@ -2055,6 +2213,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique business key for the address. Pattern: ^..."
+          example: string
         address_id:
           maximum: 100
           minimum: 0
@@ -2063,32 +2222,40 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the address record... Pat...
+          readOnly: true
+          example: string
         address_input:
           maxLength: 255
           minLength: 1
           type: string
           description: Raw input provided for address processin...
+          example: string
         address_line1:
           maxLength: 100
           minLength: 1
           type: string
           description: "Primary address line (Street, PO Box, et..."
+          example: string
         address_line2:
           maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         address_line3:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line4:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line5:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_types:
           maxItems: 255
           minItems: 1
@@ -2103,34 +2270,41 @@ components:
           minLength: 1
           type: string
           description: Name of the city.
+          example: string
         city_subdivision:
           maxLength: 100
           type: string
           description: "Subdivision within the city (e.g., neigh..."
+          example: string
         country:
           maxLength: 100
           minLength: 2
           type: string
           description: Full name of the country.
+          example: string
         country_code:
           maxLength: 2
           minLength: 2
           pattern: "^[A-Z]{2}$"
           type: string
           description: "ISO 3166-1 Alpha-2 country code. Pattern: ^[A-Z..."
+          example: string
         county:
           maxLength: 100
           type: string
           description: Name of the county.
+          example: string
         county_code:
           maxLength: 20
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
+          example: string
         position:
           $ref: "#/components/schemas/Position"
         postal_code:
@@ -2139,27 +2313,33 @@ components:
           pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
           description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
+          example: string
         postal_code_ext:
           maxLength: 10
           type: string
           description: "Extended postal code (e.g., ZIP+4)."
+          example: string
         preferred_indicator:
           type: boolean
           description: Flag indicating if this address is the p...
+          example: true
         region:
           maxLength: 50
           type: string
           description: "Administrative region (e.g., province, s..."
+          example: string
         state:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
+          example: string
         locale:
           maxLength: 10
           minLength: 2
           pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
           description: Locale code associated with this address... Pat...
+          example: string
       description: Physical or mailing address details.
     AddressCreate:
       required:
@@ -2172,29 +2352,24 @@ components:
       type: object
       properties:
         address_locale_key:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Business key for the address locale. Pattern: ^..."
+          example: string
         address_locale_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the address locale... Pat...
+          readOnly: true
+          example: string
         region_code:
-          maxLength: 20
           type: string
           description: Code representing the region for the loc...
+          example: string
         region_name:
-          maxLength: 100
           type: string
           description: Name of the region for the locale.
+          example: string
         region_aliases:
           $ref: "#/components/schemas/Codes"
         location_type:
@@ -2211,17 +2386,17 @@ components:
       type: object
       properties:
         region_name:
-          maxLength: 100
           type: string
           description: Name of the region for the locale.
+          example: string
         region_aliases:
           $ref: "#/components/schemas/Codes"
         location_type:
           $ref: "#/components/schemas/LocationTypes"
         region_code:
-          maxLength: 20
           type: string
           description: Code representing the region for the loc...
+          example: string
       description: AddressLocale Update for Patch and Put
     AddressLocales:
       type: array
@@ -2268,86 +2443,104 @@ components:
           minLength: 1
           type: string
           description: Raw input provided for address processin...
+          example: string
         country:
           maxLength: 100
           minLength: 2
           type: string
           description: Full name of the country.
+          example: string
         city:
           maxLength: 100
           minLength: 1
           type: string
           description: Name of the city.
+          example: string
         county_code:
           maxLength: 20
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         authorizations:
           $ref: "#/components/schemas/Authorizations"
         county:
           maxLength: 100
           type: string
           description: Name of the county.
+          example: string
         city_code:
           maxLength: 20
           minLength: 1
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized city code. Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         locale:
           maxLength: 10
           minLength: 2
           pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
           description: Locale code associated with this address... Pat...
+          example: string
         address_locales:
           $ref: "#/components/schemas/AddressLocales"
         address_line5:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line4:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line3:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line2:
           maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         address_line1:
           maxLength: 100
           minLength: 1
           type: string
           description: "Primary address line (Street, PO Box, et..."
+          example: string
         postal_code_ext:
           maxLength: 10
           type: string
           description: "Extended postal code (e.g., ZIP+4)."
+          example: string
         state:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
+          example: string
         preferred_indicator:
           type: boolean
           description: Flag indicating if this address is the p...
+          example: true
         city_subdivision:
           maxLength: 100
           type: string
           description: "Subdivision within the city (e.g., neigh..."
+          example: string
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
+          example: string
         priority:
           maxLength: 10
           minLength: 1
           type: string
           description: Priority indicator for address usage (e....
+          example: string
         address_types:
           maxItems: 255
           minItems: 1
@@ -2361,6 +2554,7 @@ components:
           pattern: "^[A-Z]{2}$"
           type: string
           description: "ISO 3166-1 Alpha-2 country code. Pattern: ^[A-Z..."
+          example: string
         position:
           $ref: "#/components/schemas/Position"
         postal_code:
@@ -2369,10 +2563,12 @@ components:
           pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
           description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
+          example: string
         region:
           maxLength: 50
           type: string
           description: "Administrative region (e.g., province, s..."
+          example: string
       description: Address Update for Patch and Put
     Addresses:
       type: array
@@ -2385,15 +2581,16 @@ components:
           type: string
           description: Timestamp of the last update to this aut...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is c...
+          example: true
         authorization_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Business key uniquely identifying the au... Pat...
+          example: string
       description: General authorization or permission status.
     AuthorizationCreate:
       required:
@@ -2408,10 +2605,12 @@ components:
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is c...
+          example: true
         update_date_time:
           type: string
           description: Timestamp of the last update to this aut...
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Authorization Update for Patch and Put
     Authorizations:
       type: array
@@ -2509,8 +2708,7 @@ components:
                     example: P7D
                   is_pii_sensitive:
                     type: boolean
-                    description: Indicates if the export contains Personally Identifiable
-                      Information
+                    description: Indicates export contains PII
                     example: false
                   access_tier:
                     type: string
@@ -2529,6 +2727,7 @@ components:
                     rule_id:
                       type: string
                       description: Unique identifier for the business rule
+                      readOnly: true
                       example: IDENTITY_LOCK_STATE
                     constraint_type:
                       type: string
@@ -2562,9 +2761,9 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
+                        item_type: Inventory
                         count: "45"
                         limit: "0"
-                        item_type: Inventory
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -2573,9 +2772,9 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
+                        min: "1"
                         value: "31"
                         unit: days
-                        min: "1"
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -2621,7 +2820,7 @@ components:
       - code
       - message
       - timestamp
-      - traceId
+      - trace_id
       type: object
       properties:
         code:
@@ -2648,11 +2847,12 @@ components:
           description: The time the error occurred (ISO 8601).
           format: date-time
           example: 2025-11-10T10:30:00Z
-        traceId:
+        trace_id:
           type: string
           description: "A unique identifier for this specific request, ..."
+          readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
-        docUrl:
+        doc_url:
           type: string
           description: A URL leading to the documentation page for thi...
           format: uri
@@ -2683,11 +2883,14 @@ components:
           type: integer
           description: Part number
           format: int32
+          example: 1
         download_url:
           type: string
           format: uri
+          example: https://api.example.com
         format:
           type: string
+          example: string
           default: PARQUET
           enum:
           - XML
@@ -2698,15 +2901,20 @@ components:
         expires_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
+          example: string
     ExportJob:
       type: object
       properties:
         id:
           type: string
+          readOnly: true
+          example: string
         status:
           type: string
+          example: string
           enum:
           - PENDING
           - PROCESSING
@@ -2717,6 +2925,7 @@ components:
           minimum: 0
           type: integer
           format: int32
+          example: 1
         files:
           type: array
           items:
@@ -2726,22 +2935,26 @@ components:
       properties:
         event_type:
           type: string
+          example: string
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
         occurred_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         data:
           type: object
           properties:
             job_id:
               type: string
+              readOnly: true
             aggregate:
               type: string
               example: Warehouse
             data_product_id:
               type: string
+              readOnly: true
             status:
               type: string
               enum:
@@ -2763,24 +2976,33 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         identifier_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Business key for the identifier Pattern: ^[a-zA..."
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -2799,15 +3021,20 @@ components:
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
       description: Identifier Update for Patch and Put
     Identifiers:
       type: array
@@ -2843,14 +3070,11 @@ components:
       type: object
       properties:
         position_id:
-          maxLength: 64
-          minLength: 1
           type: string
           description: Unique identifier for this position
+          readOnly: true
           example: pos-001
         position_key:
-          maxLength: 64
-          minLength: 1
           type: string
           description: Business key for this position record
           example: POS-ATL-WEST
@@ -2871,8 +3095,6 @@ components:
           description: Bearing direction (compass)
           example: NW
         postal_code:
-          maxLength: 16
-          minLength: 3
           type: string
           description: Postal code of the location
           example: "30303"
@@ -2881,6 +3103,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         position_codes:
           maxItems: 255
           minItems: 1
@@ -2908,6 +3131,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         bearing:
           type: string
           description: Bearing direction (compass)
@@ -2917,8 +3141,6 @@ components:
           description: Latitude of the location
           example: "33.7490"
         postal_code:
-          maxLength: 16
-          minLength: 3
           type: string
           description: Postal code of the location
           example: "30303"
@@ -2954,7 +3176,7 @@ components:
         instance:
           type: string
           format: uri
-          example: /money/exports
+          example: https://api.yourdomain.com/money/exports
         intent:
           type: string
           example: InitiateMoneyExport
@@ -2980,39 +3202,30 @@ components:
       type: object
       properties:
         warehouse_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier for the warehouse. Pattern: ^..."
+          readOnly: true
+          example: string
         warehouse_key:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Business key used for external integrati... Pat...
+          example: string
         warehouse_code:
-          maxLength: 100
-          minLength: 1
           type: string
           description: Code of the warehouse.
+          example: string
         warehouse_name:
-          maxLength: 100
-          minLength: 1
           type: string
           description: Descriptive name of the warehouse.
+          example: string
         party_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Identifier of the party (organization or... Pat...
+          readOnly: true
+          example: string
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         warehouse_types:
@@ -3027,6 +3240,7 @@ components:
           minItems: 1
           uniqueItems: true
           type: array
+          readOnly: true
           items:
             type: string
         addresses:
@@ -3069,22 +3283,21 @@ components:
         addresses:
           $ref: "#/components/schemas/Addresses"
         warehouse_name:
-          maxLength: 100
-          minLength: 1
           type: string
           description: Descriptive name of the warehouse.
+          example: string
         vehicle_identifiers:
           maxItems: 255
           minItems: 1
           uniqueItems: true
           type: array
+          readOnly: true
           items:
             type: string
         warehouse_code:
-          maxLength: 100
-          minLength: 1
           type: string
           description: Code of the warehouse.
+          example: string
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         warehouse_types:
@@ -3101,6 +3314,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
+          example: string
           enum:
           - CREATED
           - ACTIVE

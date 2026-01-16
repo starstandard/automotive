@@ -19,12 +19,24 @@ security:
   - standard:read
 - member-api-key: []
 - {}
+tags:
+- name: PayrollCycle
+  description: Operations related to PayrollCycle
+- name: Identifier
+  description: Operations related to Identifier
+- name: EffectivePeriod
+  description: Operations related to EffectivePeriod
+- name: TimeSlot
+  description: Operations related to TimeSlot
+- name: Default
+  description: Operations related to Default
 paths:
   /payroll-cycles:
     get:
       tags:
       - PayrollCycle
       summary: Retrieve a list of PayrollCycle entities.
+      description: list PayrollCycle By
       operationId: listPayrollCycle
       parameters:
       - name: sort
@@ -76,6 +88,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -86,12 +99,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PayrollCycle
       summary: Create a new PayrollCycle entity.
+      description: Create PayrollCycle
       operationId: createPayrollCycle
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -110,7 +126,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /payroll-cycles/KEY78H
+                example: /payroll-cycles/KEY789
           content:
             application/json:
               schema:
@@ -132,6 +148,7 @@ paths:
       tags:
       - PayrollCycle
       summary: Retrieve a specific PayrollCycle entity.
+      description: "Standard GET operation for /payroll-cycles/{payrollCycleKey}"
       operationId: getPayrollCycleById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -159,6 +176,7 @@ paths:
       tags:
       - PayrollCycle
       summary: Replace a PayrollCycle entity.
+      description: replace PayrollCycle
       operationId: replacePayrollCycle
       parameters:
       - name: If-Match
@@ -230,7 +248,8 @@ paths:
       tags:
       - PayrollCycle
       summary: Partially update a PayrollCycle entity.
-      operationId: updatePayrollCycle
+      description: Partially update a PayrollCycle
+      operationId: updatePartialPayrollCycle
       parameters:
       - name: If-Match
         in: header
@@ -281,12 +300,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78d
+        example: KEY78r
   /payroll-cycles/{payrollCycleKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped b...
+      description: list Identifier By PayrollCycleKey
       operationId: listIdentifierByPayrollCycleKey
       parameters:
       - name: sort
@@ -338,6 +358,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -348,12 +369,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -372,7 +396,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payroll-cycles{payrollCycleKey}identifiers/KEY789k"
           content:
             application/json:
               schema:
@@ -401,6 +425,7 @@ paths:
       tags:
       - Identifier
       summary: Retrieve a specific Identifier entity.
+      description: "Standard GET operation for /payroll-cycles/{payrollCycleKey}/identifiers/{identifierKey}"
       operationId: getIdentifierById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -428,6 +453,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -499,7 +525,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -556,12 +583,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78dV
+        example: KEY78r0
   /payroll-cycles/{payrollCycleKey}/effective-periods:
     get:
       tags:
       - EffectivePeriod
       summary: Retrieve a list of EffectivePeriod entities sco...
+      description: list EffectivePeriod By PayrollCycleKey
       operationId: listEffectivePeriodByPayrollCycleKey
       parameters:
       - name: sort
@@ -613,6 +641,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -623,6 +652,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -637,6 +668,7 @@ paths:
       tags:
       - EffectivePeriod
       summary: Retrieve a specific EffectivePeriod entity.
+      description: "Standard GET operation for /payroll-cycles/{payrollCycleKey}/effective-periods/{effectivePeriodKey}"
       operationId: getEffectivePeriodById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -673,12 +705,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78dVe
+        example: KEY78r0T
   /payroll-cycles/{payrollCycleKey}/time-slots:
     get:
       tags:
       - TimeSlot
       summary: Retrieve a list of TimeSlot entities scoped by ...
+      description: list TimeSlot By PayrollCycleKey
       operationId: listTimeSlotByPayrollCycleKey
       parameters:
       - name: sort
@@ -730,6 +763,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -740,6 +774,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -754,6 +790,7 @@ paths:
       tags:
       - TimeSlot
       summary: Retrieve a specific TimeSlot entity.
+      description: "Standard GET operation for /payroll-cycles/{payrollCycleKey}/time-slots/{timeSlotKey}"
       operationId: getTimeSlotById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -790,11 +827,14 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78dVen
+        example: KEY78r0TY
   /payroll-cycles/health:
     get:
+      tags:
+      - Default
       summary: Health Check
       description: Public endpoint to verify service availability.
+      operationId: getPayrollCycleHealth
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
       responses:
@@ -827,11 +867,22 @@ paths:
                     description: Server time in ISO-8601 format.
                     format: date-time
                     example: 2025-12-21T23:00:00Z
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       security:
       - {}
   /payroll-cycles/batch:
     post:
+      tags:
+      - Default
       summary: Bulk create payroll-cycles
+      description: Bulk Create of PayrollCycle
       operationId: createPayrollCycleBatch
       requestBody:
         content:
@@ -847,6 +898,12 @@ paths:
       responses:
         "200":
           description: Batch processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /payroll-cycles/batch/1801108360803038003
           content:
             application/json:
               schema:
@@ -866,9 +923,23 @@ paths:
                           format: int32
                         error:
                           $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
   /payroll-cycles/exports:
     post:
+      tags:
+      - Default
       summary: Initiate a bulk PayrollCycle export
+      description: Standard POST operation for /payroll-cycles/exports
+      operationId: initiatePayrollCycleExport
       parameters:
       - name: Idempotency-Key
         in: header
@@ -885,6 +956,7 @@ paths:
               properties:
                 format:
                   type: string
+                  example: string
                   default: PARQUET
                   enum:
                   - XML
@@ -939,10 +1011,17 @@ paths:
                   description: "If true, the system validates the request and returns\
                     \ potential violations or metadata (like estimated size) without\
                     \ starting the job."
+                  example: false
                   default: false
       responses:
         "202":
           description: Export job created/accepted
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /payroll-cycles/exports/1253877756541389801
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -951,6 +1030,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       callbacks:
         onExportCompleted:
           '{$request.body#/notification/webhook_url}':
@@ -967,7 +1054,11 @@ paths:
                   description: Webhook received
   /payroll-cycles/exports/{exportId}:
     get:
+      tags:
+      - Default
       summary: Get export status
+      description: Get Export Status of PayrollCycle
+      operationId: getPayrollCycleExportStatus
       parameters:
       - name: exportId
         in: path
@@ -981,8 +1072,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExportJob"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /payroll-cycles/{payrollCycleKey}/commands:
     post:
+      tags:
+      - Default
       summary: Execute a business workflow on PayrollCycle
       description: Single entry point for all PayrollCycle state-changing intents.
       operationId: executePayrollCycleCommand
@@ -1017,6 +1118,12 @@ paths:
       responses:
         "200":
           description: Commands processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: "/payroll-cycles/{payrollCycleKey}/commands/259188957892915834"
           content:
             application/json:
               schema:
@@ -1038,7 +1145,7 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #9ce13b8b has been successfully cancelled."
+                    example: "Invoice #6c5c10f8 has been successfully cancelled."
                   commandId:
                     type: string
                     description: The tracking ID for this specific command execution
@@ -1046,7 +1153,7 @@ paths:
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: faf03d78
+                    example: 687642b7
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -1055,6 +1162,7 @@ paths:
                     type: boolean
                     description: "If true, the agent can attempt this command again\
                       \ immediately"
+                    example: false
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -1071,6 +1179,8 @@ paths:
           $ref: "#/components/responses/ServerError"
   /payroll-cycles/{payrollCycleKey}/commands/{commandId}:
     get:
+      tags:
+      - Default
       summary: Poll PayrollCycle command status
       description: Check the progress or result of a previously submitted command.
       operationId: getPayrollCycleCommandStatus
@@ -1099,6 +1209,7 @@ paths:
                     type: string
                     description: The unique identifier for the command being tracked
                     format: uuid
+                    readOnly: true
                   status:
                     type: string
                     description: The current lifecycle state of the command
@@ -1126,9 +1237,20 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /payroll-cycles/capabilities:
     get:
+      tags:
+      - Default
       summary: Discover PayrollCycle Capabilities
+      description: Standard GET operation for /payroll-cycles/capabilities
       operationId: getPayrollCycleCapabilities
       parameters:
       - name: include
@@ -1163,6 +1285,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Capabilities"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     Capabilities:
@@ -1257,8 +1387,7 @@ components:
                     example: P7D
                   is_pii_sensitive:
                     type: boolean
-                    description: Indicates if the export contains Personally Identifiable
-                      Information
+                    description: Indicates export contains PII
                     example: false
                   access_tier:
                     type: string
@@ -1277,6 +1406,7 @@ components:
                     rule_id:
                       type: string
                       description: Unique identifier for the business rule
+                      readOnly: true
                       example: IDENTITY_LOCK_STATE
                     constraint_type:
                       type: string
@@ -1311,8 +1441,8 @@ components:
                         current state
                       example:
                         item_type: Inventory
-                        limit: "0"
                         count: "45"
+                        limit: "0"
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -1322,8 +1452,8 @@ components:
                         \ checks."
                       example:
                         min: "1"
-                        unit: days
                         value: "31"
+                        unit: days
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -1399,43 +1529,50 @@ components:
       type: object
       properties:
         effective_period_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique key identifying the effective per... Pat...
+          example: string
         active_indicator:
           type: boolean
           description: Indicator if the period is currently act...
+          example: true
         exclusive_indicator:
           type: boolean
           description: Indicator if the period is exclusive
+          example: true
         start_date_time:
           type: string
           description: Start date and time of the effective per...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         complete_date_time:
           type: string
           description: Completion date and time of the effectiv...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         duration_value:
           type: string
           description: Value of the duration
+          example: string
         recur_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         recur_count:
           type: string
           description: Count of recurrence
+          example: string
         recur_values:
           $ref: "#/components/schemas/Codes"
         recur_criteria:
           type: string
           description: Criteria defining recurrence
+          example: string
         recur_indicator:
           type: boolean
           description: Indicator if recurrence is enabled
+          example: true
         timeslot:
           $ref: "#/components/schemas/TimeSlot"
       description: The date range during which this record is valid.
@@ -1445,7 +1582,7 @@ components:
       - code
       - message
       - timestamp
-      - traceId
+      - trace_id
       type: object
       properties:
         code:
@@ -1472,11 +1609,12 @@ components:
           description: The time the error occurred (ISO 8601).
           format: date-time
           example: 2025-11-10T10:30:00Z
-        traceId:
+        trace_id:
           type: string
           description: "A unique identifier for this specific request, ..."
+          readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
-        docUrl:
+        doc_url:
           type: string
           description: A URL leading to the documentation page for thi...
           format: uri
@@ -1507,11 +1645,14 @@ components:
           type: integer
           description: Part number
           format: int32
+          example: 1
         download_url:
           type: string
           format: uri
+          example: https://api.example.com
         format:
           type: string
+          example: string
           default: PARQUET
           enum:
           - XML
@@ -1522,15 +1663,20 @@ components:
         expires_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
+          example: string
     ExportJob:
       type: object
       properties:
         id:
           type: string
+          readOnly: true
+          example: string
         status:
           type: string
+          example: string
           enum:
           - PENDING
           - PROCESSING
@@ -1541,6 +1687,7 @@ components:
           minimum: 0
           type: integer
           format: int32
+          example: 1
         files:
           type: array
           items:
@@ -1550,22 +1697,26 @@ components:
       properties:
         event_type:
           type: string
+          example: string
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
         occurred_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         data:
           type: object
           properties:
             job_id:
               type: string
+              readOnly: true
             aggregate:
               type: string
               example: PayrollCycle
             data_product_id:
               type: string
+              readOnly: true
             status:
               type: string
               enum:
@@ -1587,24 +1738,33 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         identifier_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Business key for the identifier Pattern: ^[a-zA..."
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -1623,15 +1783,20 @@ components:
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
       description: Identifier Update for Patch and Put
     Identifiers:
       type: array
@@ -1643,30 +1808,37 @@ components:
         payroll_cycle_id:
           type: string
           description: A unique identifier for the payroll cycl...
+          readOnly: true
+          example: string
         payroll_cycle_key:
           type: string
           description: A unique identifier for the payroll cycl...
+          example: string
         payroll_run_refs:
           $ref: "#/components/schemas/Identifiers"
         primary_entity_id:
           type: string
           description: Primary Entity Id.
+          readOnly: true
           example: WH001
         pay_date_time:
           type: string
           description: The date and time the payment was issued...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         effective_period:
           $ref: "#/components/schemas/EffectivePeriod"
         occurrence_date_time:
           type: string
           description: The date and time the cycle occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
         identifiers:
           maxItems: 255
           minItems: 1
           uniqueItems: true
           type: array
+          readOnly: true
           items:
             $ref: "#/components/schemas/Identifier"
         payroll_cycle_frequency_type:
@@ -1705,6 +1877,7 @@ components:
           type: string
           description: The date and time the payment was issued...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         payroll_run_refs:
           $ref: "#/components/schemas/Identifiers"
         identifiers:
@@ -1712,6 +1885,7 @@ components:
           minItems: 1
           uniqueItems: true
           type: array
+          readOnly: true
           items:
             $ref: "#/components/schemas/Identifier"
         effective_period:
@@ -1720,6 +1894,7 @@ components:
           type: string
           description: The date and time the cycle occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
         payroll_cycle_frequency_type:
           $ref: "#/components/schemas/PayrollCycleFrequencyTypes"
       description: PayrollCycle Update for Patch and Put
@@ -1729,6 +1904,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
+          example: string
           enum:
           - CREATED
           - ACTIVE
@@ -1760,7 +1936,7 @@ components:
         instance:
           type: string
           format: uri
-          example: /money/exports
+          example: https://api.yourdomain.com/money/exports
         intent:
           type: string
           example: InitiateMoneyExport
@@ -1786,13 +1962,10 @@ components:
       type: object
       properties:
         time_slot_key:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique business key for the time slot. Pattern:...
+          example: string
         end_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         end_time:
@@ -1801,9 +1974,11 @@ components:
           type: string
           description: "End time in HH:mm format. Pattern: ^([01]\\d|2[0..."
           format: date-time
+          example: 2026-01-14T12:00:00Z
         recurring_indicator:
           type: boolean
           description: Indicates if the time slot is recurring.
+          example: true
         recurring_period:
           $ref: "#/components/schemas/EffectivePeriod"
         start_day:
@@ -1814,6 +1989,7 @@ components:
           type: string
           description: "Start time in HH:mm format. Pattern: ^([01]\\d|2..."
           format: date-time
+          example: 2026-01-14T12:00:00Z
         timeslot_directive_types:
           maxItems: 255
           minItems: 1
@@ -1822,13 +1998,11 @@ components:
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the time slot reco... Pat...
+          readOnly: true
+          example: string
         week_of_date:
           maxItems: 255
           minItems: 1

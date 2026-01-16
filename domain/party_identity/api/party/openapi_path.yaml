@@ -22,6 +22,7 @@ paths:
       tags:
       - Party
       summary: Retrieve a list of Party entities.
+      description: list Party By
       operationId: listParty
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Party
       summary: Create a new Party entity.
+      description: Create Party
       operationId: createParty
       requestBody:
         description: Party data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /parties/KEY78F
+                example: /parties/KEY78M
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - Party
       summary: Replace a Party entity.
+      description: replace Party
       operationId: replaceParty
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - Party
       summary: Partially update a Party entity.
-      operationId: updateParty
+      description: Partially update a Party
+      operationId: updatePartialParty
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78G
+        example: KEY78Y
   /parties/{partyKey}/payment-term-references:
     get:
       tags:
       - PaymentTermReference
       summary: Retrieve a list of PaymentTermReference entities scoped by partyKey.
+      description: list PaymentTermReference By PartyKey
       operationId: listPaymentTermReferenceByPartyKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PaymentTermReference
       summary: Create a new PaymentTermReference entity.
+      description: Create PaymentTermReference
       operationId: createPaymentTermReference
       requestBody:
         description: PaymentTermReference data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}payment-term-references/KEY78M3"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - PaymentTermReference
       summary: Replace a PaymentTermReference entity.
+      description: replace PaymentTermReference
       operationId: replacePaymentTermReference
       parameters:
       - name: If-Match
@@ -463,7 +474,8 @@ paths:
       tags:
       - PaymentTermReference
       summary: Partially update a PaymentTermReference entity.
-      operationId: updatePaymentTermReference
+      description: Partially update a PaymentTermReference
+      operationId: updatePartialPaymentTermReference
       parameters:
       - name: If-Match
         in: header
@@ -518,12 +530,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gk
+        example: KEY78YB
   /parties/{partyKey}/discounts:
     get:
       tags:
       - Discount
       summary: Retrieve a list of Discount entities scoped by partyKey.
+      description: list Discount By PartyKey
       operationId: listDiscountByPartyKey
       parameters:
       - name: sort
@@ -581,12 +594,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Discount
       summary: Create a new Discount entity.
+      description: Create Discount
       operationId: createDiscount
       requestBody:
         description: Discount data to create the new resource.
@@ -603,7 +619,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}discounts/KEY78M3t"
           content:
             application/json:
               schema:
@@ -654,6 +670,7 @@ paths:
       tags:
       - Discount
       summary: Replace a Discount entity.
+      description: replace Discount
       operationId: replaceDiscount
       parameters:
       - name: If-Match
@@ -720,7 +737,8 @@ paths:
       tags:
       - Discount
       summary: Partially update a Discount entity.
-      operationId: updateDiscount
+      description: Partially update a Discount
+      operationId: updatePartialDiscount
       parameters:
       - name: If-Match
         in: header
@@ -775,12 +793,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkV
+        example: KEY78YBp
   /parties/{partyKey}/addresses:
     get:
       tags:
       - Address
       summary: Retrieve a list of Address entities scoped by partyKey.
+      description: list Address By PartyKey
       operationId: listAddressByPartyKey
       parameters:
       - name: sort
@@ -838,12 +857,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Address
       summary: Create a new Address entity.
+      description: Create Address
       operationId: createAddress
       requestBody:
         description: Address data to create the new resource.
@@ -860,7 +882,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}addresses/KEY78M3tG"
           content:
             application/json:
               schema:
@@ -911,6 +933,7 @@ paths:
       tags:
       - Address
       summary: Replace a Address entity.
+      description: replace Address
       operationId: replaceAddress
       parameters:
       - name: If-Match
@@ -977,7 +1000,8 @@ paths:
       tags:
       - Address
       summary: Partially update a Address entity.
-      operationId: updateAddress
+      description: Partially update a Address
+      operationId: updatePartialAddress
       parameters:
       - name: If-Match
         in: header
@@ -1032,12 +1056,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv
+        example: KEY78YBp0
   /parties/{partyKey}/org-profiles:
     get:
       tags:
       - OrgProfile
       summary: Retrieve a list of OrgProfile entities scoped by partyKey.
+      description: list OrgProfile By PartyKey
       operationId: listOrgProfileByPartyKey
       parameters:
       - name: sort
@@ -1095,12 +1120,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - OrgProfile
       summary: Create a new OrgProfile entity.
+      description: Create OrgProfile
       operationId: createOrgProfile
       requestBody:
         description: OrgProfile data to create the new resource.
@@ -1117,7 +1145,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}org-profiles/KEY78M3tGg"
           content:
             application/json:
               schema:
@@ -1168,6 +1196,7 @@ paths:
       tags:
       - OrgProfile
       summary: Replace a OrgProfile entity.
+      description: replace OrgProfile
       operationId: replaceOrgProfile
       parameters:
       - name: If-Match
@@ -1234,7 +1263,8 @@ paths:
       tags:
       - OrgProfile
       summary: Partially update a OrgProfile entity.
-      operationId: updateOrgProfile
+      description: Partially update a OrgProfile
+      operationId: updatePartialOrgProfile
       parameters:
       - name: If-Match
         in: header
@@ -1289,12 +1319,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9
+        example: KEY78YBp0k
   /parties/{partyKey}/org-names:
     get:
       tags:
       - OrgName
       summary: Retrieve a list of OrgName entities scoped by partyKey.
+      description: list OrgName By PartyKey
       operationId: listOrgNameByPartyKey
       parameters:
       - name: sort
@@ -1352,12 +1383,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - OrgName
       summary: Create a new OrgName entity.
+      description: Create OrgName
       operationId: createOrgName
       requestBody:
         description: OrgName data to create the new resource.
@@ -1374,7 +1408,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}org-names/KEY78M3tGgx"
           content:
             application/json:
               schema:
@@ -1425,6 +1459,7 @@ paths:
       tags:
       - OrgName
       summary: Replace a OrgName entity.
+      description: replace OrgName
       operationId: replaceOrgName
       parameters:
       - name: If-Match
@@ -1491,7 +1526,8 @@ paths:
       tags:
       - OrgName
       summary: Partially update a OrgName entity.
-      operationId: updateOrgName
+      description: Partially update a OrgName
+      operationId: updatePartialOrgName
       parameters:
       - name: If-Match
         in: header
@@ -1546,12 +1582,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9H
+        example: KEY78YBp0kp
   /parties/{partyKey}/staff-members:
     get:
       tags:
       - StaffMember
       summary: Retrieve a list of StaffMember entities scoped by partyKey.
+      description: list StaffMember By PartyKey
       operationId: listStaffMemberByPartyKey
       parameters:
       - name: sort
@@ -1609,12 +1646,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - StaffMember
       summary: Create a new StaffMember entity.
+      description: Create StaffMember
       operationId: createStaffMember
       requestBody:
         description: StaffMember data to create the new resource.
@@ -1631,7 +1671,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}staff-members/KEY78M3tGgxj"
           content:
             application/json:
               schema:
@@ -1682,6 +1722,7 @@ paths:
       tags:
       - StaffMember
       summary: Replace a StaffMember entity.
+      description: replace StaffMember
       operationId: replaceStaffMember
       parameters:
       - name: If-Match
@@ -1748,7 +1789,8 @@ paths:
       tags:
       - StaffMember
       summary: Partially update a StaffMember entity.
-      operationId: updateStaffMember
+      description: Partially update a StaffMember
+      operationId: updatePartialStaffMember
       parameters:
       - name: If-Match
         in: header
@@ -1803,12 +1845,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9Hs
+        example: KEY78YBp0kpr
   /parties/{partyKey}/privacy-events:
     get:
       tags:
       - PrivacyEvent
       summary: Retrieve a list of PrivacyEvent entities scoped by partyKey.
+      description: list PrivacyEvent By PartyKey
       operationId: listPrivacyEventByPartyKey
       parameters:
       - name: sort
@@ -1866,12 +1909,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PrivacyEvent
       summary: Create a new PrivacyEvent entity.
+      description: Create PrivacyEvent
       operationId: createPrivacyEvent
       requestBody:
         description: PrivacyEvent data to create the new resource.
@@ -1888,7 +1934,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}privacy-events/KEY78M3tGgxjc"
           content:
             application/json:
               schema:
@@ -1939,6 +1985,7 @@ paths:
       tags:
       - PrivacyEvent
       summary: Replace a PrivacyEvent entity.
+      description: replace PrivacyEvent
       operationId: replacePrivacyEvent
       parameters:
       - name: If-Match
@@ -2005,7 +2052,8 @@ paths:
       tags:
       - PrivacyEvent
       summary: Partially update a PrivacyEvent entity.
-      operationId: updatePrivacyEvent
+      description: Partially update a PrivacyEvent
+      operationId: updatePartialPrivacyEvent
       parameters:
       - name: If-Match
         in: header
@@ -2060,12 +2108,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJ
+        example: KEY78YBp0kprr
   /parties/{partyKey}/time-slots:
     get:
       tags:
       - TimeSlot
       summary: Retrieve a list of TimeSlot entities scoped by partyKey.
+      description: list TimeSlot By PartyKey
       operationId: listTimeSlotByPartyKey
       parameters:
       - name: sort
@@ -2123,6 +2172,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -2168,12 +2219,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJx
+        example: KEY78YBp0kprrq
   /parties/{partyKey}/address-locales:
     get:
       tags:
       - AddressLocale
       summary: Retrieve a list of AddressLocale entities scoped by partyKey.
+      description: list AddressLocale By PartyKey
       operationId: listAddressLocaleByPartyKey
       parameters:
       - name: sort
@@ -2231,12 +2283,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - AddressLocale
       summary: Create a new AddressLocale entity.
+      description: Create AddressLocale
       operationId: createAddressLocale
       requestBody:
         description: AddressLocale data to create the new resource.
@@ -2253,7 +2308,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}address-locales/KEY78M3tGgxjch8"
           content:
             application/json:
               schema:
@@ -2304,6 +2359,7 @@ paths:
       tags:
       - AddressLocale
       summary: Replace a AddressLocale entity.
+      description: replace AddressLocale
       operationId: replaceAddressLocale
       parameters:
       - name: If-Match
@@ -2370,7 +2426,8 @@ paths:
       tags:
       - AddressLocale
       summary: Partially update a AddressLocale entity.
-      operationId: updateAddressLocale
+      description: Partially update a AddressLocale
+      operationId: updatePartialAddressLocale
       parameters:
       - name: If-Match
         in: header
@@ -2425,12 +2482,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxX
+        example: KEY78YBp0kprrqr
   /parties/{partyKey}/authorizations:
     get:
       tags:
       - Authorization
       summary: Retrieve a list of Authorization entities scoped by partyKey.
+      description: list Authorization By PartyKey
       operationId: listAuthorizationByPartyKey
       parameters:
       - name: sort
@@ -2488,12 +2546,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Authorization
       summary: Create a new Authorization entity.
+      description: Create Authorization
       operationId: createAuthorization
       requestBody:
         description: Authorization data to create the new resource.
@@ -2510,7 +2571,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}authorizations/KEY78M3tGgxjch8z"
           content:
             application/json:
               schema:
@@ -2561,6 +2622,7 @@ paths:
       tags:
       - Authorization
       summary: Replace a Authorization entity.
+      description: replace Authorization
       operationId: replaceAuthorization
       parameters:
       - name: If-Match
@@ -2627,7 +2689,8 @@ paths:
       tags:
       - Authorization
       summary: Partially update a Authorization entity.
-      operationId: updateAuthorization
+      description: Partially update a Authorization
+      operationId: updatePartialAuthorization
       parameters:
       - name: If-Match
         in: header
@@ -2682,12 +2745,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXh
+        example: KEY78YBp0kprrqrE
   /parties/{partyKey}/metric-name-values:
     get:
       tags:
       - MetricNameValue
       summary: Retrieve a list of MetricNameValue entities scoped by partyKey.
+      description: list MetricNameValue By PartyKey
       operationId: listMetricNameValueByPartyKey
       parameters:
       - name: sort
@@ -2745,12 +2809,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - MetricNameValue
       summary: Create a new MetricNameValue entity.
+      description: Create MetricNameValue
       operationId: createMetricNameValue
       requestBody:
         description: MetricNameValue data to create the new resource.
@@ -2767,7 +2834,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}metric-name-values/KEY78M3tGgxjch8zd"
           content:
             application/json:
               schema:
@@ -2818,6 +2885,7 @@ paths:
       tags:
       - MetricNameValue
       summary: Replace a MetricNameValue entity.
+      description: replace MetricNameValue
       operationId: replaceMetricNameValue
       parameters:
       - name: If-Match
@@ -2884,7 +2952,8 @@ paths:
       tags:
       - MetricNameValue
       summary: Partially update a MetricNameValue entity.
-      operationId: updateMetricNameValue
+      description: Partially update a MetricNameValue
+      operationId: updatePartialMetricNameValue
       parameters:
       - name: If-Match
         in: header
@@ -2939,12 +3008,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhd
+        example: KEY78YBp0kprrqrEE
   /parties/{partyKey}/departments:
     get:
       tags:
       - Department
       summary: Retrieve a list of Department entities scoped by partyKey.
+      description: list Department By PartyKey
       operationId: listDepartmentByPartyKey
       parameters:
       - name: sort
@@ -3002,12 +3072,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Department
       summary: Create a new Department entity.
+      description: Create Department
       operationId: createDepartment
       requestBody:
         description: Department data to create the new resource.
@@ -3024,7 +3097,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}departments/KEY78M3tGgxjch8zdB"
           content:
             application/json:
               schema:
@@ -3075,6 +3148,7 @@ paths:
       tags:
       - Department
       summary: Replace a Department entity.
+      description: replace Department
       operationId: replaceDepartment
       parameters:
       - name: If-Match
@@ -3141,7 +3215,8 @@ paths:
       tags:
       - Department
       summary: Partially update a Department entity.
-      operationId: updateDepartment
+      description: Partially update a Department
+      operationId: updatePartialDepartment
       parameters:
       - name: If-Match
         in: header
@@ -3196,12 +3271,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdF
+        example: KEY78YBp0kprrqrEEB
   /parties/{partyKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by partyKey.
+      description: list Identifier By PartyKey
       operationId: listIdentifierByPartyKey
       parameters:
       - name: sort
@@ -3259,12 +3335,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -3281,7 +3360,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}identifiers/KEY78M3tGgxjch8zdBe"
           content:
             application/json:
               schema:
@@ -3332,6 +3411,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -3398,7 +3478,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -3453,12 +3534,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFs
+        example: KEY78YBp0kprrqrEEBb
   /parties/{partyKey}/effective-periods:
     get:
       tags:
       - EffectivePeriod
       summary: Retrieve a list of EffectivePeriod entities scoped by partyKey.
+      description: list EffectivePeriod By PartyKey
       operationId: listEffectivePeriodByPartyKey
       parameters:
       - name: sort
@@ -3516,6 +3598,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -3561,12 +3645,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFsv
+        example: KEY78YBp0kprrqrEEBbr
   /parties/{partyKey}/discount-policies:
     get:
       tags:
       - DiscountPolicy
       summary: Retrieve a list of DiscountPolicy entities scoped by partyKey.
+      description: list DiscountPolicy By PartyKey
       operationId: listDiscountPolicyByPartyKey
       parameters:
       - name: sort
@@ -3624,12 +3709,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - DiscountPolicy
       summary: Create a new DiscountPolicy entity.
+      description: Create DiscountPolicy
       operationId: createDiscountPolicy
       requestBody:
         description: DiscountPolicy data to create the new resource.
@@ -3646,7 +3734,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}discount-policies/KEY78M3tGgxjch8zdBeOI"
           content:
             application/json:
               schema:
@@ -3697,6 +3785,7 @@ paths:
       tags:
       - DiscountPolicy
       summary: Replace a DiscountPolicy entity.
+      description: replace DiscountPolicy
       operationId: replaceDiscountPolicy
       parameters:
       - name: If-Match
@@ -3763,7 +3852,8 @@ paths:
       tags:
       - DiscountPolicy
       summary: Partially update a DiscountPolicy entity.
-      operationId: updateDiscountPolicy
+      description: Partially update a DiscountPolicy
+      operationId: updatePartialDiscountPolicy
       parameters:
       - name: If-Match
         in: header
@@ -3818,12 +3908,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFsvy
+        example: KEY78YBp0kprrqrEEBbrp
   /parties/{partyKey}/privacy-items:
     get:
       tags:
       - PrivacyItem
       summary: Retrieve a list of PrivacyItem entities scoped by partyKey.
+      description: list PrivacyItem By PartyKey
       operationId: listPrivacyItemByPartyKey
       parameters:
       - name: sort
@@ -3881,12 +3972,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PrivacyItem
       summary: Create a new PrivacyItem entity.
+      description: Create PrivacyItem
       operationId: createPrivacyItem
       requestBody:
         description: PrivacyItem data to create the new resource.
@@ -3903,7 +3997,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}privacy-items/KEY78M3tGgxjch8zdBeOIz"
           content:
             application/json:
               schema:
@@ -3954,6 +4048,7 @@ paths:
       tags:
       - PrivacyItem
       summary: Replace a PrivacyItem entity.
+      description: replace PrivacyItem
       operationId: replacePrivacyItem
       parameters:
       - name: If-Match
@@ -4020,7 +4115,8 @@ paths:
       tags:
       - PrivacyItem
       summary: Partially update a PrivacyItem entity.
-      operationId: updatePrivacyItem
+      description: Partially update a PrivacyItem
+      operationId: updatePartialPrivacyItem
       parameters:
       - name: If-Match
         in: header
@@ -4075,12 +4171,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFsvyh
+        example: KEY78YBp0kprrqrEEBbrpq
   /parties/{partyKey}/contact-methods:
     get:
       tags:
       - ContactMethod
       summary: Retrieve a list of ContactMethod entities scoped by partyKey.
+      description: list ContactMethod By PartyKey
       operationId: listContactMethodByPartyKey
       parameters:
       - name: sort
@@ -4138,12 +4235,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ContactMethod
       summary: Create a new ContactMethod entity.
+      description: Create ContactMethod
       operationId: createContactMethod
       requestBody:
         description: ContactMethod data to create the new resource.
@@ -4160,7 +4260,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}contact-methods/KEY78M3tGgxjch8zdBeOIzb"
           content:
             application/json:
               schema:
@@ -4211,6 +4311,7 @@ paths:
       tags:
       - ContactMethod
       summary: Replace a ContactMethod entity.
+      description: replace ContactMethod
       operationId: replaceContactMethod
       parameters:
       - name: If-Match
@@ -4277,7 +4378,8 @@ paths:
       tags:
       - ContactMethod
       summary: Partially update a ContactMethod entity.
-      operationId: updateContactMethod
+      description: Partially update a ContactMethod
+      operationId: updatePartialContactMethod
       parameters:
       - name: If-Match
         in: header
@@ -4332,12 +4434,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFsvyhD
+        example: KEY78YBp0kprrqrEEBbrpqL
   /parties/{partyKey}/person-names:
     get:
       tags:
       - PersonName
       summary: Retrieve a list of PersonName entities scoped by partyKey.
+      description: list PersonName By PartyKey
       operationId: listPersonNameByPartyKey
       parameters:
       - name: sort
@@ -4395,12 +4498,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PersonName
       summary: Create a new PersonName entity.
+      description: Create PersonName
       operationId: createPersonName
       requestBody:
         description: PersonName data to create the new resource.
@@ -4417,7 +4523,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}person-names/KEY78M3tGgxjch8zdBeOIzbd"
           content:
             application/json:
               schema:
@@ -4468,6 +4574,7 @@ paths:
       tags:
       - PersonName
       summary: Replace a PersonName entity.
+      description: replace PersonName
       operationId: replacePersonName
       parameters:
       - name: If-Match
@@ -4534,7 +4641,8 @@ paths:
       tags:
       - PersonName
       summary: Partially update a PersonName entity.
-      operationId: updatePersonName
+      description: Partially update a PersonName
+      operationId: updatePartialPersonName
       parameters:
       - name: If-Match
         in: header
@@ -4589,12 +4697,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFsvyhDA
+        example: KEY78YBp0kprrqrEEBbrpqL3
   /parties/{partyKey}/payroll-rates:
     get:
       tags:
       - PayrollRate
       summary: Retrieve a list of PayrollRate entities scoped by partyKey.
+      description: list PayrollRate By PartyKey
       operationId: listPayrollRateByPartyKey
       parameters:
       - name: sort
@@ -4652,12 +4761,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PayrollRate
       summary: Create a new PayrollRate entity.
+      description: Create PayrollRate
       operationId: createPayrollRate
       requestBody:
         description: PayrollRate data to create the new resource.
@@ -4674,7 +4786,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}payroll-rates/KEY78M3tGgxjch8zdBeOIzbdK"
           content:
             application/json:
               schema:
@@ -4725,6 +4837,7 @@ paths:
       tags:
       - PayrollRate
       summary: Replace a PayrollRate entity.
+      description: replace PayrollRate
       operationId: replacePayrollRate
       parameters:
       - name: If-Match
@@ -4791,7 +4904,8 @@ paths:
       tags:
       - PayrollRate
       summary: Partially update a PayrollRate entity.
-      operationId: updatePayrollRate
+      description: Partially update a PayrollRate
+      operationId: updatePartialPayrollRate
       parameters:
       - name: If-Match
         in: header
@@ -4846,12 +4960,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFsvyhDAU
+        example: KEY78YBp0kprrqrEEBbrpqL3W
   /parties/{partyKey}/positions:
     get:
       tags:
       - Position
       summary: Retrieve a list of Position entities scoped by partyKey.
+      description: list Position By PartyKey
       operationId: listPositionByPartyKey
       parameters:
       - name: sort
@@ -4909,12 +5024,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Position
       summary: Create a new Position entity.
+      description: Create Position
       operationId: createPosition
       requestBody:
         description: Position data to create the new resource.
@@ -4931,7 +5049,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}positions/KEY78M3tGgxjch8zdBeOIzbdK2"
           content:
             application/json:
               schema:
@@ -4982,6 +5100,7 @@ paths:
       tags:
       - Position
       summary: Replace a Position entity.
+      description: replace Position
       operationId: replacePosition
       parameters:
       - name: If-Match
@@ -5048,7 +5167,8 @@ paths:
       tags:
       - Position
       summary: Partially update a Position entity.
-      operationId: updatePosition
+      description: Partially update a Position
+      operationId: updatePartialPosition
       parameters:
       - name: If-Match
         in: header
@@ -5103,12 +5223,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFsvyhDAUM
+        example: KEY78YBp0kprrqrEEBbrpqL3W2
   /parties/{partyKey}/control-account-references:
     get:
       tags:
       - ControlAccountReference
       summary: Retrieve a list of ControlAccountReference entities scoped by partyKey.
+      description: list ControlAccountReference By PartyKey
       operationId: listControlAccountReferenceByPartyKey
       parameters:
       - name: sort
@@ -5166,12 +5287,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ControlAccountReference
       summary: Create a new ControlAccountReference entity.
+      description: Create ControlAccountReference
       operationId: createControlAccountReference
       requestBody:
         description: ControlAccountReference data to create the new resource.
@@ -5188,7 +5312,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}control-account-references/KEY78M3tGgxjch8zdBeOIzbdK2Q"
           content:
             application/json:
               schema:
@@ -5239,6 +5363,7 @@ paths:
       tags:
       - ControlAccountReference
       summary: Replace a ControlAccountReference entity.
+      description: replace ControlAccountReference
       operationId: replaceControlAccountReference
       parameters:
       - name: If-Match
@@ -5306,7 +5431,8 @@ paths:
       tags:
       - ControlAccountReference
       summary: Partially update a ControlAccountReference entity.
-      operationId: updateControlAccountReference
+      description: Partially update a ControlAccountReference
+      operationId: updatePartialControlAccountReference
       parameters:
       - name: If-Match
         in: header
@@ -5361,12 +5487,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFsvyhDAUMR
+        example: KEY78YBp0kprrqrEEBbrpqL3W2x
   /parties/{partyKey}/communication-channels:
     get:
       tags:
       - CommunicationChannel
       summary: Retrieve a list of CommunicationChannel entities scoped by partyKey.
+      description: list CommunicationChannel By PartyKey
       operationId: listCommunicationChannelByPartyKey
       parameters:
       - name: sort
@@ -5424,12 +5551,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CommunicationChannel
       summary: Create a new CommunicationChannel entity.
+      description: Create CommunicationChannel
       operationId: createCommunicationChannel
       requestBody:
         description: CommunicationChannel data to create the new resource.
@@ -5446,7 +5576,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}communication-channels/KEY78M3tGgxjch8zdBeOIzbdK2Qk"
           content:
             application/json:
               schema:
@@ -5497,6 +5627,7 @@ paths:
       tags:
       - CommunicationChannel
       summary: Replace a CommunicationChannel entity.
+      description: replace CommunicationChannel
       operationId: replaceCommunicationChannel
       parameters:
       - name: If-Match
@@ -5564,7 +5695,8 @@ paths:
       tags:
       - CommunicationChannel
       summary: Partially update a CommunicationChannel entity.
-      operationId: updateCommunicationChannel
+      description: Partially update a CommunicationChannel
+      operationId: updatePartialCommunicationChannel
       parameters:
       - name: If-Match
         in: header
@@ -5619,12 +5751,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFsvyhDAUMRU
+        example: KEY78YBp0kprrqrEEBbrpqL3W2xM
   /parties/{partyKey}/garages:
     get:
       tags:
       - Garage
       summary: Retrieve a list of Garage entities scoped by partyKey.
+      description: list Garage By PartyKey
       operationId: listGarageByPartyKey
       parameters:
       - name: sort
@@ -5682,12 +5815,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Garage
       summary: Create a new Garage entity.
+      description: Create Garage
       operationId: createGarage
       requestBody:
         description: Garage data to create the new resource.
@@ -5704,7 +5840,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}garages/KEY78M3tGgxjch8zdBeOIzbdK2Qkp"
           content:
             application/json:
               schema:
@@ -5755,6 +5891,7 @@ paths:
       tags:
       - Garage
       summary: Replace a Garage entity.
+      description: replace Garage
       operationId: replaceGarage
       parameters:
       - name: If-Match
@@ -5821,7 +5958,8 @@ paths:
       tags:
       - Garage
       summary: Partially update a Garage entity.
-      operationId: updateGarage
+      description: Partially update a Garage
+      operationId: updatePartialGarage
       parameters:
       - name: If-Match
         in: header
@@ -5876,12 +6014,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFsvyhDAUMRUR
+        example: KEY78YBp0kprrqrEEBbrpqL3W2xMg
   /parties/{partyKey}/people:
     get:
       tags:
       - Person
       summary: Retrieve a list of Person entities scoped by partyKey.
+      description: list Person By PartyKey
       operationId: listPersonByPartyKey
       parameters:
       - name: sort
@@ -5939,12 +6078,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Person
       summary: Create a new Person entity.
+      description: Create Person
       operationId: createPerson
       requestBody:
         description: Person data to create the new resource.
@@ -5961,7 +6103,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}people/KEY78M3tGgxjch8zdBeOIzbdK2QkpO"
           content:
             application/json:
               schema:
@@ -6012,6 +6154,7 @@ paths:
       tags:
       - Person
       summary: Replace a Person entity.
+      description: replace Person
       operationId: replacePerson
       parameters:
       - name: If-Match
@@ -6078,7 +6221,8 @@ paths:
       tags:
       - Person
       summary: Partially update a Person entity.
-      operationId: updatePerson
+      description: Partially update a Person
+      operationId: updatePartialPerson
       parameters:
       - name: If-Match
         in: header
@@ -6133,12 +6277,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFsvyhDAUMRURv
+        example: KEY78YBp0kprrqrEEBbrpqL3W2xMgF
   /parties/{partyKey}/garage-items:
     get:
       tags:
       - GarageItem
       summary: Retrieve a list of GarageItem entities scoped by partyKey.
+      description: list GarageItem By PartyKey
       operationId: listGarageItemByPartyKey
       parameters:
       - name: sort
@@ -6196,12 +6341,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - GarageItem
       summary: Create a new GarageItem entity.
+      description: Create GarageItem
       operationId: createGarageItem
       requestBody:
         description: GarageItem data to create the new resource.
@@ -6218,7 +6366,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}garage-items/KEY78M3tGgxjch8zdBeOIzbdK2QkpOJ"
           content:
             application/json:
               schema:
@@ -6269,6 +6417,7 @@ paths:
       tags:
       - GarageItem
       summary: Replace a GarageItem entity.
+      description: replace GarageItem
       operationId: replaceGarageItem
       parameters:
       - name: If-Match
@@ -6335,7 +6484,8 @@ paths:
       tags:
       - GarageItem
       summary: Partially update a GarageItem entity.
-      operationId: updateGarageItem
+      description: Partially update a GarageItem
+      operationId: updatePartialGarageItem
       parameters:
       - name: If-Match
         in: header
@@ -6390,12 +6540,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFsvyhDAUMRURvH
+        example: KEY78YBp0kprrqrEEBbrpqL3W2xMgFD
   /parties/{partyKey}/vehicle-identifiers:
     get:
       tags:
       - VehicleIdentifier
       summary: Retrieve a list of VehicleIdentifier entities scoped by partyKey.
+      description: list VehicleIdentifier By PartyKey
       operationId: listVehicleIdentifierByPartyKey
       parameters:
       - name: sort
@@ -6453,12 +6604,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - VehicleIdentifier
       summary: Create a new VehicleIdentifier entity.
+      description: Create VehicleIdentifier
       operationId: createVehicleIdentifier
       requestBody:
         description: VehicleIdentifier data to create the new resource.
@@ -6475,7 +6629,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/parties{partyKey}vehicle-identifiers/KEY78M3tGgxjch8zdBeOIzbdK2QkpOJS"
           content:
             application/json:
               schema:
@@ -6526,6 +6680,7 @@ paths:
       tags:
       - VehicleIdentifier
       summary: Replace a VehicleIdentifier entity.
+      description: replace VehicleIdentifier
       operationId: replaceVehicleIdentifier
       parameters:
       - name: If-Match
@@ -6592,7 +6747,8 @@ paths:
       tags:
       - VehicleIdentifier
       summary: Partially update a VehicleIdentifier entity.
-      operationId: updateVehicleIdentifier
+      description: Partially update a VehicleIdentifier
+      operationId: updatePartialVehicleIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -6647,6 +6803,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78GkVv9HsJxXhdFsvyhDAUMRURvHB
+        example: KEY78YBp0kprrqrEEBbrpqL3W2xMgFDr
 components:
   schemas: {}

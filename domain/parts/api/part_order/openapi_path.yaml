@@ -22,6 +22,7 @@ paths:
       tags:
       - PartOrder
       summary: Retrieve a list of PartOrder entities.
+      description: list PartOrder By
       operationId: listPartOrder
       parameters:
       - name: sort
@@ -79,12 +80,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartOrder
       summary: Create a new PartOrder entity.
+      description: Create PartOrder
       operationId: createPartOrder
       requestBody:
         description: PartOrder data to create the new resource.
@@ -101,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-orders/KEY78K
+                example: /part-orders/KEY78R
           content:
             application/json:
               schema:
@@ -145,6 +149,7 @@ paths:
       tags:
       - PartOrder
       summary: Replace a PartOrder entity.
+      description: replace PartOrder
       operationId: replacePartOrder
       parameters:
       - name: If-Match
@@ -211,7 +216,8 @@ paths:
       tags:
       - PartOrder
       summary: Partially update a PartOrder entity.
-      operationId: updatePartOrder
+      description: Partially update a PartOrder
+      operationId: updatePartialPartOrder
       parameters:
       - name: If-Match
         in: header
@@ -260,12 +266,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78z
+        example: KEY78F
   /part-orders/{partOrderKey}/payment-term-references:
     get:
       tags:
       - PaymentTermReference
       summary: Retrieve a list of PaymentTermReference entities scoped by partOrderKey.
+      description: list PaymentTermReference By PartOrderKey
       operationId: listPaymentTermReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -323,12 +330,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PaymentTermReference
       summary: Create a new PaymentTermReference entity.
+      description: Create PaymentTermReference
       operationId: createPaymentTermReference
       requestBody:
         description: PaymentTermReference data to create the new resource.
@@ -345,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}payment-term-references/KEY78RY"
           content:
             application/json:
               schema:
@@ -396,6 +406,7 @@ paths:
       tags:
       - PaymentTermReference
       summary: Replace a PaymentTermReference entity.
+      description: replace PaymentTermReference
       operationId: replacePaymentTermReference
       parameters:
       - name: If-Match
@@ -463,7 +474,8 @@ paths:
       tags:
       - PaymentTermReference
       summary: Partially update a PaymentTermReference entity.
-      operationId: updatePaymentTermReference
+      description: Partially update a PaymentTermReference
+      operationId: updatePartialPaymentTermReference
       parameters:
       - name: If-Match
         in: header
@@ -518,12 +530,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zX
+        example: KEY78F3
   /part-orders/{partOrderKey}/discount-references:
     get:
       tags:
       - DiscountReference
       summary: Retrieve a list of DiscountReference entities scoped by partOrderKey.
+      description: list DiscountReference By PartOrderKey
       operationId: listDiscountReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -581,12 +594,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - DiscountReference
       summary: Create a new DiscountReference entity.
+      description: Create DiscountReference
       operationId: createDiscountReference
       requestBody:
         description: DiscountReference data to create the new resource.
@@ -603,7 +619,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}discount-references/KEY78RY0"
           content:
             application/json:
               schema:
@@ -654,6 +670,7 @@ paths:
       tags:
       - DiscountReference
       summary: Replace a DiscountReference entity.
+      description: replace DiscountReference
       operationId: replaceDiscountReference
       parameters:
       - name: If-Match
@@ -720,7 +737,8 @@ paths:
       tags:
       - DiscountReference
       summary: Partially update a DiscountReference entity.
-      operationId: updateDiscountReference
+      description: Partially update a DiscountReference
+      operationId: updatePartialDiscountReference
       parameters:
       - name: If-Match
         in: header
@@ -775,12 +793,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXt
+        example: KEY78F3u
   /part-orders/{partOrderKey}/address-references:
     get:
       tags:
       - AddressReference
       summary: Retrieve a list of AddressReference entities scoped by partOrderKey.
+      description: list AddressReference By PartOrderKey
       operationId: listAddressReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -838,12 +857,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - AddressReference
       summary: Create a new AddressReference entity.
+      description: Create AddressReference
       operationId: createAddressReference
       requestBody:
         description: AddressReference data to create the new resource.
@@ -860,7 +882,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}address-references/KEY78RY0G"
           content:
             application/json:
               schema:
@@ -911,6 +933,7 @@ paths:
       tags:
       - AddressReference
       summary: Replace a AddressReference entity.
+      description: replace AddressReference
       operationId: replaceAddressReference
       parameters:
       - name: If-Match
@@ -977,7 +1000,8 @@ paths:
       tags:
       - AddressReference
       summary: Partially update a AddressReference entity.
-      operationId: updateAddressReference
+      description: Partially update a AddressReference
+      operationId: updatePartialAddressReference
       parameters:
       - name: If-Match
         in: header
@@ -1032,12 +1056,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtx
+        example: KEY78F3u0
   /part-orders/{partOrderKey}/financial-category-references:
     get:
       tags:
       - FinancialCategoryReference
       summary: Retrieve a list of FinancialCategoryReference entities scoped by partOrderKey.
+      description: list FinancialCategoryReference By PartOrderKey
       operationId: listFinancialCategoryReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -1095,12 +1120,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialCategoryReference
       summary: Create a new FinancialCategoryReference entity.
+      description: Create FinancialCategoryReference
       operationId: createFinancialCategoryReference
       requestBody:
         description: FinancialCategoryReference data to create the new resource.
@@ -1117,7 +1145,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}financial-category-references/KEY78RY0GK"
           content:
             application/json:
               schema:
@@ -1168,6 +1196,7 @@ paths:
       tags:
       - FinancialCategoryReference
       summary: Replace a FinancialCategoryReference entity.
+      description: replace FinancialCategoryReference
       operationId: replaceFinancialCategoryReference
       parameters:
       - name: If-Match
@@ -1235,7 +1264,8 @@ paths:
       tags:
       - FinancialCategoryReference
       summary: Partially update a FinancialCategoryReference entity.
-      operationId: updateFinancialCategoryReference
+      description: Partially update a FinancialCategoryReference
+      operationId: updatePartialFinancialCategoryReference
       parameters:
       - name: If-Match
         in: header
@@ -1290,12 +1320,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxD
+        example: KEY78F3u0g
   /part-orders/{partOrderKey}/staff-assignment-references:
     get:
       tags:
       - StaffAssignmentReference
       summary: Retrieve a list of StaffAssignmentReference entities scoped by partOrderKey.
+      description: list StaffAssignmentReference By PartOrderKey
       operationId: listStaffAssignmentReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -1353,12 +1384,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - StaffAssignmentReference
       summary: Create a new StaffAssignmentReference entity.
+      description: Create StaffAssignmentReference
       operationId: createStaffAssignmentReference
       requestBody:
         description: StaffAssignmentReference data to create the new resource.
@@ -1375,7 +1409,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}staff-assignment-references/KEY78RY0GK2"
           content:
             application/json:
               schema:
@@ -1426,6 +1460,7 @@ paths:
       tags:
       - StaffAssignmentReference
       summary: Replace a StaffAssignmentReference entity.
+      description: replace StaffAssignmentReference
       operationId: replaceStaffAssignmentReference
       parameters:
       - name: If-Match
@@ -1493,7 +1528,8 @@ paths:
       tags:
       - StaffAssignmentReference
       summary: Partially update a StaffAssignmentReference entity.
-      operationId: updateStaffAssignmentReference
+      description: Partially update a StaffAssignmentReference
+      operationId: updatePartialStaffAssignmentReference
       parameters:
       - name: If-Match
         in: header
@@ -1548,12 +1584,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDk
+        example: KEY78F3u0gP
   /part-orders/{partOrderKey}/fee-references:
     get:
       tags:
       - FeeReference
       summary: Retrieve a list of FeeReference entities scoped by partOrderKey.
+      description: list FeeReference By PartOrderKey
       operationId: listFeeReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -1611,12 +1648,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FeeReference
       summary: Create a new FeeReference entity.
+      description: Create FeeReference
       operationId: createFeeReference
       requestBody:
         description: FeeReference data to create the new resource.
@@ -1633,7 +1673,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}fee-references/KEY78RY0GK2u"
           content:
             application/json:
               schema:
@@ -1684,6 +1724,7 @@ paths:
       tags:
       - FeeReference
       summary: Replace a FeeReference entity.
+      description: replace FeeReference
       operationId: replaceFeeReference
       parameters:
       - name: If-Match
@@ -1750,7 +1791,8 @@ paths:
       tags:
       - FeeReference
       summary: Partially update a FeeReference entity.
-      operationId: updateFeeReference
+      description: Partially update a FeeReference
+      operationId: updatePartialFeeReference
       parameters:
       - name: If-Match
         in: header
@@ -1805,12 +1847,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkO
+        example: KEY78F3u0gPw
   /part-orders/{partOrderKey}/money:
     get:
       tags:
       - Money
       summary: Retrieve a list of Money entities scoped by partOrderKey.
+      description: list Money By PartOrderKey
       operationId: listMoneyByPartOrderKey
       parameters:
       - name: sort
@@ -1868,6 +1911,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1913,12 +1958,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOB
+        example: KEY78F3u0gPws
   /part-orders/{partOrderKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped by partOrderKey.
+      description: list Identifier By PartOrderKey
       operationId: listIdentifierByPartOrderKey
       parameters:
       - name: sort
@@ -1976,12 +2022,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       requestBody:
         description: Identifier data to create the new resource.
@@ -1998,7 +2047,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}identifiers/KEY78RY0GK2uO1"
           content:
             application/json:
               schema:
@@ -2049,6 +2098,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -2115,7 +2165,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -2170,12 +2221,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBR
+        example: KEY78F3u0gPwsa
   /part-orders/{partOrderKey}/part-references:
     get:
       tags:
       - PartReference
       summary: Retrieve a list of PartReference entities scoped by partOrderKey.
+      description: list PartReference By PartOrderKey
       operationId: listPartReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -2233,12 +2285,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartReference
       summary: Create a new PartReference entity.
+      description: Create PartReference
       operationId: createPartReference
       requestBody:
         description: PartReference data to create the new resource.
@@ -2255,7 +2310,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}part-references/KEY78RY0GK2uO14"
           content:
             application/json:
               schema:
@@ -2306,6 +2361,7 @@ paths:
       tags:
       - PartReference
       summary: Replace a PartReference entity.
+      description: replace PartReference
       operationId: replacePartReference
       parameters:
       - name: If-Match
@@ -2372,7 +2428,8 @@ paths:
       tags:
       - PartReference
       summary: Partially update a PartReference entity.
-      operationId: updatePartReference
+      description: Partially update a PartReference
+      operationId: updatePartialPartReference
       parameters:
       - name: If-Match
         in: header
@@ -2427,12 +2484,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRb
+        example: KEY78F3u0gPwsah
   /part-orders/{partOrderKey}/effective-periods:
     get:
       tags:
       - EffectivePeriod
       summary: Retrieve a list of EffectivePeriod entities scoped by partOrderKey.
+      description: list EffectivePeriod By PartOrderKey
       operationId: listEffectivePeriodByPartOrderKey
       parameters:
       - name: sort
@@ -2490,6 +2548,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -2535,12 +2595,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbC
+        example: KEY78F3u0gPwsahO
   /part-orders/{partOrderKey}/part-order-items:
     get:
       tags:
       - PartOrderItem
       summary: Retrieve a list of PartOrderItem entities scoped by partOrderKey.
+      description: list PartOrderItem By PartOrderKey
       operationId: listPartOrderItemByPartOrderKey
       parameters:
       - name: sort
@@ -2598,12 +2659,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartOrderItem
       summary: Create a new PartOrderItem entity.
+      description: Create PartOrderItem
       operationId: createPartOrderItem
       requestBody:
         description: PartOrderItem data to create the new resource.
@@ -2620,7 +2684,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}part-order-items/KEY78RY0GK2uO14Uw"
           content:
             application/json:
               schema:
@@ -2671,6 +2735,7 @@ paths:
       tags:
       - PartOrderItem
       summary: Replace a PartOrderItem entity.
+      description: replace PartOrderItem
       operationId: replacePartOrderItem
       parameters:
       - name: If-Match
@@ -2737,7 +2802,8 @@ paths:
       tags:
       - PartOrderItem
       summary: Partially update a PartOrderItem entity.
-      operationId: updatePartOrderItem
+      description: Partially update a PartOrderItem
+      operationId: updatePartialPartOrderItem
       parameters:
       - name: If-Match
         in: header
@@ -2792,12 +2858,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCi
+        example: KEY78F3u0gPwsahOM
   /part-orders/{partOrderKey}/credit-references:
     get:
       tags:
       - CreditReference
       summary: Retrieve a list of CreditReference entities scoped by partOrderKey.
+      description: list CreditReference By PartOrderKey
       operationId: listCreditReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -2855,12 +2922,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CreditReference
       summary: Create a new CreditReference entity.
+      description: Create CreditReference
       operationId: createCreditReference
       requestBody:
         description: CreditReference data to create the new resource.
@@ -2877,7 +2947,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}credit-references/KEY78RY0GK2uO14UwC"
           content:
             application/json:
               schema:
@@ -2928,6 +2998,7 @@ paths:
       tags:
       - CreditReference
       summary: Replace a CreditReference entity.
+      description: replace CreditReference
       operationId: replaceCreditReference
       parameters:
       - name: If-Match
@@ -2994,7 +3065,8 @@ paths:
       tags:
       - CreditReference
       summary: Partially update a CreditReference entity.
-      operationId: updateCreditReference
+      description: Partially update a CreditReference
+      operationId: updatePartialCreditReference
       parameters:
       - name: If-Match
         in: header
@@ -3049,12 +3121,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiI
+        example: KEY78F3u0gPwsahOMJ
   /part-orders/{partOrderKey}/sales-profile-references:
     get:
       tags:
       - SalesProfileReference
       summary: Retrieve a list of SalesProfileReference entities scoped by partOrderKey.
+      description: list SalesProfileReference By PartOrderKey
       operationId: listSalesProfileReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -3112,12 +3185,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - SalesProfileReference
       summary: Create a new SalesProfileReference entity.
+      description: Create SalesProfileReference
       operationId: createSalesProfileReference
       requestBody:
         description: SalesProfileReference data to create the new resource.
@@ -3134,7 +3210,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}sales-profile-references/KEY78RY0GK2uO14UwCD"
           content:
             application/json:
               schema:
@@ -3185,6 +3261,7 @@ paths:
       tags:
       - SalesProfileReference
       summary: Replace a SalesProfileReference entity.
+      description: replace SalesProfileReference
       operationId: replaceSalesProfileReference
       parameters:
       - name: If-Match
@@ -3252,7 +3329,8 @@ paths:
       tags:
       - SalesProfileReference
       summary: Partially update a SalesProfileReference entity.
-      operationId: updateSalesProfileReference
+      description: Partially update a SalesProfileReference
+      operationId: updatePartialSalesProfileReference
       parameters:
       - name: If-Match
         in: header
@@ -3307,12 +3385,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJ
+        example: KEY78F3u0gPwsahOMJN
   /part-orders/{partOrderKey}/rebate-references:
     get:
       tags:
       - RebateReference
       summary: Retrieve a list of RebateReference entities scoped by partOrderKey.
+      description: list RebateReference By PartOrderKey
       operationId: listRebateReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -3370,12 +3449,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - RebateReference
       summary: Create a new RebateReference entity.
+      description: Create RebateReference
       operationId: createRebateReference
       requestBody:
         description: RebateReference data to create the new resource.
@@ -3392,7 +3474,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}rebate-references/KEY78RY0GK2uO14UwCDx"
           content:
             application/json:
               schema:
@@ -3443,6 +3525,7 @@ paths:
       tags:
       - RebateReference
       summary: Replace a RebateReference entity.
+      description: replace RebateReference
       operationId: replaceRebateReference
       parameters:
       - name: If-Match
@@ -3509,7 +3592,8 @@ paths:
       tags:
       - RebateReference
       summary: Partially update a RebateReference entity.
-      operationId: updateRebateReference
+      description: Partially update a RebateReference
+      operationId: updatePartialRebateReference
       parameters:
       - name: If-Match
         in: header
@@ -3564,12 +3648,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn
+        example: KEY78F3u0gPwsahOMJN0
   /part-orders/{partOrderKey}/shipment-references:
     get:
       tags:
       - ShipmentReference
       summary: Retrieve a list of ShipmentReference entities scoped by partOrderKey.
+      description: list ShipmentReference By PartOrderKey
       operationId: listShipmentReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -3627,12 +3712,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ShipmentReference
       summary: Create a new ShipmentReference entity.
+      description: Create ShipmentReference
       operationId: createShipmentReference
       requestBody:
         description: ShipmentReference data to create the new resource.
@@ -3649,7 +3737,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}shipment-references/KEY78RY0GK2uO14UwCDxs"
           content:
             application/json:
               schema:
@@ -3700,6 +3788,7 @@ paths:
       tags:
       - ShipmentReference
       summary: Replace a ShipmentReference entity.
+      description: replace ShipmentReference
       operationId: replaceShipmentReference
       parameters:
       - name: If-Match
@@ -3766,7 +3855,8 @@ paths:
       tags:
       - ShipmentReference
       summary: Partially update a ShipmentReference entity.
-      operationId: updateShipmentReference
+      description: Partially update a ShipmentReference
+      operationId: updatePartialShipmentReference
       parameters:
       - name: If-Match
         in: header
@@ -3821,12 +3911,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7
+        example: KEY78F3u0gPwsahOMJN0g
   /part-orders/{partOrderKey}/unit-of-measures:
     get:
       tags:
       - UnitOfMeasure
       summary: Retrieve a list of UnitOfMeasure entities scoped by partOrderKey.
+      description: list UnitOfMeasure By PartOrderKey
       operationId: listUnitOfMeasureByPartOrderKey
       parameters:
       - name: sort
@@ -3884,6 +3975,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -3929,12 +4022,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7H
+        example: KEY78F3u0gPwsahOMJN0gx
   /part-orders/{partOrderKey}/tax-splits:
     get:
       tags:
       - TaxSplit
       summary: Retrieve a list of TaxSplit entities scoped by partOrderKey.
+      description: list TaxSplit By PartOrderKey
       operationId: listTaxSplitByPartOrderKey
       parameters:
       - name: sort
@@ -3992,12 +4086,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - TaxSplit
       summary: Create a new TaxSplit entity.
+      description: Create TaxSplit
       operationId: createTaxSplit
       requestBody:
         description: TaxSplit data to create the new resource.
@@ -4014,7 +4111,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}tax-splits/KEY78RY0GK2uO14UwCDxsIp"
           content:
             application/json:
               schema:
@@ -4065,6 +4162,7 @@ paths:
       tags:
       - TaxSplit
       summary: Replace a TaxSplit entity.
+      description: replace TaxSplit
       operationId: replaceTaxSplit
       parameters:
       - name: If-Match
@@ -4131,7 +4229,8 @@ paths:
       tags:
       - TaxSplit
       summary: Partially update a TaxSplit entity.
-      operationId: updateTaxSplit
+      description: Partially update a TaxSplit
+      operationId: updatePartialTaxSplit
       parameters:
       - name: If-Match
         in: header
@@ -4186,12 +4285,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7Hy
+        example: KEY78F3u0gPwsahOMJN0gxF
   /part-orders/{partOrderKey}/payment-schedule-references:
     get:
       tags:
       - PaymentScheduleReference
       summary: Retrieve a list of PaymentScheduleReference entities scoped by partOrderKey.
+      description: list PaymentScheduleReference By PartOrderKey
       operationId: listPaymentScheduleReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -4249,12 +4349,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PaymentScheduleReference
       summary: Create a new PaymentScheduleReference entity.
+      description: Create PaymentScheduleReference
       operationId: createPaymentScheduleReference
       requestBody:
         description: PaymentScheduleReference data to create the new resource.
@@ -4271,7 +4374,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}payment-schedule-references/KEY78RY0GK2uO14UwCDxsIpE"
           content:
             application/json:
               schema:
@@ -4322,6 +4425,7 @@ paths:
       tags:
       - PaymentScheduleReference
       summary: Replace a PaymentScheduleReference entity.
+      description: replace PaymentScheduleReference
       operationId: replacePaymentScheduleReference
       parameters:
       - name: If-Match
@@ -4389,7 +4493,8 @@ paths:
       tags:
       - PaymentScheduleReference
       summary: Partially update a PaymentScheduleReference entity.
-      operationId: updatePaymentScheduleReference
+      description: Partially update a PaymentScheduleReference
+      operationId: updatePartialPaymentScheduleReference
       parameters:
       - name: If-Match
         in: header
@@ -4444,12 +4549,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7HyY
+        example: KEY78F3u0gPwsahOMJN0gxFg
   /part-orders/{partOrderKey}/price-plan-references:
     get:
       tags:
       - PricePlanReference
       summary: Retrieve a list of PricePlanReference entities scoped by partOrderKey.
+      description: list PricePlanReference By PartOrderKey
       operationId: listPricePlanReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -4507,12 +4613,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PricePlanReference
       summary: Create a new PricePlanReference entity.
+      description: Create PricePlanReference
       operationId: createPricePlanReference
       requestBody:
         description: PricePlanReference data to create the new resource.
@@ -4529,7 +4638,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}price-plan-references/KEY78RY0GK2uO14UwCDxsIpEr"
           content:
             application/json:
               schema:
@@ -4580,6 +4689,7 @@ paths:
       tags:
       - PricePlanReference
       summary: Replace a PricePlanReference entity.
+      description: replace PricePlanReference
       operationId: replacePricePlanReference
       parameters:
       - name: If-Match
@@ -4646,7 +4756,8 @@ paths:
       tags:
       - PricePlanReference
       summary: Partially update a PricePlanReference entity.
-      operationId: updatePricePlanReference
+      description: Partially update a PricePlanReference
+      operationId: updatePartialPricePlanReference
       parameters:
       - name: If-Match
         in: header
@@ -4701,12 +4812,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7HyYk
+        example: KEY78F3u0gPwsahOMJN0gxFg4
   /part-orders/{partOrderKey}/control-account-references:
     get:
       tags:
       - ControlAccountReference
       summary: Retrieve a list of ControlAccountReference entities scoped by partOrderKey.
+      description: list ControlAccountReference By PartOrderKey
       operationId: listControlAccountReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -4764,12 +4876,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ControlAccountReference
       summary: Create a new ControlAccountReference entity.
+      description: Create ControlAccountReference
       operationId: createControlAccountReference
       requestBody:
         description: ControlAccountReference data to create the new resource.
@@ -4786,7 +4901,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}control-account-references/KEY78RY0GK2uO14UwCDxsIpEr0"
           content:
             application/json:
               schema:
@@ -4837,6 +4952,7 @@ paths:
       tags:
       - ControlAccountReference
       summary: Replace a ControlAccountReference entity.
+      description: replace ControlAccountReference
       operationId: replaceControlAccountReference
       parameters:
       - name: If-Match
@@ -4904,7 +5020,8 @@ paths:
       tags:
       - ControlAccountReference
       summary: Partially update a ControlAccountReference entity.
-      operationId: updateControlAccountReference
+      description: Partially update a ControlAccountReference
+      operationId: updatePartialControlAccountReference
       parameters:
       - name: If-Match
         in: header
@@ -4959,12 +5076,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7HyYks
+        example: KEY78F3u0gPwsahOMJN0gxFg45
   /part-orders/{partOrderKey}/reward-references:
     get:
       tags:
       - RewardReference
       summary: Retrieve a list of RewardReference entities scoped by partOrderKey.
+      description: list RewardReference By PartOrderKey
       operationId: listRewardReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -5022,12 +5140,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - RewardReference
       summary: Create a new RewardReference entity.
+      description: Create RewardReference
       operationId: createRewardReference
       requestBody:
         description: RewardReference data to create the new resource.
@@ -5044,7 +5165,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}reward-references/KEY78RY0GK2uO14UwCDxsIpEr0x"
           content:
             application/json:
               schema:
@@ -5095,6 +5216,7 @@ paths:
       tags:
       - RewardReference
       summary: Replace a RewardReference entity.
+      description: replace RewardReference
       operationId: replaceRewardReference
       parameters:
       - name: If-Match
@@ -5161,7 +5283,8 @@ paths:
       tags:
       - RewardReference
       summary: Partially update a RewardReference entity.
-      operationId: updateRewardReference
+      description: Partially update a RewardReference
+      operationId: updatePartialRewardReference
       parameters:
       - name: If-Match
         in: header
@@ -5216,12 +5339,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7HyYksl
+        example: KEY78F3u0gPwsahOMJN0gxFg45S
   /part-orders/{partOrderKey}/customer-order-references:
     get:
       tags:
       - CustomerOrderReference
       summary: Retrieve a list of CustomerOrderReference entities scoped by partOrderKey.
+      description: list CustomerOrderReference By PartOrderKey
       operationId: listCustomerOrderReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -5279,12 +5403,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CustomerOrderReference
       summary: Create a new CustomerOrderReference entity.
+      description: Create CustomerOrderReference
       operationId: createCustomerOrderReference
       requestBody:
         description: CustomerOrderReference data to create the new resource.
@@ -5301,7 +5428,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}customer-order-references/KEY78RY0GK2uO14UwCDxsIpEr0xG"
           content:
             application/json:
               schema:
@@ -5352,6 +5479,7 @@ paths:
       tags:
       - CustomerOrderReference
       summary: Replace a CustomerOrderReference entity.
+      description: replace CustomerOrderReference
       operationId: replaceCustomerOrderReference
       parameters:
       - name: If-Match
@@ -5419,7 +5547,8 @@ paths:
       tags:
       - CustomerOrderReference
       summary: Partially update a CustomerOrderReference entity.
-      operationId: updateCustomerOrderReference
+      description: Partially update a CustomerOrderReference
+      operationId: updatePartialCustomerOrderReference
       parameters:
       - name: If-Match
         in: header
@@ -5474,12 +5603,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7HyYkslx
+        example: KEY78F3u0gPwsahOMJN0gxFg45S3
   /part-orders/{partOrderKey}/prices:
     get:
       tags:
       - Price
       summary: Retrieve a list of Price entities scoped by partOrderKey.
+      description: list Price By PartOrderKey
       operationId: listPriceByPartOrderKey
       parameters:
       - name: sort
@@ -5537,12 +5667,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Price
       summary: Create a new Price entity.
+      description: Create Price
       operationId: createPrice
       requestBody:
         description: Price data to create the new resource.
@@ -5559,7 +5692,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}prices/KEY78RY0GK2uO14UwCDxsIpEr0xG5"
           content:
             application/json:
               schema:
@@ -5610,6 +5743,7 @@ paths:
       tags:
       - Price
       summary: Replace a Price entity.
+      description: replace Price
       operationId: replacePrice
       parameters:
       - name: If-Match
@@ -5676,7 +5810,8 @@ paths:
       tags:
       - Price
       summary: Partially update a Price entity.
-      operationId: updatePrice
+      description: Partially update a Price
+      operationId: updatePartialPrice
       parameters:
       - name: If-Match
         in: header
@@ -5731,12 +5866,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7HyYkslxL
+        example: KEY78F3u0gPwsahOMJN0gxFg45S3U
   /part-orders/{partOrderKey}/financial-events:
     get:
       tags:
       - FinancialEvent
       summary: Retrieve a list of FinancialEvent entities scoped by partOrderKey.
+      description: list FinancialEvent By PartOrderKey
       operationId: listFinancialEventByPartOrderKey
       parameters:
       - name: sort
@@ -5794,12 +5930,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialEvent
       summary: Create a new FinancialEvent entity.
+      description: Create FinancialEvent
       operationId: createFinancialEvent
       requestBody:
         description: FinancialEvent data to create the new resource.
@@ -5816,7 +5955,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}financial-events/KEY78RY0GK2uO14UwCDxsIpEr0xG5R"
           content:
             application/json:
               schema:
@@ -5867,6 +6006,7 @@ paths:
       tags:
       - FinancialEvent
       summary: Replace a FinancialEvent entity.
+      description: replace FinancialEvent
       operationId: replaceFinancialEvent
       parameters:
       - name: If-Match
@@ -5933,7 +6073,8 @@ paths:
       tags:
       - FinancialEvent
       summary: Partially update a FinancialEvent entity.
-      operationId: updateFinancialEvent
+      description: Partially update a FinancialEvent
+      operationId: updatePartialFinancialEvent
       parameters:
       - name: If-Match
         in: header
@@ -5988,12 +6129,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7HyYkslxLN
+        example: KEY78F3u0gPwsahOMJN0gxFg45S3UG
   /part-orders/{partOrderKey}/textual-details:
     get:
       tags:
       - TextualDetail
       summary: Retrieve a list of TextualDetail entities scoped by partOrderKey.
+      description: list TextualDetail By PartOrderKey
       operationId: listTextualDetailByPartOrderKey
       parameters:
       - name: sort
@@ -6051,6 +6193,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -6096,12 +6240,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7HyYkslxLN5
+        example: KEY78F3u0gPwsahOMJN0gxFg45S3UGd
   /part-orders/{partOrderKey}/lender-references:
     get:
       tags:
       - LenderReference
       summary: Retrieve a list of LenderReference entities scoped by partOrderKey.
+      description: list LenderReference By PartOrderKey
       operationId: listLenderReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -6159,12 +6304,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - LenderReference
       summary: Create a new LenderReference entity.
+      description: Create LenderReference
       operationId: createLenderReference
       requestBody:
         description: LenderReference data to create the new resource.
@@ -6181,7 +6329,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}lender-references/KEY78RY0GK2uO14UwCDxsIpEr0xG5RkO"
           content:
             application/json:
               schema:
@@ -6232,6 +6380,7 @@ paths:
       tags:
       - LenderReference
       summary: Replace a LenderReference entity.
+      description: replace LenderReference
       operationId: replaceLenderReference
       parameters:
       - name: If-Match
@@ -6298,7 +6447,8 @@ paths:
       tags:
       - LenderReference
       summary: Partially update a LenderReference entity.
-      operationId: updateLenderReference
+      description: Partially update a LenderReference
+      operationId: updatePartialLenderReference
       parameters:
       - name: If-Match
         in: header
@@ -6353,12 +6503,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7HyYkslxLN5m
+        example: KEY78F3u0gPwsahOMJN0gxFg45S3UGdz
   /part-orders/{partOrderKey}/financial-track-references:
     get:
       tags:
       - FinancialTrackReference
       summary: Retrieve a list of FinancialTrackReference entities scoped by partOrderKey.
+      description: list FinancialTrackReference By PartOrderKey
       operationId: listFinancialTrackReferenceByPartOrderKey
       parameters:
       - name: sort
@@ -6416,12 +6567,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialTrackReference
       summary: Create a new FinancialTrackReference entity.
+      description: Create FinancialTrackReference
       operationId: createFinancialTrackReference
       requestBody:
         description: FinancialTrackReference data to create the new resource.
@@ -6438,7 +6592,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}financial-track-references/KEY78RY0GK2uO14UwCDxsIpEr0xG5RkOr"
           content:
             application/json:
               schema:
@@ -6489,6 +6643,7 @@ paths:
       tags:
       - FinancialTrackReference
       summary: Replace a FinancialTrackReference entity.
+      description: replace FinancialTrackReference
       operationId: replaceFinancialTrackReference
       parameters:
       - name: If-Match
@@ -6556,7 +6711,8 @@ paths:
       tags:
       - FinancialTrackReference
       summary: Partially update a FinancialTrackReference entity.
-      operationId: updateFinancialTrackReference
+      description: Partially update a FinancialTrackReference
+      operationId: updatePartialFinancialTrackReference
       parameters:
       - name: If-Match
         in: header
@@ -6611,12 +6767,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7HyYkslxLN5mU
+        example: KEY78F3u0gPwsahOMJN0gxFg45S3UGdzE
   /part-orders/{partOrderKey}/financial-splits:
     get:
       tags:
       - FinancialSplit
       summary: Retrieve a list of FinancialSplit entities scoped by partOrderKey.
+      description: list FinancialSplit By PartOrderKey
       operationId: listFinancialSplitByPartOrderKey
       parameters:
       - name: sort
@@ -6674,12 +6831,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - FinancialSplit
       summary: Create a new FinancialSplit entity.
+      description: Create FinancialSplit
       operationId: createFinancialSplit
       requestBody:
         description: FinancialSplit data to create the new resource.
@@ -6696,7 +6856,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/part-orders{partOrderKey}financial-splits/KEY78RY0GK2uO14UwCDxsIpEr0xG5RkOrz"
           content:
             application/json:
               schema:
@@ -6747,6 +6907,7 @@ paths:
       tags:
       - FinancialSplit
       summary: Replace a FinancialSplit entity.
+      description: replace FinancialSplit
       operationId: replaceFinancialSplit
       parameters:
       - name: If-Match
@@ -6813,7 +6974,8 @@ paths:
       tags:
       - FinancialSplit
       summary: Partially update a FinancialSplit entity.
-      operationId: updateFinancialSplit
+      description: Partially update a FinancialSplit
+      operationId: updatePartialFinancialSplit
       parameters:
       - name: If-Match
         in: header
@@ -6868,6 +7030,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78zXtxDkOBRbCiIJn7HyYkslxLN5mUH
+        example: KEY78F3u0gPwsahOMJN0gxFg45S3UGdzER
 components:
   schemas: {}

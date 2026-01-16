@@ -19,12 +19,36 @@ security:
   - standard:read
 - member-api-key: []
 - {}
+tags:
+- name: InvoiceReference
+  description: Operations related to InvoiceReference
+- name: PartyReference
+  description: Operations related to PartyReference
+- name: ShipmentEvent
+  description: Operations related to ShipmentEvent
+- name: Identifier
+  description: Operations related to Identifier
+- name: UnitOfMeasure
+  description: Operations related to UnitOfMeasure
+- name: Position
+  description: Operations related to Position
+- name: EffectivePeriod
+  description: Operations related to EffectivePeriod
+- name: Shipment
+  description: Operations related to Shipment
+- name: TimeSlot
+  description: Operations related to TimeSlot
+- name: Default
+  description: Operations related to Default
+- name: AddressReference
+  description: Operations related to AddressReference
 paths:
   /shipments:
     get:
       tags:
       - Shipment
       summary: Retrieve a list of Shipment entities.
+      description: list Shipment By
       operationId: listShipment
       parameters:
       - name: sort
@@ -76,6 +100,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -86,12 +111,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Shipment
       summary: Create a new Shipment entity.
+      description: Create Shipment
       operationId: createShipment
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -110,7 +138,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /shipments/KEY78n
+                example: /shipments/KEY78q
           content:
             application/json:
               schema:
@@ -132,6 +160,7 @@ paths:
       tags:
       - Shipment
       summary: Retrieve a specific Shipment entity.
+      description: "Standard GET operation for /shipments/{shipmentKey}"
       operationId: getShipmentById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -159,6 +188,7 @@ paths:
       tags:
       - Shipment
       summary: Replace a Shipment entity.
+      description: replace Shipment
       operationId: replaceShipment
       parameters:
       - name: If-Match
@@ -230,7 +260,8 @@ paths:
       tags:
       - Shipment
       summary: Partially update a Shipment entity.
-      operationId: updateShipment
+      description: Partially update a Shipment
+      operationId: updatePartialShipment
       parameters:
       - name: If-Match
         in: header
@@ -281,12 +312,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78c
+        example: KEY78V
   /shipments/{shipmentKey}/invoice-references:
     get:
       tags:
       - InvoiceReference
       summary: Retrieve a list of InvoiceReference entities sc...
+      description: list InvoiceReference By ShipmentKey
       operationId: listInvoiceReferenceByShipmentKey
       parameters:
       - name: sort
@@ -338,6 +370,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -348,12 +381,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - InvoiceReference
       summary: Create a new InvoiceReference entity.
+      description: Create InvoiceReference
       operationId: createInvoiceReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -372,7 +408,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/shipments{shipmentKey}invoice-references/KEY78qz"
           content:
             application/json:
               schema:
@@ -401,6 +437,7 @@ paths:
       tags:
       - InvoiceReference
       summary: Retrieve a specific InvoiceReference entity.
+      description: "Standard GET operation for /shipments/{shipmentKey}/invoice-references/{invoiceReferenceKey}"
       operationId: getInvoiceReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -428,6 +465,7 @@ paths:
       tags:
       - InvoiceReference
       summary: Replace a InvoiceReference entity.
+      description: replace InvoiceReference
       operationId: replaceInvoiceReference
       parameters:
       - name: If-Match
@@ -499,7 +537,8 @@ paths:
       tags:
       - InvoiceReference
       summary: Partially update a InvoiceReference entity.
-      operationId: updateInvoiceReference
+      description: Partially update a InvoiceReference
+      operationId: updatePartialInvoiceReference
       parameters:
       - name: If-Match
         in: header
@@ -556,12 +595,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78ce
+        example: KEY78VE
   /shipments/{shipmentKey}/party-references:
     get:
       tags:
       - PartyReference
       summary: Retrieve a list of PartyReference entities scop...
+      description: list PartyReference By ShipmentKey
       operationId: listPartyReferenceByShipmentKey
       parameters:
       - name: sort
@@ -613,6 +653,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -623,12 +664,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PartyReference
       summary: Create a new PartyReference entity.
+      description: Create PartyReference
       operationId: createPartyReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -647,7 +691,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/shipments{shipmentKey}party-references/KEY78qzd"
           content:
             application/json:
               schema:
@@ -676,6 +720,7 @@ paths:
       tags:
       - PartyReference
       summary: Retrieve a specific PartyReference entity.
+      description: "Standard GET operation for /shipments/{shipmentKey}/party-references/{partyReferenceKey}"
       operationId: getPartyReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -703,6 +748,7 @@ paths:
       tags:
       - PartyReference
       summary: Replace a PartyReference entity.
+      description: replace PartyReference
       operationId: replacePartyReference
       parameters:
       - name: If-Match
@@ -774,7 +820,8 @@ paths:
       tags:
       - PartyReference
       summary: Partially update a PartyReference entity.
-      operationId: updatePartyReference
+      description: Partially update a PartyReference
+      operationId: updatePartialPartyReference
       parameters:
       - name: If-Match
         in: header
@@ -831,12 +878,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cej
+        example: KEY78VEk
   /shipments/{shipmentKey}/shipment-events:
     get:
       tags:
       - ShipmentEvent
       summary: Retrieve a list of ShipmentEvent entities scope...
+      description: list ShipmentEvent By ShipmentKey
       operationId: listShipmentEventByShipmentKey
       parameters:
       - name: sort
@@ -888,6 +936,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -898,12 +947,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ShipmentEvent
       summary: Create a new ShipmentEvent entity.
+      description: Create ShipmentEvent
       operationId: createShipmentEvent
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -922,7 +974,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/shipments{shipmentKey}shipment-events/KEY78qzdd"
           content:
             application/json:
               schema:
@@ -951,6 +1003,7 @@ paths:
       tags:
       - ShipmentEvent
       summary: Retrieve a specific ShipmentEvent entity.
+      description: "Standard GET operation for /shipments/{shipmentKey}/shipment-events/{shipmentEventKey}"
       operationId: getShipmentEventById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -978,6 +1031,7 @@ paths:
       tags:
       - ShipmentEvent
       summary: Replace a ShipmentEvent entity.
+      description: replace ShipmentEvent
       operationId: replaceShipmentEvent
       parameters:
       - name: If-Match
@@ -1049,7 +1103,8 @@ paths:
       tags:
       - ShipmentEvent
       summary: Partially update a ShipmentEvent entity.
-      operationId: updateShipmentEvent
+      description: Partially update a ShipmentEvent
+      operationId: updatePartialShipmentEvent
       parameters:
       - name: If-Match
         in: header
@@ -1106,12 +1161,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejB
+        example: KEY78VEkD
   /shipments/{shipmentKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped b...
+      description: list Identifier By ShipmentKey
       operationId: listIdentifierByShipmentKey
       parameters:
       - name: sort
@@ -1163,6 +1219,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1173,12 +1230,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1197,7 +1257,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/shipments{shipmentKey}identifiers/KEY78qzdd2"
           content:
             application/json:
               schema:
@@ -1226,6 +1286,7 @@ paths:
       tags:
       - Identifier
       summary: Retrieve a specific Identifier entity.
+      description: "Standard GET operation for /shipments/{shipmentKey}/identifiers/{identifierKey}"
       operationId: getIdentifierById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1253,6 +1314,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -1324,7 +1386,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -1381,12 +1444,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejBR
+        example: KEY78VEkD4
   /shipments/{shipmentKey}/unit-of-measures:
     get:
       tags:
       - UnitOfMeasure
       summary: Retrieve a list of UnitOfMeasure entities scope...
+      description: list UnitOfMeasure By ShipmentKey
       operationId: listUnitOfMeasureByShipmentKey
       parameters:
       - name: sort
@@ -1438,6 +1502,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1448,6 +1513,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1462,6 +1529,7 @@ paths:
       tags:
       - UnitOfMeasure
       summary: Retrieve a specific UnitOfMeasure entity.
+      description: "Standard GET operation for /shipments/{shipmentKey}/unit-of-measures/{unitOfMeasureKey}"
       operationId: getUnitOfMeasureById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1498,12 +1566,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejBRu
+        example: KEY78VEkD4C
   /shipments/{shipmentKey}/positions:
     get:
       tags:
       - Position
       summary: Retrieve a list of Position entities scoped by ...
+      description: list Position By ShipmentKey
       operationId: listPositionByShipmentKey
       parameters:
       - name: sort
@@ -1555,6 +1624,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1565,12 +1635,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Position
       summary: Create a new Position entity.
+      description: Create Position
       operationId: createPosition
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1589,7 +1662,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/shipments{shipmentKey}positions/KEY78qzdd2oc"
           content:
             application/json:
               schema:
@@ -1618,6 +1691,7 @@ paths:
       tags:
       - Position
       summary: Retrieve a specific Position entity.
+      description: "Standard GET operation for /shipments/{shipmentKey}/positions/{positionKey}"
       operationId: getPositionById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1645,6 +1719,7 @@ paths:
       tags:
       - Position
       summary: Replace a Position entity.
+      description: replace Position
       operationId: replacePosition
       parameters:
       - name: If-Match
@@ -1716,7 +1791,8 @@ paths:
       tags:
       - Position
       summary: Partially update a Position entity.
-      operationId: updatePosition
+      description: Partially update a Position
+      operationId: updatePartialPosition
       parameters:
       - name: If-Match
         in: header
@@ -1773,12 +1849,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejBRuU
+        example: KEY78VEkD4CJ
   /shipments/{shipmentKey}/effective-periods:
     get:
       tags:
       - EffectivePeriod
       summary: Retrieve a list of EffectivePeriod entities sco...
+      description: list EffectivePeriod By ShipmentKey
       operationId: listEffectivePeriodByShipmentKey
       parameters:
       - name: sort
@@ -1830,6 +1907,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1840,6 +1918,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1854,6 +1934,7 @@ paths:
       tags:
       - EffectivePeriod
       summary: Retrieve a specific EffectivePeriod entity.
+      description: "Standard GET operation for /shipments/{shipmentKey}/effective-periods/{effectivePeriodKey}"
       operationId: getEffectivePeriodById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1890,12 +1971,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejBRuUv
+        example: KEY78VEkD4CJf
   /shipments/{shipmentKey}/time-slots:
     get:
       tags:
       - TimeSlot
       summary: Retrieve a list of TimeSlot entities scoped by ...
+      description: list TimeSlot By ShipmentKey
       operationId: listTimeSlotByShipmentKey
       parameters:
       - name: sort
@@ -1947,6 +2029,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1957,6 +2040,8 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     parameters:
@@ -1971,6 +2056,7 @@ paths:
       tags:
       - TimeSlot
       summary: Retrieve a specific TimeSlot entity.
+      description: "Standard GET operation for /shipments/{shipmentKey}/time-slots/{timeSlotKey}"
       operationId: getTimeSlotById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2007,12 +2093,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejBRuUvw
+        example: KEY78VEkD4CJfP
   /shipments/{shipmentKey}/address-references:
     get:
       tags:
       - AddressReference
       summary: Retrieve a list of AddressReference entities sc...
+      description: list AddressReference By ShipmentKey
       operationId: listAddressReferenceByShipmentKey
       parameters:
       - name: sort
@@ -2064,6 +2151,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2074,12 +2162,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - AddressReference
       summary: Create a new AddressReference entity.
+      description: Create AddressReference
       operationId: createAddressReference
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2098,7 +2189,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/shipments{shipmentKey}address-references/KEY78qzdd2ocF7a"
           content:
             application/json:
               schema:
@@ -2127,6 +2218,7 @@ paths:
       tags:
       - AddressReference
       summary: Retrieve a specific AddressReference entity.
+      description: "Standard GET operation for /shipments/{shipmentKey}/address-references/{addressReferenceKey}"
       operationId: getAddressReferenceById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2154,6 +2246,7 @@ paths:
       tags:
       - AddressReference
       summary: Replace a AddressReference entity.
+      description: replace AddressReference
       operationId: replaceAddressReference
       parameters:
       - name: If-Match
@@ -2225,7 +2318,8 @@ paths:
       tags:
       - AddressReference
       summary: Partially update a AddressReference entity.
-      operationId: updateAddressReference
+      description: Partially update a AddressReference
+      operationId: updatePartialAddressReference
       parameters:
       - name: If-Match
         in: header
@@ -2282,11 +2376,14 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78cejBRuUvwP
+        example: KEY78VEkD4CJfPq
   /shipments/health:
     get:
+      tags:
+      - Default
       summary: Health Check
       description: Public endpoint to verify service availability.
+      operationId: getShipmentHealth
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
       responses:
@@ -2319,11 +2416,22 @@ paths:
                     description: Server time in ISO-8601 format.
                     format: date-time
                     example: 2025-12-21T23:00:00Z
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       security:
       - {}
   /shipments/batch:
     post:
+      tags:
+      - Default
       summary: Bulk create shipments
+      description: Bulk Create of Shipment
       operationId: createShipmentBatch
       requestBody:
         content:
@@ -2339,6 +2447,12 @@ paths:
       responses:
         "200":
           description: Batch processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /shipments/batch/3109333954361465341
           content:
             application/json:
               schema:
@@ -2358,9 +2472,23 @@ paths:
                           format: int32
                         error:
                           $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
   /shipments/exports:
     post:
+      tags:
+      - Default
       summary: Initiate a bulk Shipment export
+      description: Standard POST operation for /shipments/exports
+      operationId: initiateShipmentExport
       parameters:
       - name: Idempotency-Key
         in: header
@@ -2377,6 +2505,7 @@ paths:
               properties:
                 format:
                   type: string
+                  example: string
                   default: PARQUET
                   enum:
                   - XML
@@ -2431,10 +2560,17 @@ paths:
                   description: "If true, the system validates the request and returns\
                     \ potential violations or metadata (like estimated size) without\
                     \ starting the job."
+                  example: false
                   default: false
       responses:
         "202":
           description: Export job created/accepted
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /shipments/exports/2421813429765158817
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -2443,6 +2579,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       callbacks:
         onExportCompleted:
           '{$request.body#/notification/webhook_url}':
@@ -2459,7 +2603,11 @@ paths:
                   description: Webhook received
   /shipments/exports/{exportId}:
     get:
+      tags:
+      - Default
       summary: Get export status
+      description: Get Export Status of Shipment
+      operationId: getShipmentExportStatus
       parameters:
       - name: exportId
         in: path
@@ -2473,8 +2621,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExportJob"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /shipments/{shipmentKey}/commands:
     post:
+      tags:
+      - Default
       summary: Execute a business workflow on Shipment
       description: Single entry point for all Shipment state-changing intents.
       operationId: executeShipmentCommand
@@ -2509,6 +2667,12 @@ paths:
       responses:
         "200":
           description: Commands processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: "/shipments/{shipmentKey}/commands/1886122529094745288"
           content:
             application/json:
               schema:
@@ -2530,7 +2694,7 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #538f521a has been successfully cancelled."
+                    example: "Invoice #6f905361 has been successfully cancelled."
                   commandId:
                     type: string
                     description: The tracking ID for this specific command execution
@@ -2538,7 +2702,7 @@ paths:
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: e4c048d5
+                    example: fc98b6b1
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -2547,6 +2711,7 @@ paths:
                     type: boolean
                     description: "If true, the agent can attempt this command again\
                       \ immediately"
+                    example: false
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -2563,6 +2728,8 @@ paths:
           $ref: "#/components/responses/ServerError"
   /shipments/{shipmentKey}/commands/{commandId}:
     get:
+      tags:
+      - Default
       summary: Poll Shipment command status
       description: Check the progress or result of a previously submitted command.
       operationId: getShipmentCommandStatus
@@ -2591,6 +2758,7 @@ paths:
                     type: string
                     description: The unique identifier for the command being tracked
                     format: uuid
+                    readOnly: true
                   status:
                     type: string
                     description: The current lifecycle state of the command
@@ -2618,9 +2786,20 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /shipments/capabilities:
     get:
+      tags:
+      - Default
       summary: Discover Shipment Capabilities
+      description: Standard GET operation for /shipments/capabilities
       operationId: getShipmentCapabilities
       parameters:
       - name: include
@@ -2655,6 +2834,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Capabilities"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     AddressReference:
@@ -2663,9 +2850,11 @@ components:
         address_reference_key:
           type: string
           description: A unique key for the address reference.
+          example: string
         address_reference_value:
           type: string
           description: The unique value of the address referenc...
+          example: string
         address_types:
           maxItems: 255
           minItems: 1
@@ -2674,54 +2863,54 @@ components:
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
-          maxLength: 100
-          minLength: 1
           type: string
           description: "Primary address line (Street, PO Box, et..."
+          example: string
         address_line2:
-          maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         address_line3:
-          maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         address_line4:
-          maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         address_line5:
-          maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         city:
-          maxLength: 100
-          minLength: 1
           type: string
           description: Name of the city.
+          example: string
         country_code:
-          maxLength: 100
-          minLength: 2
           type: string
           description: Full name of the country.
+          example: string
         district:
-          maxLength: 100
           type: string
           description: Name of the district.
+          example: string
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
+          example: string
         postal_code:
           maxLength: 20
           minLength: 3
           pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
           description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
+          example: string
         state_province:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
+          example: string
       description: Reference link to a stored address.
     AddressReferenceCreate:
       required:
@@ -2736,19 +2925,21 @@ components:
         address_reference_value:
           type: string
           description: The unique value of the address referenc...
+          example: string
         city:
-          maxLength: 100
-          minLength: 1
           type: string
           description: Name of the city.
+          example: string
         state_province:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
+          example: string
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
+          example: string
         address_types:
           maxItems: 255
           minItems: 1
@@ -2757,41 +2948,40 @@ components:
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line5:
-          maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         country_code:
-          maxLength: 100
-          minLength: 2
           type: string
           description: Full name of the country.
+          example: string
         address_line4:
-          maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         address_line3:
-          maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         address_line2:
-          maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         address_line1:
-          maxLength: 100
-          minLength: 1
           type: string
           description: "Primary address line (Street, PO Box, et..."
+          example: string
         district:
-          maxLength: 100
           type: string
           description: Name of the district.
+          example: string
         postal_code:
           maxLength: 20
           minLength: 3
           pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
           description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
+          example: string
       description: AddressReference Update for Patch and Put
     AddressReferences:
       type: array
@@ -2922,8 +3112,7 @@ components:
                     example: P7D
                   is_pii_sensitive:
                     type: boolean
-                    description: Indicates if the export contains Personally Identifiable
-                      Information
+                    description: Indicates export contains PII
                     example: false
                   access_tier:
                     type: string
@@ -2942,6 +3131,7 @@ components:
                     rule_id:
                       type: string
                       description: Unique identifier for the business rule
+                      readOnly: true
                       example: IDENTITY_LOCK_STATE
                     constraint_type:
                       type: string
@@ -2975,9 +3165,9 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
+                        item_type: Inventory
                         count: "45"
                         limit: "0"
-                        item_type: Inventory
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -2986,9 +3176,9 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
+                        min: "1"
                         value: "31"
                         unit: days
-                        min: "1"
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -3064,43 +3254,50 @@ components:
       type: object
       properties:
         effective_period_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique key identifying the effective per... Pat...
+          example: string
         active_indicator:
           type: boolean
           description: Indicator if the period is currently act...
+          example: true
         exclusive_indicator:
           type: boolean
           description: Indicator if the period is exclusive
+          example: true
         start_date_time:
           type: string
           description: Start date and time of the effective per...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         complete_date_time:
           type: string
           description: Completion date and time of the effectiv...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         duration_value:
           type: string
           description: Value of the duration
+          example: string
         recur_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         recur_count:
           type: string
           description: Count of recurrence
+          example: string
         recur_values:
           $ref: "#/components/schemas/Codes"
         recur_criteria:
           type: string
           description: Criteria defining recurrence
+          example: string
         recur_indicator:
           type: boolean
           description: Indicator if recurrence is enabled
+          example: true
         timeslot:
           $ref: "#/components/schemas/TimeSlot"
       description: The date range during which this record is valid.
@@ -3110,7 +3307,7 @@ components:
       - code
       - message
       - timestamp
-      - traceId
+      - trace_id
       type: object
       properties:
         code:
@@ -3137,11 +3334,12 @@ components:
           description: The time the error occurred (ISO 8601).
           format: date-time
           example: 2025-11-10T10:30:00Z
-        traceId:
+        trace_id:
           type: string
           description: "A unique identifier for this specific request, ..."
+          readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
-        docUrl:
+        doc_url:
           type: string
           description: A URL leading to the documentation page for thi...
           format: uri
@@ -3172,11 +3370,14 @@ components:
           type: integer
           description: Part number
           format: int32
+          example: 1
         download_url:
           type: string
           format: uri
+          example: https://api.example.com
         format:
           type: string
+          example: string
           default: PARQUET
           enum:
           - XML
@@ -3187,15 +3388,20 @@ components:
         expires_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
+          example: string
     ExportJob:
       type: object
       properties:
         id:
           type: string
+          readOnly: true
+          example: string
         status:
           type: string
+          example: string
           enum:
           - PENDING
           - PROCESSING
@@ -3206,6 +3412,7 @@ components:
           minimum: 0
           type: integer
           format: int32
+          example: 1
         files:
           type: array
           items:
@@ -3215,22 +3422,26 @@ components:
       properties:
         event_type:
           type: string
+          example: string
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
         occurred_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         data:
           type: object
           properties:
             job_id:
               type: string
+              readOnly: true
             aggregate:
               type: string
               example: Shipment
             data_product_id:
               type: string
+              readOnly: true
             status:
               type: string
               enum:
@@ -3252,24 +3463,33 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         identifier_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Business key for the identifier Pattern: ^[a-zA..."
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -3288,46 +3508,51 @@ components:
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
       description: Identifier Update for Patch and Put
     InvoiceReference:
       type: object
       properties:
         invoice_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier value for the invoice ... Pat...
+          readOnly: true
+          example: string
         invoice_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique key value for the invoice referen... Pat...
+          example: string
         invoice_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: The unique key identifying the reference... Pat...
+          example: string
         context:
           type: string
           description: "Context or domain of the invoice (e.g., ..."
+          example: string
         identifier:
           $ref: "#/components/schemas/Identifier"
         occurrence_date_time:
           type: string
           description: The date and time the invoice was create...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         invoice_type:
           $ref: "#/components/schemas/InvoiceTypes"
       description: invoice.reference.desc
@@ -3346,12 +3571,14 @@ components:
         context:
           type: string
           description: "Context or domain of the invoice (e.g., ..."
+          example: string
         invoice_type:
           $ref: "#/components/schemas/InvoiceTypes"
         occurrence_date_time:
           type: string
           description: The date and time the invoice was create...
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: InvoiceReference Update for Patch and Put
     InvoiceReferences:
       type: array
@@ -3381,32 +3608,30 @@ components:
       type: object
       properties:
         party_reference_id:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         party_reference_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         party_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         party_reference_type:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         party_relationship_types:
           pattern: "^[a-zA-Z0-9_]+$"
           maxItems: 255
@@ -3423,6 +3648,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
         duration:
           $ref: "#/components/schemas/EffectivePeriod"
       description: Reference to an internal or external party/entity.
@@ -3443,12 +3669,12 @@ components:
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         party_reference_type:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         party_relationship_types:
           pattern: "^[a-zA-Z0-9_]+$"
           maxItems: 255
@@ -3461,6 +3687,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
+          example: 2026-01-14T12:00:00Z
         party:
           $ref: "#/components/schemas/Identifier"
       description: PartyReference Update for Patch and Put
@@ -3573,14 +3800,11 @@ components:
       type: object
       properties:
         position_id:
-          maxLength: 64
-          minLength: 1
           type: string
           description: Unique identifier for this position
+          readOnly: true
           example: pos-001
         position_key:
-          maxLength: 64
-          minLength: 1
           type: string
           description: Business key for this position record
           example: POS-ATL-WEST
@@ -3601,8 +3825,6 @@ components:
           description: Bearing direction (compass)
           example: NW
         postal_code:
-          maxLength: 16
-          minLength: 3
           type: string
           description: Postal code of the location
           example: "30303"
@@ -3611,6 +3833,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         position_codes:
           maxItems: 255
           minItems: 1
@@ -3638,6 +3861,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         bearing:
           type: string
           description: Bearing direction (compass)
@@ -3647,8 +3871,6 @@ components:
           description: Latitude of the location
           example: "33.7490"
         postal_code:
-          maxLength: 16
-          minLength: 3
           type: string
           description: Postal code of the location
           example: "30303"
@@ -3684,7 +3906,7 @@ components:
         instance:
           type: string
           format: uri
-          example: /money/exports
+          example: https://api.yourdomain.com/money/exports
         intent:
           type: string
           example: InitiateMoneyExport
@@ -3712,6 +3934,7 @@ components:
         shipment_id:
           type: string
           description: Unique identifier for this specific part...
+          readOnly: true
           example: pii_abc123xyz
         shipment_key:
           type: string
@@ -3724,22 +3947,18 @@ components:
         ship_to_party:
           $ref: "#/components/schemas/PartyReference"
         country_of_origin:
-          maxLength: 100
-          minLength: 2
           type: string
           description: Full name of the country.
+          example: string
         tracking_number:
-          maxLength: 100
           type: string
           description: Tracking number provided by the shipping...
           example: 1Z999AA99999999999
         packing_slip_number:
-          maxLength: 100
           type: string
           description: Number from the supplier's packing slip.
           example: PS-2025-54321
         bill_of_lading_number:
-          maxLength: 100
           type: string
           description: The Bill of Lading number for freight sh...
           example: BOL-XYZ-9876
@@ -3758,6 +3977,7 @@ components:
           minItems: 1
           uniqueItems: true
           type: array
+          readOnly: true
           items:
             $ref: "#/components/schemas/Identifier"
         invoice_number:
@@ -3793,6 +4013,7 @@ components:
         shipment_event_id:
           type: string
           description: Unique identifier for this specific part...
+          readOnly: true
           example: pii_abc123xyz
         shipment_event_key:
           type: string
@@ -3803,14 +4024,17 @@ components:
         description:
           type: string
           description: A description of the event.
+          example: string
         occurrence_date_time:
           type: string
           description: The date and time the event physically o...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         effective_date_time:
           type: string
           description: The date and time the event's status or ...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         shipment_state_types:
           maxItems: 255
           minItems: 1
@@ -3833,9 +4057,11 @@ components:
           type: string
           description: The date and time the event's status or ...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         description:
           type: string
           description: A description of the event.
+          example: string
         location:
           $ref: "#/components/schemas/Position"
         shipment_state_types:
@@ -3849,6 +4075,7 @@ components:
           type: string
           description: The date and time the event physically o...
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: ShipmentEvent Update for Patch and Put
     ShipmentEvents:
       type: array
@@ -3889,19 +4116,18 @@ components:
           minItems: 1
           uniqueItems: true
           type: array
+          readOnly: true
           items:
             $ref: "#/components/schemas/Identifier"
         country_of_origin:
-          maxLength: 100
-          minLength: 2
           type: string
           description: Full name of the country.
+          example: string
         invoice_references:
           $ref: "#/components/schemas/InvoiceReferences"
         ship_from_party:
           $ref: "#/components/schemas/PartyReference"
         packing_slip_number:
-          maxLength: 100
           type: string
           description: Number from the supplier's packing slip.
           example: PS-2025-54321
@@ -3921,12 +4147,10 @@ components:
         address_references:
           $ref: "#/components/schemas/AddressReferences"
         bill_of_lading_number:
-          maxLength: 100
           type: string
           description: The Bill of Lading number for freight sh...
           example: BOL-XYZ-9876
         tracking_number:
-          maxLength: 100
           type: string
           description: Tracking number provided by the shipping...
           example: 1Z999AA99999999999
@@ -3947,6 +4171,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
+          example: string
           enum:
           - CREATED
           - ACTIVE
@@ -3992,13 +4217,10 @@ components:
       type: object
       properties:
         time_slot_key:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique business key for the time slot. Pattern:...
+          example: string
         end_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         end_time:
@@ -4007,9 +4229,11 @@ components:
           type: string
           description: "End time in HH:mm format. Pattern: ^([01]\\d|2[0..."
           format: date-time
+          example: 2026-01-14T12:00:00Z
         recurring_indicator:
           type: boolean
           description: Indicates if the time slot is recurring.
+          example: true
         recurring_period:
           $ref: "#/components/schemas/EffectivePeriod"
         start_day:
@@ -4020,6 +4244,7 @@ components:
           type: string
           description: "Start time in HH:mm format. Pattern: ^([01]\\d|2..."
           format: date-time
+          example: 2026-01-14T12:00:00Z
         timeslot_directive_types:
           maxItems: 255
           minItems: 1
@@ -4028,13 +4253,11 @@ components:
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the time slot reco... Pat...
+          readOnly: true
+          example: string
         week_of_date:
           maxItems: 255
           minItems: 1
@@ -4099,23 +4322,22 @@ components:
       type: object
       properties:
         unit_of_measure_key:
-          maxLength: 100
-          minLength: 1
           pattern: "^[a-zA-Z0-9_.-]+$"
           type: string
           description: "Unit of Measure Value Pattern: ^[a-zA-Z0-9_.-]+..."
+          example: string
         unit_name:
-          maxLength: 50
-          minLength: 1
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unit of Measure Pattern: ^[a-zA-Z0-9_]+$ (Alpha..."
+          example: string
         uom_value:
           maxLength: 100
           minLength: 1
           pattern: "^[a-zA-Z0-9_.-]+$"
           type: string
           description: "Unit of Measure Value Pattern: ^[a-zA-Z0-9_.-]+..."
+          example: string
         uom_quantity_category_type:
           $ref: "#/components/schemas/UOMQuantityCategoryTypes"
       description: "Standard unit used for quantity (e.g., kg, lite..."

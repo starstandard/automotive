@@ -19,12 +19,18 @@ security:
   - standard:read
 - member-api-key: []
 - {}
+tags:
+- name: LifecycleEvent
+  description: Operations related to LifecycleEvent
+- name: Default
+  description: Operations related to Default
 paths:
   /lifecycle-events:
     get:
       tags:
       - LifecycleEvent
       summary: Retrieve a list of LifecycleEvent entities.
+      description: list LifecycleEvent By
       operationId: listLifecycleEvent
       parameters:
       - name: sort
@@ -76,6 +82,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -86,12 +93,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - LifecycleEvent
       summary: Create a new LifecycleEvent entity.
+      description: Create LifecycleEvent
       operationId: createLifecycleEvent
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -110,7 +120,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /lifecycle-events/KEY785
+                example: /lifecycle-events/KEY78t
           content:
             application/json:
               schema:
@@ -132,6 +142,7 @@ paths:
       tags:
       - LifecycleEvent
       summary: Retrieve a specific LifecycleEvent entity.
+      description: "Standard GET operation for /lifecycle-events/{lifecycleEventKey}"
       operationId: getLifecycleEventById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -159,6 +170,7 @@ paths:
       tags:
       - LifecycleEvent
       summary: Replace a LifecycleEvent entity.
+      description: replace LifecycleEvent
       operationId: replaceLifecycleEvent
       parameters:
       - name: If-Match
@@ -230,7 +242,8 @@ paths:
       tags:
       - LifecycleEvent
       summary: Partially update a LifecycleEvent entity.
-      operationId: updateLifecycleEvent
+      description: Partially update a LifecycleEvent
+      operationId: updatePartialLifecycleEvent
       parameters:
       - name: If-Match
         in: header
@@ -281,11 +294,14 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78x
+        example: KEY786
   /lifecycle-events/health:
     get:
+      tags:
+      - Default
       summary: Health Check
       description: Public endpoint to verify service availability.
+      operationId: getLifecycleEventHealth
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
       responses:
@@ -318,11 +334,22 @@ paths:
                     description: Server time in ISO-8601 format.
                     format: date-time
                     example: 2025-12-21T23:00:00Z
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       security:
       - {}
   /lifecycle-events/batch:
     post:
+      tags:
+      - Default
       summary: Bulk create lifecycle-events
+      description: Bulk Create of LifecycleEvent
       operationId: createLifecycleEventBatch
       requestBody:
         content:
@@ -338,6 +365,12 @@ paths:
       responses:
         "200":
           description: Batch processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /lifecycle-events/batch/5834622928753609850
           content:
             application/json:
               schema:
@@ -357,9 +390,23 @@ paths:
                           format: int32
                         error:
                           $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
   /lifecycle-events/exports:
     post:
+      tags:
+      - Default
       summary: Initiate a bulk LifecycleEvent export
+      description: Standard POST operation for /lifecycle-events/exports
+      operationId: initiateLifecycleEventExport
       parameters:
       - name: Idempotency-Key
         in: header
@@ -376,6 +423,7 @@ paths:
               properties:
                 format:
                   type: string
+                  example: string
                   default: PARQUET
                   enum:
                   - XML
@@ -430,10 +478,17 @@ paths:
                   description: "If true, the system validates the request and returns\
                     \ potential violations or metadata (like estimated size) without\
                     \ starting the job."
+                  example: false
                   default: false
       responses:
         "202":
           description: Export job created/accepted
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /lifecycle-events/exports/3189740093455777451
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -442,6 +497,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       callbacks:
         onExportCompleted:
           '{$request.body#/notification/webhook_url}':
@@ -458,7 +521,11 @@ paths:
                   description: Webhook received
   /lifecycle-events/exports/{exportId}:
     get:
+      tags:
+      - Default
       summary: Get export status
+      description: Get Export Status of LifecycleEvent
+      operationId: getLifecycleEventExportStatus
       parameters:
       - name: exportId
         in: path
@@ -472,8 +539,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExportJob"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /lifecycle-events/{lifecycleEventKey}/commands:
     post:
+      tags:
+      - Default
       summary: Execute a business workflow on LifecycleEvent
       description: Single entry point for all LifecycleEvent state-changing intents.
       operationId: executeLifecycleEventCommand
@@ -508,6 +585,12 @@ paths:
       responses:
         "200":
           description: Commands processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: "/lifecycle-events/{lifecycleEventKey}/commands/1101935332855457150"
           content:
             application/json:
               schema:
@@ -529,7 +612,7 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #de69adda has been successfully cancelled."
+                    example: "Invoice #c70a6e82 has been successfully cancelled."
                   commandId:
                     type: string
                     description: The tracking ID for this specific command execution
@@ -537,7 +620,7 @@ paths:
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: 877cb5cb
+                    example: 92a2f2b7
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -546,6 +629,7 @@ paths:
                     type: boolean
                     description: "If true, the agent can attempt this command again\
                       \ immediately"
+                    example: false
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -562,6 +646,8 @@ paths:
           $ref: "#/components/responses/ServerError"
   /lifecycle-events/{lifecycleEventKey}/commands/{commandId}:
     get:
+      tags:
+      - Default
       summary: Poll LifecycleEvent command status
       description: Check the progress or result of a previously submitted command.
       operationId: getLifecycleEventCommandStatus
@@ -590,6 +676,7 @@ paths:
                     type: string
                     description: The unique identifier for the command being tracked
                     format: uuid
+                    readOnly: true
                   status:
                     type: string
                     description: The current lifecycle state of the command
@@ -617,9 +704,20 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /lifecycle-events/capabilities:
     get:
+      tags:
+      - Default
       summary: Discover LifecycleEvent Capabilities
+      description: Standard GET operation for /lifecycle-events/capabilities
       operationId: getLifecycleEventCapabilities
       parameters:
       - name: include
@@ -654,6 +752,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Capabilities"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     Capabilities:
@@ -748,8 +854,7 @@ components:
                     example: P7D
                   is_pii_sensitive:
                     type: boolean
-                    description: Indicates if the export contains Personally Identifiable
-                      Information
+                    description: Indicates export contains PII
                     example: false
                   access_tier:
                     type: string
@@ -768,6 +873,7 @@ components:
                     rule_id:
                       type: string
                       description: Unique identifier for the business rule
+                      readOnly: true
                       example: IDENTITY_LOCK_STATE
                     constraint_type:
                       type: string
@@ -801,8 +907,8 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
-                        count: "45"
                         limit: "0"
+                        count: "45"
                         item_type: Inventory
                     rule_constraints:
                       type: object
@@ -812,8 +918,8 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
-                        value: "31"
                         unit: days
+                        value: "31"
                         min: "1"
                     limit_rule:
                       type: string
@@ -856,7 +962,7 @@ components:
       - code
       - message
       - timestamp
-      - traceId
+      - trace_id
       type: object
       properties:
         code:
@@ -883,11 +989,12 @@ components:
           description: The time the error occurred (ISO 8601).
           format: date-time
           example: 2025-11-10T10:30:00Z
-        traceId:
+        trace_id:
           type: string
           description: "A unique identifier for this specific request, ..."
+          readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
-        docUrl:
+        doc_url:
           type: string
           description: A URL leading to the documentation page for thi...
           format: uri
@@ -918,11 +1025,14 @@ components:
           type: integer
           description: Part number
           format: int32
+          example: 1
         download_url:
           type: string
           format: uri
+          example: https://api.example.com
         format:
           type: string
+          example: string
           default: PARQUET
           enum:
           - XML
@@ -933,15 +1043,20 @@ components:
         expires_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
+          example: string
     ExportJob:
       type: object
       properties:
         id:
           type: string
+          readOnly: true
+          example: string
         status:
           type: string
+          example: string
           enum:
           - PENDING
           - PROCESSING
@@ -952,6 +1067,7 @@ components:
           minimum: 0
           type: integer
           format: int32
+          example: 1
         files:
           type: array
           items:
@@ -961,24 +1077,30 @@ components:
       properties:
         event_type:
           type: string
+          example: EXPORT_COMPLETED
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
         occurred_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         data:
           type: object
           properties:
             job_id:
               type: string
+              readOnly: true
+              example: f56855ab
             aggregate:
               type: string
               example: LifecycleEvent
             data_product_id:
               type: string
+              readOnly: true
             status:
               type: string
+              example: FAILED
               enum:
               - COMPLETED
               - FAILED
@@ -995,6 +1117,7 @@ components:
         lifecycle_event_id:
           type: string
           description: The unique ID for the lifecycle event.
+          readOnly: true
           example: EVT-99887766
         lifecycle_event_key:
           type: string
@@ -1004,9 +1127,11 @@ components:
           type: string
           description: The href of the actor who initiated the ...
           format: href
+          example: string
         actor_id:
           type: string
           description: The unique identifier of the actor who i...
+          readOnly: true
           example: USR-24681357
         actor_name:
           type: string
@@ -1018,13 +1143,16 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date
+          example: 2026-01-14
         resource_href:
           type: string
           description: The href of the resource associated with...
           format: href
+          example: string
         resource_identifier:
           type: string
           description: The unique identifier of the resource as...
+          readOnly: true
           example: RSC-88776655
         detail_name:
           type: string
@@ -1088,10 +1216,12 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date
+          example: 2026-01-14
         resource_href:
           type: string
           description: The href of the resource associated with...
           format: href
+          example: string
         detail_name:
           type: string
           description: The name of the event detail.
@@ -1101,6 +1231,7 @@ components:
         resource_identifier:
           type: string
           description: The unique identifier of the resource as...
+          readOnly: true
           example: RSC-88776655
         actor_name:
           type: string
@@ -1122,6 +1253,7 @@ components:
           type: string
           description: The href of the actor who initiated the ...
           format: href
+          example: string
         resource_types:
           $ref: "#/components/schemas/ResourceTypes"
       description: LifecycleEvent Update for Patch and Put
@@ -1131,6 +1263,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
+          example: string
           enum:
           - CREATED
           - ACTIVE
@@ -1162,7 +1295,7 @@ components:
         instance:
           type: string
           format: uri
-          example: /money/exports
+          example: https://api.yourdomain.com/money/exports
         intent:
           type: string
           example: InitiateMoneyExport

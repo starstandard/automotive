@@ -19,12 +19,46 @@ security:
   - standard:read
 - member-api-key: []
 - {}
+tags:
+- name: RewardPayment
+  description: Operations related to RewardPayment
+- name: PersonName
+  description: Operations related to PersonName
+- name: Address
+  description: Operations related to Address
+- name: Position
+  description: Operations related to Position
+- name: CashPayment
+  description: Operations related to CashPayment
+- name: BankBeneficiary
+  description: Operations related to BankBeneficiary
+- name: Default
+  description: Operations related to Default
+- name: CreditCard
+  description: Operations related to CreditCard
+- name: AddressLocale
+  description: Operations related to AddressLocale
+- name: BankIntermediary
+  description: Operations related to BankIntermediary
+- name: Authorization
+  description: Operations related to Authorization
+- name: Identifier
+  description: Operations related to Identifier
+- name: CheckPayment
+  description: Operations related to CheckPayment
+- name: PaymentMethod
+  description: Operations related to PaymentMethod
+- name: ElectronicPayment
+  description: Operations related to ElectronicPayment
+- name: PlatformPayment
+  description: Operations related to PlatformPayment
 paths:
   /payment-methods:
     get:
       tags:
       - PaymentMethod
       summary: Retrieve a list of PaymentMethod entities.
+      description: list PaymentMethod By
       operationId: listPaymentMethod
       parameters:
       - name: sort
@@ -76,6 +110,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -86,12 +121,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PaymentMethod
       summary: Create a new PaymentMethod entity.
+      description: Create PaymentMethod
       operationId: createPaymentMethod
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -110,7 +148,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /payment-methods/KEY78D
+                example: /payment-methods/KEY78w
           content:
             application/json:
               schema:
@@ -132,6 +170,7 @@ paths:
       tags:
       - PaymentMethod
       summary: Retrieve a specific PaymentMethod entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}"
       operationId: getPaymentMethodById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -159,6 +198,7 @@ paths:
       tags:
       - PaymentMethod
       summary: Replace a PaymentMethod entity.
+      description: replace PaymentMethod
       operationId: replacePaymentMethod
       parameters:
       - name: If-Match
@@ -230,7 +270,8 @@ paths:
       tags:
       - PaymentMethod
       summary: Partially update a PaymentMethod entity.
-      operationId: updatePaymentMethod
+      description: Partially update a PaymentMethod
+      operationId: updatePartialPaymentMethod
       parameters:
       - name: If-Match
         in: header
@@ -281,12 +322,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY789
+        example: KEY78Y
   /payment-methods/{paymentMethodKey}/reward-payments:
     get:
       tags:
       - RewardPayment
       summary: Retrieve a list of RewardPayment entities scope...
+      description: list RewardPayment By PaymentMethodKey
       operationId: listRewardPaymentByPaymentMethodKey
       parameters:
       - name: sort
@@ -338,6 +380,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -348,12 +391,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - RewardPayment
       summary: Create a new RewardPayment entity.
+      description: Create RewardPayment
       operationId: createRewardPayment
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -372,7 +418,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}reward-payments/KEY78ww"
           content:
             application/json:
               schema:
@@ -401,6 +447,7 @@ paths:
       tags:
       - RewardPayment
       summary: Retrieve a specific RewardPayment entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/reward-payments/{rewardPaymentKey}"
       operationId: getRewardPaymentById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -428,6 +475,7 @@ paths:
       tags:
       - RewardPayment
       summary: Replace a RewardPayment entity.
+      description: replace RewardPayment
       operationId: replaceRewardPayment
       parameters:
       - name: If-Match
@@ -499,7 +547,8 @@ paths:
       tags:
       - RewardPayment
       summary: Partially update a RewardPayment entity.
-      operationId: updateRewardPayment
+      description: Partially update a RewardPayment
+      operationId: updatePartialRewardPayment
       parameters:
       - name: If-Match
         in: header
@@ -556,12 +605,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891
+        example: KEY78YK
   /payment-methods/{paymentMethodKey}/person-names:
     get:
       tags:
       - PersonName
       summary: Retrieve a list of PersonName entities scoped b...
+      description: list PersonName By PaymentMethodKey
       operationId: listPersonNameByPaymentMethodKey
       parameters:
       - name: sort
@@ -613,6 +663,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -623,12 +674,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PersonName
       summary: Create a new PersonName entity.
+      description: Create PersonName
       operationId: createPersonName
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -647,7 +701,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}person-names/KEY78ww5"
           content:
             application/json:
               schema:
@@ -676,6 +730,7 @@ paths:
       tags:
       - PersonName
       summary: Retrieve a specific PersonName entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/person-names/{personNameKey}"
       operationId: getPersonNameById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -703,6 +758,7 @@ paths:
       tags:
       - PersonName
       summary: Replace a PersonName entity.
+      description: replace PersonName
       operationId: replacePersonName
       parameters:
       - name: If-Match
@@ -774,7 +830,8 @@ paths:
       tags:
       - PersonName
       summary: Partially update a PersonName entity.
-      operationId: updatePersonName
+      description: Partially update a PersonName
+      operationId: updatePartialPersonName
       parameters:
       - name: If-Match
         in: header
@@ -831,12 +888,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891q
+        example: KEY78YKS
   /payment-methods/{paymentMethodKey}/addresses:
     get:
       tags:
       - Address
       summary: Retrieve a list of Address entities scoped by p...
+      description: list Address By PaymentMethodKey
       operationId: listAddressByPaymentMethodKey
       parameters:
       - name: sort
@@ -888,6 +946,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -898,12 +957,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Address
       summary: Create a new Address entity.
+      description: Create Address
       operationId: createAddress
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -922,7 +984,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}addresses/KEY78ww5R"
           content:
             application/json:
               schema:
@@ -951,6 +1013,7 @@ paths:
       tags:
       - Address
       summary: Retrieve a specific Address entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/addresses/{addressKey}"
       operationId: getAddressById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -978,6 +1041,7 @@ paths:
       tags:
       - Address
       summary: Replace a Address entity.
+      description: replace Address
       operationId: replaceAddress
       parameters:
       - name: If-Match
@@ -1049,7 +1113,8 @@ paths:
       tags:
       - Address
       summary: Partially update a Address entity.
-      operationId: updateAddress
+      description: Partially update a Address
+      operationId: updatePartialAddress
       parameters:
       - name: If-Match
         in: header
@@ -1106,12 +1171,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qO
+        example: KEY78YKSz
   /payment-methods/{paymentMethodKey}/positions:
     get:
       tags:
       - Position
       summary: Retrieve a list of Position entities scoped by ...
+      description: list Position By PaymentMethodKey
       operationId: listPositionByPaymentMethodKey
       parameters:
       - name: sort
@@ -1163,6 +1229,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1173,12 +1240,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Position
       summary: Create a new Position entity.
+      description: Create Position
       operationId: createPosition
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1197,7 +1267,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}positions/KEY78ww5R3"
           content:
             application/json:
               schema:
@@ -1226,6 +1296,7 @@ paths:
       tags:
       - Position
       summary: Retrieve a specific Position entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/positions/{positionKey}"
       operationId: getPositionById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1253,6 +1324,7 @@ paths:
       tags:
       - Position
       summary: Replace a Position entity.
+      description: replace Position
       operationId: replacePosition
       parameters:
       - name: If-Match
@@ -1324,7 +1396,8 @@ paths:
       tags:
       - Position
       summary: Partially update a Position entity.
-      operationId: updatePosition
+      description: Partially update a Position
+      operationId: updatePartialPosition
       parameters:
       - name: If-Match
         in: header
@@ -1381,12 +1454,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOL
+        example: KEY78YKSzP
   /payment-methods/{paymentMethodKey}/cash-payments:
     get:
       tags:
       - CashPayment
       summary: Retrieve a list of CashPayment entities scoped ...
+      description: list CashPayment By PaymentMethodKey
       operationId: listCashPaymentByPaymentMethodKey
       parameters:
       - name: sort
@@ -1438,6 +1512,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1448,12 +1523,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CashPayment
       summary: Create a new CashPayment entity.
+      description: Create CashPayment
       operationId: createCashPayment
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1472,7 +1550,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}cash-payments/KEY78ww5R3v"
           content:
             application/json:
               schema:
@@ -1501,6 +1579,7 @@ paths:
       tags:
       - CashPayment
       summary: Retrieve a specific CashPayment entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/cash-payments/{cashPaymentKey}"
       operationId: getCashPaymentById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1528,6 +1607,7 @@ paths:
       tags:
       - CashPayment
       summary: Replace a CashPayment entity.
+      description: replace CashPayment
       operationId: replaceCashPayment
       parameters:
       - name: If-Match
@@ -1599,7 +1679,8 @@ paths:
       tags:
       - CashPayment
       summary: Partially update a CashPayment entity.
-      operationId: updateCashPayment
+      description: Partially update a CashPayment
+      operationId: updatePartialCashPayment
       parameters:
       - name: If-Match
         in: header
@@ -1656,12 +1737,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLP
+        example: KEY78YKSzPF
   /payment-methods/{paymentMethodKey}/bank-beneficiaries:
     get:
       tags:
       - BankBeneficiary
       summary: Retrieve a list of BankBeneficiary entities sco...
+      description: list BankBeneficiary By PaymentMethodKey
       operationId: listBankBeneficiaryByPaymentMethodKey
       parameters:
       - name: sort
@@ -1713,6 +1795,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1723,12 +1806,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - BankBeneficiary
       summary: Create a new BankBeneficiary entity.
+      description: Create BankBeneficiary
       operationId: createBankBeneficiary
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1747,7 +1833,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}bank-beneficiaries/KEY78ww5R3vn"
           content:
             application/json:
               schema:
@@ -1776,6 +1862,7 @@ paths:
       tags:
       - BankBeneficiary
       summary: Retrieve a specific BankBeneficiary entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/bank-beneficiaries/{bankBeneficiaryKey}"
       operationId: getBankBeneficiaryById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -1803,6 +1890,7 @@ paths:
       tags:
       - BankBeneficiary
       summary: Replace a BankBeneficiary entity.
+      description: replace BankBeneficiary
       operationId: replaceBankBeneficiary
       parameters:
       - name: If-Match
@@ -1874,7 +1962,8 @@ paths:
       tags:
       - BankBeneficiary
       summary: Partially update a BankBeneficiary entity.
-      operationId: updateBankBeneficiary
+      description: Partially update a BankBeneficiary
+      operationId: updatePartialBankBeneficiary
       parameters:
       - name: If-Match
         in: header
@@ -1931,12 +2020,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPd
+        example: KEY78YKSzPFy
   /payment-methods/{paymentMethodKey}/credit-cards:
     get:
       tags:
       - CreditCard
       summary: Retrieve a list of CreditCard entities scoped b...
+      description: list CreditCard By PaymentMethodKey
       operationId: listCreditCardByPaymentMethodKey
       parameters:
       - name: sort
@@ -1988,6 +2078,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1998,12 +2089,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CreditCard
       summary: Create a new CreditCard entity.
+      description: Create CreditCard
       operationId: createCreditCard
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2022,7 +2116,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}credit-cards/KEY78ww5R3vnY"
           content:
             application/json:
               schema:
@@ -2051,6 +2145,7 @@ paths:
       tags:
       - CreditCard
       summary: Retrieve a specific CreditCard entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/credit-cards/{creditCardKey}"
       operationId: getCreditCardById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2078,6 +2173,7 @@ paths:
       tags:
       - CreditCard
       summary: Replace a CreditCard entity.
+      description: replace CreditCard
       operationId: replaceCreditCard
       parameters:
       - name: If-Match
@@ -2149,7 +2245,8 @@ paths:
       tags:
       - CreditCard
       summary: Partially update a CreditCard entity.
-      operationId: updateCreditCard
+      description: Partially update a CreditCard
+      operationId: updatePartialCreditCard
       parameters:
       - name: If-Match
         in: header
@@ -2206,12 +2303,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPda
+        example: KEY78YKSzPFyO
   /payment-methods/{paymentMethodKey}/address-locales:
     get:
       tags:
       - AddressLocale
       summary: Retrieve a list of AddressLocale entities scope...
+      description: list AddressLocale By PaymentMethodKey
       operationId: listAddressLocaleByPaymentMethodKey
       parameters:
       - name: sort
@@ -2263,6 +2361,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2273,12 +2372,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - AddressLocale
       summary: Create a new AddressLocale entity.
+      description: Create AddressLocale
       operationId: createAddressLocale
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2297,7 +2399,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}address-locales/KEY78ww5R3vnYz"
           content:
             application/json:
               schema:
@@ -2326,6 +2428,7 @@ paths:
       tags:
       - AddressLocale
       summary: Retrieve a specific AddressLocale entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/address-locales/{addressLocaleKey}"
       operationId: getAddressLocaleById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2353,6 +2456,7 @@ paths:
       tags:
       - AddressLocale
       summary: Replace a AddressLocale entity.
+      description: replace AddressLocale
       operationId: replaceAddressLocale
       parameters:
       - name: If-Match
@@ -2424,7 +2528,8 @@ paths:
       tags:
       - AddressLocale
       summary: Partially update a AddressLocale entity.
-      operationId: updateAddressLocale
+      description: Partially update a AddressLocale
+      operationId: updatePartialAddressLocale
       parameters:
       - name: If-Match
         in: header
@@ -2481,12 +2586,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF
+        example: KEY78YKSzPFyO1
   /payment-methods/{paymentMethodKey}/bank-intermediaries:
     get:
       tags:
       - BankIntermediary
       summary: Retrieve a list of BankIntermediary entities sc...
+      description: list BankIntermediary By PaymentMethodKey
       operationId: listBankIntermediaryByPaymentMethodKey
       parameters:
       - name: sort
@@ -2538,6 +2644,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2548,12 +2655,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - BankIntermediary
       summary: Create a new BankIntermediary entity.
+      description: Create BankIntermediary
       operationId: createBankIntermediary
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2572,7 +2682,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}bank-intermediaries/KEY78ww5R3vnYzL"
           content:
             application/json:
               schema:
@@ -2601,6 +2711,7 @@ paths:
       tags:
       - BankIntermediary
       summary: Retrieve a specific BankIntermediary entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/bank-intermediaries/{bankIntermediaryKey}"
       operationId: getBankIntermediaryById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2628,6 +2739,7 @@ paths:
       tags:
       - BankIntermediary
       summary: Replace a BankIntermediary entity.
+      description: replace BankIntermediary
       operationId: replaceBankIntermediary
       parameters:
       - name: If-Match
@@ -2699,7 +2811,8 @@ paths:
       tags:
       - BankIntermediary
       summary: Partially update a BankIntermediary entity.
-      operationId: updateBankIntermediary
+      description: Partially update a BankIntermediary
+      operationId: updatePartialBankIntermediary
       parameters:
       - name: If-Match
         in: header
@@ -2756,12 +2869,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF3
+        example: KEY78YKSzPFyO1i
   /payment-methods/{paymentMethodKey}/authorizations:
     get:
       tags:
       - Authorization
       summary: Retrieve a list of Authorization entities scope...
+      description: list Authorization By PaymentMethodKey
       operationId: listAuthorizationByPaymentMethodKey
       parameters:
       - name: sort
@@ -2813,6 +2927,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2823,12 +2938,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Authorization
       summary: Create a new Authorization entity.
+      description: Create Authorization
       operationId: createAuthorization
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2847,7 +2965,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}authorizations/KEY78ww5R3vnYzLa"
           content:
             application/json:
               schema:
@@ -2876,6 +2994,7 @@ paths:
       tags:
       - Authorization
       summary: Retrieve a specific Authorization entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/authorizations/{authorizationKey}"
       operationId: getAuthorizationById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -2903,6 +3022,7 @@ paths:
       tags:
       - Authorization
       summary: Replace a Authorization entity.
+      description: replace Authorization
       operationId: replaceAuthorization
       parameters:
       - name: If-Match
@@ -2974,7 +3094,8 @@ paths:
       tags:
       - Authorization
       summary: Partially update a Authorization entity.
-      operationId: updateAuthorization
+      description: Partially update a Authorization
+      operationId: updatePartialAuthorization
       parameters:
       - name: If-Match
         in: header
@@ -3031,12 +3152,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF3F
+        example: KEY78YKSzPFyO1iY
   /payment-methods/{paymentMethodKey}/identifiers:
     get:
       tags:
       - Identifier
       summary: Retrieve a list of Identifier entities scoped b...
+      description: list Identifier By PaymentMethodKey
       operationId: listIdentifierByPaymentMethodKey
       parameters:
       - name: sort
@@ -3088,6 +3210,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3098,12 +3221,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - Identifier
       summary: Create a new Identifier entity.
+      description: Create Identifier
       operationId: createIdentifier
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3122,7 +3248,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}identifiers/KEY78ww5R3vnYzLaN"
           content:
             application/json:
               schema:
@@ -3151,6 +3277,7 @@ paths:
       tags:
       - Identifier
       summary: Retrieve a specific Identifier entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/identifiers/{identifierKey}"
       operationId: getIdentifierById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3178,6 +3305,7 @@ paths:
       tags:
       - Identifier
       summary: Replace a Identifier entity.
+      description: replace Identifier
       operationId: replaceIdentifier
       parameters:
       - name: If-Match
@@ -3249,7 +3377,8 @@ paths:
       tags:
       - Identifier
       summary: Partially update a Identifier entity.
-      operationId: updateIdentifier
+      description: Partially update a Identifier
+      operationId: updatePartialIdentifier
       parameters:
       - name: If-Match
         in: header
@@ -3306,12 +3435,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF3FO
+        example: KEY78YKSzPFyO1iYN
   /payment-methods/{paymentMethodKey}/check-payments:
     get:
       tags:
       - CheckPayment
       summary: Retrieve a list of CheckPayment entities scoped...
+      description: list CheckPayment By PaymentMethodKey
       operationId: listCheckPaymentByPaymentMethodKey
       parameters:
       - name: sort
@@ -3363,6 +3493,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3373,12 +3504,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - CheckPayment
       summary: Create a new CheckPayment entity.
+      description: Create CheckPayment
       operationId: createCheckPayment
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3397,7 +3531,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}check-payments/KEY78ww5R3vnYzLaNX"
           content:
             application/json:
               schema:
@@ -3426,6 +3560,7 @@ paths:
       tags:
       - CheckPayment
       summary: Retrieve a specific CheckPayment entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/check-payments/{checkPaymentKey}"
       operationId: getCheckPaymentById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3453,6 +3588,7 @@ paths:
       tags:
       - CheckPayment
       summary: Replace a CheckPayment entity.
+      description: replace CheckPayment
       operationId: replaceCheckPayment
       parameters:
       - name: If-Match
@@ -3524,7 +3660,8 @@ paths:
       tags:
       - CheckPayment
       summary: Partially update a CheckPayment entity.
-      operationId: updateCheckPayment
+      description: Partially update a CheckPayment
+      operationId: updatePartialCheckPayment
       parameters:
       - name: If-Match
         in: header
@@ -3581,12 +3718,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF3FOn
+        example: KEY78YKSzPFyO1iYNu
   /payment-methods/{paymentMethodKey}/electronic-payments:
     get:
       tags:
       - ElectronicPayment
       summary: Retrieve a list of ElectronicPayment entities s...
+      description: list ElectronicPayment By PaymentMethodKey
       operationId: listElectronicPaymentByPaymentMethodKey
       parameters:
       - name: sort
@@ -3638,6 +3776,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3648,12 +3787,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - ElectronicPayment
       summary: Create a new ElectronicPayment entity.
+      description: Create ElectronicPayment
       operationId: createElectronicPayment
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3672,7 +3814,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}electronic-payments/KEY78ww5R3vnYzLaNXh"
           content:
             application/json:
               schema:
@@ -3701,6 +3843,7 @@ paths:
       tags:
       - ElectronicPayment
       summary: Retrieve a specific ElectronicPayment entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/electronic-payments/{electronicPaymentKey}"
       operationId: getElectronicPaymentById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3728,6 +3871,7 @@ paths:
       tags:
       - ElectronicPayment
       summary: Replace a ElectronicPayment entity.
+      description: replace ElectronicPayment
       operationId: replaceElectronicPayment
       parameters:
       - name: If-Match
@@ -3799,7 +3943,8 @@ paths:
       tags:
       - ElectronicPayment
       summary: Partially update a ElectronicPayment entity.
-      operationId: updateElectronicPayment
+      description: Partially update a ElectronicPayment
+      operationId: updatePartialElectronicPayment
       parameters:
       - name: If-Match
         in: header
@@ -3856,12 +4001,13 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF3FOnX
+        example: KEY78YKSzPFyO1iYNue
   /payment-methods/{paymentMethodKey}/platform-payments:
     get:
       tags:
       - PlatformPayment
       summary: Retrieve a list of PlatformPayment entities sco...
+      description: list PlatformPayment By PaymentMethodKey
       operationId: listPlatformPaymentByPaymentMethodKey
       parameters:
       - name: sort
@@ -3913,6 +4059,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3923,12 +4070,15 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "403":
           $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
     post:
       tags:
       - PlatformPayment
       summary: Create a new PlatformPayment entity.
+      description: Create PlatformPayment
       operationId: createPlatformPayment
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -3947,7 +4097,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /part-search-results/PS-12345/bill-of-materials/BOM-001
+                example: "/payment-methods{paymentMethodKey}platform-payments/KEY78ww5R3vnYzLaNXhX"
           content:
             application/json:
               schema:
@@ -3976,6 +4126,7 @@ paths:
       tags:
       - PlatformPayment
       summary: Retrieve a specific PlatformPayment entity.
+      description: "Standard GET operation for /payment-methods/{paymentMethodKey}/platform-payments/{platformPaymentKey}"
       operationId: getPlatformPaymentById
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -4003,6 +4154,7 @@ paths:
       tags:
       - PlatformPayment
       summary: Replace a PlatformPayment entity.
+      description: replace PlatformPayment
       operationId: replacePlatformPayment
       parameters:
       - name: If-Match
@@ -4074,7 +4226,8 @@ paths:
       tags:
       - PlatformPayment
       summary: Partially update a PlatformPayment entity.
-      operationId: updatePlatformPayment
+      description: Partially update a PlatformPayment
+      operationId: updatePartialPlatformPayment
       parameters:
       - name: If-Match
         in: header
@@ -4131,11 +4284,14 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY7891qOLPdaF3FOnXA
+        example: KEY78YKSzPFyO1iYNueB
   /payment-methods/health:
     get:
+      tags:
+      - Default
       summary: Health Check
       description: Public endpoint to verify service availability.
+      operationId: getPaymentMethodHealth
       parameters:
       - $ref: "#/components/parameters/StandardsVersionHeader"
       responses:
@@ -4168,11 +4324,22 @@ paths:
                     description: Server time in ISO-8601 format.
                     format: date-time
                     example: 2025-12-21T23:00:00Z
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       security:
       - {}
   /payment-methods/batch:
     post:
+      tags:
+      - Default
       summary: Bulk create payment-methods
+      description: Bulk Create of PaymentMethod
       operationId: createPaymentMethodBatch
       requestBody:
         content:
@@ -4188,6 +4355,12 @@ paths:
       responses:
         "200":
           description: Batch processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /payment-methods/batch/8284494215662889421
           content:
             application/json:
               schema:
@@ -4207,9 +4380,23 @@ paths:
                           format: int32
                         error:
                           $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
   /payment-methods/exports:
     post:
+      tags:
+      - Default
       summary: Initiate a bulk PaymentMethod export
+      description: Standard POST operation for /payment-methods/exports
+      operationId: initiatePaymentMethodExport
       parameters:
       - name: Idempotency-Key
         in: header
@@ -4226,6 +4413,7 @@ paths:
               properties:
                 format:
                   type: string
+                  example: string
                   default: PARQUET
                   enum:
                   - XML
@@ -4280,10 +4468,17 @@ paths:
                   description: "If true, the system validates the request and returns\
                     \ potential violations or metadata (like estimated size) without\
                     \ starting the job."
+                  example: false
                   default: false
       responses:
         "202":
           description: Export job created/accepted
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /payment-methods/exports/7929067152004041575
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -4292,6 +4487,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProblemDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
       callbacks:
         onExportCompleted:
           '{$request.body#/notification/webhook_url}':
@@ -4308,7 +4511,11 @@ paths:
                   description: Webhook received
   /payment-methods/exports/{exportId}:
     get:
+      tags:
+      - Default
       summary: Get export status
+      description: Get Export Status of PaymentMethod
+      operationId: getPaymentMethodExportStatus
       parameters:
       - name: exportId
         in: path
@@ -4322,8 +4529,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExportJob"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /payment-methods/{paymentMethodKey}/commands:
     post:
+      tags:
+      - Default
       summary: Execute a business workflow on PaymentMethod
       description: Single entry point for all PaymentMethod state-changing intents.
       operationId: executePaymentMethodCommand
@@ -4358,6 +4575,12 @@ paths:
       responses:
         "200":
           description: Commands processing complete
+          headers:
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: "/payment-methods/{paymentMethodKey}/commands/1282086278839952799"
           content:
             application/json:
               schema:
@@ -4379,7 +4602,7 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #fefb79c6 has been successfully cancelled."
+                    example: "Invoice #bbd55747 has been successfully cancelled."
                   commandId:
                     type: string
                     description: The tracking ID for this specific command execution
@@ -4387,7 +4610,7 @@ paths:
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: 4db04e6d
+                    example: 40e27b0e
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -4396,6 +4619,7 @@ paths:
                     type: boolean
                     description: "If true, the agent can attempt this command again\
                       \ immediately"
+                    example: false
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -4412,6 +4636,8 @@ paths:
           $ref: "#/components/responses/ServerError"
   /payment-methods/{paymentMethodKey}/commands/{commandId}:
     get:
+      tags:
+      - Default
       summary: Poll PaymentMethod command status
       description: Check the progress or result of a previously submitted command.
       operationId: getPaymentMethodCommandStatus
@@ -4440,6 +4666,7 @@ paths:
                     type: string
                     description: The unique identifier for the command being tracked
                     format: uuid
+                    readOnly: true
                   status:
                     type: string
                     description: The current lifecycle state of the command
@@ -4467,9 +4694,20 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/ErrorDetail"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /payment-methods/capabilities:
     get:
+      tags:
+      - Default
       summary: Discover PaymentMethod Capabilities
+      description: Standard GET operation for /payment-methods/capabilities
       operationId: getPaymentMethodCapabilities
       parameters:
       - name: include
@@ -4504,6 +4742,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Capabilities"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     Address:
@@ -4516,12 +4762,14 @@ components:
           minLength: 1
           type: string
           description: Priority indicator for address usage (e....
+          example: string
         city_code:
           maxLength: 20
           minLength: 1
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized city code. Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         address_key:
           maximum: 100
           minimum: 0
@@ -4530,6 +4778,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique business key for the address. Pattern: ^..."
+          example: string
         address_id:
           maximum: 100
           minimum: 0
@@ -4538,32 +4787,40 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the address record... Pat...
+          readOnly: true
+          example: string
         address_input:
           maxLength: 255
           minLength: 1
           type: string
           description: Raw input provided for address processin...
+          example: string
         address_line1:
           maxLength: 100
           minLength: 1
           type: string
           description: "Primary address line (Street, PO Box, et..."
+          example: string
         address_line2:
           maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         address_line3:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line4:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line5:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_types:
           maxItems: 255
           minItems: 1
@@ -4578,34 +4835,41 @@ components:
           minLength: 1
           type: string
           description: Name of the city.
+          example: string
         city_subdivision:
           maxLength: 100
           type: string
           description: "Subdivision within the city (e.g., neigh..."
+          example: string
         country:
           maxLength: 100
           minLength: 2
           type: string
           description: Full name of the country.
+          example: string
         country_code:
           maxLength: 2
           minLength: 2
           pattern: "^[A-Z]{2}$"
           type: string
           description: "ISO 3166-1 Alpha-2 country code. Pattern: ^[A-Z..."
+          example: string
         county:
           maxLength: 100
           type: string
           description: Name of the county.
+          example: string
         county_code:
           maxLength: 20
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
+          example: string
         position:
           $ref: "#/components/schemas/Position"
         postal_code:
@@ -4614,27 +4878,33 @@ components:
           pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
           description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
+          example: string
         postal_code_ext:
           maxLength: 10
           type: string
           description: "Extended postal code (e.g., ZIP+4)."
+          example: string
         preferred_indicator:
           type: boolean
           description: Flag indicating if this address is the p...
+          example: true
         region:
           maxLength: 50
           type: string
           description: "Administrative region (e.g., province, s..."
+          example: string
         state:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
+          example: string
         locale:
           maxLength: 10
           minLength: 2
           pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
           description: Locale code associated with this address... Pat...
+          example: string
       description: Physical or mailing address details.
     AddressCreate:
       required:
@@ -4647,29 +4917,24 @@ components:
       type: object
       properties:
         address_locale_key:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Business key for the address locale. Pattern: ^..."
+          example: string
         address_locale_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Unique identifier for the address locale... Pat...
+          readOnly: true
+          example: string
         region_code:
-          maxLength: 20
           type: string
           description: Code representing the region for the loc...
+          example: string
         region_name:
-          maxLength: 100
           type: string
           description: Name of the region for the locale.
+          example: string
         region_aliases:
           $ref: "#/components/schemas/Codes"
         location_type:
@@ -4686,17 +4951,17 @@ components:
       type: object
       properties:
         region_name:
-          maxLength: 100
           type: string
           description: Name of the region for the locale.
+          example: string
         region_aliases:
           $ref: "#/components/schemas/Codes"
         location_type:
           $ref: "#/components/schemas/LocationTypes"
         region_code:
-          maxLength: 20
           type: string
           description: Code representing the region for the loc...
+          example: string
       description: AddressLocale Update for Patch and Put
     AddressLocales:
       type: array
@@ -4743,86 +5008,104 @@ components:
           minLength: 1
           type: string
           description: Raw input provided for address processin...
+          example: string
         country:
           maxLength: 100
           minLength: 2
           type: string
           description: Full name of the country.
+          example: string
         city:
           maxLength: 100
           minLength: 1
           type: string
           description: Name of the city.
+          example: string
         county_code:
           maxLength: 20
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         authorizations:
           $ref: "#/components/schemas/Authorizations"
         county:
           maxLength: 100
           type: string
           description: Name of the county.
+          example: string
         city_code:
           maxLength: 20
           minLength: 1
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized city code. Pattern: ^[a-zA-Z0-9_]+..."
+          example: string
         locale:
           maxLength: 10
           minLength: 2
           pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
           description: Locale code associated with this address... Pat...
+          example: string
         address_locales:
           $ref: "#/components/schemas/AddressLocales"
         address_line5:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line4:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line3:
           maxLength: 100
           type: string
           description: Additional address line information.
+          example: string
         address_line2:
           maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
+          example: string
         address_line1:
           maxLength: 100
           minLength: 1
           type: string
           description: "Primary address line (Street, PO Box, et..."
+          example: string
         postal_code_ext:
           maxLength: 10
           type: string
           description: "Extended postal code (e.g., ZIP+4)."
+          example: string
         state:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
+          example: string
         preferred_indicator:
           type: boolean
           description: Flag indicating if this address is the p...
+          example: true
         city_subdivision:
           maxLength: 100
           type: string
           description: "Subdivision within the city (e.g., neigh..."
+          example: string
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
+          example: string
         priority:
           maxLength: 10
           minLength: 1
           type: string
           description: Priority indicator for address usage (e....
+          example: string
         address_types:
           maxItems: 255
           minItems: 1
@@ -4836,6 +5119,7 @@ components:
           pattern: "^[A-Z]{2}$"
           type: string
           description: "ISO 3166-1 Alpha-2 country code. Pattern: ^[A-Z..."
+          example: string
         position:
           $ref: "#/components/schemas/Position"
         postal_code:
@@ -4844,10 +5128,12 @@ components:
           pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
           description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
+          example: string
         region:
           maxLength: 50
           type: string
           description: "Administrative region (e.g., province, s..."
+          example: string
       description: Address Update for Patch and Put
     Authorization:
       type: object
@@ -4856,15 +5142,16 @@ components:
           type: string
           description: Timestamp of the last update to this aut...
           format: date-time
+          example: 2026-01-14T12:00:00Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is c...
+          example: true
         authorization_key:
-          maxLength: 50
-          minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Business key uniquely identifying the au... Pat...
+          example: string
       description: General authorization or permission status.
     AuthorizationCreate:
       required:
@@ -4879,10 +5166,12 @@ components:
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is c...
+          example: true
         update_date_time:
           type: string
           description: Timestamp of the last update to this aut...
           format: date-time
+          example: 2026-01-14T12:00:00Z
       description: Authorization Update for Patch and Put
     Authorizations:
       type: array
@@ -4905,46 +5194,60 @@ components:
         bank_beneficiary_key:
           type: string
           description: A unique key for the bank beneficiary re...
+          example: string
         account_number:
           type: string
           description: The bank account number of the beneficia...
+          example: string
         address_desc:
           type: string
           description: A description of the beneficiary's addre...
+          example: string
         bank_account_type:
           $ref: "#/components/schemas/BankAccountTypes"
         bank_branch_address_desc:
           type: string
           description: A description of the bank branch address...
+          example: string
         bank_country:
           type: string
           description: The country of the bank.
+          example: string
         bank_name:
           type: string
           description: The name of the bank.
+          example: string
         bank_swift_code:
           type: string
           description: The bank's SWIFT code.
+          example: string
         branch_number:
           type: string
           description: The bank branch number.
+          example: string
         budget_code:
           type: string
           description: The budget code associated with the paym...
+          example: string
         contact_channel_desc:
           type: string
           description: A description of the contact channel for...
+          example: string
         electronic_payment_id:
           type: string
           description: The ID for the electronic payment.
+          readOnly: true
+          example: string
         notes:
           $ref: "#/components/schemas/Memo"
         purpose_of_payment:
           type: string
           description: The purpose of the payment.
+          example: string
         routing_number:
           type: string
           description: The bank's routing number.
+          example: string
       description: The recipient bank account details.
     BankBeneficiaryCreate:
       required:
@@ -4959,38 +5262,49 @@ components:
         account_number:
           type: string
           description: The bank account number of the beneficia...
+          example: string
         notes:
           $ref: "#/components/schemas/Memo"
         address_desc:
           type: string
           description: A description of the beneficiary's addre...
+          example: string
         budget_code:
           type: string
           description: The budget code associated with the paym...
+          example: string
         bank_branch_address_desc:
           type: string
           description: A description of the bank branch address...
+          example: string
         bank_country:
           type: string
           description: The country of the bank.
+          example: string
         routing_number:
           type: string
           description: The bank's routing number.
+          example: string
         bank_swift_code:
           type: string
           description: The bank's SWIFT code.
+          example: string
         branch_number:
           type: string
           description: The bank branch number.
+          example: string
         contact_channel_desc:
           type: string
           description: A description of the contact channel for...
+          example: string
         purpose_of_payment:
           type: string
           description: The purpose of the payment.
+          example: string
         bank_name:
           type: string
           description: The name of the bank.
+          example: string
         bank_account_type:
           $ref: "#/components/schemas/BankAccountTypes"
       description: BankBeneficiary Update for Patch and Put
@@ -5000,27 +5314,37 @@ components:
         bank_intermediary_key:
           type: string
           description: The unique key for the bank intermediary...
+          example: string
         bank_intermediary_id:
           type: string
           description: The unique ID for the bank intermediary.
+          readOnly: true
+          example: string
         financial_institution_name:
           type: string
           description: The name of the financial institution.
+          example: string
         financial_institution_address:
           type: string
           description: The address of the financial institution...
+          example: string
         account_number:
           type: string
           description: The account number at the intermediary b...
+          example: string
         bank_swift_code:
           type: string
           description: The SWIFT/BIC code of the bank.
+          example: string
         bank_identifier_code:
           type: string
           description: The Bank Identifier Code (BIC).
+          readOnly: true
+          example: string
         routing_number:
           type: string
           description: The routing number for the bank.
+          example: string
         notes:
           $ref: "#/components/schemas/Memo"
       description: Details for the intermediary/routing bank.
@@ -5037,23 +5361,30 @@ components:
         account_number:
           type: string
           description: The account number at the intermediary b...
+          example: string
         bank_identifier_code:
           type: string
           description: The Bank Identifier Code (BIC).
+          readOnly: true
+          example: string
         notes:
           $ref: "#/components/schemas/Memo"
         financial_institution_name:
           type: string
           description: The name of the financial institution.
+          example: string
         financial_institution_address:
           type: string
           description: The address of the financial institution...
+          example: string
         routing_number:
           type: string
           description: The routing number for the bank.
+          example: string
         bank_swift_code:
           type: string
           description: The SWIFT/BIC code of the bank.
+          example: string
       description: BankIntermediary Update for Patch and Put
     Capabilities:
       type: object
@@ -5147,8 +5478,7 @@ components:
                     example: P7D
                   is_pii_sensitive:
                     type: boolean
-                    description: Indicates if the export contains Personally Identifiable
-                      Information
+                    description: Indicates export contains PII
                     example: false
                   access_tier:
                     type: string
@@ -5167,6 +5497,7 @@ components:
                     rule_id:
                       type: string
                       description: Unique identifier for the business rule
+                      readOnly: true
                       example: IDENTITY_LOCK_STATE
                     constraint_type:
                       type: string
@@ -5200,9 +5531,9 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
+                        item_type: Inventory
                         count: "45"
                         limit: "0"
-                        item_type: Inventory
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -5211,9 +5542,9 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
+                        min: "1"
                         value: "31"
                         unit: days
-                        min: "1"
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -5240,23 +5571,30 @@ components:
         cash_payment_key:
           type: string
           description: The unique key for the cash payment reco...
+          example: string
         cash_payment_id:
           type: string
           description: The unique ID for the cash payment.
+          readOnly: true
+          example: string
         cash_from:
           type: string
           description: The origin of the cash payment.
+          example: string
         cash_to:
           type: string
           description: The destination of the cash payment.
+          example: string
         cash_for:
           type: string
           description: A description of what the cash payment i...
+          example: string
         payment_status_type:
           $ref: "#/components/schemas/PaymentStatusTypes"
         preferred_indicator:
           type: boolean
           description: A boolean indicator for whether this is ...
+          example: true
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         notes:
@@ -5275,6 +5613,7 @@ components:
         cash_to:
           type: string
           description: The destination of the cash payment.
+          example: string
         notes:
           $ref: "#/components/schemas/Memo"
         identifiers:
@@ -5282,14 +5621,17 @@ components:
         cash_for:
           type: string
           description: A description of what the cash payment i...
+          example: string
         cash_from:
           type: string
           description: The origin of the cash payment.
+          example: string
         payment_status_type:
           $ref: "#/components/schemas/PaymentStatusTypes"
         preferred_indicator:
           type: boolean
           description: A boolean indicator for whether this is ...
+          example: true
       description: CashPayment Update for Patch and Put
     CashPayments:
       type: array
@@ -5301,12 +5643,16 @@ components:
         check_payment_key:
           type: string
           description: A unique key for the check payment.
+          example: string
         check_payment_id:
           type: string
           description: The unique ID for the check payment.
+          readOnly: true
+          example: string
         confirm_account_number:
           type: string
           description: The confirmed bank account number for th...
+          example: string
         bank_beneficiary:
           $ref: "#/components/schemas/BankBeneficiary"
         billing_address:
@@ -5318,6 +5664,7 @@ components:
         preferred_indicator:
           type: boolean
           description: Indicates if this is the preferred payme...
+          example: true
       description: Bank check payment details.
     CheckPaymentCreate:
       required:
@@ -5338,11 +5685,13 @@ components:
         confirm_account_number:
           type: string
           description: The confirmed bank account number for th...
+          example: string
         payment_status_type:
           $ref: "#/components/schemas/PaymentStatusTypes"
         preferred_indicator:
           type: boolean
           description: Indicates if this is the preferred payme...
+          example: true
       description: CheckPayment Update for Patch and Put
     CheckPayments:
       type: array
@@ -5373,27 +5722,35 @@ components:
         credit_card_key:
           type: string
           description: The unique key for the credit card recor...
+          example: string
         credit_card_id:
           type: string
           description: The unique ID of the credit card.
+          readOnly: true
+          example: string
         card_number:
           type: string
           description: The full credit card number.
+          example: string
         last_four:
           type: string
           description: The last four digits of the credit card ...
+          example: string
         finger_print:
           type: string
           description: A fingerprint or tokenized representatio...
+          example: string
         expiration_date:
           type: string
           description: The expiration date of the credit card.
           format: date
+          example: 2026-01-14
         credit_card_type:
           $ref: "#/components/schemas/CreditCardTypes"
         network:
           type: string
           description: The payment network of the credit card (...
+          example: string
         funding_type:
           $ref: "#/components/schemas/FundingTypes"
         name_on_account:
@@ -5401,23 +5758,28 @@ components:
         company_name_on_account:
           type: string
           description: The name of the company on the account.
+          example: string
         billing_address:
           $ref: "#/components/schemas/Address"
         billing_address_href:
           type: string
           description: The URI to the billing address resource.
           format: href
+          example: string
         postal_code:
           type: string
           description: The postal code of the billing address.
+          example: string
         country_code:
           type: string
           description: The country code of the billing address.
+          example: string
         credit_card_status_type:
           $ref: "#/components/schemas/CreditCardStatusTypes"
         preferred_indicator:
           type: boolean
           description: Indicates if this credit card is the pre...
+          example: true
       description: Credit or debit card payment information.
     CreditCardCreate:
       required:
@@ -5464,10 +5826,12 @@ components:
         card_number:
           type: string
           description: The full credit card number.
+          example: string
         billing_address_href:
           type: string
           description: The URI to the billing address resource.
           format: href
+          example: string
         funding_type:
           $ref: "#/components/schemas/FundingTypes"
         billing_address:
@@ -5475,19 +5839,24 @@ components:
         company_name_on_account:
           type: string
           description: The name of the company on the account.
+          example: string
         expiration_date:
           type: string
           description: The expiration date of the credit card.
           format: date
+          example: 2026-01-14
         network:
           type: string
           description: The payment network of the credit card (...
+          example: string
         country_code:
           type: string
           description: The country code of the billing address.
+          example: string
         finger_print:
           type: string
           description: A fingerprint or tokenized representatio...
+          example: string
         credit_card_type:
           $ref: "#/components/schemas/CreditCardTypes"
         name_on_account:
@@ -5495,12 +5864,15 @@ components:
         last_four:
           type: string
           description: The last four digits of the credit card ...
+          example: string
         postal_code:
           type: string
           description: The postal code of the billing address.
+          example: string
         preferred_indicator:
           type: boolean
           description: Indicates if this credit card is the pre...
+          example: true
       description: CreditCard Update for Patch and Put
     CreditCards:
       type: array
@@ -5512,6 +5884,7 @@ components:
         electronic_payment_key:
           type: string
           description: A unique key for the electronic payment ...
+          example: string
         bank_beneficiary:
           $ref: "#/components/schemas/BankBeneficiary"
         bank_intermediary:
@@ -5519,6 +5892,8 @@ components:
         electronic_payment_id:
           type: string
           description: A unique ID for the electronic payment.
+          readOnly: true
+          example: string
         notes:
           $ref: "#/components/schemas/Memo"
         payment_status_type:
@@ -5526,6 +5901,7 @@ components:
         preferred_indicator:
           type: boolean
           description: Indicates whether this is the preferred ...
+          example: true
       description: Details for digital/wire transfers.
     ElectronicPaymentCreate:
       required:
@@ -5548,6 +5924,7 @@ components:
         preferred_indicator:
           type: boolean
           description: Indicates whether this is the preferred ...
+          example: true
       description: ElectronicPayment Update for Patch and Put
     ElectronicPayments:
       type: array
@@ -5559,7 +5936,7 @@ components:
       - code
       - message
       - timestamp
-      - traceId
+      - trace_id
       type: object
       properties:
         code:
@@ -5586,11 +5963,12 @@ components:
           description: The time the error occurred (ISO 8601).
           format: date-time
           example: 2025-11-10T10:30:00Z
-        traceId:
+        trace_id:
           type: string
           description: "A unique identifier for this specific request, ..."
+          readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
-        docUrl:
+        doc_url:
           type: string
           description: A URL leading to the documentation page for thi...
           format: uri
@@ -5621,11 +5999,14 @@ components:
           type: integer
           description: Part number
           format: int32
+          example: 1
         download_url:
           type: string
           format: uri
+          example: https://api.example.com
         format:
           type: string
+          example: string
           default: PARQUET
           enum:
           - XML
@@ -5636,15 +6017,20 @@ components:
         expires_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
+          example: string
     ExportJob:
       type: object
       properties:
         id:
           type: string
+          readOnly: true
+          example: string
         status:
           type: string
+          example: string
           enum:
           - PENDING
           - PROCESSING
@@ -5655,6 +6041,7 @@ components:
           minimum: 0
           type: integer
           format: int32
+          example: 1
         files:
           type: array
           items:
@@ -5664,22 +6051,26 @@ components:
       properties:
         event_type:
           type: string
+          example: string
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
         occurred_at:
           type: string
           format: date-time
+          example: 2026-01-14T12:00:00Z
         data:
           type: object
           properties:
             job_id:
               type: string
+              readOnly: true
             aggregate:
               type: string
               example: PaymentMethod
             data_product_id:
               type: string
+              readOnly: true
             status:
               type: string
               enum:
@@ -5707,24 +6098,33 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          readOnly: true
+          example: string
         identifier_key:
           maxLength: 50
           minLength: 5
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Business key for the identifier Pattern: ^[a-zA..."
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -5743,15 +6143,20 @@ components:
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
+          readOnly: true
+          example: string
         context:
           type: string
           description: Context or domain of the identifier
+          example: string
         detail:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
         value:
           type: string
           description: The monetary or hours-based value of the...
+          example: string
       description: Identifier Update for Patch and Put
     Identifiers:
       type: array
@@ -5793,12 +6198,16 @@ components:
         default_indicator:
           type: boolean
           description: Indicates whether this is the default pa...
+          example: true
         payment_method_key:
           type: string
           description: A unique key for the payment method.
+          example: string
         payment_method_id:
           type: string
           description: The ID of the payment method.
+          readOnly: true
+          example: string
         electronic_payments:
           $ref: "#/components/schemas/ElectronicPayments"
         credit_cards:
@@ -5829,6 +6238,7 @@ components:
         default_indicator:
           type: boolean
           description: Indicates whether this is the default pa...
+          example: true
         cash_payments:
           $ref: "#/components/schemas/CashPayments"
         credit_cards:
@@ -5848,6 +6258,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
+          example: string
           enum:
           - CREATED
           - ACTIVE
@@ -5902,70 +6313,58 @@ components:
       type: object
       properties:
         alias:
-          maxLength: 40
           type: string
           description: Alternative or informal name.
           example: AJ
         family_name:
-          maxLength: 50
-          minLength: 3
           type: string
           description: Family or last name.
           example: Smith
         full_name:
-          maxLength: 50
           type: string
           description: Complete name as one string.
           example: Alice Jane Smith
         given_name:
-          maxLength: 50
-          minLength: 1
           type: string
           description: First or given name.
           example: Alice
         identifiers_href:
-          maxLength: 255
           type: string
           description: Reference to external identifiers.
           format: href
+          readOnly: true
           example: /identifiers/12345
         maiden_name:
-          maxLength: 50
           type: string
           description: Previous family name before marriage.
+          readOnly: true
           example: Johnson
         middle_name:
-          maxLength: 50
           type: string
           description: Middle name(s).
+          readOnly: true
           example: Jane
         name_suffix:
-          maxLength: 20
           type: string
           description: "Suffix such as Jr., Sr., III."
           example: Jr.
         party_key:
-          maxLength: 40
           type: string
           description: External party key.
           example: PARTY-KEY-123
         person_key:
-          maxLength: 40
           type: string
           description: External person key.
           example: PERSON-KEY-789
         person_name_key:
-          maxLength: 40
           type: string
           description: Unique person name key.
           example: NAME-KEY-456
         preferred_name:
-          maxLength: 40
           type: string
           description: Preferred name used in informal situatio...
           example: Ali
         salutation:
-          maxLength: 20
           type: string
           description: "Salutation or title such as Mr., Ms., Dr..."
           example: Dr.
@@ -5974,32 +6373,27 @@ components:
           description: Prefix title used before the person's na...
           example: Dr.
         honorific_suffix:
-          maxLength: 20
           type: string
           description: Suffix title used after the person's nam...
           example: Jr.
         locale:
-          maxLength: 20
           type: string
           description: Locale or language region associated wit...
           example: en-US
         phonetic_family_name:
-          maxLength: 60
           type: string
           description: Phonetic representation of the family na...
           example: FAM-nee
         phonetic_given_name:
-          maxLength: 60
           type: string
           description: Phonetic representation of the given nam...
           example: GA-vin
         phonetic_middle_name:
-          maxLength: 60
           type: string
           description: Phonetic representation of the middle na...
+          readOnly: true
           example: MI-chal
         nationality:
-          maxLength: 60
           type: string
           description: Nationality of the person.
           example: Canadian
@@ -6015,17 +6409,15 @@ components:
       type: object
       properties:
         phonetic_family_name:
-          maxLength: 60
           type: string
           description: Phonetic representation of the family na...
           example: FAM-nee
         maiden_name:
-          maxLength: 50
           type: string
           description: Previous family name before marriage.
+          readOnly: true
           example: Johnson
         name_suffix:
-          maxLength: 20
           type: string
           description: "Suffix such as Jr., Sr., III."
           example: Jr.
@@ -6034,70 +6426,58 @@ components:
           description: Prefix title used before the person's na...
           example: Dr.
         given_name:
-          maxLength: 50
-          minLength: 1
           type: string
           description: First or given name.
           example: Alice
         middle_name:
-          maxLength: 50
           type: string
           description: Middle name(s).
+          readOnly: true
           example: Jane
         locale:
-          maxLength: 20
           type: string
           description: Locale or language region associated wit...
           example: en-US
         honorific_suffix:
-          maxLength: 20
           type: string
           description: Suffix title used after the person's nam...
           example: Jr.
         phonetic_given_name:
-          maxLength: 60
           type: string
           description: Phonetic representation of the given nam...
           example: GA-vin
         full_name:
-          maxLength: 50
           type: string
           description: Complete name as one string.
           example: Alice Jane Smith
         phonetic_middle_name:
-          maxLength: 60
           type: string
           description: Phonetic representation of the middle na...
+          readOnly: true
           example: MI-chal
         nationality:
-          maxLength: 60
           type: string
           description: Nationality of the person.
           example: Canadian
         alias:
-          maxLength: 40
           type: string
           description: Alternative or informal name.
           example: AJ
         salutation:
-          maxLength: 20
           type: string
           description: "Salutation or title such as Mr., Ms., Dr..."
           example: Dr.
         family_name:
-          maxLength: 50
-          minLength: 3
           type: string
           description: Family or last name.
           example: Smith
         identifiers_href:
-          maxLength: 255
           type: string
           description: Reference to external identifiers.
           format: href
+          readOnly: true
           example: /identifiers/12345
         preferred_name:
-          maxLength: 40
           type: string
           description: Preferred name used in informal situatio...
           example: Ali
@@ -6108,33 +6488,47 @@ components:
         platform_payment_key:
           type: string
           description: A unique key for the platform payment.
+          example: string
         platform_payment_id:
           type: string
           description: The unique ID assigned to the payment by...
+          readOnly: true
+          example: string
         platform_name:
           type: string
           description: The name of the platform used for the pa...
+          example: string
         settlement_currency:
           type: string
           description: The currency in which the payment is set...
+          example: string
         merchant_wallet_id:
           type: string
           description: The ID of the merchant's wallet on the p...
+          readOnly: true
+          example: string
         merchant_id:
           type: string
           description: The unique ID of the merchant within the...
+          readOnly: true
+          example: string
         source_type:
           type: string
           description: "The type of payment source (e.g., 'credi..."
+          example: string
         source_id:
           type: string
           description: The unique ID of the payment source with...
+          readOnly: true
+          example: string
         source_addr:
           type: string
           description: The address of the payment source.
+          example: string
         payment_method_key:
           type: string
           description: A reference key to the associated paymen...
+          example: string
         identifiers:
           $ref: "#/components/schemas/Identifiers"
       description: Payments processed via third-party platforms.
@@ -6151,17 +6545,21 @@ components:
         settlement_currency:
           type: string
           description: The currency in which the payment is set...
+          example: string
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         platform_name:
           type: string
           description: The name of the platform used for the pa...
+          example: string
         source_type:
           type: string
           description: "The type of payment source (e.g., 'credi..."
+          example: string
         source_addr:
           type: string
           description: The address of the payment source.
+          example: string
       description: PlatformPayment Update for Patch and Put
     PlatformPayments:
       type: array
@@ -6171,14 +6569,11 @@ components:
       type: object
       properties:
         position_id:
-          maxLength: 64
-          minLength: 1
           type: string
           description: Unique identifier for this position
+          readOnly: true
           example: pos-001
         position_key:
-          maxLength: 64
-          minLength: 1
           type: string
           description: Business key for this position record
           example: POS-ATL-WEST
@@ -6199,8 +6594,6 @@ components:
           description: Bearing direction (compass)
           example: NW
         postal_code:
-          maxLength: 16
-          minLength: 3
           type: string
           description: Postal code of the location
           example: "30303"
@@ -6209,6 +6602,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         position_codes:
           maxItems: 255
           minItems: 1
@@ -6236,6 +6630,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
+          example: string
         bearing:
           type: string
           description: Bearing direction (compass)
@@ -6245,8 +6640,6 @@ components:
           description: Latitude of the location
           example: "33.7490"
         postal_code:
-          maxLength: 16
-          minLength: 3
           type: string
           description: Postal code of the location
           example: "30303"
@@ -6282,7 +6675,7 @@ components:
         instance:
           type: string
           format: uri
-          example: /money/exports
+          example: https://api.yourdomain.com/money/exports
         intent:
           type: string
           example: InitiateMoneyExport
@@ -6323,30 +6716,39 @@ components:
         reward_payment_key:
           type: string
           description: The unique key for the reward payment re...
+          example: string
         reward_payment_id:
           type: string
           description: The unique ID for the reward payment.
+          readOnly: true
+          example: string
         reward_key:
           type: string
           description: The unique key for the reward.
+          example: string
         reward_name:
           type: string
           description: The name of the reward.
+          example: string
         occurrence_date:
           type: string
           description: The date and time the reward payment occ...
           format: date
+          example: 2026-01-14
         as_of_date:
           type: string
           description: The effective date of the reward.
           format: date
+          example: 2026-01-14
         expiration_date:
           type: string
           description: The expiration date of the reward.
           format: date
+          example: 2026-01-14
         currency_indicator:
           type: boolean
           description: A boolean indicator for whether the rewa...
+          example: true
         reward_codes:
           maxItems: 255
           minItems: 1
@@ -6373,13 +6775,16 @@ components:
           type: string
           description: The date and time the reward payment occ...
           format: date
+          example: 2026-01-14
         currency_indicator:
           type: boolean
           description: A boolean indicator for whether the rewa...
+          example: true
         as_of_date:
           type: string
           description: The effective date of the reward.
           format: date
+          example: 2026-01-14
         reward_codes:
           maxItems: 255
           minItems: 1
@@ -6390,12 +6795,14 @@ components:
         reward_name:
           type: string
           description: The name of the reward.
+          example: string
         reward_payment_description:
           $ref: "#/components/schemas/Memo"
         expiration_date:
           type: string
           description: The expiration date of the reward.
           format: date
+          example: 2026-01-14
         reward_event_type:
           $ref: "#/components/schemas/RewardEventTypes"
       description: RewardPayment Update for Patch and Put
