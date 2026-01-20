@@ -1,4 +1,4 @@
-extends:
+#extends:
 #  - spectral:oas
 
 rules:
