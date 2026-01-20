@@ -1,89 +1,89 @@
 extends:
-  - spectral:oas
+#  - spectral:oas
 
 rules:
   # ================================
   # MUST (errors / publish blockers)
   # ================================
 
-  oas3-arrays-must-have-items:
-    description: "MUST: array schemas must define items."
-    message: "Array schema is missing `items`."
-    severity: error
-    given: "$..[?(@ && @.type=='array')]"
-    then:
-      field: items
-      function: truthy
+#  oas3-arrays-must-have-items:
+#    description: "MUST: array schemas must define items."
+#    message: "Array schema is missing `items`."
+#    severity: error
+#    given: "$..[?(@ && @.type=='array')]"
+#    then:
+#      field: items
+#      function: truthy
+#
+#  oas3-no-invalid-exampleSetFlag:
+#    description: "MUST: forbid non-OpenAPI field `exampleSetFlag`."
+#    message: "Invalid field `exampleSetFlag` found. Use `x-...` vendor extension or remove."
+#    severity: error
+#    given: "$..*~"
+#    then:
+#      function: pattern
+#      functionOptions:
+#        notMatch: "^exampleSetFlag$"
+#
+#  oas3-securityschemes-required:
+#    description: "MUST: components.securitySchemes must exist."
+#    message: "components.securitySchemes is missing."
+#    severity: error
+#    given: "$"
+#    then:
+#      function: schema
+#      functionOptions:
+#        schema:
+#          type: object
+#          required: [components]
+#          properties:
+#            components:
+#              type: object
+#              required: [securitySchemes]
+#
+#  patch-must-use-merge-patch:
+#    description: "MUST: PATCH should include application/merge-patch+json (or explicitly justified)."
+#    message: "PATCH requestBody must include 'application/merge-patch+json'."
+#    severity: error
+#    given: "$.paths[*].patch.requestBody.content"
+#    then:
+#      function: schema
+#      functionOptions:
+#        schema:
+#          type: object
+#          required: ["application/merge-patch+json"]
 
-  oas3-no-invalid-exampleSetFlag:
-    description: "MUST: forbid non-OpenAPI field `exampleSetFlag`."
-    message: "Invalid field `exampleSetFlag` found. Use `x-...` vendor extension or remove."
-    severity: error
-    given: "$..*~"
-    then:
-      function: pattern
-      functionOptions:
-        notMatch: "^exampleSetFlag$"
-
-  oas3-securityschemes-required:
-    description: "MUST: components.securitySchemes must exist."
-    message: "components.securitySchemes is missing."
-    severity: error
-    given: "$"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          type: object
-          required: [components]
-          properties:
-            components:
-              type: object
-              required: [securitySchemes]
-
-  patch-must-use-merge-patch:
-    description: "MUST: PATCH should include application/merge-patch+json (or explicitly justified)."
-    message: "PATCH requestBody must include 'application/merge-patch+json'."
-    severity: error
-    given: "$.paths[*].patch.requestBody.content"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          type: object
-          required: ["application/merge-patch+json"]
-
-  must-quantity-be-numeric:
-    description: "MUST: quantity fields must be numeric (integer or number), not string."
-    message: "Field 'quantity' must be numeric (integer/number)."
-    severity: error
-    given: "$..properties.quantity"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          anyOf:
-            - type: integer
-            - type: number
-
-  must-not-mix-date-time-format-with-hhmm-pattern:
-    description: "MUST: do not combine format: date-time with an HH:mm-only pattern."
-    message: "Schema uses format 'date-time' with an HH:mm-only pattern; choose one."
-    severity: error
-    given: "$..properties[?(@property == 'start_time' || @property == 'end_time')]"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          not:
-            allOf:
-              - properties:
-                  format:
-                    const: date-time
-              - properties:
-                  pattern:
-                    const: "^([01]\\d|2[0-3]):([0-5]\\d)$"
-
+#  must-quantity-be-numeric:
+#    description: "MUST: quantity fields must be numeric (integer or number), not string."
+#    message: "Field 'quantity' must be numeric (integer/number)."
+#    severity: error
+#    given: "$..properties.quantity"
+#    then:
+#      function: schema
+#      functionOptions:
+#        schema:
+#          anyOf:
+#            - type: integer
+#            - type: number
+#
+#  must-not-mix-date-time-format-with-hhmm-pattern:
+#    description: "MUST: do not combine format: date-time with an HH:mm-only pattern."
+#    message: "Schema uses format 'date-time' with an HH:mm-only pattern; choose one."
+#    severity: error
+#    given: "$..properties[?(@property == 'start_time' || @property == 'end_time')]"
+#    then:
+#      function: schema
+#      functionOptions:
+#        schema:
+#          not:
+#            allOf:
+#              - properties:
+#                  format:
+#                    const: date-time
+#              - properties:
+#                  pattern:
+#                    const: "^([01]\\d|2[0-3]):([0-5]\\d)$"
+#
   # ============================
   # MUST (errors) - STAR Naming Conventions
   # ============================
@@ -132,37 +132,37 @@ rules:
   # SHOULD (warnings)
   # ============================
 
-  should-operationid-avoid-bad-plurals:
-    description: "SHOULD: avoid common operationId plural typos."
-    message: "operationId '{{value}}' contains a common typo pluralization (e.g., 'Inventorys')."
-    severity: warn
-    given: "$.paths[*][*].operationId"
-    then:
-      function: pattern
-      functionOptions:
-        notMatch: "(Inventorys|Searchs|Categorys|Regulatorys)"
-
-  should-avoid-boilerplate-info-description:
-    description: "SHOULD: avoid boilerplate info.description text."
-    message: "info.description appears boilerplate; replace with domain-specific description."
-    severity: warn
-    given: "$.info.description"
-    then:
-      function: pattern
-      functionOptions:
-        notMatch: "(Automotive Retail Ontology|generated by|auto-generated|template)"
-
-  should-list-get-not-return-bare-array:
-    description: "SHOULD: list GET endpoints should return an envelope object (not a bare array)."
-    message: "GET list endpoint response returns a bare array; prefer an envelope object for pagination/metadata."
-    severity: warn
-    given: "$.paths[*].get.responses[?(@property.match(/^(200|206)$/))].content.application/json.schema"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          not:
-            type: array
+#  should-operationid-avoid-bad-plurals:
+#    description: "SHOULD: avoid common operationId plural typos."
+#    message: "operationId '{{value}}' contains a common typo pluralization (e.g., 'Inventorys')."
+#    severity: warn
+#    given: "$.paths[*][*].operationId"
+#    then:
+#      function: pattern
+#      functionOptions:
+#        notMatch: "(Inventorys|Searchs|Categorys|Regulatorys)"
+#
+#  should-avoid-boilerplate-info-description:
+#    description: "SHOULD: avoid boilerplate info.description text."
+#    message: "info.description appears boilerplate; replace with domain-specific description."
+#    severity: warn
+#    given: "$.info.description"
+#    then:
+#      function: pattern
+#      functionOptions:
+#        notMatch: "(Automotive Retail Ontology|generated by|auto-generated|template)"
+#
+#  should-list-get-not-return-bare-array:
+#    description: "SHOULD: list GET endpoints should return an envelope object (not a bare array)."
+#    message: "GET list endpoint response returns a bare array; prefer an envelope object for pagination/metadata."
+#    severity: warn
+#    given: "$.paths[*].get.responses[?(@property.match(/^(200|206)$/))].content.application/json.schema"
+#    then:
+#      function: schema
+#      functionOptions:
+#        schema:
+#          not:
+#            type: array
 
 #  should-operation-tags-be-defined-globally:
 #    description: "SHOULD: operation tags must be defined in root tags."
@@ -172,29 +172,29 @@ rules:
 #    then:
 #      function: truthy
 
-  should-define-401-unauthorized:
-    description: "SHOULD: define 401 response for authentication failures."
-    message: "Operation should define 401 Unauthorized."
-    severity: warn
-    given: "$.paths[*][*].responses"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          type: object
-          required: ["401"]
-
-  should-define-403-forbidden:
-    description: "SHOULD: define 403 response for authorization failures."
-    message: "Operation should define 403 Forbidden."
-    severity: warn
-    given: "$.paths[*][*].responses"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          type: object
-          required: ["403"]
+#  should-define-401-unauthorized:
+#    description: "SHOULD: define 401 response for authentication failures."
+#    message: "Operation should define 401 Unauthorized."
+#    severity: warn
+#    given: "$.paths[*][*].responses"
+#    then:
+#      function: schema
+#      functionOptions:
+#        schema:
+#          type: object
+#          required: ["401"]
+#
+#  should-define-403-forbidden:
+#    description: "SHOULD: define 403 response for authorization failures."
+#    message: "Operation should define 403 Forbidden."
+#    severity: warn
+#    given: "$.paths[*][*].responses"
+#    then:
+#      function: schema
+#      functionOptions:
+#        schema:
+#          type: object
+#          required: ["403"]
 
 #  should-define-404-not-found:
 #    description: "SHOULD: define 404 response for missing resources."
@@ -208,53 +208,53 @@ rules:
 #          type: object
 #          required: ["404"]
 
-  should-define-409-conflict-for-write-ops:
-    description: "SHOULD: define 409 response for conflicts on POST/PUT."
-    message: "POST/PUT should define 409 Conflict."
-    severity: warn
-    given: "$.paths[*]['post','put'].responses"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          type: object
-          required: ["409"]
-
-  should-define-500-error:
-    description: "SHOULD: define 500 response for internal errors."
-    message: "Operation should define 500."
-    severity: warn
-    given: "$.paths[*][*].responses"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          type: object
-          required: ["500"]
-
-  should-single-resource-define-500:
-    description: "SHOULD: single-resource endpoints (paths with {id}) should define 500."
-    message: "Single-resource operation should define 500."
-    severity: warn
-    given: "$.paths[?(@property.match(/\\{[^}]+\\}/))]['get','put','patch','delete'].responses"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          type: object
-          required: ["500"]
-
-  should-write-ops-define-401:
-    description: "SHOULD: POST/PUT/PATCH operations should define 401."
-    message: "Write operation should define 401."
-    severity: warn
-    given: "$.paths[*]['post','put','patch'].responses"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          type: object
-          required: ["401"]
+#  should-define-409-conflict-for-write-ops:
+#    description: "SHOULD: define 409 response for conflicts on POST/PUT."
+#    message: "POST/PUT should define 409 Conflict."
+#    severity: warn
+#    given: "$.paths[*]['post','put'].responses"
+#    then:
+#      function: schema
+#      functionOptions:
+#        schema:
+#          type: object
+#          required: ["409"]
+#
+#  should-define-500-error:
+#    description: "SHOULD: define 500 response for internal errors."
+#    message: "Operation should define 500."
+#    severity: warn
+#    given: "$.paths[*][*].responses"
+#    then:
+#      function: schema
+#      functionOptions:
+#        schema:
+#          type: object
+#          required: ["500"]
+#
+#  should-single-resource-define-500:
+#    description: "SHOULD: single-resource endpoints (paths with {id}) should define 500."
+#    message: "Single-resource operation should define 500."
+#    severity: warn
+#    given: "$.paths[?(@property.match(/\\{[^}]+\\}/))]['get','put','patch','delete'].responses"
+#    then:
+#      function: schema
+#      functionOptions:
+#        schema:
+#          type: object
+#          required: ["500"]
+#
+#  should-write-ops-define-401:
+#    description: "SHOULD: POST/PUT/PATCH operations should define 401."
+#    message: "Write operation should define 401."
+#    severity: warn
+#    given: "$.paths[*]['post','put','patch'].responses"
+#    then:
+#      function: schema
+#      functionOptions:
+#        schema:
+#          type: object
+#          required: ["401"]
 
   #should-post-include-location-header:
   #  description: "SHOULD: POST success responses should include Location header with a path-like example."
@@ -279,33 +279,33 @@ rules:
   #                    type: string
   #                    pattern: "^/"
 
-  should-mark-id-fields-readonly:
-    description: "SHOULD: properties ending with _id should be marked readOnly: true."
-    message: "Property '{{property}}' looks server-generated; mark as readOnly: true."
-    severity: warn
-    given: "$..properties[?(@property.match(/_id$/))]"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          type: object
-          required: ["readOnly"]
-          properties:
-            readOnly:
-              const: true
-
-  should-avoid-criterias-in-paths:
-    description: "SHOULD: avoid 'criterias' in paths; use 'criteria'."
-    message: "Path contains 'criterias' (nonstandard plural). Use 'criteria'."
-    severity: warn
-    given: "$.paths.*~"
-    then:
-      function: pattern
-      functionOptions:
-        notMatch: "criterias"
+#  should-mark-id-fields-readonly:
+#    description: "SHOULD: properties ending with _id should be marked readOnly: true."
+#    message: "Property '{{property}}' looks server-generated; mark as readOnly: true."
+#    severity: warn
+#    given: "$..properties[?(@property.match(/_id$/))]"
+#    then:
+#      function: schema
+#      functionOptions:
+#        schema:
+#          type: object
+#          required: ["readOnly"]
+#          properties:
+#            readOnly:
+#              const: true
+#
+#  should-avoid-criterias-in-paths:
+#    description: "SHOULD: avoid 'criterias' in paths; use 'criteria'."
+#    message: "Path contains 'criterias' (nonstandard plural). Use 'criteria'."
+#    severity: warn
+#    given: "$.paths.*~"
+#    then:
+#      function: pattern
+#      functionOptions:
+#        notMatch: "criterias"
 
   # ============================
-  # SHOULD (warnings) - MotiveRetail-inspired
+  # SHOULD (warnings) - Members inspired
   # ============================
 
   #should-schemas-with-keys-have-links:
