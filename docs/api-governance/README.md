@@ -2,6 +2,7 @@
 
 This document explains the **API governance rules** used in this repository.
 Its goal is to help **API designers, reviewers, and business stakeholders** understand *why* rules exist — not how to code them.
+In this release, only the STAR Naming Convetions Rules are enforced. Future releases may include additional rules listed in this document. 
 
 ---
 
