@@ -37,6 +37,12 @@ jobs:
           echo "FULL_BUILD_ID=${FULL_BUILD_ID}"
           echo "BUILD_TAG=${BUILD_TAG}"
 
+      - name: Configure git identity for tagging
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Create and push build tag
         shell: bash
         run: |
