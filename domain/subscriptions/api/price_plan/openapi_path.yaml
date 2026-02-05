@@ -105,7 +105,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /price-plans/KEY78M
+                example: /price-plans/KEY78e
           content:
             application/json:
               schema:
@@ -266,7 +266,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78D
+        example: KEY78h
   /price-plans/{pricePlanKey}/product-schedule-references:
     get:
       tags:
@@ -355,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/price-plans{pricePlanKey}product-schedule-references/KEY78Mz"
+                example: "/price-plans{pricePlanKey}product-schedule-references/KEY78eH"
           content:
             application/json:
               schema:
@@ -530,7 +530,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78DH
+        example: KEY78hx
   /price-plans/{pricePlanKey}/identifiers:
     get:
       tags:
@@ -619,7 +619,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/price-plans{pricePlanKey}identifiers/KEY78Mzr"
+                example: "/price-plans{pricePlanKey}identifiers/KEY78eHO"
           content:
             application/json:
               schema:
@@ -793,7 +793,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78DHc
+        example: KEY78hxW
   /price-plans/{pricePlanKey}/geographic-boundary-references:
     get:
       tags:
@@ -882,7 +882,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/price-plans{pricePlanKey}geographic-boundary-references/KEY78Mzrz"
+                example: "/price-plans{pricePlanKey}geographic-boundary-references/KEY78eHO9"
           content:
             application/json:
               schema:
@@ -1057,7 +1057,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78DHcB
+        example: KEY78hxW8
   /price-plans/{pricePlanKey}/price-sensitivities:
     get:
       tags:
@@ -1146,7 +1146,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/price-plans{pricePlanKey}price-sensitivities/KEY78MzrzA"
+                example: "/price-plans{pricePlanKey}price-sensitivities/KEY78eHO9N"
           content:
             application/json:
               schema:
@@ -1320,7 +1320,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78DHcBN
+        example: KEY78hxW8f
   /price-plans/{pricePlanKey}/financial-split-references:
     get:
       tags:
@@ -1409,7 +1409,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/price-plans{pricePlanKey}financial-split-references/KEY78MzrzAC"
+                example: "/price-plans{pricePlanKey}financial-split-references/KEY78eHO9Nn"
           content:
             application/json:
               schema:
@@ -1584,6 +1584,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78DHcBNL
+        example: KEY78hxW8fe
 components:
   schemas: {}

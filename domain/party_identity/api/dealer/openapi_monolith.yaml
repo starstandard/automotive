@@ -11,9 +11,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: /v1_0_0
-  description: Automotive Retail API. All requests must comply with the Standards
-    Version identified in the headers.
+- url: //v1_0_0
 security:
 - industry-oauth:
   - standard:read
@@ -118,7 +116,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -156,7 +154,13 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /dealers/KEY78G
+                example: /dealers/KEY78b
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/capabilities{?state,role}>; rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -388,7 +392,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -426,7 +430,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}person-names/KEY78Gm"
+                example: "/dealers{dealerKey}person-names/KEY78bH"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/person-names/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -613,7 +624,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gf
+        example: KEY78Gz
   /dealers/{dealerKey}/payroll-rates:
     get:
       tags:
@@ -709,7 +720,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}payroll-rates/KEY78GmE"
+                example: "/dealers{dealerKey}payroll-rates/KEY78bHY"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/payroll-rates/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -896,7 +914,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi
+        example: KEY78Gzo
   /dealers/{dealerKey}/addresses:
     get:
       tags:
@@ -992,7 +1010,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}addresses/KEY78GmEc"
+                example: "/dealers{dealerKey}addresses/KEY78bHYj"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/addresses/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -1179,7 +1204,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7
+        example: KEY78GzoX
   /dealers/{dealerKey}/staff-members:
     get:
       tags:
@@ -1275,7 +1300,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}staff-members/KEY78GmEcI"
+                example: "/dealers{dealerKey}staff-members/KEY78bHYjI"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/staff-members/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -1462,7 +1494,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7e
+        example: KEY78GzoXM
   /dealers/{dealerKey}/privacy-events:
     get:
       tags:
@@ -1520,7 +1552,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1558,7 +1590,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}privacy-events/KEY78GmEcI5"
+                example: "/dealers{dealerKey}privacy-events/KEY78bHYjIU"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/privacy-events/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -1745,7 +1784,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7er
+        example: KEY78GzoXMY
   /dealers/{dealerKey}/time-slots:
     get:
       tags:
@@ -1803,7 +1842,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1867,7 +1906,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7erg
+        example: KEY78GzoXMYb
   /dealers/{dealerKey}/control-accounts:
     get:
       tags:
@@ -1925,7 +1964,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1963,7 +2002,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}control-accounts/KEY78GmEcI5EU"
+                example: "/dealers{dealerKey}control-accounts/KEY78bHYjIUY6"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/control-accounts/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -2150,7 +2196,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7ergS
+        example: KEY78GzoXMYbI
   /dealers/{dealerKey}/communication-channels:
     get:
       tags:
@@ -2246,7 +2292,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}communication-channels/KEY78GmEcI5EU3"
+                example: "/dealers{dealerKey}communication-channels/KEY78bHYjIUY6M"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/communication-channels/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -2433,7 +2486,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7ergSA
+        example: KEY78GzoXMYbIk
   /dealers/{dealerKey}/authorizations:
     get:
       tags:
@@ -2491,7 +2544,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2529,7 +2582,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}authorizations/KEY78GmEcI5EU3d"
+                example: "/dealers{dealerKey}authorizations/KEY78bHYjIUY6M0"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/authorizations/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -2716,7 +2776,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7ergSAV
+        example: KEY78GzoXMYbIkD
   /dealers/{dealerKey}/money:
     get:
       tags:
@@ -2774,7 +2834,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2838,7 +2898,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7ergSAVn
+        example: KEY78GzoXMYbIkDI
   /dealers/{dealerKey}/departments:
     get:
       tags:
@@ -2934,7 +2994,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}departments/KEY78GmEcI5EU3d3u"
+                example: "/dealers{dealerKey}departments/KEY78bHYjIUY6M0w3"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/departments/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -3121,7 +3188,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7ergSAVnD
+        example: KEY78GzoXMYbIkDIM
   /dealers/{dealerKey}/metric-name-values:
     get:
       tags:
@@ -3217,7 +3284,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}metric-name-values/KEY78GmEcI5EU3d3up"
+                example: "/dealers{dealerKey}metric-name-values/KEY78bHYjIUY6M0w3X"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/metric-name-values/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -3404,7 +3478,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7ergSAVnDj
+        example: KEY78GzoXMYbIkDIMo
   /dealers/{dealerKey}/identifiers:
     get:
       tags:
@@ -3500,7 +3574,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}identifiers/KEY78GmEcI5EU3d3up4"
+                example: "/dealers{dealerKey}identifiers/KEY78bHYjIUY6M0w3XA"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/identifiers/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -3687,7 +3768,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7ergSAVnDjx
+        example: KEY78GzoXMYbIkDIMo4
   /dealers/{dealerKey}/dealer-services:
     get:
       tags:
@@ -3783,7 +3864,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}dealer-services/KEY78GmEcI5EU3d3up4j"
+                example: "/dealers{dealerKey}dealer-services/KEY78bHYjIUY6M0w3XAV"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/dealer-services/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -3970,7 +4058,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7ergSAVnDjxb
+        example: KEY78GzoXMYbIkDIMo4K
   /dealers/{dealerKey}/effective-periods:
     get:
       tags:
@@ -4028,7 +4116,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -4092,7 +4180,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7ergSAVnDjxbl
+        example: KEY78GzoXMYbIkDIMo4KR
   /dealers/{dealerKey}/privacy-items:
     get:
       tags:
@@ -4188,7 +4276,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}privacy-items/KEY78GmEcI5EU3d3up4jFI"
+                example: "/dealers{dealerKey}privacy-items/KEY78bHYjIUY6M0w3XAVms"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/privacy-items/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -4375,7 +4470,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7ergSAVnDjxblA
+        example: KEY78GzoXMYbIkDIMo4KRs
   /dealers/{dealerKey}/textual-details:
     get:
       tags:
@@ -4497,7 +4592,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7ergSAVnDjxblAg
+        example: KEY78GzoXMYbIkDIMo4KRs0
   /dealers/{dealerKey}/people:
     get:
       tags:
@@ -4593,7 +4688,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers{dealerKey}people/KEY78GmEcI5EU3d3up4jFI2x"
+                example: "/dealers{dealerKey}people/KEY78bHYjIUY6M0w3XAVmsH5"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/people/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -4780,7 +4882,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Gfi7ergSAVnDjxblAgm
+        example: KEY78GzoXMYbIkDIMo4KRs01
   /dealers/health:
     get:
       tags:
@@ -4852,11 +4954,17 @@ paths:
         "200":
           description: Batch processing complete
           headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/batch/capabilities{?state,role}>; rel=\"capabilities\""
             Location:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /dealers/batch/3650796484727210654
+                example: /dealers/batch/2955314804926454300
           content:
             application/json:
               schema:
@@ -4909,7 +5017,7 @@ paths:
               properties:
                 format:
                   type: string
-                  example: string
+                  example: ' 556401b9'
                   default: PARQUET
                   enum:
                   - XML
@@ -4923,9 +5031,11 @@ paths:
                     start:
                       type: string
                       format: date
+                      example: 2026-01-14
                     end:
                       type: string
                       format: date
+                      example: 2026-01-14
                 data_contract_key:
                   type: string
                   description: "The identifier of the specific data contract/projection\
@@ -4933,6 +5043,7 @@ paths:
                   example: contact_details_only
                 compression:
                   type: string
+                  example: GZIP
                   default: SNAPPY
                   enum:
                   - SNAPPY
@@ -4966,15 +5077,22 @@ paths:
                     \ starting the job."
                   example: false
                   default: false
+              example: PARQUET
       responses:
         "202":
           description: Export job created/accepted
           headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/exports/capabilities{?state,role}>; rel=\"capabilities\""
             Location:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /dealers/exports/3509302419920538354
+                example: /dealers/exports/6634470829694020649
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -5051,11 +5169,31 @@ paths:
         content:
           application/json:
             schema:
+              required:
+              - type
+              - method
+              - params
+              - id
               type: object
               properties:
                 type:
                   type: string
-                  description: "The intent of the command (e.g., RescheduleSlot, CancelInvoice)"
+                  description: jsonrpc
+                  default: jsonrpc
+                jsonrpc:
+                  type: string
+                  example: "2.0"
+                  default: "2.0"
+                method:
+                  type: string
+                  description: star.order.update)
+                id:
+                  type: string
+                  description: "match the response with request. If omitted, Notification\
+                    \ the server will not respond."
+                version:
+                  type: string
+                  description: "2.0"
                 workflow_state:
                   type: string
                   description: "The intent of the command (e.g., CREATED, DELETED)"
@@ -5065,18 +5203,26 @@ paths:
                 context:
                   type: object
                   additionalProperties: true
-                  description: The payload required for this specific command type
-                data:
+                  description: context payload required for this specific command
+                    type
+                params:
                   $ref: "#/components/schemas/Dealer"
       responses:
         "200":
           description: Commands processing complete
           headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/{dealerKey}/commands/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
             Location:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/dealers/{dealerKey}/commands/120004341475794704"
+                example: "/dealers/{dealerKey}/commands/3888218861007067313"
           content:
             application/json:
               schema:
@@ -5098,15 +5244,15 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #3b1dd3f5 has been successfully cancelled."
-                  commandId:
+                    example: "Invoice #b3123328 has been successfully cancelled."
+                  command_id:
                     type: string
                     description: The tracking ID for this specific command execution
                     format: identifier
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: 84d30047
+                    example: 70557f30
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -5246,6 +5392,72 @@ paths:
           $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
+  /dealers/documentation:
+    post:
+      tags:
+      - Default
+      summary: Execute a knowledge request on Dealer
+      description: Single entry point for all Dealer knowledge request
+      operationId: getDealerDocuments
+      parameters:
+      - name: dealerKey
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Command intent and parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: "The intent of the document request (e.g., RescheduleSlot,\
+                    \ CancelInvoice)"
+                workflow_state:
+                  type: string
+                  description: "The intent of the command (e.g., PROCESS, CLASS)"
+                  enum:
+                  - PROCESS
+                  - CLASS
+                context:
+                  type: object
+                  additionalProperties: true
+                  description: The payload required for this specific command type
+                data:
+                  $ref: "#/components/schemas/Dealer"
+      responses:
+        "200":
+          headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</dealers/documentation/capabilities{?state,role}>; rel=\"\
+                  capabilities\""
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /dealers/documentation/1088614078860982592
+          $ref: "#/components/responses/DealerDocumentation"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "412":
+          $ref: "#/components/responses/PreconditionFailedError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     Address:
@@ -5258,65 +5470,58 @@ components:
           minLength: 1
           type: string
           description: Priority indicator for address usage (e....
-          example: string
+          example: ' 8417262f'
         city_code:
           maxLength: 20
           minLength: 1
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Standardized city code. Pattern: ^[a-zA-Z0-9_]+..."
-          example: string
+          description: Standardized city code.
+          example: ' 6abd6688'
         address_key:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
+          maxLength: 100
+          minLength: 0
           type: string
-          description: "Unique business key for the address. Pattern: ^..."
-          example: string
+          description: Unique business key for the address.
+          example: ' 1ead7a49'
         address_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
+          maxLength: 100
+          minLength: 0
           type: string
-          description: Unique identifier for the address record... Pat...
+          description: Unique identifier for the address record...
           readOnly: true
-          example: string
+          example: ' f09c3a6d'
         address_input:
           maxLength: 255
           minLength: 1
           type: string
           description: Raw input provided for address processin...
-          example: string
+          example: ' 1d56e75b'
         address_line1:
           maxLength: 100
           minLength: 1
           type: string
           description: "Primary address line (Street, PO Box, et..."
-          example: string
+          example: ' 341ec5de'
         address_line2:
           maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
-          example: string
+          example: ' 8611ba64'
         address_line3:
           maxLength: 100
           type: string
           description: Additional address line information.
-          example: string
+          example: ' 36a8ce89'
         address_line4:
           maxLength: 100
           type: string
           description: Additional address line information.
-          example: string
+          example: ' 593b8400'
         address_line5:
           maxLength: 100
           type: string
           description: Additional address line information.
-          example: string
+          example: ' 00e51dc6'
         address_types:
           maxItems: 255
           minItems: 1
@@ -5331,55 +5536,52 @@ components:
           minLength: 1
           type: string
           description: Name of the city.
-          example: string
+          example: ' ade5a2f2'
         city_subdivision:
           maxLength: 100
           type: string
           description: "Subdivision within the city (e.g., neigh..."
-          example: string
+          example: ' 4e3ad569'
         country:
           maxLength: 100
           minLength: 2
           type: string
           description: Full name of the country.
-          example: string
+          example: ' c9cac589'
         country_code:
           maxLength: 2
           minLength: 2
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: "ISO 3166-1 Alpha-2 country code. Pattern: ^[A-Z..."
-          example: string
+          description: ISO 3166-1 Alpha-2 country code.
+          example: ' abb77b4f'
         county:
           maxLength: 100
           type: string
           description: Name of the county.
-          example: string
+          example: ' 6cb1e4b3'
         county_code:
           maxLength: 20
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Standardized code for the county. Pattern: ^[a-..."
-          example: string
+          description: Standardized code for the county.
+          example: ' b16b1ea5'
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
-          example: string
+          example: ' 487385b4'
         position:
           $ref: "#/components/schemas/Position"
         postal_code:
           maxLength: 20
           minLength: 3
-          pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
-          description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
-          example: string
+          description: Primary postal or ZIP code.
+          example: ' fffd046d'
         postal_code_ext:
           maxLength: 10
           type: string
           description: "Extended postal code (e.g., ZIP+4)."
-          example: string
+          example: ' 48f7265c'
         preferred_indicator:
           type: boolean
           description: Flag indicating if this address is the p...
@@ -5388,19 +5590,18 @@ components:
           maxLength: 50
           type: string
           description: "Administrative region (e.g., province, s..."
-          example: string
+          example: ' 905f68ec'
         state:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
-          example: string
+          example: ' af65f649'
         locale:
           maxLength: 10
           minLength: 2
-          pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
-          description: Locale code associated with this address... Pat...
-          example: string
+          description: Locale code associated with this address...
+          example: ' b09175f1'
       description: Physical or mailing address details.
     AddressCreate:
       required:
@@ -5413,24 +5614,22 @@ components:
       type: object
       properties:
         address_locale_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Business key for the address locale. Pattern: ^..."
-          example: string
+          description: Business key for the address locale.
+          example: ' 2a069121'
         address_locale_id:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique identifier for the address locale... Pat...
+          description: Unique identifier for the address locale...
           readOnly: true
-          example: string
+          example: ' f49c1bf5'
         region_code:
           type: string
           description: Code representing the region for the loc...
-          example: string
+          example: ' ecac11fb'
         region_name:
           type: string
           description: Name of the region for the locale.
-          example: string
+          example: ' 10832d7c'
         region_aliases:
           $ref: "#/components/schemas/Codes"
         location_type:
@@ -5449,7 +5648,7 @@ components:
         region_name:
           type: string
           description: Name of the region for the locale.
-          example: string
+          example: ' 10832d7c'
         region_aliases:
           $ref: "#/components/schemas/Codes"
         location_type:
@@ -5457,7 +5656,7 @@ components:
         region_code:
           type: string
           description: Code representing the region for the loc...
-          example: string
+          example: ' ecac11fb'
       description: AddressLocale Update for Patch and Put
     AddressLocales:
       type: array
@@ -5504,84 +5703,81 @@ components:
           minLength: 1
           type: string
           description: Raw input provided for address processin...
-          example: string
+          example: ' 1d56e75b'
         country:
           maxLength: 100
           minLength: 2
           type: string
           description: Full name of the country.
-          example: string
+          example: ' c9cac589'
         city:
           maxLength: 100
           minLength: 1
           type: string
           description: Name of the city.
-          example: string
+          example: ' ade5a2f2'
         county_code:
           maxLength: 20
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Standardized code for the county. Pattern: ^[a-..."
-          example: string
+          description: Standardized code for the county.
+          example: ' b16b1ea5'
         authorizations:
           $ref: "#/components/schemas/Authorizations"
         county:
           maxLength: 100
           type: string
           description: Name of the county.
-          example: string
+          example: ' 6cb1e4b3'
         city_code:
           maxLength: 20
           minLength: 1
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Standardized city code. Pattern: ^[a-zA-Z0-9_]+..."
-          example: string
+          description: Standardized city code.
+          example: ' 6abd6688'
         locale:
           maxLength: 10
           minLength: 2
-          pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
-          description: Locale code associated with this address... Pat...
-          example: string
+          description: Locale code associated with this address...
+          example: ' b09175f1'
         address_locales:
           $ref: "#/components/schemas/AddressLocales"
         address_line5:
           maxLength: 100
           type: string
           description: Additional address line information.
-          example: string
+          example: ' 00e51dc6'
         address_line4:
           maxLength: 100
           type: string
           description: Additional address line information.
-          example: string
+          example: ' 593b8400'
         address_line3:
           maxLength: 100
           type: string
           description: Additional address line information.
-          example: string
+          example: ' 36a8ce89'
         address_line2:
           maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
-          example: string
+          example: ' 8611ba64'
         address_line1:
           maxLength: 100
           minLength: 1
           type: string
           description: "Primary address line (Street, PO Box, et..."
-          example: string
+          example: ' 341ec5de'
         postal_code_ext:
           maxLength: 10
           type: string
           description: "Extended postal code (e.g., ZIP+4)."
-          example: string
+          example: ' 48f7265c'
         state:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
-          example: string
+          example: ' af65f649'
         preferred_indicator:
           type: boolean
           description: Flag indicating if this address is the p...
@@ -5590,18 +5786,18 @@ components:
           maxLength: 100
           type: string
           description: "Subdivision within the city (e.g., neigh..."
-          example: string
+          example: ' 4e3ad569'
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
-          example: string
+          example: ' 487385b4'
         priority:
           maxLength: 10
           minLength: 1
           type: string
           description: Priority indicator for address usage (e....
-          example: string
+          example: ' 8417262f'
         address_types:
           maxItems: 255
           minItems: 1
@@ -5612,24 +5808,22 @@ components:
         country_code:
           maxLength: 2
           minLength: 2
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: "ISO 3166-1 Alpha-2 country code. Pattern: ^[A-Z..."
-          example: string
+          description: ISO 3166-1 Alpha-2 country code.
+          example: ' abb77b4f'
         position:
           $ref: "#/components/schemas/Position"
         postal_code:
           maxLength: 20
           minLength: 3
-          pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
-          description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
-          example: string
+          description: Primary postal or ZIP code.
+          example: ' fffd046d'
         region:
           maxLength: 50
           type: string
           description: "Administrative region (e.g., province, s..."
-          example: string
+          example: ' 905f68ec'
       description: Address Update for Patch and Put
     Addresses:
       type: array
@@ -5648,10 +5842,9 @@ components:
           description: Indicates whether the authorization is c...
           example: true
         authorization_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Business key uniquely identifying the au... Pat...
-          example: string
+          description: Business key uniquely identifying the au...
+          example: ' b0d2c0c2'
       description: General authorization or permission status.
     AuthorizationCreate:
       required:
@@ -5715,6 +5908,31 @@ components:
                 - FINANCE_VP
                 items:
                   type: string
+              links:
+                type: object
+                properties:
+                  execute:
+                    type: string
+                    description: The relative or absolute URL to POST the command
+                      to
+                    example: "/dealers/{key}/commands/approve"
+                  method:
+                    type: string
+                    example: POST
+                    enum:
+                    - POST
+                    - PUT
+                    - PATCH
+                  schema_ref:
+                    type: string
+                    description: Reference to the input payload schema for this action
+                    example: "#/components/schemas/DealerCommand"
+                description: HATEOAS-style links to execute the transition or fetch
+                  related metadata
+              _self:
+                type: string
+                description: Link to the specific transition documentation or detail
+                example: /metadata/capabilities/Dealer/transitions/approve
               instructions:
                 type: array
                 description: Step-by-step checklist the agent must verify before execution
@@ -5751,6 +5969,7 @@ components:
                   - AVRO
                   - PARQUET
                   - CSV
+                default: PARQUET
               columns:
                 type: array
                 example:
@@ -5822,9 +6041,9 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
+                        limit: "0"
                         item_type: Inventory
                         count: "45"
-                        limit: "0"
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -5833,9 +6052,9 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
+                        unit: days
                         min: "1"
                         value: "31"
-                        unit: days
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -5856,6 +6075,11 @@ components:
                       type: string
                       description: Link to documentation regarding this rule
                       format: uri
+        documentation_ref:
+          type: string
+          description: Link to full business documentation for this aggregate
+          format: uri
+          example: /documentation/dealers
     Codes:
       type: array
       items:
@@ -5881,30 +6105,30 @@ components:
         communication_channel_key:
           type: string
           description: The unique key for the communication cha...
-          example: string
+          example: ' f1ef0881'
         communication_channel_id:
           type: string
           description: The unique ID for the communication chan...
           readOnly: true
-          example: string
+          example: ' fab81288'
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
         value:
           type: string
           description: The value of the communication channel (...
-          example: string
+          example: ' 4316f7d5'
         value_extension:
           type: string
           description: An optional extension for the communicat...
-          example: string
+          example: ' a462260b'
         label:
           type: string
           description: A label for the communication channel (e...
-          example: string
+          example: ' 5b2661b5'
         country:
           type: string
           description: The country associated with the communic...
-          example: string
+          example: ' 3631b11c'
         preferred_indicator:
           type: boolean
           description: A boolean indicator of whether this is t...
@@ -5949,7 +6173,7 @@ components:
         country:
           type: string
           description: The country associated with the communic...
-          example: string
+          example: ' 3631b11c'
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
         preferences:
@@ -5964,15 +6188,15 @@ components:
         label:
           type: string
           description: A label for the communication channel (e...
-          example: string
+          example: ' 5b2661b5'
         value:
           type: string
           description: The value of the communication channel (...
-          example: string
+          example: ' 4316f7d5'
         value_extension:
           type: string
           description: An optional extension for the communicat...
-          example: string
+          example: ' a462260b'
         preferred_indicator:
           type: boolean
           description: A boolean indicator of whether this is t...
@@ -5990,34 +6214,32 @@ components:
         control_account_desc:
           type: string
           description: Description of the control account.
-          example: string
+          example: ' 8014dc9a'
         control_account_id:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique identifier for the control accoun... Pat...
+          description: Unique identifier for the control accoun...
           readOnly: true
-          example: string
+          example: ' bb1622d9'
         control_account_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Business key for the control account. Pattern: ..."
-          example: string
+          description: Business key for the control account.
+          example: ' 00af7d52'
         control_account_name:
           type: string
           description: Display name of the control account.
-          example: string
+          example: ' 7ad38d7b'
         control_account_type:
           $ref: "#/components/schemas/ControlAccountTypes"
         control_type_id:
           type: string
           description: Identifier for the control type of the a...
           readOnly: true
-          example: string
+          example: ' c7c1a1a1'
         bank_account_id:
           type: string
           description: Associated bank account identifier.
           readOnly: true
-          example: string
+          example: ' 711baf3c'
         is_counted:
           type: boolean
           description: Indicates if the account is a counted ac...
@@ -6025,7 +6247,7 @@ components:
         prefix:
           type: string
           description: The prefix of the account number.
-          example: string
+          example: ' 8962997d'
         control_account_role_type:
           $ref: "#/components/schemas/ControlAccountRoleTypes"
         control_account_status_types:
@@ -6110,11 +6332,11 @@ components:
         prefix:
           type: string
           description: The prefix of the account number.
-          example: string
+          example: ' 8962997d'
         control_account_desc:
           type: string
           description: Description of the control account.
-          example: string
+          example: ' 8014dc9a'
         control_account_type:
           $ref: "#/components/schemas/ControlAccountTypes"
         control_account_status_types:
@@ -6126,7 +6348,7 @@ components:
         control_account_name:
           type: string
           description: Display name of the control account.
-          example: string
+          example: ' 7ad38d7b'
         financial_category_type:
           $ref: "#/components/schemas/FinancialCategoryTypes"
       description: ControlAccount Update for Patch and Put
@@ -6140,15 +6362,15 @@ components:
         daily_hour_key:
           type: string
           description: A unique key for the daily hour record
-          example: string
+          example: ' f37dcf69'
         start_day:
           type: string
           description: The starting day of the week for the hou...
-          example: string
+          example: ' 285685dc'
         end_day:
           type: string
           description: The ending day of the week for the hours
-          example: string
+          example: ' 7be5e24d'
         opening_time:
           type: string
           description: The opening time for the given day
@@ -6183,7 +6405,7 @@ components:
         end_day:
           type: string
           description: The ending day of the week for the hours
-          example: string
+          example: ' 7be5e24d'
         week_starting_date:
           type: string
           description: The starting date of the week
@@ -6197,7 +6419,7 @@ components:
         start_day:
           type: string
           description: The starting day of the week for the hou...
-          example: string
+          example: ' 285685dc'
         closing_time:
           type: string
           description: The closing time for the given day
@@ -6226,43 +6448,43 @@ components:
         dealer_key:
           type: string
           description: A unique key for the dealer record.
-          example: string
+          example: ' 4ed2883b'
         dealer_id:
           type: string
           description: The unique ID for the dealer.
           readOnly: true
-          example: string
+          example: ' 1de584fc'
         business_code:
           type: string
           description: A business code for the dealership.
-          example: string
+          example: ' 9f07fc44'
         business_category_codes:
           $ref: "#/components/schemas/Codes"
         comments:
           type: string
           description: Comments about the dealer.
-          example: string
+          example: ' ad07aaa4'
         country_code:
           type: string
           description: The country code for the dealership.
-          example: string
+          example: ' c144e054'
         dealer_bac:
           type: string
           description: The dealer's Business Associate Code (BA...
-          example: string
+          example: ' 144ce23e'
         dealer_contact:
           type: string
           description: The dealer's contact information.
-          example: string
+          example: ' b5c7033e'
         dealer_name:
           type: string
           description: The name of the dealership.
-          example: string
+          example: ' 57ba07c5'
         departments_href:
           type: string
           description: A hyper-reference to departments.
           format: href
-          example: string
+          example: ' 3a057339'
         language_codes:
           $ref: "#/components/schemas/Codes"
         links:
@@ -6275,16 +6497,16 @@ components:
         preferred_language_code:
           type: string
           description: The preferred language code for the deal...
-          example: string
+          example: ' 33eeae45'
         special_remarks_description:
           type: string
           description: A description for special remarks.
-          example: string
+          example: ' cb3b1905'
         stores_href:
           type: string
           description: A hyper-reference to stores.
           format: href
-          example: string
+          example: ' 4d1fb504'
         dealer_services:
           $ref: "#/components/schemas/DealerServices"
         service_center_codes:
@@ -6303,7 +6525,7 @@ components:
           type: string
           description: A hyper-reference to staff.
           format: href
-          example: string
+          example: ' 1fe62e93'
       description: Dealer
     DealerCreate:
       required:
@@ -6322,7 +6544,7 @@ components:
         dealer_service_key:
           type: string
           description: The unique key for the dealer service.
-          example: string
+          example: ' a7f40add'
         dealer_service_type:
           $ref: "#/components/schemas/DealerServiceTypes"
         dealer_service_codes:
@@ -6361,11 +6583,11 @@ components:
         comments:
           type: string
           description: Comments about the dealer.
-          example: string
+          example: ' ad07aaa4'
         dealer_contact:
           type: string
           description: The dealer's contact information.
-          example: string
+          example: ' b5c7033e'
         identifiers:
           maxItems: 255
           minItems: 1
@@ -6377,40 +6599,40 @@ components:
         special_remarks_description:
           type: string
           description: A description for special remarks.
-          example: string
+          example: ' cb3b1905'
         business_code:
           type: string
           description: A business code for the dealership.
-          example: string
+          example: ' 9f07fc44'
         staff:
           $ref: "#/components/schemas/Staff"
         preferred_language_code:
           type: string
           description: The preferred language code for the deal...
-          example: string
+          example: ' 33eeae45'
         stores_href:
           type: string
           description: A hyper-reference to stores.
           format: href
-          example: string
+          example: ' 4d1fb504'
         staff_href:
           type: string
           description: A hyper-reference to staff.
           format: href
-          example: string
+          example: ' 1fe62e93'
         country_code:
           type: string
           description: The country code for the dealership.
-          example: string
+          example: ' c144e054'
         dealer_bac:
           type: string
           description: The dealer's Business Associate Code (BA...
-          example: string
+          example: ' 144ce23e'
         departments_href:
           type: string
           description: A hyper-reference to departments.
           format: href
-          example: string
+          example: ' 3a057339'
         dealer_services:
           $ref: "#/components/schemas/DealerServices"
         business_category_codes:
@@ -6418,7 +6640,7 @@ components:
         dealer_name:
           type: string
           description: The name of the dealership.
-          example: string
+          example: ' 57ba07c5'
         links:
           maxItems: 255
           minItems: 1
@@ -6437,7 +6659,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
-          example: string
+          example: ' b6add6c4'
           enum:
           - CREATED
           - ACTIVE
@@ -6455,18 +6677,18 @@ components:
         department_key:
           type: string
           description: A unique key for the department.
-          example: string
+          example: ' 2b86a07f'
         department_id:
           type: string
           description: The unique ID for the department.
           readOnly: true
-          example: string
+          example: ' 6424b210'
         department_codes:
           $ref: "#/components/schemas/Codes"
         department_name:
           type: string
           description: The name of the department.
-          example: string
+          example: ' 0c9ee2ee'
         department_function:
           maxItems: 255
           minItems: 1
@@ -6477,25 +6699,25 @@ components:
         department_contact:
           type: string
           description: The contact name for the department.
-          example: string
+          example: ' 60b47c54'
         comments:
           type: string
           description: General comments about the department.
-          example: string
+          example: ' 417357a1'
         special_remarks_description:
           type: string
           description: A description of special remarks about t...
-          example: string
+          example: ' f00e139a'
         contact_methods_href:
           type: string
           description: A hyperlink to the department's contact ...
           format: href
-          example: string
+          example: ' d2785932'
         departments_href:
           type: string
           description: A hyperlink to related departments.
           format: href
-          example: string
+          example: ' b707e8d6'
         daily_hours:
           maxItems: 255
           minItems: 1
@@ -6549,7 +6771,7 @@ components:
           type: string
           description: A hyperlink to related departments.
           format: href
-          example: string
+          example: ' b707e8d6'
         department_function:
           maxItems: 255
           minItems: 1
@@ -6560,17 +6782,17 @@ components:
         comments:
           type: string
           description: General comments about the department.
-          example: string
+          example: ' 417357a1'
         control_accounts:
           $ref: "#/components/schemas/ControlAccounts"
         department_name:
           type: string
           description: The name of the department.
-          example: string
+          example: ' 0c9ee2ee'
         special_remarks_description:
           type: string
           description: A description of special remarks about t...
-          example: string
+          example: ' f00e139a'
         links:
           maxItems: 255
           minItems: 1
@@ -6590,12 +6812,12 @@ components:
         department_contact:
           type: string
           description: The contact name for the department.
-          example: string
+          example: ' 60b47c54'
         contact_methods_href:
           type: string
           description: A hyperlink to the department's contact ...
           format: href
-          example: string
+          example: ' d2785932'
         daily_hours:
           maxItems: 255
           minItems: 1
@@ -6629,10 +6851,9 @@ components:
       type: object
       properties:
         effective_period_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique key identifying the effective per... Pat...
-          example: string
+          description: Unique key identifying the effective per...
+          example: ' ca88de93'
         active_indicator:
           type: boolean
           description: Indicator if the period is currently act...
@@ -6656,19 +6877,19 @@ components:
         duration_value:
           type: string
           description: Value of the duration
-          example: string
+          example: ' e13f0ff4'
         recur_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         recur_count:
           type: string
           description: Count of recurrence
-          example: string
+          example: ' eaae87d6'
         recur_values:
           $ref: "#/components/schemas/Codes"
         recur_criteria:
           type: string
           description: Criteria defining recurrence
-          example: string
+          example: ' d53246ba'
         recur_indicator:
           type: boolean
           description: Indicator if recurrence is enabled
@@ -6687,7 +6908,7 @@ components:
       properties:
         code:
           type: string
-          description: "A machine-readable, unique system error code (e..."
+          description: "A machine-readable, unique system error code."
           example: NOT_FOUND_PR
         message:
           type: string
@@ -6711,7 +6932,7 @@ components:
           example: 2025-11-10T10:30:00Z
         trace_id:
           type: string
-          description: "A unique identifier for this specific request, ..."
+          description: A unique identifier for this specific request.
           readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
         doc_url:
@@ -6733,7 +6954,7 @@ components:
                 type: string
                 description: The specific validation rule that failed.
                 example: must be unique
-              rejectedValue:
+              rejected_value:
                 type: string
                 description: The value that was sent and rejected (only if non-sensitive).
                 example: "12345"
@@ -6752,7 +6973,7 @@ components:
           example: https://api.example.com
         format:
           type: string
-          example: string
+          example: ' 556401b9'
           default: PARQUET
           enum:
           - XML
@@ -6766,17 +6987,17 @@ components:
           example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
-          example: string
+          example: ' 07a15f9d'
     ExportJob:
       type: object
       properties:
         id:
           type: string
           readOnly: true
-          example: string
+          example: ' 9c72b5b5'
         status:
           type: string
-          example: string
+          example: ' 619f343b'
           enum:
           - PENDING
           - PROCESSING
@@ -6797,7 +7018,7 @@ components:
       properties:
         event_type:
           type: string
-          example: string
+          example: EXPORT_COMPLETED
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
@@ -6811,6 +7032,7 @@ components:
             job_id:
               type: string
               readOnly: true
+              example: de623b3b
             aggregate:
               type: string
               example: Dealer
@@ -6819,6 +7041,7 @@ components:
               readOnly: true
             status:
               type: string
+              example: FAILED
               enum:
               - COMPLETED
               - FAILED
@@ -6862,36 +7085,34 @@ components:
         identifier_id:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          description: Unique identifier value
           readOnly: true
-          example: string
+          example: ' c27afb2f'
         identifier_key:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Business key for the identifier Pattern: ^[a-zA..."
+          description: Business key for the identifier
           readOnly: true
-          example: string
+          example: ' d51901f4'
         context:
           type: string
           description: Context or domain of the identifier
-          example: string
+          example: ' 885b2fec'
         value:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' ca5620c5'
         detail:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' d58dc191'
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
           readOnly: true
-          example: string
+          example: ' d394b2a7'
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -6911,19 +7132,19 @@ components:
           type: string
           description: The monetary or hours-based value of the...
           readOnly: true
-          example: string
+          example: ' d394b2a7'
         context:
           type: string
           description: Context or domain of the identifier
-          example: string
+          example: ' 885b2fec'
         detail:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' d58dc191'
         value:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' ca5620c5'
       description: Identifier Update for Patch and Put
     Identifiers:
       type: array
@@ -6935,23 +7156,23 @@ components:
         link_key:
           type: string
           description: The unique key for the link.
-          example: string
+          example: ' bf02ae1d'
         href:
           type: string
           description: The URL of the related resource.
-          example: string
+          example: ' 4c9abd57'
         method:
           type: string
           description: The HTTP method to be used to access the...
-          example: string
+          example: ' 1e30059b'
         rel:
           type: string
           description: "The link relation, which describes the r..."
-          example: string
+          example: ' f186c1f6'
         title:
           type: string
           description: A human-readable title for the link.
-          example: string
+          example: ' 06649420'
       description: Link
     LocationTypes:
       type: string
@@ -7002,34 +7223,34 @@ components:
         metric_name_value_key:
           type: string
           description: A unique key for the metric name value r...
-          example: string
+          example: ' 978da5a5'
         metric_name_value_id:
           type: string
           description: The unique ID for the metric name value.
           readOnly: true
-          example: string
+          example: ' 292f3731'
         header_sequence:
           type: string
           description: The header sequence for the metric value...
-          example: string
+          example: ' 17e8211b'
         uom:
           $ref: "#/components/schemas/NarrativeUomTypes"
         value:
           type: string
           description: The value of the metric.
-          example: string
+          example: ' dbb96200'
         value_category:
           type: string
           description: The category of the metric value.
-          example: string
+          example: ' 4ba5ad3e'
         value_description:
           type: string
           description: A description of the metric value.
-          example: string
+          example: ' 4f20964c'
         value_name:
           type: string
           description: The name of the metric value.
-          example: string
+          example: ' 5f68f5f9'
         codes:
           $ref: "#/components/schemas/Codes"
       description: Metric Name Value
@@ -7046,7 +7267,7 @@ components:
         header_sequence:
           type: string
           description: The header sequence for the metric value...
-          example: string
+          example: ' 17e8211b'
         codes:
           $ref: "#/components/schemas/Codes"
         uom:
@@ -7054,19 +7275,19 @@ components:
         value_category:
           type: string
           description: The category of the metric value.
-          example: string
+          example: ' 4ba5ad3e'
         value_description:
           type: string
           description: A description of the metric value.
-          example: string
+          example: ' 4f20964c'
         value:
           type: string
           description: The value of the metric.
-          example: string
+          example: ' dbb96200'
         value_name:
           type: string
           description: The name of the metric value.
-          example: string
+          example: ' 5f68f5f9'
       description: MetricNameValue Update for Patch and Put
     MetricNameValues:
       type: array
@@ -7078,28 +7299,28 @@ components:
         money_key:
           type: string
           description: The unique key for the monetary value.
-          example: string
+          example: ' 2c88af66'
         money_id:
           type: string
           description: The unique ID for the monetary value.
           readOnly: true
-          example: string
+          example: ' 423b35e5'
         currency_code:
           type: string
           description: "ISO currency code, e.g., 'USD'."
-          example: string
+          example: ' ee759213'
         display_value:
           type: string
           description: The locale-specific display format for t...
-          example: string
+          example: ' b261ebb0'
         locale:
           type: string
           description: "The locale code (e.g., en-US, fr-FR)."
-          example: string
+          example: ' 8985989f'
         value:
           type: string
           description: The monetary value.
-          example: string
+          example: ' 761e4219'
       description: Monetary value and currency information.
     NarrativeUomTypes:
       type: string
@@ -7226,11 +7447,11 @@ components:
           type: string
           description: A unique identifier for the payroll rate...
           readOnly: true
-          example: string
+          example: ' 34fc4cea'
         payroll_rate_key:
           type: string
           description: A unique identifier for the payroll rate...
-          example: string
+          example: ' 0ee24608'
         staff_member_key:
           type: string
           description: Business key or code for the staff membe...
@@ -7288,7 +7509,7 @@ components:
           type: string
           description: Unique person identifier.
           readOnly: true
-          example: string
+          example: ' e3a1b4b3'
         person_key:
           type: string
           description: Business key for the person.
@@ -7306,7 +7527,7 @@ components:
           type: string
           description: Birth date of the person.
           format: date
-          example: 1985-08-25
+          example: 2026-01-14
         comments:
           type: string
           description: Additional comments about the person.
@@ -7314,21 +7535,18 @@ components:
         communication_channels:
           $ref: "#/components/schemas/CommunicationChannels"
         country_code:
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: "ISO 3166-1 alpha-2 country code. Pattern: ^[A-Z..."
+          description: ISO 3166-1 alpha-2 country code.
           example: US
         gender_type:
           $ref: "#/components/schemas/GenderTypes"
         birth_country:
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: ISO 3166-1 alpha-2 code for the country ... Pat...
+          description: ISO 3166-1 alpha-2 code for the country ...
           example: US
         citizenship_country:
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: ISO 3166-1 alpha-2 code for citizenship ... Pat...
+          description: ISO 3166-1 alpha-2 code for citizenship ...
           example: US
         identifiers:
           $ref: "#/components/schemas/Identifiers"
@@ -7337,7 +7555,7 @@ components:
           description: Link to identifiers resource.
           format: href
           readOnly: true
-          example: string
+          example: ' 435dcc1a'
         language_codes:
           maxItems: 255
           minItems: 1
@@ -7351,7 +7569,7 @@ components:
           type: string
           description: Link to organizational profiles resource...
           format: href
-          example: string
+          example: ' b92a1279'
         party_key:
           type: string
           description: Business key for the party.
@@ -7366,9 +7584,8 @@ components:
         person_attributes:
           $ref: "#/components/schemas/MetricNameValues"
         preferred_language_code:
-          pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
-          description: "Preferred language code. Pattern: ^[a-z]{2}(-[A..."
+          description: Preferred language code.
           example: en-US
         privacies:
           $ref: "#/components/schemas/PrivacyItems"
@@ -7376,11 +7593,11 @@ components:
           type: string
           description: Link to privacy settings resource.
           format: href
-          example: string
+          example: ' b1527a68'
         special_remarks_description:
           type: string
           description: Special remarks about the person.
-          example: string
+          example: ' ba67d579'
         person_name:
           $ref: "#/components/schemas/PersonName"
       description: Person
@@ -7585,29 +7802,27 @@ components:
           type: string
           description: Birth date of the person.
           format: date
-          example: 1985-08-25
+          example: 2026-01-14
         special_remarks_description:
           type: string
           description: Special remarks about the person.
-          example: string
+          example: ' ba67d579'
         privacies_href:
           type: string
           description: Link to privacy settings resource.
           format: href
-          example: string
+          example: ' b1527a68'
         marital_status_type:
           $ref: "#/components/schemas/MaritalStatusTypes"
         person_name:
           $ref: "#/components/schemas/PersonName"
         citizenship_country:
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: ISO 3166-1 alpha-2 code for citizenship ... Pat...
+          description: ISO 3166-1 alpha-2 code for citizenship ...
           example: US
         preferred_language_code:
-          pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
-          description: "Preferred language code. Pattern: ^[a-z]{2}(-[A..."
+          description: Preferred language code.
           example: en-US
         party_types:
           maxItems: 255
@@ -7617,14 +7832,12 @@ components:
           items:
             $ref: "#/components/schemas/PartyTypes"
         birth_country:
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: ISO 3166-1 alpha-2 code for the country ... Pat...
+          description: ISO 3166-1 alpha-2 code for the country ...
           example: US
         country_code:
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: "ISO 3166-1 alpha-2 country code. Pattern: ^[A-Z..."
+          description: ISO 3166-1 alpha-2 country code.
           example: US
         gender_type:
           $ref: "#/components/schemas/GenderTypes"
@@ -7633,7 +7846,7 @@ components:
           description: Link to identifiers resource.
           format: href
           readOnly: true
-          example: string
+          example: ' 435dcc1a'
         age:
           maximum: 130
           minimum: 0
@@ -7645,7 +7858,7 @@ components:
           type: string
           description: Link to organizational profiles resource...
           format: href
-          example: string
+          example: ' b92a1279'
         language_codes:
           maxItems: 255
           minItems: 1
@@ -7691,7 +7904,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
-          example: string
+          example: ' 2bcab4b6'
         position_codes:
           maxItems: 255
           minItems: 1
@@ -7719,7 +7932,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
-          example: string
+          example: ' 2bcab4b6'
         bearing:
           type: string
           description: Bearing direction (compass)
@@ -7765,11 +7978,11 @@ components:
           type: string
           description: A unique identifier for the privacy even...
           readOnly: true
-          example: string
+          example: ' 0639066a'
         privacy_event_key:
           type: string
           description: A unique identifier for the privacy even...
-          example: string
+          example: ' 93409d11'
         legal_basis_type:
           $ref: "#/components/schemas/PrivacyLegalBasisTypes"
         privacy_context_type:
@@ -7779,11 +7992,11 @@ components:
         value:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' ea17254d'
         event_reference:
           type: string
           description: Event Reference for this event
-          example: string
+          example: ' ef2de493'
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
@@ -7807,13 +8020,13 @@ components:
         event_reference:
           type: string
           description: Event Reference for this event
-          example: string
+          example: ' ef2de493'
         legal_basis_type:
           $ref: "#/components/schemas/PrivacyLegalBasisTypes"
         value:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' ea17254d'
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
@@ -7831,11 +8044,11 @@ components:
           type: string
           description: A unique key for the privacy record.
           readOnly: true
-          example: string
+          example: ' 19b028ec'
         privacy_key:
           type: string
           description: A unique key for the privacy record.
-          example: string
+          example: ' b95f6d27'
         privacy_event:
           $ref: "#/components/schemas/PrivacyEvents"
         privacy_type:
@@ -7843,11 +8056,11 @@ components:
         encrypted_value:
           type: string
           description: The encrypted value of the sensitive inf...
-          example: string
+          example: ' 802cbd31'
         hash_value:
           type: string
           description: A one-way hash of the sensitive informat...
-          example: string
+          example: ' a10e8431'
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         last_updated_date_time:
@@ -7878,11 +8091,11 @@ components:
         encrypted_value:
           type: string
           description: The encrypted value of the sensitive inf...
-          example: string
+          example: ' 802cbd31'
         hash_value:
           type: string
           description: A one-way hash of the sensitive informat...
-          example: string
+          example: ' a10e8431'
         privacy_event:
           $ref: "#/components/schemas/PrivacyEvents"
       description: PrivacyItem Update for Patch and Put
@@ -8217,12 +8430,12 @@ components:
         textual_detail_key:
           type: string
           description: Natural key or business-friendly key for...
-          example: string
+          example: ' ae8b714d'
         textual_detail_id:
           type: string
           description: Unique identifier for textual detail.
           readOnly: true
-          example: string
+          example: ' 45beff1c'
         comments:
           $ref: "#/components/schemas/Memo"
         locale_codes:
@@ -8232,23 +8445,23 @@ components:
         short_description:
           type: string
           description: Short description for the detail.
-          example: string
+          example: ' ad09bd01'
         description:
           type: string
           description: Full description in memo format.
-          example: string
+          example: ' e14c7db3'
         text_key:
           type: string
           description: Key reference for reusable text blocks.
-          example: string
+          example: ' 68dfc48d'
         name:
           type: string
           description: Name or title of the textual detail.
-          example: string
+          example: ' e2f61464'
         value:
           type: string
           description: Value associated with the textual detail...
-          example: string
+          example: ' 393b50be'
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         groups:
@@ -8256,25 +8469,25 @@ components:
         label:
           type: string
           description: Label for UI representation.
-          example: string
+          example: ' 32faca75'
         alt_text:
           type: string
           description: Alternative text for accessibility or im...
-          example: string
+          example: ' 624e091e'
         textual_detail_code:
           type: string
           description: Code identifier for textual detail refer...
-          example: string
+          example: ' 0ee1a0db'
         tags:
           $ref: "#/components/schemas/Codes"
         uom_display:
           type: string
           description: Unit of Measure display value.
-          example: string
+          example: ' 55cdf342'
         uom_code:
           type: string
           description: "Unit of Measure code (e.g., EA, PR)."
-          example: string
+          example: ' ed822c9d'
       description: not nullable
     TextualDetails:
       type: array
@@ -8284,17 +8497,14 @@ components:
       type: object
       properties:
         time_slot_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique business key for the time slot. Pattern:...
-          example: string
+          description: Unique business key for the time slot.
+          example: ' e738c372'
         end_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         end_time:
-          pattern: "^([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(\\.\\d+)?(Z|[+-][01]\\d:[0-5]\\\
-            d)?$"
           type: string
-          description: "End time in HH:mm format. Pattern: ^([01]\\d|2[0..."
+          description: End time in HH:mm format.
           format: date-time
           example: 2026-01-14T12:00:00Z
         recurring_indicator:
@@ -8306,10 +8516,8 @@ components:
         start_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         start_time:
-          pattern: "^([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(\\.\\d+)?(Z|[+-][01]\\d:[0-5]\\\
-            d)?$"
           type: string
-          description: "Start time in HH:mm format. Pattern: ^([01]\\d|2..."
+          description: Start time in HH:mm format.
           format: date-time
           example: 2026-01-14T12:00:00Z
         timeslot_directive_types:
@@ -8320,11 +8528,10 @@ components:
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique identifier for the time slot reco... Pat...
+          description: Unique identifier for the time slot reco...
           readOnly: true
-          example: string
+          example: ' 3573bdf8'
         week_of_date:
           maxItems: 255
           minItems: 1
@@ -8369,6 +8576,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ErrorDetail"
+    DealerDocumentation:
+      description: Commands processing complete
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DealerDocumentation"
     NotFoundError:
       description: The requested resource was not found.
       content:

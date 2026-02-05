@@ -11,9 +11,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: /v1_0_0
-  description: Automotive Retail API. All requests must comply with the Standards
-    Version identified in the headers.
+- url: //v1_0_0
 security:
 - industry-oauth:
   - standard:read
@@ -138,7 +136,13 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /shipments/KEY78q
+                example: /shipments/KEY78C
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</shipments/capabilities{?state,role}>; rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -312,7 +316,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78V
+        example: KEY784
   /shipments/{shipmentKey}/invoice-references:
     get:
       tags:
@@ -408,7 +412,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/shipments{shipmentKey}invoice-references/KEY78qz"
+                example: "/shipments{shipmentKey}invoice-references/KEY78Cr"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</shipments/{shipmentKey}/invoice-references/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -595,7 +606,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78VE
+        example: KEY784B
   /shipments/{shipmentKey}/party-references:
     get:
       tags:
@@ -691,7 +702,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/shipments{shipmentKey}party-references/KEY78qzd"
+                example: "/shipments{shipmentKey}party-references/KEY78CrN"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</shipments/{shipmentKey}/party-references/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -878,7 +896,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78VEk
+        example: KEY784Br
   /shipments/{shipmentKey}/shipment-events:
     get:
       tags:
@@ -936,7 +954,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -974,7 +992,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/shipments{shipmentKey}shipment-events/KEY78qzdd"
+                example: "/shipments{shipmentKey}shipment-events/KEY78CrNE"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</shipments/{shipmentKey}/shipment-events/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -1161,7 +1186,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78VEkD
+        example: KEY784BrI
   /shipments/{shipmentKey}/identifiers:
     get:
       tags:
@@ -1219,7 +1244,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1257,7 +1282,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/shipments{shipmentKey}identifiers/KEY78qzdd2"
+                example: "/shipments{shipmentKey}identifiers/KEY78CrNEw"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</shipments/{shipmentKey}/identifiers/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -1444,7 +1476,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78VEkD4
+        example: KEY784BrI2
   /shipments/{shipmentKey}/unit-of-measures:
     get:
       tags:
@@ -1566,7 +1598,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78VEkD4C
+        example: KEY784BrI2c
   /shipments/{shipmentKey}/positions:
     get:
       tags:
@@ -1662,7 +1694,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/shipments{shipmentKey}positions/KEY78qzdd2oc"
+                example: "/shipments{shipmentKey}positions/KEY78CrNEw8C"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</shipments/{shipmentKey}/positions/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -1849,7 +1888,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78VEkD4CJ
+        example: KEY784BrI2cL
   /shipments/{shipmentKey}/effective-periods:
     get:
       tags:
@@ -1907,7 +1946,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1971,7 +2010,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78VEkD4CJf
+        example: KEY784BrI2cLS
   /shipments/{shipmentKey}/time-slots:
     get:
       tags:
@@ -2029,7 +2068,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2093,7 +2132,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78VEkD4CJfP
+        example: KEY784BrI2cLS0
   /shipments/{shipmentKey}/address-references:
     get:
       tags:
@@ -2189,7 +2228,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/shipments{shipmentKey}address-references/KEY78qzdd2ocF7a"
+                example: "/shipments{shipmentKey}address-references/KEY78CrNEw8Ce0Y"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</shipments/{shipmentKey}/address-references/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -2376,7 +2422,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78VEkD4CJfPq
+        example: KEY784BrI2cLS02
   /shipments/health:
     get:
       tags:
@@ -2448,11 +2494,17 @@ paths:
         "200":
           description: Batch processing complete
           headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</shipments/batch/capabilities{?state,role}>; rel=\"capabilities\""
             Location:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /shipments/batch/3109333954361465341
+                example: /shipments/batch/6552114643294374348
           content:
             application/json:
               schema:
@@ -2505,7 +2557,7 @@ paths:
               properties:
                 format:
                   type: string
-                  example: string
+                  example: ' 225fb02f'
                   default: PARQUET
                   enum:
                   - XML
@@ -2519,9 +2571,11 @@ paths:
                     start:
                       type: string
                       format: date
+                      example: 2026-01-14
                     end:
                       type: string
                       format: date
+                      example: 2026-01-14
                 data_contract_key:
                   type: string
                   description: "The identifier of the specific data contract/projection\
@@ -2529,6 +2583,7 @@ paths:
                   example: contact_details_only
                 compression:
                   type: string
+                  example: GZIP
                   default: SNAPPY
                   enum:
                   - SNAPPY
@@ -2562,15 +2617,22 @@ paths:
                     \ starting the job."
                   example: false
                   default: false
+              example: PARQUET
       responses:
         "202":
           description: Export job created/accepted
           headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</shipments/exports/capabilities{?state,role}>; rel=\"capabilities\""
             Location:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /shipments/exports/2421813429765158817
+                example: /shipments/exports/8731488276852802125
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -2647,11 +2709,31 @@ paths:
         content:
           application/json:
             schema:
+              required:
+              - type
+              - method
+              - params
+              - id
               type: object
               properties:
                 type:
                   type: string
-                  description: "The intent of the command (e.g., RescheduleSlot, CancelInvoice)"
+                  description: jsonrpc
+                  default: jsonrpc
+                jsonrpc:
+                  type: string
+                  example: "2.0"
+                  default: "2.0"
+                method:
+                  type: string
+                  description: star.order.update)
+                id:
+                  type: string
+                  description: "match the response with request. If omitted, Notification\
+                    \ the server will not respond."
+                version:
+                  type: string
+                  description: "2.0"
                 workflow_state:
                   type: string
                   description: "The intent of the command (e.g., CREATED, DELETED)"
@@ -2661,18 +2743,26 @@ paths:
                 context:
                   type: object
                   additionalProperties: true
-                  description: The payload required for this specific command type
-                data:
+                  description: context payload required for this specific command
+                    type
+                params:
                   $ref: "#/components/schemas/Shipment"
       responses:
         "200":
           description: Commands processing complete
           headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</shipments/{shipmentKey}/commands/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
             Location:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/shipments/{shipmentKey}/commands/1886122529094745288"
+                example: "/shipments/{shipmentKey}/commands/6275999111280323551"
           content:
             application/json:
               schema:
@@ -2694,15 +2784,15 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #6f905361 has been successfully cancelled."
-                  commandId:
+                    example: "Invoice #b14d88b8 has been successfully cancelled."
+                  command_id:
                     type: string
                     description: The tracking ID for this specific command execution
                     format: identifier
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: fc98b6b1
+                    example: da877ce9
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -2842,6 +2932,72 @@ paths:
           $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
+  /shipments/documentation:
+    post:
+      tags:
+      - Default
+      summary: Execute a knowledge request on Shipment
+      description: Single entry point for all Shipment knowledge request
+      operationId: getShipmentDocuments
+      parameters:
+      - name: shipmentKey
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Command intent and parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: "The intent of the document request (e.g., RescheduleSlot,\
+                    \ CancelInvoice)"
+                workflow_state:
+                  type: string
+                  description: "The intent of the command (e.g., PROCESS, CLASS)"
+                  enum:
+                  - PROCESS
+                  - CLASS
+                context:
+                  type: object
+                  additionalProperties: true
+                  description: The payload required for this specific command type
+                data:
+                  $ref: "#/components/schemas/Shipment"
+      responses:
+        "200":
+          headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</shipments/documentation/capabilities{?state,role}>; rel=\"\
+                  capabilities\""
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /shipments/documentation/7741150173115363887
+          $ref: "#/components/responses/ShipmentDocumentation"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "412":
+          $ref: "#/components/responses/PreconditionFailedError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     AddressReference:
@@ -2850,11 +3006,11 @@ components:
         address_reference_key:
           type: string
           description: A unique key for the address reference.
-          example: string
+          example: ' b6fcec9e'
         address_reference_value:
           type: string
           description: The unique value of the address referenc...
-          example: string
+          example: ' cd956cc9'
         address_types:
           maxItems: 255
           minItems: 1
@@ -2865,52 +3021,51 @@ components:
         address_line1:
           type: string
           description: "Primary address line (Street, PO Box, et..."
-          example: string
+          example: ' c08a0451'
         address_line2:
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
-          example: string
+          example: ' 80752333'
         address_line3:
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
-          example: string
+          example: ' f433325f'
         address_line4:
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
-          example: string
+          example: ' cd42951c'
         address_line5:
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
-          example: string
+          example: ' 87791739'
         city:
           type: string
           description: Name of the city.
-          example: string
+          example: ' 34676fac'
         country_code:
           type: string
           description: Full name of the country.
-          example: string
+          example: ' 24dfa5c1'
         district:
           type: string
           description: Name of the district.
-          example: string
+          example: ' 7388db8f'
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
-          example: string
+          example: ' 6df7e18c'
         postal_code:
           maxLength: 20
           minLength: 3
-          pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
-          description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
-          example: string
+          description: Primary postal or ZIP code.
+          example: ' aae50b14'
         state_province:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
-          example: string
+          example: ' 13feacaf'
       description: Reference link to a stored address.
     AddressReferenceCreate:
       required:
@@ -2925,21 +3080,21 @@ components:
         address_reference_value:
           type: string
           description: The unique value of the address referenc...
-          example: string
+          example: ' cd956cc9'
         city:
           type: string
           description: Name of the city.
-          example: string
+          example: ' 34676fac'
         state_province:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
-          example: string
+          example: ' 13feacaf'
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
-          example: string
+          example: ' 6df7e18c'
         address_types:
           maxItems: 255
           minItems: 1
@@ -2950,38 +3105,37 @@ components:
         address_line5:
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
-          example: string
+          example: ' 87791739'
         country_code:
           type: string
           description: Full name of the country.
-          example: string
+          example: ' 24dfa5c1'
         address_line4:
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
-          example: string
+          example: ' cd42951c'
         address_line3:
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
-          example: string
+          example: ' f433325f'
         address_line2:
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
-          example: string
+          example: ' 80752333'
         address_line1:
           type: string
           description: "Primary address line (Street, PO Box, et..."
-          example: string
+          example: ' c08a0451'
         district:
           type: string
           description: Name of the district.
-          example: string
+          example: ' 7388db8f'
         postal_code:
           maxLength: 20
           minLength: 3
-          pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
-          description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
-          example: string
+          description: Primary postal or ZIP code.
+          example: ' aae50b14'
       description: AddressReference Update for Patch and Put
     AddressReferences:
       type: array
@@ -3058,6 +3212,31 @@ components:
                 - FINANCE_VP
                 items:
                   type: string
+              links:
+                type: object
+                properties:
+                  execute:
+                    type: string
+                    description: The relative or absolute URL to POST the command
+                      to
+                    example: "/shipments/{key}/commands/approve"
+                  method:
+                    type: string
+                    example: POST
+                    enum:
+                    - POST
+                    - PUT
+                    - PATCH
+                  schema_ref:
+                    type: string
+                    description: Reference to the input payload schema for this action
+                    example: "#/components/schemas/ShipmentCommand"
+                description: HATEOAS-style links to execute the transition or fetch
+                  related metadata
+              _self:
+                type: string
+                description: Link to the specific transition documentation or detail
+                example: /metadata/capabilities/Shipment/transitions/approve
               instructions:
                 type: array
                 description: Step-by-step checklist the agent must verify before execution
@@ -3094,6 +3273,7 @@ components:
                   - AVRO
                   - PARQUET
                   - CSV
+                default: PARQUET
               columns:
                 type: array
                 example:
@@ -3165,9 +3345,9 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
+                        limit: "0"
                         item_type: Inventory
                         count: "45"
-                        limit: "0"
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -3176,9 +3356,9 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
+                        unit: days
                         min: "1"
                         value: "31"
-                        unit: days
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -3199,6 +3379,11 @@ components:
                       type: string
                       description: Link to documentation regarding this rule
                       format: uri
+        documentation_ref:
+          type: string
+          description: Link to full business documentation for this aggregate
+          format: uri
+          example: /documentation/shipments
     Codes:
       type: array
       items:
@@ -3254,10 +3439,9 @@ components:
       type: object
       properties:
         effective_period_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique key identifying the effective per... Pat...
-          example: string
+          description: Unique key identifying the effective per...
+          example: ' f8a8a663'
         active_indicator:
           type: boolean
           description: Indicator if the period is currently act...
@@ -3281,19 +3465,19 @@ components:
         duration_value:
           type: string
           description: Value of the duration
-          example: string
+          example: ' 1a169bc3'
         recur_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         recur_count:
           type: string
           description: Count of recurrence
-          example: string
+          example: ' eeb76a0f'
         recur_values:
           $ref: "#/components/schemas/Codes"
         recur_criteria:
           type: string
           description: Criteria defining recurrence
-          example: string
+          example: ' 26f3d01b'
         recur_indicator:
           type: boolean
           description: Indicator if recurrence is enabled
@@ -3312,7 +3496,7 @@ components:
       properties:
         code:
           type: string
-          description: "A machine-readable, unique system error code (e..."
+          description: "A machine-readable, unique system error code."
           example: NOT_FOUND_PR
         message:
           type: string
@@ -3336,7 +3520,7 @@ components:
           example: 2025-11-10T10:30:00Z
         trace_id:
           type: string
-          description: "A unique identifier for this specific request, ..."
+          description: A unique identifier for this specific request.
           readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
         doc_url:
@@ -3358,7 +3542,7 @@ components:
                 type: string
                 description: The specific validation rule that failed.
                 example: must be unique
-              rejectedValue:
+              rejected_value:
                 type: string
                 description: The value that was sent and rejected (only if non-sensitive).
                 example: "12345"
@@ -3377,7 +3561,7 @@ components:
           example: https://api.example.com
         format:
           type: string
-          example: string
+          example: ' 225fb02f'
           default: PARQUET
           enum:
           - XML
@@ -3391,17 +3575,17 @@ components:
           example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
-          example: string
+          example: ' f9e863d0'
     ExportJob:
       type: object
       properties:
         id:
           type: string
           readOnly: true
-          example: string
+          example: ' 2f24ff99'
         status:
           type: string
-          example: string
+          example: ' a42d4d13'
           enum:
           - PENDING
           - PROCESSING
@@ -3422,7 +3606,7 @@ components:
       properties:
         event_type:
           type: string
-          example: string
+          example: EXPORT_COMPLETED
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
@@ -3436,6 +3620,7 @@ components:
             job_id:
               type: string
               readOnly: true
+              example: 64caceeb
             aggregate:
               type: string
               example: Shipment
@@ -3444,6 +3629,7 @@ components:
               readOnly: true
             status:
               type: string
+              example: FAILED
               enum:
               - COMPLETED
               - FAILED
@@ -3460,36 +3646,34 @@ components:
         identifier_id:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          description: Unique identifier value
           readOnly: true
-          example: string
+          example: ' ed5ca9e6'
         identifier_key:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Business key for the identifier Pattern: ^[a-zA..."
+          description: Business key for the identifier
           readOnly: true
-          example: string
+          example: ' 8ab3b7bf'
         context:
           type: string
           description: Context or domain of the identifier
-          example: string
+          example: ' e6f191f0'
         value:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' 23d1e5f8'
         detail:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' dd65f2d3'
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
           readOnly: true
-          example: string
+          example: ' ac3d8494'
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -3509,43 +3693,40 @@ components:
           type: string
           description: The monetary or hours-based value of the...
           readOnly: true
-          example: string
+          example: ' ac3d8494'
         context:
           type: string
           description: Context or domain of the identifier
-          example: string
+          example: ' e6f191f0'
         detail:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' dd65f2d3'
         value:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' 23d1e5f8'
       description: Identifier Update for Patch and Put
     InvoiceReference:
       type: object
       properties:
         invoice_reference_id:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique identifier value for the invoice ... Pat...
+          description: Unique identifier value for the invoice ...
           readOnly: true
-          example: string
+          example: ' 8abe0f64'
         invoice_reference_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique key value for the invoice referen... Pat...
-          example: string
+          description: Unique key value for the invoice referen...
+          example: ' 942032d8'
         invoice_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: The unique key identifying the reference... Pat...
-          example: string
+          description: The unique key identifying the reference...
+          example: ' 7e3250db'
         context:
           type: string
           description: "Context or domain of the invoice (e.g., ..."
-          example: string
+          example: ' e48ef6c0'
         identifier:
           $ref: "#/components/schemas/Identifier"
         occurrence_date_time:
@@ -3571,7 +3752,7 @@ components:
         context:
           type: string
           description: "Context or domain of the invoice (e.g., ..."
-          example: string
+          example: ' e48ef6c0'
         invoice_type:
           $ref: "#/components/schemas/InvoiceTypes"
         occurrence_date_time:
@@ -3608,32 +3789,27 @@ components:
       type: object
       properties:
         party_reference_id:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          description: Unique identifier value
           readOnly: true
-          example: string
+          example: ' 79e34390'
         party_reference_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
-          example: string
+          description: Unique identifier value
+          example: ' b20ea316'
         party_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
-          example: string
+          description: Unique identifier value
+          example: ' ed6775f1'
         party_reference_type:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
-          example: string
+          description: Unique identifier value
+          example: ' 7294e204'
         context:
           type: string
           description: Context or domain of the identifier
-          example: string
+          example: ' 574e105d'
         party_relationship_types:
-          pattern: "^[a-zA-Z0-9_]+$"
           maxItems: 255
           minItems: 1
           uniqueItems: true
@@ -3669,14 +3845,12 @@ components:
         context:
           type: string
           description: Context or domain of the identifier
-          example: string
+          example: ' 574e105d'
         party_reference_type:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
-          example: string
+          description: Unique identifier value
+          example: ' 7294e204'
         party_relationship_types:
-          pattern: "^[a-zA-Z0-9_]+$"
           maxItems: 255
           minItems: 1
           uniqueItems: true
@@ -3833,7 +4007,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
-          example: string
+          example: ' 11faecf5'
         position_codes:
           maxItems: 255
           minItems: 1
@@ -3861,7 +4035,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
-          example: string
+          example: ' 11faecf5'
         bearing:
           type: string
           description: Bearing direction (compass)
@@ -3949,7 +4123,7 @@ components:
         country_of_origin:
           type: string
           description: Full name of the country.
-          example: string
+          example: ' b854aaca'
         tracking_number:
           type: string
           description: Tracking number provided by the shipping...
@@ -4024,7 +4198,7 @@ components:
         description:
           type: string
           description: A description of the event.
-          example: string
+          example: ' 1b2c55e1'
         occurrence_date_time:
           type: string
           description: The date and time the event physically o...
@@ -4061,7 +4235,7 @@ components:
         description:
           type: string
           description: A description of the event.
-          example: string
+          example: ' 1b2c55e1'
         location:
           $ref: "#/components/schemas/Position"
         shipment_state_types:
@@ -4122,7 +4296,7 @@ components:
         country_of_origin:
           type: string
           description: Full name of the country.
-          example: string
+          example: ' b854aaca'
         invoice_references:
           $ref: "#/components/schemas/InvoiceReferences"
         ship_from_party:
@@ -4171,7 +4345,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
-          example: string
+          example: ' bca56a3d'
           enum:
           - CREATED
           - ACTIVE
@@ -4217,17 +4391,14 @@ components:
       type: object
       properties:
         time_slot_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique business key for the time slot. Pattern:...
-          example: string
+          description: Unique business key for the time slot.
+          example: ' 18652152'
         end_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         end_time:
-          pattern: "^([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(\\.\\d+)?(Z|[+-][01]\\d:[0-5]\\\
-            d)?$"
           type: string
-          description: "End time in HH:mm format. Pattern: ^([01]\\d|2[0..."
+          description: End time in HH:mm format.
           format: date-time
           example: 2026-01-14T12:00:00Z
         recurring_indicator:
@@ -4239,10 +4410,8 @@ components:
         start_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         start_time:
-          pattern: "^([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(\\.\\d+)?(Z|[+-][01]\\d:[0-5]\\\
-            d)?$"
           type: string
-          description: "Start time in HH:mm format. Pattern: ^([01]\\d|2..."
+          description: Start time in HH:mm format.
           format: date-time
           example: 2026-01-14T12:00:00Z
         timeslot_directive_types:
@@ -4253,11 +4422,10 @@ components:
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique identifier for the time slot reco... Pat...
+          description: Unique identifier for the time slot reco...
           readOnly: true
-          example: string
+          example: ' b008d70c'
         week_of_date:
           maxItems: 255
           minItems: 1
@@ -4322,22 +4490,19 @@ components:
       type: object
       properties:
         unit_of_measure_key:
-          pattern: "^[a-zA-Z0-9_.-]+$"
           type: string
-          description: "Unit of Measure Value Pattern: ^[a-zA-Z0-9_.-]+..."
-          example: string
+          description: Unit of Measure Value
+          example: ' dd0c1919'
         unit_name:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unit of Measure Pattern: ^[a-zA-Z0-9_]+$ (Alpha..."
-          example: string
+          description: Unit of Measure
+          example: ' 118bdea9'
         uom_value:
           maxLength: 100
           minLength: 1
-          pattern: "^[a-zA-Z0-9_.-]+$"
           type: string
-          description: "Unit of Measure Value Pattern: ^[a-zA-Z0-9_.-]+..."
-          example: string
+          description: Unit of Measure Value
+          example: ' 4cde099c'
         uom_quantity_category_type:
           $ref: "#/components/schemas/UOMQuantityCategoryTypes"
       description: "Standard unit used for quantity (e.g., kg, lite..."
@@ -4388,6 +4553,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ErrorDetail"
+    ShipmentDocumentation:
+      description: Commands processing complete
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ShipmentDocumentation"
   parameters:
     StandardsVersionHeader:
       name: standards-version

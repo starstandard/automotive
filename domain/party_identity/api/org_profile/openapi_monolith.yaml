@@ -11,9 +11,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: /v1_0_0
-  description: Automotive Retail API. All requests must comply with the Standards
-    Version identified in the headers.
+- url: //v1_0_0
 security:
 - industry-oauth:
   - standard:read
@@ -168,7 +166,13 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /org-profiles/KEY78M
+                example: /org-profiles/KEY784
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/capabilities{?state,role}>; rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -342,7 +346,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T
+        example: KEY78C
   /org-profiles/{orgProfileKey}/payment-term-references:
     get:
       tags:
@@ -400,7 +404,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -438,7 +442,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}payment-term-references/KEY78MD"
+                example: "/org-profiles{orgProfileKey}payment-term-references/KEY784D"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/payment-term-references/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -625,7 +636,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T4
+        example: KEY78Co
   /org-profiles/{orgProfileKey}/discounts:
     get:
       tags:
@@ -683,7 +694,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -721,7 +732,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}discounts/KEY78MDL"
+                example: "/org-profiles{orgProfileKey}discounts/KEY784D9"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/discounts/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -908,7 +926,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41
+        example: KEY78CoA
   /org-profiles/{orgProfileKey}/addresses:
     get:
       tags:
@@ -966,7 +984,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1004,7 +1022,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}addresses/KEY78MDL9"
+                example: "/org-profiles{orgProfileKey}addresses/KEY784D91"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/addresses/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -1191,7 +1216,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41R
+        example: KEY78CoAU
   /org-profiles/{orgProfileKey}/org-names:
     get:
       tags:
@@ -1249,7 +1274,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1287,7 +1312,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}org-names/KEY78MDL9O"
+                example: "/org-profiles{orgProfileKey}org-names/KEY784D91R"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/org-names/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -1474,7 +1506,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41Rt
+        example: KEY78CoAU4
   /org-profiles/{orgProfileKey}/staff-members:
     get:
       tags:
@@ -1570,7 +1602,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}staff-members/KEY78MDL9Oc"
+                example: "/org-profiles{orgProfileKey}staff-members/KEY784D91RG"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/staff-members/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -1757,7 +1796,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtA
+        example: KEY78CoAU4p
   /org-profiles/{orgProfileKey}/privacy-events:
     get:
       tags:
@@ -1853,7 +1892,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}privacy-events/KEY78MDL9Oci"
+                example: "/org-profiles{orgProfileKey}privacy-events/KEY784D91RGV"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/privacy-events/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -2040,7 +2086,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAK
+        example: KEY78CoAU4pd
   /org-profiles/{orgProfileKey}/time-slots:
     get:
       tags:
@@ -2098,7 +2144,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2162,7 +2208,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKx
+        example: KEY78CoAU4pdZ
   /org-profiles/{orgProfileKey}/control-accounts:
     get:
       tags:
@@ -2258,7 +2304,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}control-accounts/KEY78MDL9Oci6t"
+                example: "/org-profiles{orgProfileKey}control-accounts/KEY784D91RGVJJ"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/control-accounts/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -2445,7 +2498,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxV
+        example: KEY78CoAU4pdZz
   /org-profiles/{orgProfileKey}/authorizations:
     get:
       tags:
@@ -2503,7 +2556,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2541,7 +2594,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}authorizations/KEY78MDL9Oci6tc"
+                example: "/org-profiles{orgProfileKey}authorizations/KEY784D91RGVJJz"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/authorizations/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -2728,7 +2788,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVR
+        example: KEY78CoAU4pdZzG
   /org-profiles/{orgProfileKey}/money:
     get:
       tags:
@@ -2850,7 +2910,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRC
+        example: KEY78CoAU4pdZzG9
   /org-profiles/{orgProfileKey}/departments:
     get:
       tags:
@@ -2946,7 +3006,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}departments/KEY78MDL9Oci6tcub"
+                example: "/org-profiles{orgProfileKey}departments/KEY784D91RGVJJz1y"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/departments/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -3133,7 +3200,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCn
+        example: KEY78CoAU4pdZzG9k
   /org-profiles/{orgProfileKey}/metric-name-values:
     get:
       tags:
@@ -3191,7 +3258,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3229,7 +3296,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}metric-name-values/KEY78MDL9Oci6tcubZ"
+                example: "/org-profiles{orgProfileKey}metric-name-values/KEY784D91RGVJJz1ya"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/metric-name-values/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -3416,7 +3490,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCnG
+        example: KEY78CoAU4pdZzG9kw
   /org-profiles/{orgProfileKey}/identifiers:
     get:
       tags:
@@ -3474,7 +3548,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3512,7 +3586,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}identifiers/KEY78MDL9Oci6tcubZt"
+                example: "/org-profiles{orgProfileKey}identifiers/KEY784D91RGVJJz1yav"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/identifiers/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -3699,7 +3780,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCnG3
+        example: KEY78CoAU4pdZzG9kwc
   /org-profiles/{orgProfileKey}/effective-periods:
     get:
       tags:
@@ -3821,7 +3902,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCnG34
+        example: KEY78CoAU4pdZzG9kwcW
   /org-profiles/{orgProfileKey}/discount-policies:
     get:
       tags:
@@ -3879,7 +3960,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -3917,7 +3998,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}discount-policies/KEY78MDL9Oci6tcubZtkj"
+                example: "/org-profiles{orgProfileKey}discount-policies/KEY784D91RGVJJz1yavRS"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/discount-policies/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -4104,7 +4192,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCnG34u
+        example: KEY78CoAU4pdZzG9kwcWe
   /org-profiles/{orgProfileKey}/privacy-items:
     get:
       tags:
@@ -4200,7 +4288,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}privacy-items/KEY78MDL9Oci6tcubZtkjV"
+                example: "/org-profiles{orgProfileKey}privacy-items/KEY784D91RGVJJz1yavRSd"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/privacy-items/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -4387,7 +4482,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCnG34uE
+        example: KEY78CoAU4pdZzG9kwcWeQ
   /org-profiles/{orgProfileKey}/person-names:
     get:
       tags:
@@ -4483,7 +4578,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}person-names/KEY78MDL9Oci6tcubZtkjVB"
+                example: "/org-profiles{orgProfileKey}person-names/KEY784D91RGVJJz1yavRSdP"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/person-names/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -4670,7 +4772,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCnG34uE2
+        example: KEY78CoAU4pdZzG9kwcWeQW
   /org-profiles/{orgProfileKey}/payroll-rates:
     get:
       tags:
@@ -4766,7 +4868,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}payroll-rates/KEY78MDL9Oci6tcubZtkjVBX"
+                example: "/org-profiles{orgProfileKey}payroll-rates/KEY784D91RGVJJz1yavRSdPd"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/payroll-rates/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -4953,7 +5062,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCnG34uE22
+        example: KEY78CoAU4pdZzG9kwcWeQWz
   /org-profiles/{orgProfileKey}/control-account-references:
     get:
       tags:
@@ -5011,7 +5120,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -5049,7 +5158,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}control-account-references/KEY78MDL9Oci6tcubZtkjVBXF"
+                example: "/org-profiles{orgProfileKey}control-account-references/KEY784D91RGVJJz1yavRSdPdA"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/control-account-references/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -5236,7 +5352,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCnG34uE22p
+        example: KEY78CoAU4pdZzG9kwcWeQWz2
   /org-profiles/{orgProfileKey}/communication-channels:
     get:
       tags:
@@ -5332,7 +5448,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}communication-channels/KEY78MDL9Oci6tcubZtkjVBXFg"
+                example: "/org-profiles{orgProfileKey}communication-channels/KEY784D91RGVJJz1yavRSdPdAj"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/communication-channels/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -5519,7 +5642,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCnG34uE22pk
+        example: KEY78CoAU4pdZzG9kwcWeQWz2E
   /org-profiles/{orgProfileKey}/discount-metric-values:
     get:
       tags:
@@ -5615,7 +5738,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}discount-metric-values/KEY78MDL9Oci6tcubZtkjVBXFgn"
+                example: "/org-profiles{orgProfileKey}discount-metric-values/KEY784D91RGVJJz1yavRSdPdAjS"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/discount-metric-values/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -5802,7 +5932,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCnG34uE22pkn
+        example: KEY78CoAU4pdZzG9kwcWeQWz2Eh
   /org-profiles/{orgProfileKey}/prices:
     get:
       tags:
@@ -5898,7 +6028,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}prices/KEY78MDL9Oci6tcubZtkjVBXFgn0"
+                example: "/org-profiles{orgProfileKey}prices/KEY784D91RGVJJz1yavRSdPdAjSj"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/prices/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -6085,7 +6222,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCnG34uE22pknj
+        example: KEY78CoAU4pdZzG9kwcWeQWz2Ehu
   /org-profiles/{orgProfileKey}/textual-details:
     get:
       tags:
@@ -6207,7 +6344,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCnG34uE22pknjd
+        example: KEY78CoAU4pdZzG9kwcWeQWz2Ehue
   /org-profiles/{orgProfileKey}/people:
     get:
       tags:
@@ -6303,7 +6440,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles{orgProfileKey}people/KEY78MDL9Oci6tcubZtkjVBXFgn0aB"
+                example: "/org-profiles{orgProfileKey}people/KEY784D91RGVJJz1yavRSdPdAjSjtM"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/people/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -6490,7 +6634,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78T41RtAKxVRCnG34uE22pknjdl
+        example: KEY78CoAU4pdZzG9kwcWeQWz2Ehuea
   /org-profiles/health:
     get:
       tags:
@@ -6562,11 +6706,18 @@ paths:
         "200":
           description: Batch processing complete
           headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/batch/capabilities{?state,role}>; rel=\"\
+                  capabilities\""
             Location:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /org-profiles/batch/5577466394964921596
+                example: /org-profiles/batch/6378638997525592328
           content:
             application/json:
               schema:
@@ -6619,7 +6770,7 @@ paths:
               properties:
                 format:
                   type: string
-                  example: string
+                  example: ' 74694868'
                   default: PARQUET
                   enum:
                   - XML
@@ -6633,9 +6784,11 @@ paths:
                     start:
                       type: string
                       format: date
+                      example: 2026-01-14
                     end:
                       type: string
                       format: date
+                      example: 2026-01-14
                 data_contract_key:
                   type: string
                   description: "The identifier of the specific data contract/projection\
@@ -6643,6 +6796,7 @@ paths:
                   example: contact_details_only
                 compression:
                   type: string
+                  example: GZIP
                   default: SNAPPY
                   enum:
                   - SNAPPY
@@ -6676,15 +6830,23 @@ paths:
                     \ starting the job."
                   example: false
                   default: false
+              example: PARQUET
       responses:
         "202":
           description: Export job created/accepted
           headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/exports/capabilities{?state,role}>; rel=\"\
+                  capabilities\""
             Location:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /org-profiles/exports/9140984069145353773
+                example: /org-profiles/exports/939864741659656942
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -6761,11 +6923,31 @@ paths:
         content:
           application/json:
             schema:
+              required:
+              - type
+              - method
+              - params
+              - id
               type: object
               properties:
                 type:
                   type: string
-                  description: "The intent of the command (e.g., RescheduleSlot, CancelInvoice)"
+                  description: jsonrpc
+                  default: jsonrpc
+                jsonrpc:
+                  type: string
+                  example: "2.0"
+                  default: "2.0"
+                method:
+                  type: string
+                  description: star.order.update)
+                id:
+                  type: string
+                  description: "match the response with request. If omitted, Notification\
+                    \ the server will not respond."
+                version:
+                  type: string
+                  description: "2.0"
                 workflow_state:
                   type: string
                   description: "The intent of the command (e.g., CREATED, DELETED)"
@@ -6775,18 +6957,26 @@ paths:
                 context:
                   type: object
                   additionalProperties: true
-                  description: The payload required for this specific command type
-                data:
+                  description: context payload required for this specific command
+                    type
+                params:
                   $ref: "#/components/schemas/OrgProfile"
       responses:
         "200":
           description: Commands processing complete
           headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/{orgProfileKey}/commands/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
             Location:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/org-profiles/{orgProfileKey}/commands/3838875089369939419"
+                example: "/org-profiles/{orgProfileKey}/commands/7891529265662688655"
           content:
             application/json:
               schema:
@@ -6808,15 +6998,15 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #9cd6e11e has been successfully cancelled."
-                  commandId:
+                    example: "Invoice #05b2b573 has been successfully cancelled."
+                  command_id:
                     type: string
                     description: The tracking ID for this specific command execution
                     format: identifier
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: 1a52691b
+                    example: a050021c
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -6956,6 +7146,72 @@ paths:
           $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
+  /org-profiles/documentation:
+    post:
+      tags:
+      - Default
+      summary: Execute a knowledge request on OrgProfile
+      description: Single entry point for all OrgProfile knowledge request
+      operationId: getOrgProfileDocuments
+      parameters:
+      - name: orgProfileKey
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Command intent and parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: "The intent of the document request (e.g., RescheduleSlot,\
+                    \ CancelInvoice)"
+                workflow_state:
+                  type: string
+                  description: "The intent of the command (e.g., PROCESS, CLASS)"
+                  enum:
+                  - PROCESS
+                  - CLASS
+                context:
+                  type: object
+                  additionalProperties: true
+                  description: The payload required for this specific command type
+                data:
+                  $ref: "#/components/schemas/OrgProfile"
+      responses:
+        "200":
+          headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</org-profiles/documentation/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /org-profiles/documentation/4686884129220439622
+          $ref: "#/components/responses/OrgProfileDocumentation"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "412":
+          $ref: "#/components/responses/PreconditionFailedError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     Address:
@@ -6968,65 +7224,58 @@ components:
           minLength: 1
           type: string
           description: Priority indicator for address usage (e....
-          example: string
+          example: ' 88e01466'
         city_code:
           maxLength: 20
           minLength: 1
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Standardized city code. Pattern: ^[a-zA-Z0-9_]+..."
-          example: string
+          description: Standardized city code.
+          example: ' 330b4b21'
         address_key:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
+          maxLength: 100
+          minLength: 0
           type: string
-          description: "Unique business key for the address. Pattern: ^..."
-          example: string
+          description: Unique business key for the address.
+          example: ' bb830ef3'
         address_id:
-          maximum: 100
-          minimum: 0
-          maxLength: 50
-          minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
+          maxLength: 100
+          minLength: 0
           type: string
-          description: Unique identifier for the address record... Pat...
+          description: Unique identifier for the address record...
           readOnly: true
-          example: string
+          example: ' e33f40e7'
         address_input:
           maxLength: 255
           minLength: 1
           type: string
           description: Raw input provided for address processin...
-          example: string
+          example: ' a194b858'
         address_line1:
           maxLength: 100
           minLength: 1
           type: string
           description: "Primary address line (Street, PO Box, et..."
-          example: string
+          example: ' a5fd0a2e'
         address_line2:
           maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
-          example: string
+          example: ' 682044fe'
         address_line3:
           maxLength: 100
           type: string
           description: Additional address line information.
-          example: string
+          example: ' 75cc095f'
         address_line4:
           maxLength: 100
           type: string
           description: Additional address line information.
-          example: string
+          example: ' afa0b4af'
         address_line5:
           maxLength: 100
           type: string
           description: Additional address line information.
-          example: string
+          example: ' a1e1c208'
         address_types:
           maxItems: 255
           minItems: 1
@@ -7041,55 +7290,52 @@ components:
           minLength: 1
           type: string
           description: Name of the city.
-          example: string
+          example: ' f09dde95'
         city_subdivision:
           maxLength: 100
           type: string
           description: "Subdivision within the city (e.g., neigh..."
-          example: string
+          example: ' ee25c3ec'
         country:
           maxLength: 100
           minLength: 2
           type: string
           description: Full name of the country.
-          example: string
+          example: ' 1562893d'
         country_code:
           maxLength: 2
           minLength: 2
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: "ISO 3166-1 Alpha-2 country code. Pattern: ^[A-Z..."
-          example: string
+          description: ISO 3166-1 Alpha-2 country code.
+          example: ' 36c18954'
         county:
           maxLength: 100
           type: string
           description: Name of the county.
-          example: string
+          example: ' 9512a1f3'
         county_code:
           maxLength: 20
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Standardized code for the county. Pattern: ^[a-..."
-          example: string
+          description: Standardized code for the county.
+          example: ' 3eddb870'
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
-          example: string
+          example: ' ae416e11'
         position:
           $ref: "#/components/schemas/Position"
         postal_code:
           maxLength: 20
           minLength: 3
-          pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
-          description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
-          example: string
+          description: Primary postal or ZIP code.
+          example: ' 4b5af5af'
         postal_code_ext:
           maxLength: 10
           type: string
           description: "Extended postal code (e.g., ZIP+4)."
-          example: string
+          example: ' 94d000ad'
         preferred_indicator:
           type: boolean
           description: Flag indicating if this address is the p...
@@ -7098,19 +7344,18 @@ components:
           maxLength: 50
           type: string
           description: "Administrative region (e.g., province, s..."
-          example: string
+          example: ' d211d750'
         state:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
-          example: string
+          example: ' 3ef315ac'
         locale:
           maxLength: 10
           minLength: 2
-          pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
-          description: Locale code associated with this address... Pat...
-          example: string
+          description: Locale code associated with this address...
+          example: ' 428b6c31'
       description: Physical or mailing address details.
     AddressCreate:
       required:
@@ -7123,24 +7368,22 @@ components:
       type: object
       properties:
         address_locale_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Business key for the address locale. Pattern: ^..."
-          example: string
+          description: Business key for the address locale.
+          example: ' bb0efe3f'
         address_locale_id:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique identifier for the address locale... Pat...
+          description: Unique identifier for the address locale...
           readOnly: true
-          example: string
+          example: ' 8ffd4dde'
         region_code:
           type: string
           description: Code representing the region for the loc...
-          example: string
+          example: ' b628a633'
         region_name:
           type: string
           description: Name of the region for the locale.
-          example: string
+          example: ' fa416b8f'
         region_aliases:
           $ref: "#/components/schemas/Codes"
         location_type:
@@ -7159,7 +7402,7 @@ components:
         region_name:
           type: string
           description: Name of the region for the locale.
-          example: string
+          example: ' fa416b8f'
         region_aliases:
           $ref: "#/components/schemas/Codes"
         location_type:
@@ -7167,7 +7410,7 @@ components:
         region_code:
           type: string
           description: Code representing the region for the loc...
-          example: string
+          example: ' b628a633'
       description: AddressLocale Update for Patch and Put
     AddressLocales:
       type: array
@@ -7214,84 +7457,81 @@ components:
           minLength: 1
           type: string
           description: Raw input provided for address processin...
-          example: string
+          example: ' a194b858'
         country:
           maxLength: 100
           minLength: 2
           type: string
           description: Full name of the country.
-          example: string
+          example: ' 1562893d'
         city:
           maxLength: 100
           minLength: 1
           type: string
           description: Name of the city.
-          example: string
+          example: ' f09dde95'
         county_code:
           maxLength: 20
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Standardized code for the county. Pattern: ^[a-..."
-          example: string
+          description: Standardized code for the county.
+          example: ' 3eddb870'
         authorizations:
           $ref: "#/components/schemas/Authorizations"
         county:
           maxLength: 100
           type: string
           description: Name of the county.
-          example: string
+          example: ' 9512a1f3'
         city_code:
           maxLength: 20
           minLength: 1
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Standardized city code. Pattern: ^[a-zA-Z0-9_]+..."
-          example: string
+          description: Standardized city code.
+          example: ' 330b4b21'
         locale:
           maxLength: 10
           minLength: 2
-          pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
-          description: Locale code associated with this address... Pat...
-          example: string
+          description: Locale code associated with this address...
+          example: ' 428b6c31'
         address_locales:
           $ref: "#/components/schemas/AddressLocales"
         address_line5:
           maxLength: 100
           type: string
           description: Additional address line information.
-          example: string
+          example: ' a1e1c208'
         address_line4:
           maxLength: 100
           type: string
           description: Additional address line information.
-          example: string
+          example: ' afa0b4af'
         address_line3:
           maxLength: 100
           type: string
           description: Additional address line information.
-          example: string
+          example: ' 75cc095f'
         address_line2:
           maxLength: 100
           type: string
           description: "Secondary address line (Suite, Apt, etc)..."
-          example: string
+          example: ' 682044fe'
         address_line1:
           maxLength: 100
           minLength: 1
           type: string
           description: "Primary address line (Street, PO Box, et..."
-          example: string
+          example: ' a5fd0a2e'
         postal_code_ext:
           maxLength: 10
           type: string
           description: "Extended postal code (e.g., ZIP+4)."
-          example: string
+          example: ' 94d000ad'
         state:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
-          example: string
+          example: ' 3ef315ac'
         preferred_indicator:
           type: boolean
           description: Flag indicating if this address is the p...
@@ -7300,18 +7540,18 @@ components:
           maxLength: 100
           type: string
           description: "Subdivision within the city (e.g., neigh..."
-          example: string
+          example: ' ee25c3ec'
         label:
           maxLength: 50
           type: string
           description: Label or display name for the address.
-          example: string
+          example: ' ae416e11'
         priority:
           maxLength: 10
           minLength: 1
           type: string
           description: Priority indicator for address usage (e....
-          example: string
+          example: ' 88e01466'
         address_types:
           maxItems: 255
           minItems: 1
@@ -7322,24 +7562,22 @@ components:
         country_code:
           maxLength: 2
           minLength: 2
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: "ISO 3166-1 Alpha-2 country code. Pattern: ^[A-Z..."
-          example: string
+          description: ISO 3166-1 Alpha-2 country code.
+          example: ' 36c18954'
         position:
           $ref: "#/components/schemas/Position"
         postal_code:
           maxLength: 20
           minLength: 3
-          pattern: "^[0-9a-zA-Z\\-\\s]+$"
           type: string
-          description: "Primary postal or ZIP code. Pattern: ^[0-9a-zA-..."
-          example: string
+          description: Primary postal or ZIP code.
+          example: ' 4b5af5af'
         region:
           maxLength: 50
           type: string
           description: "Administrative region (e.g., province, s..."
-          example: string
+          example: ' d211d750'
       description: Address Update for Patch and Put
     Addresses:
       type: array
@@ -7358,10 +7596,9 @@ components:
           description: Indicates whether the authorization is c...
           example: true
         authorization_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Business key uniquely identifying the au... Pat...
-          example: string
+          description: Business key uniquely identifying the au...
+          example: ' 05d5a837'
       description: General authorization or permission status.
     AuthorizationCreate:
       required:
@@ -7434,6 +7671,31 @@ components:
                 - FINANCE_VP
                 items:
                   type: string
+              links:
+                type: object
+                properties:
+                  execute:
+                    type: string
+                    description: The relative or absolute URL to POST the command
+                      to
+                    example: "/org-profiles/{key}/commands/approve"
+                  method:
+                    type: string
+                    example: POST
+                    enum:
+                    - POST
+                    - PUT
+                    - PATCH
+                  schema_ref:
+                    type: string
+                    description: Reference to the input payload schema for this action
+                    example: "#/components/schemas/OrgProfileCommand"
+                description: HATEOAS-style links to execute the transition or fetch
+                  related metadata
+              _self:
+                type: string
+                description: Link to the specific transition documentation or detail
+                example: /metadata/capabilities/OrgProfile/transitions/approve
               instructions:
                 type: array
                 description: Step-by-step checklist the agent must verify before execution
@@ -7470,6 +7732,7 @@ components:
                   - AVRO
                   - PARQUET
                   - CSV
+                default: PARQUET
               columns:
                 type: array
                 example:
@@ -7541,9 +7804,9 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
+                        limit: "0"
                         item_type: Inventory
                         count: "45"
-                        limit: "0"
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -7552,9 +7815,9 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
+                        unit: days
                         min: "1"
                         value: "31"
-                        unit: days
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -7575,6 +7838,11 @@ components:
                       type: string
                       description: Link to documentation regarding this rule
                       format: uri
+        documentation_ref:
+          type: string
+          description: Link to full business documentation for this aggregate
+          format: uri
+          example: /documentation/org-profiles
     Codes:
       type: array
       items:
@@ -7600,30 +7868,30 @@ components:
         communication_channel_key:
           type: string
           description: The unique key for the communication cha...
-          example: string
+          example: ' 155410ae'
         communication_channel_id:
           type: string
           description: The unique ID for the communication chan...
           readOnly: true
-          example: string
+          example: ' a5490beb'
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
         value:
           type: string
           description: The value of the communication channel (...
-          example: string
+          example: ' 2ef85aa9'
         value_extension:
           type: string
           description: An optional extension for the communicat...
-          example: string
+          example: ' f6581e3f'
         label:
           type: string
           description: A label for the communication channel (e...
-          example: string
+          example: ' 1247b05d'
         country:
           type: string
           description: The country associated with the communic...
-          example: string
+          example: ' bcb54680'
         preferred_indicator:
           type: boolean
           description: A boolean indicator of whether this is t...
@@ -7668,7 +7936,7 @@ components:
         country:
           type: string
           description: The country associated with the communic...
-          example: string
+          example: ' bcb54680'
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
         preferences:
@@ -7683,15 +7951,15 @@ components:
         label:
           type: string
           description: A label for the communication channel (e...
-          example: string
+          example: ' 1247b05d'
         value:
           type: string
           description: The value of the communication channel (...
-          example: string
+          example: ' 2ef85aa9'
         value_extension:
           type: string
           description: An optional extension for the communicat...
-          example: string
+          example: ' f6581e3f'
         preferred_indicator:
           type: boolean
           description: A boolean indicator of whether this is t...
@@ -7709,34 +7977,32 @@ components:
         control_account_desc:
           type: string
           description: Description of the control account.
-          example: string
+          example: ' 8a86c9aa'
         control_account_id:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique identifier for the control accoun... Pat...
+          description: Unique identifier for the control accoun...
           readOnly: true
-          example: string
+          example: ' 2ed6dbeb'
         control_account_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Business key for the control account. Pattern: ..."
-          example: string
+          description: Business key for the control account.
+          example: ' 370ff3c4'
         control_account_name:
           type: string
           description: Display name of the control account.
-          example: string
+          example: ' 37a214f0'
         control_account_type:
           $ref: "#/components/schemas/ControlAccountTypes"
         control_type_id:
           type: string
           description: Identifier for the control type of the a...
           readOnly: true
-          example: string
+          example: ' b3091aca'
         bank_account_id:
           type: string
           description: Associated bank account identifier.
           readOnly: true
-          example: string
+          example: ' e2f6833f'
         is_counted:
           type: boolean
           description: Indicates if the account is a counted ac...
@@ -7744,7 +8010,7 @@ components:
         prefix:
           type: string
           description: The prefix of the account number.
-          example: string
+          example: ' 2982e273'
         control_account_role_type:
           $ref: "#/components/schemas/ControlAccountRoleTypes"
         control_account_status_types:
@@ -7765,29 +8031,26 @@ components:
         control_account_reference_id:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          description: Unique identifier value
           readOnly: true
-          example: string
+          example: ' de251e07'
         control_account_reference_key:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
-          example: string
+          description: Unique identifier value
+          example: ' d673aa97'
         control_account_key:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
-          example: string
+          description: Unique identifier value
+          example: ' 91f17226'
         context:
           type: string
           description: Context or domain of the identifier
-          example: string
+          example: ' 03b0fb94'
         system_codes:
           $ref: "#/components/schemas/Codes"
         control_account:
@@ -7813,7 +8076,7 @@ components:
         context:
           type: string
           description: Context or domain of the identifier
-          example: string
+          example: ' 03b0fb94'
         control_account:
           $ref: "#/components/schemas/Identifier"
         occurrence_date_time:
@@ -7896,11 +8159,11 @@ components:
         prefix:
           type: string
           description: The prefix of the account number.
-          example: string
+          example: ' 2982e273'
         control_account_desc:
           type: string
           description: Description of the control account.
-          example: string
+          example: ' 8a86c9aa'
         control_account_type:
           $ref: "#/components/schemas/ControlAccountTypes"
         control_account_status_types:
@@ -7912,7 +8175,7 @@ components:
         control_account_name:
           type: string
           description: Display name of the control account.
-          example: string
+          example: ' 37a214f0'
         financial_category_type:
           $ref: "#/components/schemas/FinancialCategoryTypes"
       description: ControlAccount Update for Patch and Put
@@ -7926,15 +8189,15 @@ components:
         daily_hour_key:
           type: string
           description: A unique key for the daily hour record
-          example: string
+          example: ' e815b36b'
         start_day:
           type: string
           description: The starting day of the week for the hou...
-          example: string
+          example: ' 907250fd'
         end_day:
           type: string
           description: The ending day of the week for the hours
-          example: string
+          example: ' a5b79bfe'
         opening_time:
           type: string
           description: The opening time for the given day
@@ -7969,7 +8232,7 @@ components:
         end_day:
           type: string
           description: The ending day of the week for the hours
-          example: string
+          example: ' a5b79bfe'
         week_starting_date:
           type: string
           description: The starting date of the week
@@ -7983,7 +8246,7 @@ components:
         start_day:
           type: string
           description: The starting day of the week for the hou...
-          example: string
+          example: ' 907250fd'
         closing_time:
           type: string
           description: The closing time for the given day
@@ -8012,18 +8275,18 @@ components:
         department_key:
           type: string
           description: A unique key for the department.
-          example: string
+          example: ' d44a8292'
         department_id:
           type: string
           description: The unique ID for the department.
           readOnly: true
-          example: string
+          example: ' a593e18d'
         department_codes:
           $ref: "#/components/schemas/Codes"
         department_name:
           type: string
           description: The name of the department.
-          example: string
+          example: ' 36aa0b0a'
         department_function:
           maxItems: 255
           minItems: 1
@@ -8034,25 +8297,25 @@ components:
         department_contact:
           type: string
           description: The contact name for the department.
-          example: string
+          example: ' 174d844f'
         comments:
           type: string
           description: General comments about the department.
-          example: string
+          example: ' 7ecdde30'
         special_remarks_description:
           type: string
           description: A description of special remarks about t...
-          example: string
+          example: ' 2e4a6fdb'
         contact_methods_href:
           type: string
           description: A hyperlink to the department's contact ...
           format: href
-          example: string
+          example: ' 15500b89'
         departments_href:
           type: string
           description: A hyperlink to related departments.
           format: href
-          example: string
+          example: ' 455ac4e8'
         daily_hours:
           maxItems: 255
           minItems: 1
@@ -8106,7 +8369,7 @@ components:
           type: string
           description: A hyperlink to related departments.
           format: href
-          example: string
+          example: ' 455ac4e8'
         department_function:
           maxItems: 255
           minItems: 1
@@ -8117,17 +8380,17 @@ components:
         comments:
           type: string
           description: General comments about the department.
-          example: string
+          example: ' 7ecdde30'
         control_accounts:
           $ref: "#/components/schemas/ControlAccounts"
         department_name:
           type: string
           description: The name of the department.
-          example: string
+          example: ' 36aa0b0a'
         special_remarks_description:
           type: string
           description: A description of special remarks about t...
-          example: string
+          example: ' 2e4a6fdb'
         links:
           maxItems: 255
           minItems: 1
@@ -8147,12 +8410,12 @@ components:
         department_contact:
           type: string
           description: The contact name for the department.
-          example: string
+          example: ' 174d844f'
         contact_methods_href:
           type: string
           description: A hyperlink to the department's contact ...
           format: href
-          example: string
+          example: ' 15500b89'
         daily_hours:
           maxItems: 255
           minItems: 1
@@ -8328,12 +8591,12 @@ components:
           type: string
           description: Date when this discount policy becomes e...
           format: date
-          example: 2025-01-01
+          example: 2026-01-14
         effective_end_date:
           type: string
           description: Date when this discount policy expires.
           format: date
-          example: 2025-12-31
+          example: 2026-01-14
       description: Discount Policy
     DiscountPolicyCreate:
       required:
@@ -8349,14 +8612,14 @@ components:
           type: string
           description: Date when this discount policy expires.
           format: date
-          example: 2025-12-31
+          example: 2026-01-14
         discounts:
           $ref: "#/components/schemas/Discounts"
         effective_start_date:
           type: string
           description: Date when this discount policy becomes e...
           format: date
-          example: 2025-01-01
+          example: 2026-01-14
         policy_name:
           type: string
           description: "Name of the discount policy (e.g., 'Volu..."
@@ -8538,10 +8801,9 @@ components:
       type: object
       properties:
         effective_period_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique key identifying the effective per... Pat...
-          example: string
+          description: Unique key identifying the effective per...
+          example: ' 6ec42318'
         active_indicator:
           type: boolean
           description: Indicator if the period is currently act...
@@ -8565,19 +8827,19 @@ components:
         duration_value:
           type: string
           description: Value of the duration
-          example: string
+          example: ' 349d0db0'
         recur_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         recur_count:
           type: string
           description: Count of recurrence
-          example: string
+          example: ' 60d94ed2'
         recur_values:
           $ref: "#/components/schemas/Codes"
         recur_criteria:
           type: string
           description: Criteria defining recurrence
-          example: string
+          example: ' 1d2762d7'
         recur_indicator:
           type: boolean
           description: Indicator if recurrence is enabled
@@ -8596,7 +8858,7 @@ components:
       properties:
         code:
           type: string
-          description: "A machine-readable, unique system error code (e..."
+          description: "A machine-readable, unique system error code."
           example: NOT_FOUND_PR
         message:
           type: string
@@ -8620,7 +8882,7 @@ components:
           example: 2025-11-10T10:30:00Z
         trace_id:
           type: string
-          description: "A unique identifier for this specific request, ..."
+          description: A unique identifier for this specific request.
           readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
         doc_url:
@@ -8642,7 +8904,7 @@ components:
                 type: string
                 description: The specific validation rule that failed.
                 example: must be unique
-              rejectedValue:
+              rejected_value:
                 type: string
                 description: The value that was sent and rejected (only if non-sensitive).
                 example: "12345"
@@ -8661,7 +8923,7 @@ components:
           example: https://api.example.com
         format:
           type: string
-          example: string
+          example: ' 74694868'
           default: PARQUET
           enum:
           - XML
@@ -8675,17 +8937,17 @@ components:
           example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
-          example: string
+          example: ' 998488bd'
     ExportJob:
       type: object
       properties:
         id:
           type: string
           readOnly: true
-          example: string
+          example: ' 1650da13'
         status:
           type: string
-          example: string
+          example: ' 718bad9f'
           enum:
           - PENDING
           - PROCESSING
@@ -8706,7 +8968,7 @@ components:
       properties:
         event_type:
           type: string
-          example: string
+          example: EXPORT_COMPLETED
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
@@ -8720,6 +8982,7 @@ components:
             job_id:
               type: string
               readOnly: true
+              example: a00a57e7
             aggregate:
               type: string
               example: OrgProfile
@@ -8728,6 +8991,7 @@ components:
               readOnly: true
             status:
               type: string
+              example: FAILED
               enum:
               - COMPLETED
               - FAILED
@@ -8771,36 +9035,34 @@ components:
         identifier_id:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          description: Unique identifier value
           readOnly: true
-          example: string
+          example: ' 017eae9e'
         identifier_key:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Business key for the identifier Pattern: ^[a-zA..."
+          description: Business key for the identifier
           readOnly: true
-          example: string
+          example: ' b47b83db'
         context:
           type: string
           description: Context or domain of the identifier
-          example: string
+          example: ' ec2d41ea'
         value:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' 0be85f6c'
         detail:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' d76edb19'
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
           readOnly: true
-          example: string
+          example: ' f2e23330'
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -8820,19 +9082,19 @@ components:
           type: string
           description: The monetary or hours-based value of the...
           readOnly: true
-          example: string
+          example: ' f2e23330'
         context:
           type: string
           description: Context or domain of the identifier
-          example: string
+          example: ' ec2d41ea'
         detail:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' d76edb19'
         value:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' 0be85f6c'
       description: Identifier Update for Patch and Put
     Identifiers:
       type: array
@@ -8844,23 +9106,23 @@ components:
         link_key:
           type: string
           description: The unique key for the link.
-          example: string
+          example: ' 7828b343'
         href:
           type: string
           description: The URL of the related resource.
-          example: string
+          example: ' 9b61db7e'
         method:
           type: string
           description: The HTTP method to be used to access the...
-          example: string
+          example: ' dd10ca43'
         rel:
           type: string
           description: "The link relation, which describes the r..."
-          example: string
+          example: ' 71763bd3'
         title:
           type: string
           description: A human-readable title for the link.
-          example: string
+          example: ' 0f9d991a'
       description: Link
     LocationTypes:
       type: string
@@ -8911,34 +9173,34 @@ components:
         metric_name_value_key:
           type: string
           description: A unique key for the metric name value r...
-          example: string
+          example: ' 57dd8a18'
         metric_name_value_id:
           type: string
           description: The unique ID for the metric name value.
           readOnly: true
-          example: string
+          example: ' 1949705a'
         header_sequence:
           type: string
           description: The header sequence for the metric value...
-          example: string
+          example: ' d5ff9638'
         uom:
           $ref: "#/components/schemas/NarrativeUomTypes"
         value:
           type: string
           description: The value of the metric.
-          example: string
+          example: ' a48574f0'
         value_category:
           type: string
           description: The category of the metric value.
-          example: string
+          example: ' 1fd0f599'
         value_description:
           type: string
           description: A description of the metric value.
-          example: string
+          example: ' 6e4d6ae0'
         value_name:
           type: string
           description: The name of the metric value.
-          example: string
+          example: ' 25dfe64e'
         codes:
           $ref: "#/components/schemas/Codes"
       description: Metric Name Value
@@ -8955,7 +9217,7 @@ components:
         header_sequence:
           type: string
           description: The header sequence for the metric value...
-          example: string
+          example: ' d5ff9638'
         codes:
           $ref: "#/components/schemas/Codes"
         uom:
@@ -8963,19 +9225,19 @@ components:
         value_category:
           type: string
           description: The category of the metric value.
-          example: string
+          example: ' 1fd0f599'
         value_description:
           type: string
           description: A description of the metric value.
-          example: string
+          example: ' 6e4d6ae0'
         value:
           type: string
           description: The value of the metric.
-          example: string
+          example: ' a48574f0'
         value_name:
           type: string
           description: The name of the metric value.
-          example: string
+          example: ' 25dfe64e'
       description: MetricNameValue Update for Patch and Put
     MetricNameValues:
       type: array
@@ -8987,28 +9249,28 @@ components:
         money_key:
           type: string
           description: The unique key for the monetary value.
-          example: string
+          example: ' bbba5baf'
         money_id:
           type: string
           description: The unique ID for the monetary value.
           readOnly: true
-          example: string
+          example: ' bbe7d0ca'
         currency_code:
           type: string
           description: "ISO currency code, e.g., 'USD'."
-          example: string
+          example: ' 05ef0174'
         display_value:
           type: string
           description: The locale-specific display format for t...
-          example: string
+          example: ' dde95c5e'
         locale:
           type: string
           description: "The locale code (e.g., en-US, fr-FR)."
-          example: string
+          example: ' 3a284bcb'
         value:
           type: string
           description: The monetary value.
-          example: string
+          example: ' 81fc3e13'
       description: Monetary value and currency information.
     NarrativeUomTypes:
       type: string
@@ -9142,38 +9404,38 @@ components:
         org_name_key:
           type: string
           description: A unique key for the organization's name...
-          example: string
+          example: ' 1cb3a1b7'
         alias:
           type: string
           description: An alternative or shorter name for the o...
-          example: string
+          example: ' c5d6f52f'
         identifiers_href:
           type: string
           description: A hyperlink to a resource containing the...
           format: href
           readOnly: true
-          example: string
+          example: ' 2fda14b6'
         org_name_id:
           type: string
           description: A unique ID for the organization's name.
           readOnly: true
-          example: string
+          example: ' 2a7580bc'
         organization_contact:
           type: string
           description: Contact information associated with the ...
-          example: string
+          example: ' 217637ca'
         organization_name:
           type: string
           description: The official legal name of the organizat...
-          example: string
+          example: ' 3cb25d42'
         party_key:
           type: string
           description: The unique key of the party associated w...
-          example: string
+          example: ' a6b40196'
         preferred_name:
           type: string
           description: A preferred or common name for the organ...
-          example: string
+          example: ' c81b78dc'
       description: Organization Name
     OrgNameCreate:
       required:
@@ -9188,25 +9450,25 @@ components:
         organization_contact:
           type: string
           description: Contact information associated with the ...
-          example: string
+          example: ' 217637ca'
         alias:
           type: string
           description: An alternative or shorter name for the o...
-          example: string
+          example: ' c5d6f52f'
         organization_name:
           type: string
           description: The official legal name of the organizat...
-          example: string
+          example: ' 3cb25d42'
         identifiers_href:
           type: string
           description: A hyperlink to a resource containing the...
           format: href
           readOnly: true
-          example: string
+          example: ' 2fda14b6'
         preferred_name:
           type: string
           description: A preferred or common name for the organ...
-          example: string
+          example: ' c81b78dc'
       description: OrgName Update for Patch and Put
     OrgProfile:
       type: object
@@ -9214,30 +9476,30 @@ components:
         org_profile_key:
           type: string
           description: A unique key for the organization profil...
-          example: string
+          example: ' ddbab76b'
         org_profile_id:
           type: string
           description: The unique ID for the organization profi...
           readOnly: true
-          example: string
+          example: ' d996cc62'
         alias:
           type: string
           description: An alias or common name for the organiza...
-          example: string
+          example: ' 3f24f74a'
         annual_revenue:
           type: string
           description: The organization's annual revenue.
-          example: string
+          example: ' a1557670'
         business_type:
           $ref: "#/components/schemas/BusinessTypes"
         currency:
           type: string
           description: The currency of the annual revenue.
-          example: string
+          example: ' 9d5cc002'
         date_established:
           type: string
           description: The date the organization was establishe...
-          example: string
+          example: ' f8001934'
         dba:
           $ref: "#/components/schemas/Codes"
         domestic_duns:
@@ -9245,7 +9507,7 @@ components:
         employee_count:
           type: string
           description: The number of employees in the organizat...
-          example: string
+          example: ' 73eb194c'
         expertise:
           maxItems: 255
           minItems: 1
@@ -9256,7 +9518,7 @@ components:
         global_duns:
           type: string
           description: The global D&B D-U-N-S number.
-          example: string
+          example: ' 2b481ce3'
         investors:
           maxItems: 255
           minItems: 1
@@ -9267,7 +9529,7 @@ components:
         legal_status:
           type: string
           description: The legal status of the organization.
-          example: string
+          example: ' 6fcf4303'
         line_of_businesses:
           maxItems: 255
           minItems: 1
@@ -9278,12 +9540,12 @@ components:
         locale:
           type: string
           description: The organization's locale.
-          example: string
+          example: ' bb07e5ae'
         national_tax_identifier:
           type: string
           description: The organization's national tax identifi...
           readOnly: true
-          example: string
+          example: ' 7e1f3da2'
         tax_exempt_indicator:
           type: boolean
           description: Indicates if the organization is exempt ...
@@ -9323,7 +9585,7 @@ components:
         org_contact_method:
           type: string
           description: The primary contact method for the organ...
-          example: string
+          example: ' d8f9c153'
         org_name:
           $ref: "#/components/schemas/OrgName"
         inception_date:
@@ -9334,16 +9596,16 @@ components:
         parent_duns:
           type: string
           description: The D&B D-U-N-S number of the parent com...
-          example: string
+          example: ' 5d2775e8'
         parent_org_id:
           type: string
           description: The ID of the parent organization.
           readOnly: true
-          example: string
+          example: ' 63885b28'
         org_contact_name:
           type: string
           description: The primary contact name for the organiz...
-          example: string
+          example: ' 36df184b'
         part_identifier_types:
           maxItems: 255
           minItems: 1
@@ -9391,7 +9653,7 @@ components:
         locale:
           type: string
           description: The organization's locale.
-          example: string
+          example: ' bb07e5ae'
         investors:
           maxItems: 255
           minItems: 1
@@ -9402,27 +9664,27 @@ components:
         org_contact_method:
           type: string
           description: The primary contact method for the organ...
-          example: string
+          example: ' d8f9c153'
         business_type:
           $ref: "#/components/schemas/BusinessTypes"
         alias:
           type: string
           description: An alias or common name for the organiza...
-          example: string
+          example: ' 3f24f74a'
         currency:
           type: string
           description: The currency of the annual revenue.
-          example: string
+          example: ' 9d5cc002'
         legal_status:
           type: string
           description: The legal status of the organization.
-          example: string
+          example: ' 6fcf4303'
         org_name:
           $ref: "#/components/schemas/OrgName"
         employee_count:
           type: string
           description: The number of employees in the organizat...
-          example: string
+          example: ' 73eb194c'
         standard_discount_policies:
           maxItems: 255
           minItems: 1
@@ -9435,7 +9697,7 @@ components:
         global_duns:
           type: string
           description: The global D&B D-U-N-S number.
-          example: string
+          example: ' 2b481ce3'
         part_identifier_types:
           maxItems: 255
           minItems: 1
@@ -9469,7 +9731,7 @@ components:
         parent_duns:
           type: string
           description: The D&B D-U-N-S number of the parent com...
-          example: string
+          example: ' 5d2775e8'
         standard_payment_terms:
           $ref: "#/components/schemas/PaymentTermReferences"
         control_accounts:
@@ -9482,12 +9744,12 @@ components:
         date_established:
           type: string
           description: The date the organization was establishe...
-          example: string
+          example: ' f8001934'
         national_tax_identifier:
           type: string
           description: The organization's national tax identifi...
           readOnly: true
-          example: string
+          example: ' 7e1f3da2'
         legal_name_for_tax_purposes:
           type: string
           description: The organization's full legal name used ...
@@ -9497,11 +9759,11 @@ components:
         annual_revenue:
           type: string
           description: The organization's annual revenue.
-          example: string
+          example: ' a1557670'
         org_contact_name:
           type: string
           description: The primary contact name for the organiz...
-          example: string
+          example: ' 36df184b'
       description: OrgProfile Update for Patch and Put
     OrgProfileWorkflowMetadata:
       type: object
@@ -9509,7 +9771,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
-          example: string
+          example: ' 9a73107c'
           enum:
           - CREATED
           - ACTIVE
@@ -9578,25 +9840,22 @@ components:
       type: object
       properties:
         term_reference_id:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique identifier value for the referenc... Pat...
+          description: Unique identifier value for the referenc...
           readOnly: true
-          example: string
+          example: ' 754dcace'
         term_reference_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique key value for the reference recor... Pat...
-          example: string
+          description: Unique key value for the reference recor...
+          example: ' b5ec9ba9'
         term_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: The unique key identifying the reference... Pat...
-          example: string
+          description: The unique key identifying the reference...
+          example: ' ae2eabaa'
         context:
           type: string
           description: Context or domain of the payment term.
-          example: string
+          example: ' cedd59ea'
         identifier:
           $ref: "#/components/schemas/Identifier"
         occurrence_date_time:
@@ -9620,7 +9879,7 @@ components:
         context:
           type: string
           description: Context or domain of the payment term.
-          example: string
+          example: ' cedd59ea'
         occurrence_date_time:
           type: string
           description: The date and time the terms were applied...
@@ -9670,11 +9929,11 @@ components:
           type: string
           description: A unique identifier for the payroll rate...
           readOnly: true
-          example: string
+          example: ' ed8045b2'
         payroll_rate_key:
           type: string
           description: A unique identifier for the payroll rate...
-          example: string
+          example: ' 15acfed8'
         staff_member_key:
           type: string
           description: Business key or code for the staff membe...
@@ -9732,7 +9991,7 @@ components:
           type: string
           description: Unique person identifier.
           readOnly: true
-          example: string
+          example: ' 51180866'
         person_key:
           type: string
           description: Business key for the person.
@@ -9750,7 +10009,7 @@ components:
           type: string
           description: Birth date of the person.
           format: date
-          example: 1985-08-25
+          example: 2026-01-14
         comments:
           type: string
           description: Additional comments about the person.
@@ -9758,21 +10017,18 @@ components:
         communication_channels:
           $ref: "#/components/schemas/CommunicationChannels"
         country_code:
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: "ISO 3166-1 alpha-2 country code. Pattern: ^[A-Z..."
+          description: ISO 3166-1 alpha-2 country code.
           example: US
         gender_type:
           $ref: "#/components/schemas/GenderTypes"
         birth_country:
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: ISO 3166-1 alpha-2 code for the country ... Pat...
+          description: ISO 3166-1 alpha-2 code for the country ...
           example: US
         citizenship_country:
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: ISO 3166-1 alpha-2 code for citizenship ... Pat...
+          description: ISO 3166-1 alpha-2 code for citizenship ...
           example: US
         identifiers:
           $ref: "#/components/schemas/Identifiers"
@@ -9781,7 +10037,7 @@ components:
           description: Link to identifiers resource.
           format: href
           readOnly: true
-          example: string
+          example: ' d53c5f06'
         language_codes:
           maxItems: 255
           minItems: 1
@@ -9795,7 +10051,7 @@ components:
           type: string
           description: Link to organizational profiles resource...
           format: href
-          example: string
+          example: ' ace6a8d6'
         party_key:
           type: string
           description: Business key for the party.
@@ -9810,9 +10066,8 @@ components:
         person_attributes:
           $ref: "#/components/schemas/MetricNameValues"
         preferred_language_code:
-          pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
-          description: "Preferred language code. Pattern: ^[a-z]{2}(-[A..."
+          description: Preferred language code.
           example: en-US
         privacies:
           $ref: "#/components/schemas/PrivacyItems"
@@ -9820,11 +10075,11 @@ components:
           type: string
           description: Link to privacy settings resource.
           format: href
-          example: string
+          example: ' 1cc498bc'
         special_remarks_description:
           type: string
           description: Special remarks about the person.
-          example: string
+          example: ' 3db44766'
         person_name:
           $ref: "#/components/schemas/PersonName"
       description: Person
@@ -10029,29 +10284,27 @@ components:
           type: string
           description: Birth date of the person.
           format: date
-          example: 1985-08-25
+          example: 2026-01-14
         special_remarks_description:
           type: string
           description: Special remarks about the person.
-          example: string
+          example: ' 3db44766'
         privacies_href:
           type: string
           description: Link to privacy settings resource.
           format: href
-          example: string
+          example: ' 1cc498bc'
         marital_status_type:
           $ref: "#/components/schemas/MaritalStatusTypes"
         person_name:
           $ref: "#/components/schemas/PersonName"
         citizenship_country:
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: ISO 3166-1 alpha-2 code for citizenship ... Pat...
+          description: ISO 3166-1 alpha-2 code for citizenship ...
           example: US
         preferred_language_code:
-          pattern: "^[a-z]{2}(-[A-Z]{2})?$"
           type: string
-          description: "Preferred language code. Pattern: ^[a-z]{2}(-[A..."
+          description: Preferred language code.
           example: en-US
         party_types:
           maxItems: 255
@@ -10061,14 +10314,12 @@ components:
           items:
             $ref: "#/components/schemas/PartyTypes"
         birth_country:
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: ISO 3166-1 alpha-2 code for the country ... Pat...
+          description: ISO 3166-1 alpha-2 code for the country ...
           example: US
         country_code:
-          pattern: "^[A-Z]{2}$"
           type: string
-          description: "ISO 3166-1 alpha-2 country code. Pattern: ^[A-Z..."
+          description: ISO 3166-1 alpha-2 country code.
           example: US
         gender_type:
           $ref: "#/components/schemas/GenderTypes"
@@ -10077,7 +10328,7 @@ components:
           description: Link to identifiers resource.
           format: href
           readOnly: true
-          example: string
+          example: ' d53c5f06'
         age:
           maximum: 130
           minimum: 0
@@ -10089,7 +10340,7 @@ components:
           type: string
           description: Link to organizational profiles resource...
           format: href
-          example: string
+          example: ' ace6a8d6'
         language_codes:
           maxItems: 255
           minItems: 1
@@ -10135,7 +10386,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
-          example: string
+          example: ' 67db0f4e'
         position_codes:
           maxItems: 255
           minItems: 1
@@ -10163,7 +10414,7 @@ components:
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: "Standardized code for the county. Pattern: ^[a-..."
-          example: string
+          example: ' 67db0f4e'
         bearing:
           type: string
           description: Bearing direction (compass)
@@ -10194,47 +10445,47 @@ components:
         display_value:
           type: string
           description: Human-readable display value for the pri...
-          example: string
+          example: ' 908957af'
         locale:
           type: string
           description: Locale used for formatting display value...
-          example: string
+          example: ' d0cf8982'
         value:
           type: string
           description: The numeric value of the price (before t...
-          example: string
+          example: ' b4f27252'
         tax_value:
           type: string
           description: The calculated amount of tax applied to ...
-          example: string
+          example: ' 6a09f9ca'
         taxable_amount:
           type: string
           description: The portion of the price subject to tax.
-          example: string
+          example: ' 10889700'
         non_taxable_amount:
           type: string
           description: The portion of the price not subject to ...
-          example: string
+          example: ' f0325daa'
         total_amount:
           type: string
           description: The total final price including all comp...
-          example: string
+          example: ' 1b0ccf9c'
         total_cost_amount:
           type: string
           description: The total cost to the provider/seller.
-          example: string
+          example: ' 92e9e67e'
         unit_cost_amount:
           type: string
           description: The unit cost to the provider/seller.
-          example: string
+          example: ' a1d6c148'
         price_description:
           type: string
           description: "A descriptive title for the price (e.g.,..."
-          example: string
+          example: ' d946d9cb'
         price_key:
           type: string
           description: Natural key or business identifier for t...
-          example: string
+          example: ' f940a4e0'
         tax_included_indicator:
           type: boolean
           description: Indicates whether tax is included in the...
@@ -10242,12 +10493,12 @@ components:
         currency_code:
           type: string
           description: "ISO 4217 currency code, e.g., 'USD', 'EU..."
-          example: string
+          example: ' 75cf10bb'
         price_id:
           type: string
           description: Unique system identifier for the price r...
           readOnly: true
-          example: string
+          example: ' 2120cc3c'
         duration:
           $ref: "#/components/schemas/EffectivePeriod"
         price_types:
@@ -10323,33 +10574,33 @@ components:
         display_value:
           type: string
           description: Human-readable display value for the pri...
-          example: string
+          example: ' 908957af'
         unit_cost_amount:
           type: string
           description: The unit cost to the provider/seller.
-          example: string
+          example: ' a1d6c148'
         locale:
           type: string
           description: Locale used for formatting display value...
-          example: string
+          example: ' d0cf8982'
         currency_code:
           type: string
           description: "ISO 4217 currency code, e.g., 'USD', 'EU..."
-          example: string
+          example: ' 75cf10bb'
         duration:
           $ref: "#/components/schemas/EffectivePeriod"
         tax_value:
           type: string
           description: The calculated amount of tax applied to ...
-          example: string
+          example: ' 6a09f9ca'
         total_amount:
           type: string
           description: The total final price including all comp...
-          example: string
+          example: ' 1b0ccf9c'
         total_cost_amount:
           type: string
           description: The total cost to the provider/seller.
-          example: string
+          example: ' 92e9e67e'
         price_types:
           maxItems: 255
           minItems: 1
@@ -10364,19 +10615,19 @@ components:
         price_description:
           type: string
           description: "A descriptive title for the price (e.g.,..."
-          example: string
+          example: ' d946d9cb'
         non_taxable_amount:
           type: string
           description: The portion of the price not subject to ...
-          example: string
+          example: ' f0325daa'
         value:
           type: string
           description: The numeric value of the price (before t...
-          example: string
+          example: ' b4f27252'
         taxable_amount:
           type: string
           description: The portion of the price subject to tax.
-          example: string
+          example: ' 10889700'
       description: Price Update for Patch and Put
     PrivacyContextTypes:
       type: string
@@ -10399,11 +10650,11 @@ components:
           type: string
           description: A unique identifier for the privacy even...
           readOnly: true
-          example: string
+          example: ' a4bffc7f'
         privacy_event_key:
           type: string
           description: A unique identifier for the privacy even...
-          example: string
+          example: ' 34a120f6'
         legal_basis_type:
           $ref: "#/components/schemas/PrivacyLegalBasisTypes"
         privacy_context_type:
@@ -10413,11 +10664,11 @@ components:
         value:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' b1aaee4a'
         event_reference:
           type: string
           description: Event Reference for this event
-          example: string
+          example: ' 330904be'
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
@@ -10441,13 +10692,13 @@ components:
         event_reference:
           type: string
           description: Event Reference for this event
-          example: string
+          example: ' 330904be'
         legal_basis_type:
           $ref: "#/components/schemas/PrivacyLegalBasisTypes"
         value:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' b1aaee4a'
         occurrence_date_time:
           type: string
           description: The date and time the event occurred.
@@ -10465,11 +10716,11 @@ components:
           type: string
           description: A unique key for the privacy record.
           readOnly: true
-          example: string
+          example: ' c39e4a47'
         privacy_key:
           type: string
           description: A unique key for the privacy record.
-          example: string
+          example: ' bc7b9812'
         privacy_event:
           $ref: "#/components/schemas/PrivacyEvents"
         privacy_type:
@@ -10477,11 +10728,11 @@ components:
         encrypted_value:
           type: string
           description: The encrypted value of the sensitive inf...
-          example: string
+          example: ' d4b08a08'
         hash_value:
           type: string
           description: A one-way hash of the sensitive informat...
-          example: string
+          example: ' cb46a3b0'
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         last_updated_date_time:
@@ -10512,11 +10763,11 @@ components:
         encrypted_value:
           type: string
           description: The encrypted value of the sensitive inf...
-          example: string
+          example: ' d4b08a08'
         hash_value:
           type: string
           description: A one-way hash of the sensitive informat...
-          example: string
+          example: ' cb46a3b0'
         privacy_event:
           $ref: "#/components/schemas/PrivacyEvents"
       description: PrivacyItem Update for Patch and Put
@@ -10879,12 +11130,12 @@ components:
         textual_detail_key:
           type: string
           description: Natural key or business-friendly key for...
-          example: string
+          example: ' ae269019'
         textual_detail_id:
           type: string
           description: Unique identifier for textual detail.
           readOnly: true
-          example: string
+          example: ' 56f39d55'
         comments:
           $ref: "#/components/schemas/Memo"
         locale_codes:
@@ -10894,23 +11145,23 @@ components:
         short_description:
           type: string
           description: Short description for the detail.
-          example: string
+          example: ' 641b345f'
         description:
           type: string
           description: Full description in memo format.
-          example: string
+          example: ' 593f3732'
         text_key:
           type: string
           description: Key reference for reusable text blocks.
-          example: string
+          example: ' 61a258c2'
         name:
           type: string
           description: Name or title of the textual detail.
-          example: string
+          example: ' d11a91d5'
         value:
           type: string
           description: Value associated with the textual detail...
-          example: string
+          example: ' c9d07abe'
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         groups:
@@ -10918,25 +11169,25 @@ components:
         label:
           type: string
           description: Label for UI representation.
-          example: string
+          example: ' 0b1d9dae'
         alt_text:
           type: string
           description: Alternative text for accessibility or im...
-          example: string
+          example: ' 562619e9'
         textual_detail_code:
           type: string
           description: Code identifier for textual detail refer...
-          example: string
+          example: ' fb052b42'
         tags:
           $ref: "#/components/schemas/Codes"
         uom_display:
           type: string
           description: Unit of Measure display value.
-          example: string
+          example: ' e3c42504'
         uom_code:
           type: string
           description: "Unit of Measure code (e.g., EA, PR)."
-          example: string
+          example: ' ffe67aab'
       description: not nullable
     TextualDetails:
       type: array
@@ -10946,17 +11197,14 @@ components:
       type: object
       properties:
         time_slot_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique business key for the time slot. Pattern:...
-          example: string
+          description: Unique business key for the time slot.
+          example: ' 76a2d64c'
         end_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         end_time:
-          pattern: "^([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(\\.\\d+)?(Z|[+-][01]\\d:[0-5]\\\
-            d)?$"
           type: string
-          description: "End time in HH:mm format. Pattern: ^([01]\\d|2[0..."
+          description: End time in HH:mm format.
           format: date-time
           example: 2026-01-14T12:00:00Z
         recurring_indicator:
@@ -10968,10 +11216,8 @@ components:
         start_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         start_time:
-          pattern: "^([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(\\.\\d+)?(Z|[+-][01]\\d:[0-5]\\\
-            d)?$"
           type: string
-          description: "Start time in HH:mm format. Pattern: ^([01]\\d|2..."
+          description: Start time in HH:mm format.
           format: date-time
           example: 2026-01-14T12:00:00Z
         timeslot_directive_types:
@@ -10982,11 +11228,10 @@ components:
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique identifier for the time slot reco... Pat...
+          description: Unique identifier for the time slot reco...
           readOnly: true
-          example: string
+          example: ' a0c4bcd0'
         week_of_date:
           maxItems: 255
           minItems: 1
@@ -11129,6 +11374,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ErrorDetail"
+    OrgProfileDocumentation:
+      description: Commands processing complete
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/OrgProfileDocumentation"
   parameters:
     StandardsVersionHeader:
       name: standards-version

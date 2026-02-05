@@ -11,9 +11,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: /v1_0_0
-  description: Automotive Retail API. All requests must comply with the Standards
-    Version identified in the headers.
+- url: //v1_0_0
 security:
 - industry-oauth:
   - standard:read
@@ -100,7 +98,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -138,7 +136,13 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /bill-of-materials/KEY782
+                example: /bill-of-materials/KEY78p
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</bill-of-materials/capabilities{?state,role}>; rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -312,7 +316,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Y
+        example: KEY78u
   /bill-of-materials/{billOfMaterialKey}/bom-components:
     get:
       tags:
@@ -408,7 +412,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/bill-of-materials{billOfMaterialKey}bom-components/KEY782u"
+                example: "/bill-of-materials{billOfMaterialKey}bom-components/KEY78pq"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</bill-of-materials/{billOfMaterialKey}/bom-components/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -595,7 +606,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78YS
+        example: KEY78uF
   /bill-of-materials/{billOfMaterialKey}/identifiers:
     get:
       tags:
@@ -691,7 +702,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/bill-of-materials{billOfMaterialKey}identifiers/KEY782u5"
+                example: "/bill-of-materials{billOfMaterialKey}identifiers/KEY78pq6"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</bill-of-materials/{billOfMaterialKey}/identifiers/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -878,7 +896,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78YSx
+        example: KEY78uFv
   /bill-of-materials/{billOfMaterialKey}/part-names:
     get:
       tags:
@@ -936,7 +954,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -974,7 +992,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/bill-of-materials{billOfMaterialKey}part-names/KEY782u5r"
+                example: "/bill-of-materials{billOfMaterialKey}part-names/KEY78pq6L"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</bill-of-materials/{billOfMaterialKey}/part-names/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -1161,7 +1186,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78YSxL
+        example: KEY78uFva
   /bill-of-materials/{billOfMaterialKey}/unit-of-measures:
     get:
       tags:
@@ -1283,7 +1308,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78YSxLo
+        example: KEY78uFva3
   /bill-of-materials/{billOfMaterialKey}/part-identifiers:
     get:
       tags:
@@ -1341,7 +1366,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: true
+                    example: false
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1379,7 +1404,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/bill-of-materials{billOfMaterialKey}part-identifiers/KEY782u5rcC"
+                example: "/bill-of-materials{billOfMaterialKey}part-identifiers/KEY78pq6LT8"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</bill-of-materials/{billOfMaterialKey}/part-identifiers/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -1566,7 +1598,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78YSxLo4
+        example: KEY78uFva30
   /bill-of-materials/{billOfMaterialKey}/effective-periods:
     get:
       tags:
@@ -1688,7 +1720,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78YSxLo4s
+        example: KEY78uFva30J
   /bill-of-materials/{billOfMaterialKey}/part-specifications:
     get:
       tags:
@@ -1746,7 +1778,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -1784,7 +1816,14 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/bill-of-materials{billOfMaterialKey}part-specifications/KEY782u5rcCMI"
+                example: "/bill-of-materials{billOfMaterialKey}part-specifications/KEY78pq6LT8mM"
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</bill-of-materials/{billOfMaterialKey}/part-specifications/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
           content:
             application/json:
               schema:
@@ -1971,7 +2010,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78YSxLo4sj
+        example: KEY78uFva30J8
   /bill-of-materials/{billOfMaterialKey}/textual-details:
     get:
       tags:
@@ -2029,7 +2068,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2093,7 +2132,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78YSxLo4sjj
+        example: KEY78uFva30J8N
   /bill-of-materials/{billOfMaterialKey}/time-slots:
     get:
       tags:
@@ -2151,7 +2190,7 @@ paths:
                   has_more:
                     type: boolean
                     description: Whether additional results exist beyond this page.
-                    example: false
+                    example: true
                   total_count:
                     type: integer
                     description: "Total entities matching the query (optional, may\
@@ -2215,7 +2254,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78YSxLo4sjjk
+        example: KEY78uFva30J8Nj
   /bill-of-materials/health:
     get:
       tags:
@@ -2287,11 +2326,18 @@ paths:
         "200":
           description: Batch processing complete
           headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</bill-of-materials/batch/capabilities{?state,role}>; rel=\"\
+                  capabilities\""
             Location:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /bill-of-materials/batch/530950930141309176
+                example: /bill-of-materials/batch/4229796283793528686
           content:
             application/json:
               schema:
@@ -2344,7 +2390,7 @@ paths:
               properties:
                 format:
                   type: string
-                  example: string
+                  example: ' 837c21fc'
                   default: PARQUET
                   enum:
                   - XML
@@ -2358,9 +2404,11 @@ paths:
                     start:
                       type: string
                       format: date
+                      example: 2026-01-14
                     end:
                       type: string
                       format: date
+                      example: 2026-01-14
                 data_contract_key:
                   type: string
                   description: "The identifier of the specific data contract/projection\
@@ -2368,6 +2416,7 @@ paths:
                   example: contact_details_only
                 compression:
                   type: string
+                  example: GZIP
                   default: SNAPPY
                   enum:
                   - SNAPPY
@@ -2401,15 +2450,23 @@ paths:
                     \ starting the job."
                   example: false
                   default: false
+              example: PARQUET
       responses:
         "202":
           description: Export job created/accepted
           headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</bill-of-materials/exports/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
             Location:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: /bill-of-materials/exports/8061006648637946529
+                example: /bill-of-materials/exports/5861935008740723089
         "409":
           description: "Conflict: Job with this Idempotency-Key already exists"
         "422":
@@ -2486,11 +2543,31 @@ paths:
         content:
           application/json:
             schema:
+              required:
+              - type
+              - method
+              - params
+              - id
               type: object
               properties:
                 type:
                   type: string
-                  description: "The intent of the command (e.g., RescheduleSlot, CancelInvoice)"
+                  description: jsonrpc
+                  default: jsonrpc
+                jsonrpc:
+                  type: string
+                  example: "2.0"
+                  default: "2.0"
+                method:
+                  type: string
+                  description: star.order.update)
+                id:
+                  type: string
+                  description: "match the response with request. If omitted, Notification\
+                    \ the server will not respond."
+                version:
+                  type: string
+                  description: "2.0"
                 workflow_state:
                   type: string
                   description: "The intent of the command (e.g., CREATED, DELETED)"
@@ -2500,18 +2577,26 @@ paths:
                 context:
                   type: object
                   additionalProperties: true
-                  description: The payload required for this specific command type
-                data:
+                  description: context payload required for this specific command
+                    type
+                params:
                   $ref: "#/components/schemas/BillOfMaterial"
       responses:
         "200":
           description: Commands processing complete
           headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</bill-of-materials/{billOfMaterialKey}/commands/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
             Location:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/bill-of-materials/{billOfMaterialKey}/commands/6459234089049505804"
+                example: "/bill-of-materials/{billOfMaterialKey}/commands/2722290322775678963"
           content:
             application/json:
               schema:
@@ -2533,15 +2618,15 @@ paths:
                   message:
                     type: string
                     description: A human-readable summary or error detail
-                    example: "Invoice #d53e4ab9 has been successfully cancelled."
-                  commandId:
+                    example: "Invoice #e42ff3dc has been successfully cancelled."
+                  command_id:
                     type: string
                     description: The tracking ID for this specific command execution
                     format: identifier
                   code:
                     type: string
                     description: detailed code for workflow business processing
-                    example: be1502e2
+                    example: 8416f529
                   retry_after:
                     type: string
                     description: "For PENDING or PROCESSING statuses, retry_after\
@@ -2681,6 +2766,72 @@ paths:
           $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
+  /bill-of-materials/documentation:
+    post:
+      tags:
+      - Default
+      summary: Execute a knowledge request on BillOfMaterial
+      description: Single entry point for all BillOfMaterial knowledge request
+      operationId: getBillOfMaterialDocuments
+      parameters:
+      - name: billOfMaterialKey
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Command intent and parameters
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: "The intent of the document request (e.g., RescheduleSlot,\
+                    \ CancelInvoice)"
+                workflow_state:
+                  type: string
+                  description: "The intent of the command (e.g., PROCESS, CLASS)"
+                  enum:
+                  - PROCESS
+                  - CLASS
+                context:
+                  type: object
+                  additionalProperties: true
+                  description: The payload required for this specific command type
+                data:
+                  $ref: "#/components/schemas/BillOfMaterial"
+      responses:
+        "200":
+          headers:
+            Link:
+              description: HATEOAS link to discover state-aware transitions and business
+                constraints.
+              schema:
+                type: string
+                example: "</bill-of-materials/documentation/capabilities{?state,role}>;\
+                  \ rel=\"capabilities\""
+            Location:
+              description: The URI of the newly created resource.
+              schema:
+                type: string
+                example: /bill-of-materials/documentation/4771692919210247917
+          $ref: "#/components/responses/BillOfMaterialDocumentation"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "412":
+          $ref: "#/components/responses/PreconditionFailedError"
+        "500":
+          $ref: "#/components/responses/ServerError"
 components:
   schemas:
     BillOfMaterial:
@@ -2710,7 +2861,7 @@ components:
           type: string
           description: The date from which this BOM revision be...
           format: date
-          example: 2024-07-01
+          example: 2026-01-14
         product_status_type:
           $ref: "#/components/schemas/ProductStatusTypes"
         components:
@@ -2745,7 +2896,7 @@ components:
           type: string
           description: The date from which this BOM revision be...
           format: date
-          example: 2024-07-01
+          example: 2026-01-14
         product_status_type:
           $ref: "#/components/schemas/ProductStatusTypes"
         part_specification:
@@ -2761,7 +2912,7 @@ components:
         current_state:
           type: string
           description: The current lifecycle phase of this entity.
-          example: string
+          example: ' d6b73a8b'
           enum:
           - CREATED
           - ACTIVE
@@ -2875,6 +3026,31 @@ components:
                 - FINANCE_VP
                 items:
                   type: string
+              links:
+                type: object
+                properties:
+                  execute:
+                    type: string
+                    description: The relative or absolute URL to POST the command
+                      to
+                    example: "/bill-of-materials/{key}/commands/approve"
+                  method:
+                    type: string
+                    example: POST
+                    enum:
+                    - POST
+                    - PUT
+                    - PATCH
+                  schema_ref:
+                    type: string
+                    description: Reference to the input payload schema for this action
+                    example: "#/components/schemas/BillOfMaterialCommand"
+                description: HATEOAS-style links to execute the transition or fetch
+                  related metadata
+              _self:
+                type: string
+                description: Link to the specific transition documentation or detail
+                example: /metadata/capabilities/BillOfMaterial/transitions/approve
               instructions:
                 type: array
                 description: Step-by-step checklist the agent must verify before execution
@@ -2911,6 +3087,7 @@ components:
                   - AVRO
                   - PARQUET
                   - CSV
+                default: PARQUET
               columns:
                 type: array
                 example:
@@ -2982,9 +3159,9 @@ components:
                       description: Key-value pairs representing the 'facts' of the
                         current state
                       example:
+                        limit: "0"
                         item_type: Inventory
                         count: "45"
-                        limit: "0"
                     rule_constraints:
                       type: object
                       additionalProperties:
@@ -2993,9 +3170,9 @@ components:
                         \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
                         \ checks."
                       example:
+                        unit: days
                         min: "1"
                         value: "31"
-                        unit: days
                     limit_rule:
                       type: string
                       description: A Prolog-based predicate defining the valid boundary
@@ -3016,6 +3193,11 @@ components:
                       type: string
                       description: Link to documentation regarding this rule
                       format: uri
+        documentation_ref:
+          type: string
+          description: Link to full business documentation for this aggregate
+          format: uri
+          example: /documentation/bill-of-materials
     Codes:
       type: array
       items:
@@ -3071,10 +3253,9 @@ components:
       type: object
       properties:
         effective_period_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique key identifying the effective per... Pat...
-          example: string
+          description: Unique key identifying the effective per...
+          example: ' 9265e56b'
         active_indicator:
           type: boolean
           description: Indicator if the period is currently act...
@@ -3098,19 +3279,19 @@ components:
         duration_value:
           type: string
           description: Value of the duration
-          example: string
+          example: ' 542047df'
         recur_uom_type:
           $ref: "#/components/schemas/DurationUOMTypes"
         recur_count:
           type: string
           description: Count of recurrence
-          example: string
+          example: ' fb912c71'
         recur_values:
           $ref: "#/components/schemas/Codes"
         recur_criteria:
           type: string
           description: Criteria defining recurrence
-          example: string
+          example: ' ecb73008'
         recur_indicator:
           type: boolean
           description: Indicator if recurrence is enabled
@@ -3129,7 +3310,7 @@ components:
       properties:
         code:
           type: string
-          description: "A machine-readable, unique system error code (e..."
+          description: "A machine-readable, unique system error code."
           example: NOT_FOUND_PR
         message:
           type: string
@@ -3153,7 +3334,7 @@ components:
           example: 2025-11-10T10:30:00Z
         trace_id:
           type: string
-          description: "A unique identifier for this specific request, ..."
+          description: A unique identifier for this specific request.
           readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
         doc_url:
@@ -3175,7 +3356,7 @@ components:
                 type: string
                 description: The specific validation rule that failed.
                 example: must be unique
-              rejectedValue:
+              rejected_value:
                 type: string
                 description: The value that was sent and rejected (only if non-sensitive).
                 example: "12345"
@@ -3194,7 +3375,7 @@ components:
           example: https://api.example.com
         format:
           type: string
-          example: string
+          example: ' 837c21fc'
           default: PARQUET
           enum:
           - XML
@@ -3208,17 +3389,17 @@ components:
           example: 2026-01-14T12:00:00Z
         checksum_sha256:
           type: string
-          example: string
+          example: ' 3871bcd8'
     ExportJob:
       type: object
       properties:
         id:
           type: string
           readOnly: true
-          example: string
+          example: ' b05091f9'
         status:
           type: string
-          example: string
+          example: ' e0a6e01b'
           enum:
           - PENDING
           - PROCESSING
@@ -3239,7 +3420,7 @@ components:
       properties:
         event_type:
           type: string
-          example: string
+          example: EXPORT_COMPLETED
           enum:
           - EXPORT_COMPLETED
           - EXPORT_FAILED
@@ -3253,6 +3434,7 @@ components:
             job_id:
               type: string
               readOnly: true
+              example: fc8225d8
             aggregate:
               type: string
               example: BillOfMaterial
@@ -3261,6 +3443,7 @@ components:
               readOnly: true
             status:
               type: string
+              example: FAILED
               enum:
               - COMPLETED
               - FAILED
@@ -3277,36 +3460,34 @@ components:
         identifier_id:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier value Pattern: ^[a-zA-Z0-9_]+..."
+          description: Unique identifier value
           readOnly: true
-          example: string
+          example: ' 45089aa5'
         identifier_key:
           maxLength: 50
           minLength: 5
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Business key for the identifier Pattern: ^[a-zA..."
+          description: Business key for the identifier
           readOnly: true
-          example: string
+          example: ' 426831f6'
         context:
           type: string
           description: Context or domain of the identifier
-          example: string
+          example: ' 0e3b0adb'
         value:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' dd7ceb4d'
         detail:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' 479ff8c1'
         identifier_type:
           type: string
           description: The monetary or hours-based value of the...
           readOnly: true
-          example: string
+          example: ' 51cf4033'
         system_codes:
           $ref: "#/components/schemas/Codes"
       description: Unique identification key for the record.
@@ -3326,19 +3507,19 @@ components:
           type: string
           description: The monetary or hours-based value of the...
           readOnly: true
-          example: string
+          example: ' 51cf4033'
         context:
           type: string
           description: Context or domain of the identifier
-          example: string
+          example: ' 0e3b0adb'
         detail:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' 479ff8c1'
         value:
           type: string
           description: The monetary or hours-based value of the...
-          example: string
+          example: ' dd7ceb4d'
       description: Identifier Update for Patch and Put
     Identifiers:
       type: array
@@ -3382,28 +3563,26 @@ components:
       type: object
       properties:
         part_identifier_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique key identifying the part identifi... Pat...
+          description: Unique key identifying the part identifi...
           readOnly: true
-          example: string
+          example: ' 3b76f8bd'
         part_identifier_id:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique identifier ID for the part identi... Pat...
+          description: Unique identifier ID for the part identi...
           readOnly: true
-          example: string
+          example: ' c333d80b'
         part_identifier_type:
           $ref: "#/components/schemas/PartIdentifierTypes"
         part_identifier_value:
           type: string
           description: Value of the part identifier
           readOnly: true
-          example: string
+          example: ' 7fbdd839'
         description:
           type: string
           description: Optional description for the part identi...
-          example: string
+          example: ' 0d1b2055'
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         part_names:
@@ -3459,11 +3638,11 @@ components:
           type: string
           description: Value of the part identifier
           readOnly: true
-          example: string
+          example: ' 7fbdd839'
         description:
           type: string
           description: Optional description for the part identi...
-          example: string
+          example: ' 0d1b2055'
         part_names:
           $ref: "#/components/schemas/PartNames"
       description: PartIdentifier Update for Patch and Put
@@ -3475,16 +3654,14 @@ components:
       type: object
       properties:
         part_name_id:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unique identifier for the part name Pattern: ^[..."
+          description: Unique identifier for the part name
           readOnly: true
-          example: string
+          example: ' f17215b1'
         part_name_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Business key for the part name Pattern: ^[a-zA-..."
-          example: string
+          description: Business key for the part name
+          example: ' 146131ba'
         part_prefix:
           $ref: "#/components/schemas/Codes"
         part_suffix:
@@ -3492,7 +3669,7 @@ components:
         description:
           type: string
           description: Description of the part name
-          example: string
+          example: ' d46a7238'
         language:
           $ref: "#/components/schemas/Codes"
         locale:
@@ -3540,7 +3717,7 @@ components:
         description:
           type: string
           description: Description of the part name
-          example: string
+          example: ' d46a7238'
         alias:
           $ref: "#/components/schemas/Codes"
         part_number:
@@ -3565,11 +3742,11 @@ components:
           type: string
           description: Unique identifier ID for the supersessio...
           readOnly: true
-          example: string
+          example: ' 4249f3a8'
         part_specification_key:
           type: string
           description: Unique identifier ID for the supersessio...
-          example: string
+          example: ' ac609509'
         part_name_type:
           $ref: "#/components/schemas/PartNameTypes"
         part_condition_types:
@@ -3760,12 +3937,12 @@ components:
         textual_detail_key:
           type: string
           description: Natural key or business-friendly key for...
-          example: string
+          example: ' 7c8a3b44'
         textual_detail_id:
           type: string
           description: Unique identifier for textual detail.
           readOnly: true
-          example: string
+          example: ' e1545997'
         comments:
           $ref: "#/components/schemas/Memo"
         locale_codes:
@@ -3775,23 +3952,23 @@ components:
         short_description:
           type: string
           description: Short description for the detail.
-          example: string
+          example: ' ae436f8a'
         description:
           type: string
           description: Full description in memo format.
-          example: string
+          example: ' cb85876a'
         text_key:
           type: string
           description: Key reference for reusable text blocks.
-          example: string
+          example: ' d1aa878d'
         name:
           type: string
           description: Name or title of the textual detail.
-          example: string
+          example: ' 948cde3a'
         value:
           type: string
           description: Value associated with the textual detail...
-          example: string
+          example: ' c40016ff'
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         groups:
@@ -3799,25 +3976,25 @@ components:
         label:
           type: string
           description: Label for UI representation.
-          example: string
+          example: ' 834f6050'
         alt_text:
           type: string
           description: Alternative text for accessibility or im...
-          example: string
+          example: ' b537021e'
         textual_detail_code:
           type: string
           description: Code identifier for textual detail refer...
-          example: string
+          example: ' 2fd0cb8c'
         tags:
           $ref: "#/components/schemas/Codes"
         uom_display:
           type: string
           description: Unit of Measure display value.
-          example: string
+          example: ' 6fa6c706'
         uom_code:
           type: string
           description: "Unit of Measure code (e.g., EA, PR)."
-          example: string
+          example: ' 9aa2bebb'
       description: not nullable
     TextualDetails:
       type: array
@@ -3827,17 +4004,14 @@ components:
       type: object
       properties:
         time_slot_key:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique business key for the time slot. Pattern:...
-          example: string
+          description: Unique business key for the time slot.
+          example: ' cf86def3'
         end_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         end_time:
-          pattern: "^([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(\\.\\d+)?(Z|[+-][01]\\d:[0-5]\\\
-            d)?$"
           type: string
-          description: "End time in HH:mm format. Pattern: ^([01]\\d|2[0..."
+          description: End time in HH:mm format.
           format: date-time
           example: 2026-01-14T12:00:00Z
         recurring_indicator:
@@ -3849,10 +4023,8 @@ components:
         start_day:
           $ref: "#/components/schemas/DaysOfWeekTypes"
         start_time:
-          pattern: "^([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(\\.\\d+)?(Z|[+-][01]\\d:[0-5]\\\
-            d)?$"
           type: string
-          description: "Start time in HH:mm format. Pattern: ^([01]\\d|2..."
+          description: Start time in HH:mm format.
           format: date-time
           example: 2026-01-14T12:00:00Z
         timeslot_directive_types:
@@ -3863,11 +4035,10 @@ components:
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: Unique identifier for the time slot reco... Pat...
+          description: Unique identifier for the time slot reco...
           readOnly: true
-          example: string
+          example: ' b5555563'
         week_of_date:
           maxItems: 255
           minItems: 1
@@ -3932,22 +4103,19 @@ components:
       type: object
       properties:
         unit_of_measure_key:
-          pattern: "^[a-zA-Z0-9_.-]+$"
           type: string
-          description: "Unit of Measure Value Pattern: ^[a-zA-Z0-9_.-]+..."
-          example: string
+          description: Unit of Measure Value
+          example: ' 9da53f26'
         unit_name:
-          pattern: "^[a-zA-Z0-9_]+$"
           type: string
-          description: "Unit of Measure Pattern: ^[a-zA-Z0-9_]+$ (Alpha..."
-          example: string
+          description: Unit of Measure
+          example: ' 3218a5ee'
         uom_value:
           maxLength: 100
           minLength: 1
-          pattern: "^[a-zA-Z0-9_.-]+$"
           type: string
-          description: "Unit of Measure Value Pattern: ^[a-zA-Z0-9_.-]+..."
-          example: string
+          description: Unit of Measure Value
+          example: ' afd2f9a8'
         uom_quantity_category_type:
           $ref: "#/components/schemas/UOMQuantityCategoryTypes"
       description: "Standard unit used for quantity (e.g., kg, lite..."
@@ -3986,6 +4154,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ErrorDetail"
+    BillOfMaterialDocumentation:
+      description: Commands processing complete
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BillOfMaterialDocumentation"
     BadRequestError:
       description: "The request was malformed, failed validation, o..."
       content:

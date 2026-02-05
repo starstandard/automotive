@@ -266,7 +266,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78C
+        example: KEY78O
   /payments/{paymentKey}/payment-transactions:
     get:
       tags:
@@ -355,7 +355,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/payments{paymentKey}payment-transactions/KEY78oz"
+                example: "/payments{paymentKey}payment-transactions/KEY78o6"
           content:
             application/json:
               schema:
@@ -529,7 +529,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78Co
+        example: KEY78OS
   /payments/{paymentKey}/money:
     get:
       tags:
@@ -640,7 +640,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78CoG
+        example: KEY78OSb
   /payments/{paymentKey}/identifiers:
     get:
       tags:
@@ -729,7 +729,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/payments{paymentKey}identifiers/KEY78ozAZ"
+                example: "/payments{paymentKey}identifiers/KEY78o65j"
           content:
             application/json:
               schema:
@@ -903,7 +903,7 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78CoGa
+        example: KEY78OSbC
   /payments/{paymentKey}/payment-method-references:
     get:
       tags:
@@ -992,7 +992,7 @@ paths:
               description: The URI of the newly created resource.
               schema:
                 type: string
-                example: "/payments{paymentKey}payment-method-references/KEY78ozAZS"
+                example: "/payments{paymentKey}payment-method-references/KEY78o65jJ"
           content:
             application/json:
               schema:
@@ -1167,6 +1167,6 @@ paths:
       required: true
       schema:
         type: string
-        example: KEY78CoGaP
+        example: KEY78OSbCk
 components:
   schemas: {}
