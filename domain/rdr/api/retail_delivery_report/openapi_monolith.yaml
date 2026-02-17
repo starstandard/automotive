@@ -1,0 +1,2906 @@
+openapi: 3.0.3
+info:
+  title: Retail Delivery Report API - OpenAPI 3.0
+  description: "API for the Dealers to report the vehicle sales - RDR (Retial Delivery Report) transactions like., Get, Create, Update (Updates in RDR to Price, Incentives..etc., Re-Report, Stock Return etc.,), Delete (Delete, Cancel RDR) to OEM's, DMS/ DSP's to record all the trasnactions related to vehicle sales for both new and used vehicles for the vehicle makes. This API includes all the meta-data API's the RDR transaction depends to compelte the RDR transactions"
+  contact:
+    name: Paco Escobar
+    url: https://starstandard.org
+    email: pescobar@starstandard.org
+  license:
+    name: www.starstandard.org
+    url: http://starstandard.org
+  version: 0.1.0
+servers:
+- url: https://virtserver.swaggerhub.com/tmna-ddoa/ddoa-vehicles-sales-rdr/0.1.0
+  description: SwaggerHub API Auto Mocking
+- url: "https://{host}/sales/v1"
+  variables:
+    host:
+      enum:
+      - dev.appName.dmsDomain.com
+      - test.appName.dmsDomain.com
+      - qa.appName.dmsDomain.com
+      - appName.dmsDomain.com
+      default: appName.dmsDomain.com
+security:
+- FVRAuthorizer: []
+tags:
+- name: Retail Delivery Report (RDR)
+paths:
+  /rdr/:
+    get:
+      tags:
+      - Retail Delivery Report (RDR)
+      summary: "Get All the RDR's for the given Dealer, Make, Region, Sales Class (New/ Used), give time duration (Start and End Date)"
+      description: "Get All the RDR's transactions for the given Dealer, Make, Region, Sales Class (New/ Used), salesTransactionNo, vin, unitId, rdrStatus, given time duration (Start and End Date) etc.,"
+      operationId: getRDRList
+      parameters:
+      - name: api-version
+        in: header
+        description: API Version
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: API Version
+          example: 1.0.0
+          enum:
+          - 1.0.0
+          - 1.0.1
+          - 2.0.0
+          - 2.0.1
+        example: 2.0.0
+      - name: countrycode
+        in: header
+        description: Country Code
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Country Code
+          example: "1"
+      - name: locale
+        in: header
+        description: Locale
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Locale
+          example: en-US
+      - name: requestId
+        in: header
+        description: Request ID/ Transaction ID Header Parameter (UUID version 4)
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 16a7d408-aed4-43f8-8af4-7a17f407f799
+      - name: brand
+        in: header
+        description: Brand
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Vehicle Brand (default value - 'toyota')
+          example: toyota
+          enum:
+          - toyota
+          - lexus
+        example: toyota
+      - name: dealerId
+        in: header
+        description: Dealer Identifier
+        required: false
+        style: simple
+        explode: false
+        schema:
+          maxLength: 5
+          minLength: 5
+          type: string
+        example: "42278"
+      - name: creatorCode
+        in: header
+        description: "Source System (DMS/ DSP/ OEM) Identifier like TY (Toyota, OEM), CDK (DMS), DDC (Dealer.com, DSP) etc."
+        required: false
+        style: simple
+        explode: false
+        schema:
+          maxLength: 8
+          minLength: 2
+          type: string
+        example: CDK
+      - name: x-subscriber-code
+        in: header
+        description: Requesting subscriber code
+        required: false
+        schema:
+          type: string
+        example: 23a7d408-aed4-43f8-8af4-7a17f407m652
+      - name: region
+        in: header
+        description: "List of regions\n  gst GST\n  set SET\n  110 Los Angeles\n  120 San Francisco\n  130 Portland\n  150 Denver\n  160 New York\n  170 Boston\n  210 Chicago\n  220 Cincinnati\n  230 Kansas City\n  500 Southeast\n  600 Gulf States\n  800 CAT\n  310 Western\n  100 TMS HeadQuarters          \n"
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          enum:
+          - gst
+          - set
+          - "100"
+          - "110"
+          - "120"
+          - "130"
+          - "150"
+          - "160"
+          - "170"
+          - "210"
+          - "220"
+          - "230"
+          - "310"
+          - "500"
+          - "600"
+          - "800"
+        example: "110"
+      - name: sale-class
+        in: query
+        description: Sale class code
+        required: false
+        schema:
+          type: string
+          enum:
+          - used
+          - new
+        example: used
+      - name: Prefer
+        in: header
+        description: "Json Payload that details the fields that the client wants included in the repsonse. Can also include reporting information that goes into the error logging through a context value paired specified as in the example. logsLabel specifies key words to be logged in the application loggs, while reportingLogs specifies keywords returned with an error message. Both will default to context NNA_API and value Retial Delivery Report (RDR) API if they are not specified. Specific field names will default to false."
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: A json payload that details included response fields and reporting information
+        example: "{'logsLabel': {context: NNA_API, value: Retial Delivery Report (RDR) API}, reportingLabel: {context: NNA_API, value: Retial Delivery Report (RDR) API}}"
+      - name: unitId
+        in: query
+        description: Vehicle UnitId
+        required: false
+        schema:
+          type: integer
+          description: Vehicle UnitId
+        example: 129375127
+      - name: vin
+        in: query
+        description: Vehicle Identification Number
+        required: false
+        schema:
+          type: string
+          description: Vehicle Identification Number
+        example: 5TFHY5F13KX799310
+      - name: rdrStatus
+        in: query
+        description: Status of RDR to filter for
+        required: false
+        schema:
+          type: string
+          description: Status of RDR to filter for
+        example: Approved
+      - name: startDate
+        in: query
+        description: The start date from which the available RDR's are requested. If the start date is not provided the current date will be defaulted.
+        required: false
+        style: form
+        explode: true
+        schema:
+          maxLength: 10
+          minLength: 0
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+          type: string
+          description: Start date
+          format: date
+        example: 2026-02-09
+      - name: endDate
+        in: query
+        description: The end date upto which the available RDR's are requested. If the endDate is not provided the deals from the current date up to 14 days will be provided in the service response.
+        required: false
+        style: form
+        explode: true
+        schema:
+          maxLength: 10
+          minLength: 0
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+          type: string
+          description: End date
+          format: date
+        example: 2026-02-09
+      - name: pageNumber
+        in: query
+        description: The number of returned page
+        required: false
+        schema:
+          maximum: 1000000
+          minimum: 1
+          type: integer
+          default: 1
+      - name: pageSize
+        in: query
+        description: The number of records to return
+        required: false
+        schema:
+          maximum: 600
+          minimum: 1
+          type: integer
+          default: 100
+      responses:
+        "200":
+          description: Get Available RDR transactions successfully
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+            Pagination-Count:
+              $ref: "#/components/headers/paginationCount"
+            Pagination-PageSize:
+              $ref: "#/components/headers/paginationPageSize"
+            Pagination-PageNumber:
+              $ref: "#/components/headers/paginationPageNumber"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RDRList"
+        "400":
+          description: |
+            Bad Request, server cannot or will not process the request.
+            See more details in the Error message
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "401":
+          description: |
+            The request requires user authentication. The response MUST include a WWW-Authenticate header field containing a challenge applicable to the requested resource.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "404":
+          description: |
+            The requested resource was not found.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "429":
+          description: |
+            Too Many Requests error occurs when a user tries to perform too many requests within a certain timeframe.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "500":
+          description: |
+            The server encountered an unexpected condition which prevented it from fulfilling the request.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+    post:
+      tags:
+      - Retail Delivery Report (RDR)
+      summary: API to create an RDR
+      description: API to create an RDR
+      operationId: createRDR
+      parameters:
+      - name: api-version
+        in: header
+        description: API Version
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: API Version
+          example: 1.0.0
+          enum:
+          - 1.0.0
+          - 1.0.1
+          - 2.0.0
+          - 2.0.1
+        example: 2.0.0
+      - name: countrycode
+        in: header
+        description: Country Code
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Country Code
+          example: "1"
+      - name: locale
+        in: header
+        description: Locale
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Locale
+          example: en-US
+      - name: requestId
+        in: header
+        description: Request ID/ Transaction ID Header Parameter (UUID version 4)
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 16a7d408-aed4-43f8-8af4-7a17f407f799
+      - name: brand
+        in: header
+        description: Brand
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Vehicle Brand (default value - 'toyota')
+          example: toyota
+          enum:
+          - toyota
+          - lexus
+        example: toyota
+      - name: dealerId
+        in: header
+        description: Dealer Identifier
+        required: false
+        style: simple
+        explode: false
+        schema:
+          maxLength: 5
+          minLength: 5
+          type: string
+        example: "42278"
+      - name: creatorCode
+        in: header
+        description: "Source System (DMS/ DSP/ OEM) Identifier like TY (Toyota, OEM), CDK (DMS), DDC (Dealer.com, DSP) etc."
+        required: false
+        style: simple
+        explode: false
+        schema:
+          maxLength: 8
+          minLength: 2
+          type: string
+        example: CDK
+      - name: x-subscriber-code
+        in: header
+        description: Requesting subscriber code
+        required: false
+        schema:
+          type: string
+        example: 23a7d408-aed4-43f8-8af4-7a17f407m652
+      - name: Prefer
+        in: header
+        description: "Json Payload that details the fields that the client wants included in the repsonse. Can also include reporting information that goes into the error logging through a context value paired specified as in the example. logsLabel specifies key words to be logged in the application loggs, while reportingLogs specifies keywords returned with an error message. Both will default to context NNA_API and value Retial Delivery Report (RDR) API if they are not specified. Specific field names will default to false."
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: A json payload that details included response fields and reporting information
+        example: "{'logsLabel': {context: NNA_API, value: Retial Delivery Report (RDR) API}, reportingLabel: {context: NNA_API, value: Retial Delivery Report (RDR) API}}"
+      requestBody:
+        $ref: "#/components/requestBodies/RDRCreateRequestBody"
+      responses:
+        "201":
+          description: RDR created successfully
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RDR"
+        "400":
+          description: |
+            Bad Request, server cannot or will not process the request.
+            See more details in the Error message
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "401":
+          description: |
+            The request requires user authentication. The response MUST include a WWW-Authenticate header field containing a challenge applicable to the requested resource.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "404":
+          description: |
+            The requested resource was not found.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "429":
+          description: |
+            Too Many Requests error occurs when a user tries to perform too many requests within a certain timeframe.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "500":
+          description: |
+            The server encountered an unexpected condition which prevented it from fulfilling the request.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+  /rdr/{salesTransactionNo}:
+    get:
+      tags:
+      - Retail Delivery Report (RDR)
+      summary: API to get RDR for the requested salesTransactionNo
+      description: API to get RDR for the requested salesTransactionNo
+      operationId: getRDR
+      parameters:
+      - name: api-version
+        in: header
+        description: API Version
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: API Version
+          example: 1.0.0
+          enum:
+          - 1.0.0
+          - 1.0.1
+          - 2.0.0
+          - 2.0.1
+        example: 2.0.0
+      - name: countrycode
+        in: header
+        description: Country Code
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Country Code
+          example: "1"
+      - name: locale
+        in: header
+        description: Locale
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Locale
+          example: en-US
+      - name: requestId
+        in: header
+        description: Request ID/ Transaction ID Header Parameter (UUID version 4)
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 16a7d408-aed4-43f8-8af4-7a17f407f799
+      - name: brand
+        in: header
+        description: Brand
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Vehicle Brand (default value - 'toyota')
+          example: toyota
+          enum:
+          - toyota
+          - lexus
+        example: toyota
+      - name: dealerId
+        in: header
+        description: Dealer Identifier
+        required: false
+        style: simple
+        explode: false
+        schema:
+          maxLength: 5
+          minLength: 5
+          type: string
+        example: "42278"
+      - name: creatorCode
+        in: header
+        description: "Source System (DMS/ DSP/ OEM) Identifier like TY (Toyota, OEM), CDK (DMS), DDC (Dealer.com, DSP) etc."
+        required: false
+        style: simple
+        explode: false
+        schema:
+          maxLength: 8
+          minLength: 2
+          type: string
+        example: CDK
+      - name: x-subscriber-code
+        in: header
+        description: Requesting subscriber code
+        required: false
+        schema:
+          type: string
+        example: 23a7d408-aed4-43f8-8af4-7a17f407m652
+      - name: salesTransactionNo
+        in: path
+        description: salesTransactionNo of the RDR Transaction details requested
+        required: true
+        style: simple
+        explode: false
+        schema:
+          maxLength: 17
+          minLength: 3
+          type: string
+          description: salesTransactionNo generated in Vehicles Sales System
+        example: 3452hl2845
+      - name: Prefer
+        in: header
+        description: "Json Payload that details the fields that the client wants included in the repsonse. Can also include reporting information that goes into the error logging through a context value paired specified as in the example. logsLabel specifies key words to be logged in the application loggs, while reportingLogs specifies keywords returned with an error message. Both will default to context NNA_API and value Retial Delivery Report (RDR) API if they are not specified. Specific field names will default to false."
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: A json payload that details included response fields and reporting information
+        example: "{'logsLabel': {context: NNA_API, value: Retial Delivery Report (RDR) API}, reportingLabel: {context: NNA_API, value: Retial Delivery Report (RDR) API}}"
+      responses:
+        "200":
+          description: Get RDR details successfully
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RDR"
+        "400":
+          description: |
+            Bad Request, server cannot or will not process the request.
+            See more details in the Error message
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "401":
+          description: |
+            The request requires user authentication. The response MUST include a WWW-Authenticate header field containing a challenge applicable to the requested resource.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "404":
+          description: |
+            The requested resource was not found.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "429":
+          description: |
+            Too Many Requests error occurs when a user tries to perform too many requests within a certain timeframe.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "500":
+          description: |
+            The server encountered an unexpected condition which prevented it from fulfilling the request.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+    put:
+      tags:
+      - Retail Delivery Report (RDR)
+      summary: API to update the RDR for the given salesTransactionNo
+      description: API to update the RDR for the given salesTransactionNo
+      operationId: updateRDR
+      parameters:
+      - name: api-version
+        in: header
+        description: API Version
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: API Version
+          example: 1.0.0
+          enum:
+          - 1.0.0
+          - 1.0.1
+          - 2.0.0
+          - 2.0.1
+        example: 2.0.0
+      - name: countrycode
+        in: header
+        description: Country Code
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Country Code
+          example: "1"
+      - name: locale
+        in: header
+        description: Locale
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Locale
+          example: en-US
+      - name: requestId
+        in: header
+        description: Request ID/ Transaction ID Header Parameter (UUID version 4)
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 16a7d408-aed4-43f8-8af4-7a17f407f799
+      - name: brand
+        in: header
+        description: Brand
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Vehicle Brand (default value - 'toyota')
+          example: toyota
+          enum:
+          - toyota
+          - lexus
+        example: toyota
+      - name: dealerId
+        in: header
+        description: Dealer Identifier
+        required: false
+        style: simple
+        explode: false
+        schema:
+          maxLength: 5
+          minLength: 5
+          type: string
+        example: "42278"
+      - name: creatorCode
+        in: header
+        description: "Source System (DMS/ DSP/ OEM) Identifier like TY (Toyota, OEM), CDK (DMS), DDC (Dealer.com, DSP) etc."
+        required: false
+        style: simple
+        explode: false
+        schema:
+          maxLength: 8
+          minLength: 2
+          type: string
+        example: CDK
+      - name: x-subscriber-code
+        in: header
+        description: Requesting subscriber code
+        required: false
+        schema:
+          type: string
+        example: 23a7d408-aed4-43f8-8af4-7a17f407m652
+      - name: salesTransactionNo
+        in: path
+        description: salesTransactionNo of the RDR Transaction details requested
+        required: true
+        style: simple
+        explode: false
+        schema:
+          maxLength: 17
+          minLength: 3
+          type: string
+          description: salesTransactionNo generated in Vehicles Sales System
+        example: 3452hl2845
+      - name: Prefer
+        in: header
+        description: "Json Payload that details the fields that the client wants included in the repsonse. Can also include reporting information that goes into the error logging through a context value paired specified as in the example. logsLabel specifies key words to be logged in the application loggs, while reportingLogs specifies keywords returned with an error message. Both will default to context NNA_API and value Retial Delivery Report (RDR) API if they are not specified. Specific field names will default to false."
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: A json payload that details included response fields and reporting information
+        example: "{'logsLabel': {context: NNA_API, value: Retial Delivery Report (RDR) API}, reportingLabel: {context: NNA_API, value: Retial Delivery Report (RDR) API}}"
+      requestBody:
+        description: Update the RDR
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RDR"
+      responses:
+        "200":
+          description: RDR updated successfully
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RDR"
+        "400":
+          description: |
+            Bad Request, server cannot or will not process the request.
+            See more details in the Error message
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "401":
+          description: |
+            The request requires user authentication. The response MUST include a WWW-Authenticate header field containing a challenge applicable to the requested resource.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "404":
+          description: |
+            The requested resource was not found.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "429":
+          description: |
+            Too Many Requests error occurs when a user tries to perform too many requests within a certain timeframe.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "500":
+          description: |
+            The server encountered an unexpected condition which prevented it from fulfilling the request.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+    delete:
+      tags:
+      - Retail Delivery Report (RDR)
+      summary: "API to delete, cancel, return to stock the RDR for the given salesTransactionNo"
+      description: "API to delete, cancel, return to stock the RDR for the given salesTransactionNo"
+      operationId: deleteRDR
+      parameters:
+      - name: api-version
+        in: header
+        description: API Version
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: API Version
+          example: 1.0.0
+          enum:
+          - 1.0.0
+          - 1.0.1
+          - 2.0.0
+          - 2.0.1
+        example: 2.0.0
+      - name: countrycode
+        in: header
+        description: Country Code
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Country Code
+          example: "1"
+      - name: locale
+        in: header
+        description: Locale
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Locale
+          example: en-US
+      - name: requestId
+        in: header
+        description: Request ID/ Transaction ID Header Parameter (UUID version 4)
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 16a7d408-aed4-43f8-8af4-7a17f407f799
+      - name: brand
+        in: header
+        description: Brand
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Vehicle Brand (default value - 'toyota')
+          example: toyota
+          enum:
+          - toyota
+          - lexus
+        example: toyota
+      - name: dealerId
+        in: header
+        description: Dealer Identifier
+        required: false
+        style: simple
+        explode: false
+        schema:
+          maxLength: 5
+          minLength: 5
+          type: string
+        example: "42278"
+      - name: creatorCode
+        in: header
+        description: "Source System (DMS/ DSP/ OEM) Identifier like TY (Toyota, OEM), CDK (DMS), DDC (Dealer.com, DSP) etc."
+        required: false
+        style: simple
+        explode: false
+        schema:
+          maxLength: 8
+          minLength: 2
+          type: string
+        example: CDK
+      - name: x-subscriber-code
+        in: header
+        description: Requesting subscriber code
+        required: false
+        schema:
+          type: string
+        example: 23a7d408-aed4-43f8-8af4-7a17f407m652
+      - name: salesTransactionNo
+        in: path
+        description: salesTransactionNo of the RDR Transaction details requested
+        required: true
+        style: simple
+        explode: false
+        schema:
+          maxLength: 17
+          minLength: 3
+          type: string
+          description: salesTransactionNo generated in Vehicles Sales System
+        example: 3452hl2845
+      - name: Prefer
+        in: header
+        description: "Json Payload that details the fields that the client wants included in the repsonse. Can also include reporting information that goes into the error logging through a context value paired specified as in the example. logsLabel specifies key words to be logged in the application loggs, while reportingLogs specifies keywords returned with an error message. Both will default to context NNA_API and value Retial Delivery Report (RDR) API if they are not specified. Specific field names will default to false."
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: A json payload that details included response fields and reporting information
+        example: "{'logsLabel': {context: NNA_API, value: Retial Delivery Report (RDR) API}, reportingLabel: {context: NNA_API, value: Retial Delivery Report (RDR) API}}"
+      responses:
+        "200":
+          description: RDR deleted/ cancelled/ returned to stock successfully
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RDR"
+        "400":
+          description: |
+            Bad Request, server cannot or will not process the request.
+            See more details in the Error message
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "401":
+          description: |
+            The request requires user authentication. The response MUST include a WWW-Authenticate header field containing a challenge applicable to the requested resource.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "404":
+          description: |
+            The requested resource was not found.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "429":
+          description: |
+            Too Many Requests error occurs when a user tries to perform too many requests within a certain timeframe.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "500":
+          description: |
+            The server encountered an unexpected condition which prevented it from fulfilling the request.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+  /rdr/notify:
+    put:
+      tags:
+      - Retail Delivery Report (RDR)
+      summary: "API to receive notification on status updates on list of RDR's for the given Dealer, Make, SalesClss, Region etc.,"
+      description: "This API should be implemented by the providers so that OEM can send notification on status updates on the list of RDR's for the given Dealer, Make, SalesClss, Region etc.,"
+      operationId: notifyBatchRDRStatusUpdate
+      parameters:
+      - name: api-version
+        in: header
+        description: API Version
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: API Version
+          example: 1.0.0
+          enum:
+          - 1.0.0
+          - 1.0.1
+          - 2.0.0
+          - 2.0.1
+        example: 2.0.0
+      - name: countrycode
+        in: header
+        description: Country Code
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Country Code
+          example: "1"
+      - name: locale
+        in: header
+        description: Locale
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Locale
+          example: en-US
+      - name: requestId
+        in: header
+        description: Request ID/ Transaction ID Header Parameter (UUID version 4)
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 16a7d408-aed4-43f8-8af4-7a17f407f799
+      - name: brand
+        in: header
+        description: Brand
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Vehicle Brand (default value - 'toyota')
+          example: toyota
+          enum:
+          - toyota
+          - lexus
+        example: toyota
+      - name: dealerId
+        in: header
+        description: Dealer Identifier
+        required: false
+        style: simple
+        explode: false
+        schema:
+          maxLength: 5
+          minLength: 5
+          type: string
+        example: "42278"
+      - name: creatorCode
+        in: header
+        description: "Source System (DMS/ DSP/ OEM) Identifier like TY (Toyota, OEM), CDK (DMS), DDC (Dealer.com, DSP) etc."
+        required: false
+        style: simple
+        explode: false
+        schema:
+          maxLength: 8
+          minLength: 2
+          type: string
+        example: CDK
+      - name: x-subscriber-code
+        in: header
+        description: Requesting subscriber code
+        required: false
+        schema:
+          type: string
+        example: 23a7d408-aed4-43f8-8af4-7a17f407m652
+      - name: Prefer
+        in: header
+        description: "Json Payload that details the fields that the client wants included in the repsonse. Can also include reporting information that goes into the error logging through a context value paired specified as in the example. logsLabel specifies key words to be logged in the application loggs, while reportingLogs specifies keywords returned with an error message. Both will default to context NNA_API and value Retial Delivery Report (RDR) API if they are not specified. Specific field names will default to false."
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: A json payload that details included response fields and reporting information
+        example: "{'logsLabel': {context: NNA_API, value: Retial Delivery Report (RDR) API}, reportingLabel: {context: NNA_API, value: Retial Delivery Report (RDR) API}}"
+      requestBody:
+        description: Batch RDR Status Update Notification
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BatchRDRStatusUpdateNotification"
+      responses:
+        "201":
+          description: RDR Status Update Notification processed successfully
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchRDRStatusUpdateNotification"
+        "400":
+          description: |
+            Bad Request, server cannot or will not process the request.
+            See more details in the Error message
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "401":
+          description: |
+            The request requires user authentication. The response MUST include a WWW-Authenticate header field containing a challenge applicable to the requested resource.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "404":
+          description: |
+            The requested resource was not found.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "429":
+          description: |
+            Too Many Requests error occurs when a user tries to perform too many requests within a certain timeframe.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+        "500":
+          description: |
+            The server encountered an unexpected condition which prevented it from fulfilling the request.
+          headers:
+            RequestId:
+              $ref: "#/components/headers/RequestId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+components:
+  schemas:
+    RDRList:
+      type: object
+      properties:
+        rdrList:
+          type: array
+          items:
+            $ref: "#/components/schemas/RDR"
+        pagination:
+          $ref: "#/components/schemas/PaginationSchema"
+    DealerDetails:
+      type: object
+      properties:
+        dealerId:
+          $ref: "#/components/schemas/DealerId"
+        name:
+          type: string
+          description: Dealer Name
+          example: Toyota of Dallas
+        website:
+          type: string
+          description: Dealer WebSite url.
+          format: uri
+          example: https://www.toyotaofdallas.com
+        address:
+          type: string
+          description: Dealer Address Full
+          example: 2610 Forest Lane Dallas TX 74234 USA
+        street:
+          type: string
+          description: Dealer Address Street
+          example: 2610 Forest Lane
+        city:
+          type: string
+          description: Dealer Address City
+          example: Dallas
+        state:
+          type: string
+          description: Dealer Address State
+          example: TX
+        country:
+          type: string
+          description: Dealer Address Country
+          example: USA
+        zip:
+          type: string
+          description: Dealer Address Zip
+          example: "75234"
+        contactDetails:
+          type: string
+          description: Dealer Contact Details
+          example: Phone# 9722416655; Phone800# 972-241-6655; ToyotaFax# (972) 243-3706
+        addressTitle:
+          type: string
+          description: Dealer Address Title
+          example: Main Dealer
+      description: Dealer Details
+    RDR:
+      required:
+      - salesTransactionNo
+      type: object
+      properties:
+        salesTransactionNo:
+          $ref: "#/components/schemas/SalesTransactionNo"
+      x-property-order:
+      - salesTransactionNo
+      allOf:
+      - $ref: "#/components/schemas/NewRDR"
+    SalesTransactionNo:
+      type: string
+      description: salesTransactionNo generated in Vehicles Sales System
+      example: 3452hl2845
+    NewRDR:
+      type: object
+      properties:
+        salesMileage:
+          maximum: 67000
+          minimum: 1
+          type: integer
+          description: Sales mileage
+          format: int32
+          example: 160
+        salesCode:
+          type: string
+          description: "Original Sales code, on which the RDR was transmitted by the Dealer."
+          example: DEMO
+          enum:
+          - DEMO
+          - LEASE_INDIVIDUAL
+          - LEASE_BUSINESS
+          - PURCHASE_INDIVIDUAL
+          - PURCHASE_BUSINESS
+          - PURCHASE_FLEET_BUSINESS
+          - PURCHASE_RETAIL_TMS_SPP
+          - RENTAL
+          - SOLD_FOR_RESALE
+          - ARRENDAMIENTO
+          - ARRENDAMIENTO_PERSONA_MORAL
+          - COMPRA_PERSONA_FISICA
+          - COMPRA_PERSONA_MORAL
+          - VENTA_ESPECIAL
+          - COMPARA_EMPLEADO
+        transmittedSalesCode:
+          type: string
+          description: The Sales code that was returned from NVS after the RDR was successfully processed.
+          example: DEMO
+          enum:
+          - DEMO
+          - LEASE_INDIVIDUAL
+          - LEASE_BUSINESS
+          - PURCHASE_INDIVIDUAL
+          - PURCHASE_BUSINESS
+          - PURCHASE_FLEET_BUSINESS
+          - PURCHASE_RETAIL_TMS_SPP
+          - RENTAL
+          - SOLD_FOR_RESALE
+          - ARRENDAMIENTO
+          - ARRENDAMIENTO_PERSONA_MORAL
+          - COMPRA_PERSONA_FISICA
+          - COMPRA_PERSONA_MORAL
+          - VENTA_ESPECIAL
+          - COMPARA_EMPLEADO
+        financeStaff:
+          $ref: "#/components/schemas/Staff"
+        salesStaff:
+          $ref: "#/components/schemas/Staff"
+        facturaNo:
+          type: string
+          description: The Government invoice number for the vehicle (only for MEX)
+          example: "1234"
+        saleDate:
+          type: string
+          description: "Date on which the sale has happened. Full-date notation as defined by RFC 3339, section 5.6"
+          example: 2026-01-21
+        warrantyCode:
+          type: string
+          description: The Valid values for this field is 0 or 1 or 2 .
+          example: "0"
+        deliveryDistance:
+          $ref: "#/components/schemas/DeliveryDistance"
+        leaseTerm:
+          type: string
+          description: This field can have spaces/zeroes  or valid value depends on the sale type selected. When SALE type selected 4 OR 5 then LSE-TERM  value must be greater than zeroes.
+          example: "2"
+        primaryCustomer:
+          $ref: "#/components/schemas/Customer"
+        secondaryCustomer:
+          $ref: "#/components/schemas/Customer"
+        soldFinance:
+          $ref: "#/components/schemas/SoldFinance"
+        rdrStatus:
+          $ref: "#/components/schemas/RDRStatus"
+        executionId:
+          type: string
+          description: Workflow execution identifier.
+        startedAt:
+          type: string
+          description: Date and time on which the execution has started.
+          format: date-time
+          example: 2026-01-21T13:32:28Z
+        createdAt:
+          type: string
+          description: Date and time on which the RDR was created.
+          format: date-time
+          example: 2026-01-21T13:32:28Z
+        createrName:
+          type: string
+          description: User who has updated the RDR.
+          example: "138429"
+        updatedAt:
+          type: string
+          description: Date and time on which the RDR was Updated.
+          format: date-time
+          example: 2026-01-21T13:32:28Z
+        updatedBy:
+          type: string
+          description: System that updated the RDR recently.
+          example: DD365
+        updaterName:
+          type: string
+          description: User who has updated the RDR.
+          example: "138429"
+        processedAt:
+          type: string
+          description: Date and time on which the RDR was processed.
+          format: date-time
+          example: 2026-01-21T13:32:28Z
+        transmittedAt:
+          type: string
+          description: Date and time on which the RDR was transmitted.
+          format: date-time
+          example: 2026-01-21T13:32:28Z
+        teamMemberLeaseInd:
+          type: boolean
+          description: Value to identiy if the vehicle is part of employee lease program. If value is M/C/Y then its employee lease
+          example: true
+        unitId:
+          $ref: "#/components/schemas/UNITID"
+        vin:
+          $ref: "#/components/schemas/VIN"
+        origin:
+          type: string
+          description: "The source of the RDR, either through DealerDaily or through DDOA."
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/RDRMessage"
+        reason:
+          type: string
+          description: Applicable only for re-report RDR's.
+        vehicle:
+          $ref: "#/components/schemas/Vehicle"
+        protectionProducts:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProtectionProduct"
+        isCreditContractIncluded:
+          $ref: "#/components/schemas/isCreditContractIncluded"
+        creditContract:
+          $ref: "#/components/schemas/CreditContract"
+        dealer:
+          $ref: "#/components/schemas/DealerDetails"
+    Vehicle:
+      type: object
+      properties:
+        vin:
+          $ref: "#/components/schemas/VIN"
+        unitId:
+          $ref: "#/components/schemas/UNITID"
+        stockNum:
+          type: string
+          description: Vehicle Stock Number set by Dealer
+        isPreSold:
+          type: boolean
+          description: Flag Indicates whether the vehicle is pre booked
+        brand:
+          $ref: "#/components/schemas/Make"
+        marketingSeries:
+          type: string
+          description: Vehicle Marketing Series
+          example: Tundra
+        seriesCode:
+          $ref: "#/components/schemas/SeriesCode"
+        year:
+          $ref: "#/components/schemas/ModelYear"
+        saleClassCode:
+          $ref: "#/components/schemas/SaleClassCode"
+        category:
+          type: string
+          description: Vehicle Supply Chain Category
+          example: G
+          enum:
+          - A
+          - C
+          - D
+          - E
+          - F
+          - G
+          - H
+          - J
+          - K
+          - L
+          - M
+          - "N"
+          - P
+          - Q
+          - R
+          - T
+          - U
+          - W
+          - X
+          - Z
+        dealerCategory:
+          type: string
+          description: Dealer Category
+          example: G
+          enum:
+          - A
+          - F
+          - G
+          - H
+          - L
+          - "Y"
+        bodyStyleDesc:
+          type: string
+          description: Body Style Description
+          example: LIMITED CREWMAX
+        seating:
+          type: integer
+          description: Available Seating in Vehicle
+          example: 5
+        model:
+          $ref: "#/components/schemas/Model"
+        engine:
+          $ref: "#/components/schemas/Engine"
+        transmission:
+          $ref: "#/components/schemas/Transmission"
+        options:
+          type: array
+          items:
+            $ref: "#/components/schemas/Option"
+        exteriorColor:
+          $ref: "#/components/schemas/Color"
+        interiorColor:
+          description: Interior Color
+          example:
+            code: LA13
+            marketingName: Graphite Leather
+            oemName: GRAPHITE
+          allOf:
+          - $ref: "#/components/schemas/Color"
+        price:
+          $ref: "#/components/schemas/Price"
+        flags:
+          $ref: "#/components/schemas/Flags"
+        fuelEconomyMpg:
+          $ref: "#/components/schemas/FuelEconomy"
+        fuelEconomyMpge:
+          $ref: "#/components/schemas/FuelEconomy"
+        fuelType:
+          $ref: "#/components/schemas/FuelType"
+        production:
+          $ref: "#/components/schemas/Production"
+        additionalFeatures:
+          $ref: "#/components/schemas/AddFeatures"
+        standardOptions:
+          $ref: "#/components/schemas/StandardOptions"
+        safetyRatings:
+          $ref: "#/components/schemas/SafetyRatings"
+        checkCode:
+          type: string
+          description: USA Check Code
+          example: "2"
+        labeledWeight:
+          type: number
+          description: Labeled Weight mapped from NVS OptionListLabelWeight
+          example: 53.64
+        weightRating:
+          type: string
+          description: Gross Vehicle Weight Rating Unit
+          example: 7200 lbs
+        serialNumber:
+          type: string
+          description: Vehicle Serial Number
+          example: KX799310
+        vehicleOrderNumber:
+          type: string
+          description: Vehicle Order Number
+          example: "6319655"
+        updatedAt:
+          type: string
+          description: Date when the vehicle record was last updated
+          format: date-time
+          example: 2026-01-21T13:32:28Z
+        warnings:
+          type: array
+          description: List of warnings
+          items:
+            $ref: "#/components/schemas/ServiceWarning"
+        invoiceDate:
+          type: string
+          description: Dealer invoice date
+          format: date
+        dealerId:
+          $ref: "#/components/schemas/DealerId"
+        vesselPortEntry:
+          type: string
+          description: Vessel Port Entry
+          example: LA
+        hardwareCode:
+          type: string
+          description: Hardware Code
+          example: "8"
+        standardEquipments:
+          type: array
+          items:
+            $ref: "#/components/schemas/StandardEquipment"
+        drivetrain:
+          $ref: "#/components/schemas/DriveTrain"
+        sellAreaDescription:
+          type: string
+          description: Sell area description
+          example: S.E.T.
+        firstSaleDistributor:
+          $ref: "#/components/schemas/FirstSaleDistributor"
+        firstSaleRetailDlrCode:
+          type: string
+          description: First sale dealer code
+          example: "91041"
+        mileage:
+          $ref: "#/components/schemas/MileageRange"
+    BasicVehicle:
+      type: object
+      properties:
+        vin:
+          $ref: "#/components/schemas/VIN"
+        year:
+          $ref: "#/components/schemas/ModelYear"
+        brand:
+          $ref: "#/components/schemas/Make"
+        seriesCode:
+          $ref: "#/components/schemas/SeriesCode"
+        saleClassCode:
+          $ref: "#/components/schemas/SaleClassCode"
+    VIN:
+      maxLength: 17
+      minLength: 17
+      pattern: "^[0-9A-HJ-NPR-Z]+$"
+      type: string
+      description: Vehicle Identification Number
+      example: 5TFHY5F13KX799310
+    UNITID:
+      type: integer
+      description: A unique sequence number for a vehicle provided by TMS
+      example: 129375127
+    ModelYear:
+      type: integer
+      description: Model Year
+      example: 2019
+    Make:
+      type: string
+      description: Vehicle Make
+      example: toyota
+    SeriesCode:
+      type: string
+      description: Vehicle Series Code
+      example: tundra
+    SaleClassCode:
+      type: string
+      description: Vehicle sale class code
+      example: new
+      enum:
+      - new
+      - used
+      - certified
+      - demo
+    RDRStatus:
+      type: string
+      description: Status of RDR transaction
+      example: Approved
+      enum:
+      - Open
+      - Pending
+      - Booked
+      - NewInterface
+      - Transmitted
+      - Approved
+      - Closed
+      - Rejected
+      - Cancelled
+    DealerId:
+      maxLength: 5
+      minLength: 5
+      pattern: "^[0-9]+$"
+      type: string
+      description: Dealer Code that the vehicle is allocated to
+      example: "42278"
+    DriveTrain:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Drivetrain code
+          example: RWD
+        title:
+          type: string
+          description: Drivetrain title
+          example: Rear-Wheel Drive (RWD)
+      description: Drive Details
+    ServiceWarning:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Service warning code
+          example: "1001"
+        message:
+          type: string
+          description: Service warning message
+          example: Access to this API is temporarily unavailable.
+        title:
+          type: string
+          example: name
+    StandardEquipment:
+      type: object
+      properties:
+        header:
+          type: string
+          description: Standard Equipment name
+        value:
+          type: array
+          items:
+            type: string
+      description: Standard Equipments
+    FirstSaleDistributor:
+      type: object
+      properties:
+        name:
+          type: string
+          description: First sale dealer name
+          example: "TOYOTA MOTOR SALES, USA, INC"
+        code:
+          type: string
+          description: First sale dealer code
+          example: "91041"
+      description: FirstSaleDistributor Details
+    MileageRange:
+      type: object
+      properties:
+        range:
+          type: number
+          description: range
+          example: 100
+      description: mileage range
+    Model:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Model Code
+          example: "8372"
+        marketingName:
+          type: string
+          description: Model Marketing Description
+          example: Tundra Limited
+        marketingTitle:
+          type: string
+          description: Model Marketing Title
+          example: Tundra Limited
+        phaseCode:
+          type: string
+          description: Model Price Phase Code
+          example: A
+      description: Model Details
+    BaseEngine:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Engine Code
+          example: 57lv8
+        name:
+          type: string
+          description: Engine Name
+          example: 5.7L V8 Engine
+      description: Engine Details
+    Engine:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Engine Code
+          example: 57lv8
+        name:
+          type: string
+          description: Engine Name
+          example: 5.7L V8 Engine
+        size:
+          type: integer
+          description: Engine size (hp or kw)
+          format: int32
+          example: 381
+        sizeUnit:
+          type: string
+          description: Engine size unit (hp or kw)
+          example: hp
+          enum:
+          - hp
+          - kw
+        cylinders:
+          type: integer
+          description: Number of engine cylinders
+          example: 8
+        fuelType:
+          type: string
+          description: Type of fuel consumed by engine
+          example: G
+      description: Engine Details
+      allOf:
+      - $ref: "#/components/schemas/BaseEngine"
+    Transmission:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Transmission code
+          example: 6-Speed automatic transmission
+        description:
+          type: string
+          description: Transmission description
+          example: 6-speed Electronically Controlled automatic Transmission
+      description: Transmission Details
+    Option:
+      type: object
+      properties:
+        msrp:
+          type: number
+          description: Option Retail Price (applicable for FIO/PIO only)
+          example: 170
+        dealerInvoicePrice:
+          type: number
+          description: Dealer Invoice Price
+          example: 129
+        dealerSellingPrice:
+          type: number
+          description: Selling Price offered by Dealer
+          example: 160
+      description: Option Details
+      allOf:
+      - $ref: "#/components/schemas/BaseOption"
+    BaseOption:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Option Code
+          example: OF
+        marketingName:
+          type: string
+          description: Option Marketing Description
+          example: TRD Off-Road Package
+        marketingLongName:
+          type: string
+          description: Option Marketing Long Name (descriptive text)
+          example: "TRD Off-Road Package: Upgrades standard wheels to 18-in. split 5-spoke TRD Off-Road Package alloy wheels and P275/65R18 tires. Includes trail-tuned Bilstein<sup>®</sup> shock absorbers, engine skid plate, fuel tank skid plate, front tow hooks [tow] (on 4x2 models; standard on all 4x4 models), LED headlights and LED fog lights (on SR5 models only), TRD Off-Road floor mats [floor_mat] (on SR5 and Limited models only), and bedside TRD Off-Road decal"
+        type:
+          type: string
+          description: |
+            Option Type
+              F --> FIO,
+              P --> PPO,
+              D --> DIO,
+              L
+          example: L
+        packageInd:
+          type: boolean
+          description: "Package Indicator (true for package, false for accessories)"
+          example: true
+      description: Base Option Details
+    Price:
+      type: object
+      properties:
+        baseMsrp:
+          type: number
+          description: Manufacturer's Suggested Retail Price
+          example: 45600
+        totalMsrp:
+          type: number
+          description: Total Manufacturer's Suggested Retail Price
+          example: 47982
+        optTotalMsrp:
+          type: number
+          description: Total Option MSRP
+          example: 170
+        dph:
+          type: number
+          description: "Retail Price of Destination, Processing and Handling Charge for the vehicle. Also known as Freight Charge"
+          example: 1395
+        dealerInvoice:
+          type: number
+          description: Dealer Invoice Price
+          example: 987
+        totalDealerInvoice:
+          type: number
+          description: Total Dealer Invoice Price
+          example: 1234
+        optTotalDealerInvoice:
+          type: number
+          description: OPT Dealer Invoice Price
+          example: 129
+        optTotalDealerSellingPrice:
+          type: number
+          description: Price for the Total Dealer Selling Price
+          example: 160
+        reConditioningCost:
+          type: number
+          description: Vehicle Re-Conditioning Cost. Used Vehicles Only
+          example: 1500
+        residualValue:
+          type: number
+          description: Vehicle residual value
+          example: 15000
+        tda:
+          type: number
+          description: TDA Price
+          example: 987
+        fuelPrice:
+          type: number
+          description: Fuel Price
+          example: 50
+        totalHoldback:
+          type: number
+          description: Total Holdback Price
+          example: 600
+        ppoHoldback:
+          type: number
+          description: PPO Holdback Price
+          example: 750
+        wfr:
+          type: number
+          description: WFR Price
+          example: 987
+      description: Vehicle Pricing Details
+    Color:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Color Code
+          example: 03R3
+        marketingName:
+          type: string
+          description: Color Marketing Description
+          example: Barcelona Red Metallic
+        oemName:
+          type: string
+          description: Color OEM Name
+          example: BARCELONA RED MET.
+      description: Color Details
+    Flags:
+      type: object
+      properties:
+        damaged:
+          type: boolean
+          description: Damaged Indicator
+          example: false
+        ssc:
+          type: boolean
+          description: Service Safety Campaign Indicator
+          example: false
+      description: Various Vehicle Flags
+    FuelType:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Fuel Type Code
+          example: "1"
+        name:
+          type: string
+          description: Fuel Type Name
+          example: Gasoline
+      description: Fuel Type
+    Production:
+      type: object
+      properties:
+        plant:
+          type: string
+          description: Plant Code
+          example: S
+        plantDescription:
+          type: string
+          description: Plant Description
+          example: SAN ANTONIO
+        buildDate:
+          type: string
+          description: Date when vehicle was built
+          format: date-time
+          example: 2018-08-02T00:00:00Z
+        finalAssemblyPoint:
+          type: string
+          description: Final Assembly point of the vehicle
+          example: "SAN ANTONIO, TEXAS, U.S.A."
+      description: Vehicle Production information
+    FuelEconomy:
+      type: object
+      properties:
+        city:
+          type: integer
+          description: City MPG
+          example: 13
+        highway:
+          type: integer
+          description: Highway MPG
+          example: 17
+        combined:
+          type: integer
+          description: Combined MPG
+          example: 14
+      description: |
+        Fuel Economy data for gasoline/hybrid vehicles or Fuel Economy Equivalent for electric vehicles
+    StandardOptions:
+      type: object
+      properties:
+        safetyAndConvenience:
+          type: array
+          example:
+          - Child-protector rear door locks
+          - Tire Pressure Monitor System (TPMS)
+          items:
+            type: string
+        mechanicalAndPerformance:
+          type: array
+          example:
+          - "Steering: Hydraulic power rack-and-pinion"
+          - "Emission rating: Low Emission Vehicle II (LEV-II)"
+          items:
+            type: string
+        interior:
+          type: array
+          example:
+          - 5-passenger seating capacity
+          - 60/40 split fold-up rear seats
+          items:
+            type: string
+        exterior:
+          type: array
+          example:
+          - Chrome heated power outside mirrors
+          - Windshield wiper de-icer
+          items:
+            type: string
+        standardFeatures:
+          type: array
+          example:
+          - REAR ARMREST STORAGE COMPARTMENT
+          - POWER-ADJUSTABLE FRONT SEATS
+          items:
+            type: string
+        multimedia:
+          type: array
+          example:
+          - AUDIO
+          - TOUCH-SCREEN
+          items:
+            type: string
+      description: Standard Options
+    AddFeatures:
+      type: object
+      properties:
+        header:
+          type: string
+          description: header text
+          example: "Interior dimensions, front/rear (in.)"
+        features:
+          type: array
+          items:
+            $ref: "#/components/schemas/AddFeatureDetails"
+      description: EFC Other than Std Feature Details
+    AddFeatureDetails:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Feature's name
+        value:
+          type: string
+          description: Model Standard Description
+          example: -3.5L V6 DOHC 24-Valve D-4S Injection with Dual VVT-i -Direct Shift 8-Speed Automatic Transmission with -Intelligence -18� Alloy Wheels with P235/55RF18 Tires -Active Torque Control AWD System
+      description: Key value pair of feature's name and value for some categories.Sourced from EFC
+    SafetyRatings:
+      type: object
+      properties:
+        driver:
+          type: string
+          description: Frontal Crash Rating - Driver
+          example: 4 STARS
+        passenger:
+          type: string
+          description: Frontal Crash Rating - Passenger
+          example: 4 STARS
+        front:
+          type: string
+          description: Side Crash Rating - Front
+          example: 5 STARS
+        rear:
+          type: string
+          description: Side Crash Rating - Rear
+          example: 5 STARS
+        rollover:
+          type: string
+          description: Rollover Crash Rating
+          example: 4 STARS
+        overall:
+          type: string
+          description: Overall Crash Rating
+          example: 4 STARS
+      description: Vehicle Safety Rating
+    Staff:
+      required:
+      - firstName
+      - lastName
+      - spinId
+      - uid
+      type: object
+      properties:
+        uid:
+          type: string
+          description: UID of the staff
+          example: "1392674"
+        firstName:
+          type: string
+          description: staff First name
+          example: Robert
+        middleName:
+          type: string
+          description: staff Middle name
+          example: M
+        lastName:
+          type: string
+          description: staff Last name
+          example: Johnson
+        spinId:
+          type: string
+          description: staff SPIN
+          example: "123456789032"
+        emailId:
+          type: string
+          description: Email Id of Staff
+          example: robert.johnson@toyota.com
+      description: Dealer Staff details
+    Customer:
+      required:
+      - customerType
+      type: object
+      properties:
+        customerType:
+          type: string
+          enum:
+          - Individual
+          - Business
+          default: Individual
+        name:
+          $ref: "#/components/schemas/IndividualName"
+        businessName:
+          $ref: "#/components/schemas/BusinessName"
+        address:
+          $ref: "#/components/schemas/Address"
+        homePhone:
+          type: string
+          description: customer home Phone Number
+          example: "2346234586"
+        workPhone:
+          type: string
+          description: customer work Phone Number
+          example: "2346234586"
+        workPhoneExtn:
+          type: string
+          description: customer work phone extension.
+          example: "1234"
+        email:
+          type: string
+          format: email
+          example: john.doe@toyota.com
+        emailDeclined:
+          type: boolean
+          description: flag indicating if the customer has declined to provide email.
+          example: false
+      description: "Customer details, the mandatory fields differ by Salecode and the type of operaton performed."
+    IndividualName:
+      required:
+      - firstName
+      - lastName
+      type: object
+      properties:
+        salutation:
+          type: string
+          description: Staff Salutation.
+          example: Mr
+          enum:
+          - Co
+          - DNP
+          - Dr
+          - Miss
+          - Mr
+          - Mr & Mrs
+          - Mrs
+          - Ms
+          - Other
+          - Otro
+          - Rev
+          - Sr
+          - Sr & Sa
+          - Sra
+          - Srita
+        firstName:
+          type: string
+          description: Staff first name.
+          example: John
+        middleInitial:
+          type: string
+          description: Staff Middle name.
+          example: ""
+        lastName:
+          type: string
+          description: Staff Last name.
+          example: Doe
+        suffix:
+          type: string
+          description: Suffix of the staff.
+          example: Jr
+          enum:
+          - Jr
+          - Sr
+          - DDS
+          - DMD
+          - DVM
+          - ESQ
+          - JD
+          - MD
+          - PHD
+          - I
+          - II
+          - III
+          - IV
+          - V
+          - VI
+          - VII
+          - VIII
+          - IX
+          - X
+    BusinessName:
+      required:
+      - businessName
+      - businessOrgId
+      type: object
+      properties:
+        businessName:
+          type: string
+          description: Business Full Name.
+          example: Enterprise Rent-A-Car
+        businessOrgId:
+          type: string
+          description: Business Ord Id.
+          example: EnterpriseRAC
+    Address:
+      required:
+      - address
+      - city
+      - country
+      - state
+      - zipCode
+      type: object
+      properties:
+        city:
+          type: string
+          description: City Name
+          example: Plano
+        country:
+          type: string
+          description: Country Name/Code
+          example: USA
+          enum:
+          - USA
+          - MEX
+          - PRI
+        address:
+          type: string
+          description: Customer Street Address
+          example: 4100 W Parker Rd
+        apt:
+          type: string
+          description: customer Apartment Number
+          example: "302"
+        zipCode:
+          type: string
+          description: Postal Code of the customer
+          example: "75025"
+        state:
+          type: string
+          description: The Full State Name
+          example: Texas
+      description: Customer Address
+    Applicants:
+      type: object
+      properties:
+        applicant:
+          $ref: "#/components/schemas/Customer"
+        coApplicant:
+          $ref: "#/components/schemas/Customer"
+    CreditContract:
+      required:
+      - creditContractDocId
+      type: object
+      properties:
+        creditContractDocId:
+          $ref: "#/components/schemas/CreditContractDocumentId"
+        creditApplicationStatusCode:
+          $ref: "#/components/schemas/CreditApplicationStatusCode"
+        financeParty:
+          $ref: "#/components/schemas/LienholderParty"
+        applicants:
+          $ref: "#/components/schemas/Applicants"
+        creditVehicle:
+          $ref: "#/components/schemas/BasicVehicle"
+        deliveryDistance:
+          $ref: "#/components/schemas/DeliveryDistance"
+        contractFinancing:
+          $ref: "#/components/schemas/ContractFinancing"
+      description: Credit Contract
+    CreditContractDocumentId:
+      type: string
+      description: Unique document identifier
+      example: 04236-291284
+    CreditApplicationStatusCode:
+      type: string
+      description: Status code for the credit application
+      example: B
+      enum:
+      - A
+      - B
+      - C
+      - D
+      - P
+    DeliveryDistance:
+      required:
+      - value
+      type: object
+      properties:
+        value:
+          type: number
+          description: Total delivery distance from origin to destination
+          example: 42.7
+        unit:
+          type: string
+          description: Unit of measure for delivery distance
+          example: km
+          enum:
+          - mi
+          - km
+        estimatedTime:
+          type: integer
+          description: Estimated delivery time in minutes
+          example: 45
+    ProtectionProduct:
+      type: object
+      properties:
+        provider:
+          type: string
+          description: "Provider of Protection Products like., TFS, LFS, Zurich, JM&A etc., (default to TFS)"
+          example: TFS
+        type:
+          type: string
+          description: "Value should be one out of GAP, CREDIT_LIFE, ToyotaCare, EWU, VSA, PPM, TAC, MPP, CCC, LLC, CERT, LCERT"
+          example: GAP
+        vin:
+          $ref: "#/components/schemas/VIN"
+        agreementNumber:
+          type: string
+          description: Agreement Number
+          example: "0060003675"
+        effectiveDate:
+          type: string
+          description: Effective Date of Contract
+          example: 2026-01-16T00:00:00.000
+        expirationDate:
+          type: string
+          description: Date Contract Ends
+          example: 2029-01-15T00:00:00.000
+        subtype:
+          type: string
+          description: Contract Category
+          example: PLATINUM
+        totalPremiumAmount:
+          $ref: "#/components/schemas/AmountTemplate"
+        disabilityPremiumAmount:
+          $ref: "#/components/schemas/AmountTemplate"
+        planCode:
+          type: string
+          description: Contract Plan Code
+          example: DC1
+        planCoverageMonths:
+          type: number
+          description: Number of Months Contract Covers
+          example: 36
+        expirationMileage:
+          type: number
+          description: Contract Covers Mileage through this quantity
+          example: 100000
+    AmountTemplate:
+      required:
+      - value
+      type: object
+      properties:
+        value:
+          type: number
+          description: Insurance/ Protection Products Total Amount
+          example: 900
+        unit:
+          type: string
+          description: Currency unit for residual value
+          example: USD
+          enum:
+          - USD
+          - CAD
+    SoldFinance:
+      type: object
+      properties:
+        financing:
+          $ref: "#/components/schemas/Financing"
+        lienholderParty:
+          $ref: "#/components/schemas/LienholderParty"
+    Financing:
+      type: object
+      properties:
+        creditApplicationDate:
+          $ref: "#/components/schemas/CreditApplicationDate"
+        finalFinancingAmounts:
+          $ref: "#/components/schemas/FinalFinancingAmounts"
+    CreditApplicationDate:
+      type: string
+      description: Date when the credit application was submitted
+      format: date
+      example: 2026-01-15
+    FinalFinancingAmounts:
+      type: object
+      properties:
+        grossAmount:
+          $ref: "#/components/schemas/CurrencyAmount"
+        purchasePriceAmount:
+          $ref: "#/components/schemas/CurrencyAmount"
+        wholesaleValueAmount:
+          $ref: "#/components/schemas/CurrencyAmount"
+    CurrencyAmount:
+      required:
+      - value
+      type: object
+      properties:
+        value:
+          type: number
+          description: Monetary value
+          format: double
+          example: 43816.32
+        currencyId:
+          type: string
+          description: Currency code
+          example: USD
+          enum:
+          - USD
+          - CAD
+          - MXN
+          default: USD
+    LienholderParty:
+      type: object
+      properties:
+        specifiedOrganization:
+          $ref: "#/components/schemas/Organization"
+    Organization:
+      type: object
+      properties:
+        companyName:
+          type: string
+          description: Name of the organization
+          example: Toyota Lease Trust
+        postalAddress:
+          $ref: "#/components/schemas/PostalAddress"
+    PostalAddress:
+      type: object
+      properties:
+        lineOne:
+          type: string
+          description: First line of the address
+          example: PO BOX 30203
+        lineTwo:
+          type: string
+          description: Second line of the address
+          example: Suite 100
+        cityName:
+          type: string
+          description: City name
+          example: COLLEGE STATION
+        stateOrProvinceCountrySubDivisionId:
+          type: string
+          description: State or province code
+          example: TX
+        postcode:
+          type: string
+          description: Postal or ZIP code
+          example: 77842-3203
+        countryId:
+          type: string
+          description: Country code (ISO 3166-1 alpha-2)
+          example: US
+    ContractFinancing:
+      type: object
+      properties:
+        contractDate:
+          $ref: "#/components/schemas/CreditApplicationDate"
+        termMeasure:
+          $ref: "#/components/schemas/TermMeasure"
+        federalTILDisclosures:
+          $ref: "#/components/schemas/FederalTILDisclosures"
+        insurance:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProtectionProduct"
+    TermMeasure:
+      required:
+      - value
+      type: object
+      properties:
+        value:
+          type: integer
+          description: Term value
+          example: 72
+        unitCode:
+          $ref: "#/components/schemas/TermUnitCode"
+    TermUnitCode:
+      type: string
+      description: Unit of term measurement
+      example: month
+      enum:
+      - month
+      - year
+      - day
+    FederalTILDisclosures:
+      type: object
+      properties:
+        annualPercentageRate:
+          $ref: "#/components/schemas/AnnualPercentageRate"
+        financeChargeAmount:
+          $ref: "#/components/schemas/CurrencyAmount"
+        totalOfPaymentsAmount:
+          $ref: "#/components/schemas/CurrencyAmount"
+        paymentSchedule:
+          $ref: "#/components/schemas/PaymentSchedule"
+    AnnualPercentageRate:
+      maximum: 100
+      minimum: 0
+      type: number
+      description: Annual percentage rate (APR)
+      format: double
+      example: 9.59
+    PaymentSchedule:
+      type: object
+      properties:
+        numberOfPaymentsNumeric:
+          $ref: "#/components/schemas/NumberOfPayments"
+        paymentAmount:
+          $ref: "#/components/schemas/CurrencyAmount"
+    NumberOfPayments:
+      minimum: 1
+      type: integer
+      description: Total number of payments
+      example: 72
+    isCreditContractIncluded:
+      type: boolean
+      description: Indicates whether a credit contract is included
+      example: true
+      default: true
+    RDRMessage:
+      required:
+      - errorCode
+      - errorDescription
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error Code from NVS
+          example: EIG-0x00d30003
+        description:
+          type: string
+          description: Error Description.
+          example: IMS Transaction STOPPED
+      description: Messages from NVS / iPlus for Failed RDR or Incentives
+    BatchRDRStatusUpdateNotification:
+      type: object
+      properties:
+        meta:
+          $ref: "#/components/schemas/Meta"
+        rdrStatus:
+          type: array
+          items:
+            $ref: "#/components/schemas/RDRStatusUpdate"
+    Meta:
+      type: object
+      properties:
+        notificationType:
+          type: string
+          description: Notification Type which determines the action to be taken by the provider
+        nofityDesc:
+          type: string
+          description: One liner description of the notification type and the action that can be performed by the provider
+        createAt:
+          type: string
+          description: Notification created DateTime
+          format: date-time
+          example: 2026-02-06T00:01:00Z
+    RDRStatusUpdate:
+      type: object
+      properties:
+        statusUpdateNote:
+          type: string
+          description: notes related to the RDR Status updates
+          example: RDR got approved by NVS
+        salesTransactionNo:
+          $ref: "#/components/schemas/SalesTransactionNo"
+        rdrStatus:
+          $ref: "#/components/schemas/RDRStatus"
+        vin:
+          $ref: "#/components/schemas/VIN"
+        unitId:
+          $ref: "#/components/schemas/UNITID"
+        dealerId:
+          $ref: "#/components/schemas/DealerId"
+    PaginationSchema:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          description: The size of page
+        totalPages:
+          type: integer
+          description: Total pages
+        recordsCount:
+          type: integer
+          description: Total number of records
+        pageNumber:
+          minimum: 1
+          type: integer
+          description: The number of returned page
+          default: 1
+    Errors:
+      type: array
+      items:
+        $ref: "#/components/schemas/ErrorModel"
+    ErrorModel:
+      type: object
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+        errorId:
+          type: integer
+          description: Unique identifier for the error message for monitoring purposes and organized by error type and profile
+        errorMsg:
+          type: string
+          description: Error message directly from integrated service (if applicable). Returned as is.
+        userErrorMsg:
+          type: string
+  parameters:
+    CountryCode:
+      name: countrycode
+      in: header
+      description: Country Code
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        description: Country Code
+        example: "1"
+    Locale:
+      name: locale
+      in: header
+      description: Locale
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        description: Locale
+        example: en-US
+    Prefer:
+      name: Prefer
+      in: header
+      description: "Json Payload that details the fields that the client wants included in the repsonse. Can also include reporting information that goes into the error logging through a context value paired specified as in the example. logsLabel specifies key words to be logged in the application loggs, while reportingLogs specifies keywords returned with an error message. Both will default to context NNA_API and value Retial Delivery Report (RDR) API if they are not specified. Specific field names will default to false."
+      required: false
+      style: simple
+      explode: false
+      schema:
+        type: string
+        description: A json payload that details included response fields and reporting information
+      example: "{'logsLabel': {context: NNA_API, value: Retial Delivery Report (RDR) API}, reportingLabel: {context: NNA_API, value: Retial Delivery Report (RDR) API}}"
+    ApiVersion:
+      name: api-version
+      in: header
+      description: API Version
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        description: API Version
+        example: 1.0.0
+        enum:
+        - 1.0.0
+        - 1.0.1
+        - 2.0.0
+        - 2.0.1
+      example: 2.0.0
+    RequestId:
+      name: requestId
+      in: header
+      description: Request ID/ Transaction ID Header Parameter (UUID version 4)
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        format: uuid
+      example: 16a7d408-aed4-43f8-8af4-7a17f407f799
+    DealerId:
+      name: dealerId
+      in: header
+      description: Dealer Identifier
+      required: false
+      style: simple
+      explode: false
+      schema:
+        maxLength: 5
+        minLength: 5
+        type: string
+      example: "42278"
+    Brand:
+      name: brand
+      in: header
+      description: Brand
+      required: false
+      style: simple
+      explode: false
+      schema:
+        type: string
+        description: Vehicle Brand (default value - 'toyota')
+        example: toyota
+        enum:
+        - toyota
+        - lexus
+      example: toyota
+    CreatorCode:
+      name: creatorCode
+      in: header
+      description: "Source System (DMS/ DSP/ OEM) Identifier like TY (Toyota, OEM), CDK (DMS), DDC (Dealer.com, DSP) etc."
+      required: false
+      style: simple
+      explode: false
+      schema:
+        maxLength: 8
+        minLength: 2
+        type: string
+      example: CDK
+    XSubscriberCode:
+      name: x-subscriber-code
+      in: header
+      description: Requesting subscriber code
+      required: false
+      schema:
+        type: string
+      example: 23a7d408-aed4-43f8-8af4-7a17f407m652
+    Region:
+      name: region
+      in: header
+      description: "List of regions\n  gst GST\n  set SET\n  110 Los Angeles\n  120 San Francisco\n  130 Portland\n  150 Denver\n  160 New York\n  170 Boston\n  210 Chicago\n  220 Cincinnati\n  230 Kansas City\n  500 Southeast\n  600 Gulf States\n  800 CAT\n  310 Western\n  100 TMS HeadQuarters          \n"
+      required: false
+      style: form
+      explode: false
+      schema:
+        type: string
+        enum:
+        - gst
+        - set
+        - "100"
+        - "110"
+        - "120"
+        - "130"
+        - "150"
+        - "160"
+        - "170"
+        - "210"
+        - "220"
+        - "230"
+        - "310"
+        - "500"
+        - "600"
+        - "800"
+      example: "110"
+    SaleClass:
+      name: sale-class
+      in: query
+      description: Sale class code
+      required: false
+      schema:
+        type: string
+        enum:
+        - used
+        - new
+      example: used
+    UNITID:
+      name: unitId
+      in: query
+      description: Vehicle UnitId
+      required: false
+      schema:
+        type: integer
+        description: Vehicle UnitId
+      example: 129375127
+    VIN:
+      name: vin
+      in: query
+      description: Vehicle Identification Number
+      required: false
+      schema:
+        type: string
+        description: Vehicle Identification Number
+      example: 5TFHY5F13KX799310
+    RDRStatus:
+      name: rdrStatus
+      in: query
+      description: Status of RDR to filter for
+      required: false
+      schema:
+        type: string
+        description: Status of RDR to filter for
+      example: Approved
+    SalesTransactionNo:
+      name: salesTransactionNo
+      in: path
+      description: salesTransactionNo of the RDR Transaction details requested
+      required: true
+      style: simple
+      explode: false
+      schema:
+        maxLength: 17
+        minLength: 3
+        type: string
+        description: salesTransactionNo generated in Vehicles Sales System
+      example: 3452hl2845
+    StartDate:
+      name: startDate
+      in: query
+      description: The start date from which the available RDR's are requested. If the start date is not provided the current date will be defaulted.
+      required: false
+      style: form
+      explode: true
+      schema:
+        maxLength: 10
+        minLength: 0
+        pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        type: string
+        description: Start date
+        format: date
+      example: 2026-02-09
+    EndDate:
+      name: endDate
+      in: query
+      description: The end date upto which the available RDR's are requested. If the endDate is not provided the deals from the current date up to 14 days will be provided in the service response.
+      required: false
+      style: form
+      explode: true
+      schema:
+        maxLength: 10
+        minLength: 0
+        pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        type: string
+        description: End date
+        format: date
+      example: 2026-02-09
+    PageNumber:
+      name: pageNumber
+      in: query
+      description: The number of returned page
+      required: false
+      schema:
+        maximum: 1000000
+        minimum: 1
+        type: integer
+        default: 1
+    PageSize:
+      name: pageSize
+      in: query
+      description: The number of records to return
+      required: false
+      schema:
+        maximum: 600
+        minimum: 1
+        type: integer
+        default: 100
+  requestBodies:
+    RDRCreateRequestBody:
+      description: Create RDR
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NewRDR"
+      required: true
+  headers:
+    RequestId:
+      description: Request ID Header (UUID version 4)
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        format: uuid
+      example: 16a7d408-aed4-43f8-8af4-7a17f407f799
+    paginationCount:
+      description: Number of Total Records
+      required: true
+      schema:
+        type: integer
+        example: 2568
+    paginationPageSize:
+      description: Number of records on a page
+      required: true
+      schema:
+        type: integer
+        example: 500
+    paginationPageNumber:
+      description: Number of returned page
+      required: true
+      schema:
+        type: integer
+        example: 5
+  securitySchemes:
+    FVRAuthorizer:
+      type: apiKey
+      name: Authorization
+      in: header
