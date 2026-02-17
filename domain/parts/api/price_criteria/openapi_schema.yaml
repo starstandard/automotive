@@ -25,94 +25,6 @@ components:
       type: array
       items:
         type: string
-    CreditAuthorization:
-      type: object
-      properties:
-        credit_authorization_id:
-          type: string
-          description: Unique system identifier for the Credit ...
-        credit_authorization_key:
-          type: string
-          description: Natural business key for the authorizati...
-        credit_authorization_status_type:
-          $ref: "#/components/schemas/CreditAuthorizationStatusTypes"
-        credit_authorization_type:
-          $ref: "#/components/schemas/CreditAuthorizationTypes"
-        invoice_price:
-          $ref: "#/components/schemas/Price"
-        dealer_price:
-          $ref: "#/components/schemas/Price"
-        event_message:
-          $ref: "#/components/schemas/EventMessage"
-        auth_number:
-          type: string
-          description: The approval number returned by the exte...
-        auth_code:
-          type: string
-          description: Specific response code from the financia...
-        auth_date_time:
-          type: string
-          description: Timestamp when the authorization was pro...
-          format: date-time
-        pre_auth_num:
-          type: string
-          description: The fund verification or pre-authorizati...
-        party_references:
-          $ref: "#/components/schemas/PartyReferences"
-        source_key:
-          type: string
-          description: Identification of the originating system...
-        purchase_order_num:
-          type: string
-          description: Associated Purchase Order number.
-        auth_reasons:
-          $ref: "#/components/schemas/Codes"
-        program:
-          $ref: "#/components/schemas/Program"
-        event_message_type:
-          $ref: "#/components/schemas/EventMessageTypes"
-        auth_amount:
-          $ref: "#/components/schemas/Money"
-        language:
-          type: string
-          description: "English, Spanish"
-        address_verification:
-          type: string
-          description: Context or domain of the reference.
-        context:
-          type: string
-          description: Context or domain of the reference.
-        transaction_number:
-          type: string
-          description: Context or domain of the reference.
-        invoice_types:
-          $ref: "#/components/schemas/InvoiceTypes"
-      description: credit.authorization.desc
-    CreditAuthorizationStatusTypes:
-      type: string
-      description: types of credit authorization status.
-      enum:
-      - VALIDATION
-      - FUND_VERIFICATION
-      - PENDING_EXTERNAL
-      - AUTHORIZED
-      - PARTIALLY_AUTHORIZED
-      - CAPTURED
-      - VOIDED
-      - EXPIRED
-      - DECLINED
-      - FAILED_TECHNICAL
-      - FRAUD_REJECTED
-      - OTHER
-    CreditAuthorizationTypes:
-      type: string
-      description: types of credit authorizations.
-      enum:
-      - STANDARD_AUTH
-      - PRE_AUTH
-      - MEMO
-      - NA
-      - OTHER
     CurrencyExchange:
       type: object
       properties:
@@ -139,6 +51,42 @@ components:
           description: The date and time the rate was associate...
           format: date-time
       description: currency.exchange.desc
+    CurrencyExchanges:
+      type: array
+      items:
+        $ref: "#/components/schemas/CurrencyExchange"
+    DaysOfWeekTypes:
+      type: string
+      description: types of days of weeks.
+      enum:
+      - SUN
+      - MON
+      - TUES
+      - WED
+      - THURS
+      - FRI
+      - SAT
+    DurationUOMTypes:
+      type: string
+      description: types of duration u o ms.
+      enum:
+      - MINUTES
+      - HOURS
+      - DAYS
+      - DAY_OF_MONTH
+      - WEEKS
+      - BI_WEEKS
+      - SEMI_MONTHS
+      - MONTHS
+      - QUARTERS
+      - SEMI_YEARS
+      - YEARS
+      - MULTI_YEARS
+      - CUSTOM
+      - OCCURRENCE
+      - UNLIMITED
+      - NONE
+      - OTHER
     EffectivePeriod:
       type: object
       properties:
@@ -177,6 +125,8 @@ components:
         recur_indicator:
           type: boolean
           description: Indicator if recurrence is enabled
+        timeslot:
+          $ref: "#/components/schemas/TimeSlot"
       description: effective.period.desc
     EventMessage:
       type: object
@@ -249,232 +199,123 @@ components:
       - AUDIT
       - HEARTBEAT
       - UNKNOWN
-    Identifier:
-      type: object
-      properties:
-        identifier_id:
-          maxLength: 50
-          minLength: 5
-          type: string
-          description: Unique identifier value
-        identifier_key:
-          maxLength: 50
-          minLength: 5
-          type: string
-          description: Business key for the identifier
-        context:
-          type: string
-          description: Context or domain of the identifier
-        value:
-          type: string
-          description: The monetary or hours-based value of the...
-        detail:
-          type: string
-          description: The monetary or hours-based value of the...
-        identifier_type:
-          type: string
-          description: The monetary or hours-based value of the...
-        system_codes:
-          $ref: "#/components/schemas/Codes"
-      description: identifier.desc
-    InvoiceTypes:
-      type: string
-      description: types of invoices.
-      enum:
-      - INVOICE
-      - STANDARD
-      - CREDIT_MEMO
-      - DEBIT_MEMO
-      - PRO_FORMA
-      - COMMERCIAL
-      - VEHICLE_SALE
-      - SERVICE
-      - PARTS
-      - LEASE
-      - FINANCE_CHARGE
-      - WARRANTY_CLAIM
-      - INSURANCE_CLAIM
-      - STATEMENT
-      - ADVANCE
-      - FINAL
+    EventMessages:
+      type: array
+      items:
+        $ref: "#/components/schemas/EventMessage"
     List:
       type: array
       items:
         type: string
+    Locale:
+      type: object
+      properties:
+        locale_id:
+          type: string
+          description: Unique internal identifier for the local...
+        locale_key:
+          type: string
+          description: "A unique, human-readable string key used..."
+        locale_name:
+          type: string
+          description: The full IETF BCP 47 language tag or Jav...
+        description:
+          type: string
+          description: A detailed description of the alert mess...
+        language_code:
+          type: string
+          description: ISO 639-1 two-letter language code.
+        country_code:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+        currency_code:
+          type: string
+          description: The three-letter ISO 4217 currency code ...
+        currency_symbol:
+          type: string
+          description: The graphical symbol used for the curren...
+        currency_exchanges:
+          $ref: "#/components/schemas/CurrencyExchanges"
+        timezone:
+          type: string
+          description: The IANA Time Zone database ID for regio...
+        number_format:
+          type: string
+          description: Regional pattern for decimal and thousan...
+      description: not nullable
     Memo:
       type: array
       items:
         type: string
-    Money:
+    PartName:
       type: object
       properties:
-        money_key:
+        part_name_id:
           type: string
-          description: The unique key for the monetary value.
-        money_id:
+          description: Unique identifier for the part name
+        part_name_key:
           type: string
-          description: The unique ID for the monetary value.
-        currency_code:
+          description: Business key for the part name
+        part_prefix:
+          $ref: "#/components/schemas/Codes"
+        part_suffix:
+          $ref: "#/components/schemas/Codes"
+        description:
           type: string
-          description: "ISO currency code, e.g., 'USD'."
-        display_value:
-          type: string
-          description: The locale-specific display format for t...
+          description: Description of the part name
+        language:
+          $ref: "#/components/schemas/Codes"
         locale:
-          type: string
-          description: "The locale code (e.g., en-US, fr-FR)."
-        value:
-          type: string
-          description: The monetary value.
-        currency_exchange:
-          $ref: "#/components/schemas/CurrencyExchange"
-      description: money.desc
-    PartyReference:
-      type: object
-      properties:
-        party_reference_id:
-          type: string
-          description: Unique identifier value
-        party_reference_key:
-          type: string
-          description: Unique identifier value
-        party_key:
-          type: string
-          description: Unique identifier value
-        party_reference_type:
-          type: string
-          description: Unique identifier value
-        context:
-          type: string
-          description: Context or domain of the identifier
-        account_number:
-          type: string
-          description: Account Number
-        party_relationship_types:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            $ref: "#/components/schemas/PartyRelationshipTypes"
-        system_codes:
           $ref: "#/components/schemas/Codes"
-        rule_codes:
+        alias:
           $ref: "#/components/schemas/Codes"
-        party:
-          $ref: "#/components/schemas/Identifier"
-        occurrence_date_time:
-          type: string
-          description: The date and time the event occurred.
-          format: date-time
-        duration:
-          $ref: "#/components/schemas/EffectivePeriod"
-      description: party.reference.desc
-    PartyReferences:
+        long_name:
+          $ref: "#/components/schemas/Codes"
+        marketing_name:
+          $ref: "#/components/schemas/Codes"
+        part_name_type:
+          $ref: "#/components/schemas/PartNameTypes"
+        part_number:
+          $ref: "#/components/schemas/Codes"
+      description: nullable
+    PartNameTypes:
+      type: string
+      description: types of part names.
+      enum:
+      - GENERIC
+      - MANUFACTURING
+      - MARKETING
+      - CORE
+      - REMANUFACTURING
+      - OEM
+      - AFTERMARKET
+      - SUPERSEDING
+      - SUPERSEDED
+    PartNames:
       type: array
       items:
-        $ref: "#/components/schemas/PartyReference"
-    PartyRelationshipTypes:
+        $ref: "#/components/schemas/PartName"
+    PartyTypes:
       type: string
-      description: types of party relationships.
+      description: types of partys.
       enum:
-      - CORPORATION
-      - GROUP
-      - STORE
-      - BRANCH
-      - DEPARTMENT
-      - SECTION
-      - TEAM
-      - DEALERSHIP
-      - THIRD_PARTY
+      - DEALER
+      - EMPLOYEE
+      - CUSTOMER
+      - ORGANIZATION
       - VENDOR
       - SUPPLIER
-      - PARTNER_ORGANIZATION
-      - AFFILIATE
-      - DISTRIBUTOR
-      - MANUFACTURER
-      - SERVICE_PROVIDER
-      - EMPLOYER
-      - INTERNAL_ORGANIZATION
-      - COST_CENTER
-      - FREIGHT_FORWARDER
-      - BUYER
-      - REGULATOR
-      - GOVERNMENT_AGENCY
-      - NON_PROFIT
-      - FRANCHISE
-      - SUBSIDIARY
-      - DIVISION
-      - JOINT_VENTURE
-      - AUDITOR
-      - ACTOR
-      - ACCOUNTABLE
-      - RESPONSIBLE
-      - CONSULT
-      - NOTIFY
-      - EXECUTE
-      - PART_OF
-      - MEMBERSHIP
-      - COMPOSED_IN
-      - CUSTOMER
-      - CO_SIGNER
-      - SPOUSE
-      - PARENT
-      - CHILD
-      - SIBLING
-      - LEGAL_GUARDIAN
-      - DEPENDENT
-      - EMERGENCY_CONTACT
-      - FAMILY_MEMBER
-      - FRIEND
-      - ACQUAINTANCE
-      - ASSOCIATE
-      - EX_SPOUSE
-      - PROFESSIONAL_CONTACT
-      - MANAGER
-      - CO_WORKER
-      - FINANCIAL_ADVISOR
-      - SELF
-      - ROMANTIC_PARTNER
-      - OTHER_FAMILY
-      - CAREGIVER
-      - MENTOR
-      - MENTEE
-      - HEIR
-      - TRUSTEE_PERSON
-      - REFERENCE_PERSONAL
-      - REFERENCE_PROFESSIONAL
-      - AGENT
-      - BENEFICIARY
-      - GUARANTOR
-      - EMPLOYEE
+      - PUBLIC
+      - TAX
+      - SERVICE
+      - PROSPECT
+      - PARTNER
       - CONTRACTOR
-      - OWNER
-      - BUSINESS_PARTNER
-      - SERVICE_CONSUMER
-      - POLITICAL_AFFILIATE
-      - ADVISOR_CONSULTANT
-      - PROXY
-      - SHAREHOLDER
-      - INVESTOR
-      - CUSTODIAN
-      - SOLD_TO
-      - SHIP_TO
-      - PAYER
-      - PAYEE
-      - GIFT_TO
-      - LOAN_PROVIDER
-      - CREDIT_CARD_PROVIDER
-      - LESSEE
-      - LESSOR
-      - INSURED
-      - INSURER
-      - UNDERWRITER
-      - RECIPIENT
-      - TRANSACTION_FROM
-      - TRANSACTION_TO
-      - REMOVE
-      - OTHER
+      - DEVICE
+      - FLEET
+      - DRIVER
+      - FINANCE
+      - GOVERNMENT
     PayTypes:
       type: string
       description: types of pays.
@@ -485,6 +326,23 @@ components:
       - SUBLET
       - MANUFACTURER
       - DEALER
+    PaymentTypes:
+      type: string
+      description: types of payments.
+      enum:
+      - OUTRIGHT_PURCHASE
+      - FINANCED_PURCHASE
+      - SUBSCRIPTION
+      - DEPOSIT
+      - PROGRESS_PAYMENT
+      - SCHEDULED_PAYMENT
+      - CONSUMPTION_BASED
+      - CUSTOM_AGREEMENT
+      - CASH
+      - BALLON
+      - LEASE
+      - LEASE_NO_BUYOUT
+      - LEASE_BUYOUT
     Price:
       type: object
       properties:
@@ -544,6 +402,68 @@ components:
         currency_exchange:
           $ref: "#/components/schemas/CurrencyExchange"
       description: price.desc
+    PriceCriteria:
+      type: object
+      properties:
+        price_criteria_key:
+          type: string
+          description: The unique key for the price criteria re...
+        price_criteria_id:
+          type: string
+          description: The unique ID for the price criteria.
+        locale:
+          $ref: "#/components/schemas/Locale"
+        source:
+          type: string
+          description: The unique ID for the price criteria.
+        price_value:
+          $ref: "#/components/schemas/Codes"
+        price_max:
+          $ref: "#/components/schemas/Price"
+        price_min:
+          $ref: "#/components/schemas/Price"
+        price_criteria_items:
+          $ref: "#/components/schemas/PriceCriteriaItems"
+        event_messages:
+          $ref: "#/components/schemas/EventMessages"
+      description: price.criteria.desc
+    PriceCriteriaItem:
+      type: object
+      properties:
+        price_criteria_item_key:
+          type: string
+          description: The unique key for the price criteria re...
+        price_criteria_item_id:
+          type: string
+          description: The unique ID for the price criteria.
+        line_number:
+          type: string
+          description: A collection of codes representing speci...
+        expected_price:
+          $ref: "#/components/schemas/Price"
+        part_names:
+          $ref: "#/components/schemas/PartNames"
+        party_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/PartyTypes"
+        payment_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/PaymentTypes"
+        event_messages:
+          $ref: "#/components/schemas/EventMessages"
+      description: price.criteria.item.desc
+    PriceCriteriaItems:
+      type: array
+      items:
+        $ref: "#/components/schemas/PriceCriteriaItem"
     PriceTypes:
       type: string
       description: types of prices.
@@ -596,36 +516,6 @@ components:
       - UNIT_COST
       - TAX
       - OTHER
-    Program:
-      type: object
-      properties:
-        program_key:
-          type: string
-          description: The unique key for the program  record.
-        program_id:
-          type: string
-          description: The unique id for the program  record.
-        program_code:
-          type: string
-          description: The unique code for the .
-        program_name:
-          type: string
-          description: The name of the .
-        program_oem:
-          type: string
-          description: The value of the owner.
-        description:
-          type: string
-          description: A description of the .
-        program_type:
-          $ref: "#/components/schemas/ProgramTypes"
-      description: not nullable
-    ProgramTypes:
-      type: string
-      description: types of programs.
-      enum:
-      - BILL_EXTENDED_TERM
-      - BILL_NET_30
     StaffRoleTypes:
       type: string
       description: types of staff roles.
@@ -648,24 +538,59 @@ components:
       - APPRAISER
       - GENERAL_MANAGER
       - UNKNOWN
-    DurationUOMTypes:
+    TimeSlot:
+      type: object
+      properties:
+        time_slot_id:
+          type: string
+          description: Unique identifier for the time slot reco...
+        time_slot_key:
+          type: string
+          description: Unique business key for the time slot.
+        time_slot_source:
+          type: string
+          description: Unique identifier for the time slot sour...
+          example: GOOGLE_CALENDAR
+        end_day:
+          $ref: "#/components/schemas/DaysOfWeekTypes"
+        end_time:
+          type: string
+          description: End time in HH:mm format.
+          format: date-time
+        recurring_indicator:
+          type: boolean
+          description: Indicates if the time slot is recurring.
+        recurring_period:
+          $ref: "#/components/schemas/EffectivePeriod"
+        start_day:
+          $ref: "#/components/schemas/DaysOfWeekTypes"
+        start_time:
+          type: string
+          description: Start time in HH:mm format.
+          format: date-time
+        timeslot_directive_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/TimeslotDirectiveTypes"
+        week_of_date:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          format: date
+          items:
+            type: string
+      description: time.slot.desc
+    TimeslotDirectiveTypes:
       type: string
-      description: Units of Measure for Durations
+      description: types of timeslot directives.
       enum:
-      - MINUTES
-      - HOURS
-      - DAYS
-      - DAY_OF_MONTH
-      - WEEKS
-      - BI_WEEKS
-      - SEMI_MONTHS
-      - MONTHS
-      - QUARTERS
-      - SEMI_YEARS
-      - YEARS
-      - MULTI_YEARS
-      - CUSTOM
-      - OCCURRENCE
-      - UNLIMITED
-      - NONE
-      - OTHER
+      - AFTER
+      - ANYTIME
+      - BEFORE
+      - BETWEEN
+      - BLOCK
+      - UNKNOWN
