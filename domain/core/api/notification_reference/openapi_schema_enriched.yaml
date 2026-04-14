@@ -14,109 +14,53 @@ info:
     email: pescobar@starstandard.org
   license:
     name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: /
+- url: https://api.starstandard.org/v1
+  description: Production server
+- url: https://sandbox.starstandard.org/v1
+  description: Sandbox for testing
 paths: {}
 components:
   schemas:
-    Codes:
-      type: array
-      items:
-        type: string
     EventTypes:
       type: string
       description: types of events.
       enum:
       - INVOICE_RECEIVED
       - ITEM_SHIPPED
-    Identifier:
-      type: object
-      properties:
-        identifier_id:
-          maxLength: 50
-          minLength: 5
-          type: string
-          description: Unique identifier value
-        identifier_key:
-          maxLength: 50
-          minLength: 5
-          type: string
-          description: Business key for the identifier
-        context:
-          type: string
-          description: Context or domain of the identifier
-        value:
-          type: string
-          description: The monetary or hours-based value of the...
-        detail:
-          type: string
-          description: The monetary or hours-based value of the...
-        identifier_type:
-          type: string
-          description: The monetary or hours-based value of the...
-        system_codes:
-          $ref: "#/components/schemas/Codes"
-      description: identifier.desc
-    IdentifierCreate:
-      required:
-      - identifier_key
-      type: object
-      description: Identifier Create for Post
-      allOf:
-      - $ref: "#/components/schemas/Identifier"
-    IdentifierUpdate:
-      type: object
-      properties:
-        system_codes:
-          $ref: "#/components/schemas/Codes"
-        identifier_type:
-          type: string
-          description: The monetary or hours-based value of the...
-        context:
-          type: string
-          description: Context or domain of the identifier
-        detail:
-          type: string
-          description: The monetary or hours-based value of the...
-        value:
-          type: string
-          description: The monetary or hours-based value of the...
-      description: Identifier Update for Patch and Put
     NotificationReference:
       type: object
       properties:
         notification_reference_id:
           type: string
-          description: Unique identifier value for the referenc...
+          description: Unique identifier value for the reference record.
         notification_reference_key:
           type: string
-          description: Unique key value for the reference recor...
+          description: Unique key value for the reference record.
         source_key:
           maxLength: 50
           minLength: 5
           type: string
-          description: The unique key identifying the reference...
+          description: The unique key identifying the referenced PartOrder aggregate.
         source_actor:
           maxLength: 50
           minLength: 5
           type: string
-          description: The unique key identifying the reference...
+          description: The unique key identifying the referenced PartOrder aggregate.
         context:
           type: string
-          description: Context or domain of the identifier (e.g...
-        system_codes:
-          $ref: "#/components/schemas/Codes"
-        identifier:
-          $ref: "#/components/schemas/Identifier"
+          description: "Context or domain of the identifier (e.g., 'CRM', 'ERP')."
         occurrence_date_time:
           type: string
-          description: The date and time the reference was crea...
+          description: The date and time the reference was created or last updated.
           format: date-time
+          example: 2026-04-09T15:08:06Z
         event_type:
           $ref: "#/components/schemas/EventTypes"
-      description: notification.reference.desc
+      description: "Reference to a PartOrder Aggregate Root, often used by external\
+        \ systems."
     NotificationReferenceCreate:
       required:
       - notification_reference_key
@@ -127,22 +71,19 @@ components:
     NotificationReferenceUpdate:
       type: object
       properties:
-        system_codes:
-          $ref: "#/components/schemas/Codes"
-        identifier:
-          $ref: "#/components/schemas/Identifier"
         event_type:
           $ref: "#/components/schemas/EventTypes"
         context:
           type: string
-          description: Context or domain of the identifier (e.g...
+          description: "Context or domain of the identifier (e.g., 'CRM', 'ERP')."
         source_actor:
           maxLength: 50
           minLength: 5
           type: string
-          description: The unique key identifying the reference...
+          description: The unique key identifying the referenced PartOrder aggregate.
         occurrence_date_time:
           type: string
-          description: The date and time the reference was crea...
+          description: The date and time the reference was created or last updated.
           format: date-time
+          example: 2026-04-09T15:08:06Z
       description: NotificationReference Update for Patch and Put

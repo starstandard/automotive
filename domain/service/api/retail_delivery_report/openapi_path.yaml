@@ -70,7 +70,7 @@ paths:
             Location:
               schema:
                 type: string
-                example: /retail-delivery-reports/KEY78u
+                example: /retail-delivery-reports/KEY78P
   /retail-delivery-reports/{retail-delivery-report-key}:
     get:
       tags:

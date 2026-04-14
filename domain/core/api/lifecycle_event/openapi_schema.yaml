@@ -14,10 +14,13 @@ info:
     email: pescobar@starstandard.org
   license:
     name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: /
+- url: https://api.starstandard.org/v1
+  description: Production server
+- url: https://sandbox.starstandard.org/v1
+  description: Sandbox for testing
 paths: {}
 components:
   schemas:
@@ -30,19 +33,19 @@ components:
           example: EVT-99887766
         lifecycle_event_key:
           type: string
-          description: The unique external key or business iden...
+          description: The unique external key or business identifier used in integrations.
           example: LIFECYCLE-879234
         actor_href:
           type: string
-          description: The href of the actor who initiated the ...
+          description: The href of the actor who initiated the event.
           format: href
         actor_id:
           type: string
-          description: The unique identifier of the actor who i...
+          description: The unique identifier of the actor who initiated the event.
           example: USR-24681357
         actor_name:
           type: string
-          description: The name of the actor who initiated the ...
+          description: The name of the actor who initiated the event.
           example: John Doe
         lifecycle_event_type:
           $ref: "#/components/schemas/LifecycleEventTypes"
@@ -52,11 +55,11 @@ components:
           format: date
         resource_href:
           type: string
-          description: The href of the resource associated with...
+          description: The href of the resource associated with the event.
           format: href
         resource_identifier:
           type: string
-          description: The unique identifier of the resource as...
+          description: The unique identifier of the resource associated with the event.
           example: RSC-88776655
         detail_name:
           type: string
@@ -80,7 +83,7 @@ components:
           example: ORDER_STATUS_CHANGED
         resource_types:
           $ref: "#/components/schemas/ResourceTypes"
-      description: lifecycle.event.desc
+      description: Lifecycle Event
     LifecycleEventTypes:
       type: string
       description: types of lifecycle events.
@@ -102,6 +105,13 @@ components:
       - FAILED
       - VALIDATED
       - QUALIFIED
+      - STEP_TRANSITION
+      - STATUS_CHANGE
+      - QUEUED
+      - ACKNOWLEDGMENT
+      - REJECTED
+      - UNQUALIFIED
+      - INCOMPLETE
     ResourceTypes:
       type: string
       description: types of resources.
@@ -139,5 +149,14 @@ components:
       - FEE
       - INCENTIVE
       - DEALERSHIP
+      - PART
+      - ACCESSORIES
+      - PURCHASE_ORDER
+      - VEHICLE_OPTION
+      - RENTAL
+      - SUBSCRIPTION
+      - INSURANCE
+      - WARRANTY
+      - SERVICE
       - APPOINTMENT
       - OTHER

@@ -24,74 +24,51 @@ servers:
 paths: {}
 components:
   schemas:
-    Code:
-      type: object
-      properties:
-        code_id:
-          maxLength: 50
-          minLength: 5
-          type: string
-          description: The unique key code
-        code_key:
-          maxLength: 50
-          minLength: 5
-          type: string
-          description: The unique key code
-        code:
-          maxLength: 50
-          minLength: 5
-          type: string
-          description: The unique key code
-        description:
-          maxLength: 50
-          minLength: 5
-          type: string
-          description: The unique key code
-      description: not nullable
-    Codes:
-      type: array
-      items:
-        $ref: "#/components/schemas/Code"
     GeographicBoundary:
       type: object
       properties:
         geographic_boundary_id:
           type: string
-          description: Unique identifier for the geographic bou...
+          description: Unique identifier for the geographic boundary record.
+          example: gb-7721-x88
         geographic_boundary_key:
           type: string
-          description: Unique business key for the geographic b...
-        geographic_codes:
-          $ref: "#/components/schemas/Codes"
-        locales:
-          $ref: "#/components/schemas/Codes"
+          description: Unique business key used for referencing the boundary across
+            systems.
+          example: GEO-ATL-METRO-001
         geographic_type:
           $ref: "#/components/schemas/LocationTypes"
-        geographic_values:
-          $ref: "#/components/schemas/Codes"
         distance_max:
           type: string
-          description: Maximum distance constraint applied in s...
+          description: Upper bound distance constraint for radial searches.
+          example: "50.0"
         distance_min:
           type: string
-          description: Minimum distance constraint applied in s...
+          description: Lower bound distance constraint for radial searches.
+          example: "0.0"
         distance_type:
           $ref: "#/components/schemas/UnitOfMeasureTypes"
         name:
           type: string
-          description: Human-readable name of the geographic bo...
+          description: The common display name for the boundary.
+          example: Alpharetta Service Area
         vertices:
           type: string
-          description: Serialized coordinates defining polygon ...
+          description: "Comma-separated string of coordinate pairs (lat,long) defining\
+            \ a boundary polygon."
+          example: "34.07,-84.29, 34.08,-84.30, 34.07,-84.31"
         description:
           type: string
-          description: Detailed description of the geographic b...
+          description: Detailed narrative of the boundary's purpose or coverage.
+          example: Primary sales territory for North Georgia.
         center_latitude:
           type: string
-          description: Central latitude coordinate of the bound...
+          description: Latitude of the boundary's centroid.
+          example: "34.0754"
         center_longitude:
           type: string
-          description: Central longitude coordinate of the boun...
+          description: Longitude of the boundary's centroid.
+          example: "-84.2941"
       description: nullable
     GeographicBoundaryCreate:
       required:
@@ -105,35 +82,37 @@ components:
       properties:
         center_latitude:
           type: string
-          description: Central latitude coordinate of the bound...
+          description: Latitude of the boundary's centroid.
+          example: "34.0754"
         center_longitude:
           type: string
-          description: Central longitude coordinate of the boun...
-        geographic_codes:
-          $ref: "#/components/schemas/Codes"
-        locales:
-          $ref: "#/components/schemas/Codes"
+          description: Longitude of the boundary's centroid.
+          example: "-84.2941"
         geographic_type:
           $ref: "#/components/schemas/LocationTypes"
         distance_min:
           type: string
-          description: Minimum distance constraint applied in s...
+          description: Lower bound distance constraint for radial searches.
+          example: "0.0"
         distance_type:
           $ref: "#/components/schemas/UnitOfMeasureTypes"
         vertices:
           type: string
-          description: Serialized coordinates defining polygon ...
-        geographic_values:
-          $ref: "#/components/schemas/Codes"
+          description: "Comma-separated string of coordinate pairs (lat,long) defining\
+            \ a boundary polygon."
+          example: "34.07,-84.29, 34.08,-84.30, 34.07,-84.31"
         distance_max:
           type: string
-          description: Maximum distance constraint applied in s...
+          description: Upper bound distance constraint for radial searches.
+          example: "50.0"
         name:
           type: string
-          description: Human-readable name of the geographic bo...
+          description: The common display name for the boundary.
+          example: Alpharetta Service Area
         description:
           type: string
-          description: Detailed description of the geographic b...
+          description: Detailed narrative of the boundary's purpose or coverage.
+          example: Primary sales territory for North Georgia.
       description: GeographicBoundary Update for Patch and Put
     LocationTypes:
       type: string

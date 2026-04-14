@@ -20,2054 +20,301 @@ security:
   - standard:read
 - member-api-key: []
 - {}
-tags:
-- name: Health
-  description: Operations related to Health
-- name: GeographicBoundary
-  description: Operations related to GeographicBoundary
-- name: Default
-  description: Operations related to Default
 paths:
   /geographic-boundaries:
     get:
       tags:
-      - GeographicBoundary
-      summary: Retrieve a list of GeographicBoundary entities.
-      description: Standard GET operation for /geographic-boundaries
-      operationId: listGeographicBoundary
+      - GeographicBoundaries
+      summary: Returns a paginated list of geographic boundary
+      description: a list of GeographicBoundary
+      operationId: listGeographicBoundaries
       parameters:
-      - name: sort
-        in: query
-        schema:
-          type: string
-      - name: filter
-        in: query
-        schema:
-          type: integer
-          format: int32
-          default: 50
-      - name: limit
-        in: query
-        description: The maximum number of entities to return in a single response
-          page. Limits the 'data' array size to prevent payload bloat.
-        required: false
-        schema:
-          maximum: 100
-          minimum: 1
-          type: integer
-          format: int32
-          default: 50
-      - name: offset
-        in: query
-        description: The number of entities to skip before starting to collect the
-          result set. Used in conjunction with 'limit' for traditional page-based
-          navigation.
-        required: false
-        schema:
-          minimum: 0
-          type: integer
-          format: int32
-          default: 0
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/TransactionIdHeader"
-      - $ref: "#/components/parameters/ApiVersionHeader"
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
       - $ref: "#/components/parameters/CountryCodeHeader"
       - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/UnitIdQuery"
-      - $ref: "#/components/parameters/VINQuery"
-      - $ref: "#/components/parameters/StatusQuery"
-      - $ref: "#/components/parameters/StartDateQuery"
-      - $ref: "#/components/parameters/EndDateQuery"
-      - $ref: "#/components/parameters/PageNumberQuery"
-      - $ref: "#/components/parameters/PageSizeQuery"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
       responses:
         "200":
-          description: Success
-          headers:
-            Standards-Version:
-              $ref: "#/components/headers/StandardsVersionHeader"
-            Transaction-Id:
-              $ref: "#/components/headers/TransactionIdHeader"
-            Link:
-              $ref: "#/components/headers/LinkHeader"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/GeographicBoundary"
-                  has_more:
-                    type: boolean
-                    example: false
+          $ref: "#/components/responses/GeographicBoundaryCollectionResponse"
         "400":
-          description: "Bad Request: Malformed STAR schema or invalid syntax."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/BadRequestError"
+          $ref: "#/components/responses/BadRequestError"
         "401":
-          description: "Unauthorized: Credentials missing or expired."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnauthorizedError"
-        "412":
-          description: "Precondition Failed: Required headers or state criteria not\
-            \ met."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/PreconditionFailedError"
+          $ref: "#/components/responses/UnauthorizedError"
         "403":
-          description: "Forbidden: System code mismatch or transition guard failure."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ForbiddenError"
+          $ref: "#/components/responses/ForbiddenError"
         "404":
-          description: "Not Found: The requested RDR aggregate does not exist."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/NotFoundError"
-        "415":
-          description: "Unsupported Media Type: Content must be application/json."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnsupportedMediaType"
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
         "500":
-          description: "Internal Server Error: An unexpected metabolic fault occurred."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ServerError"
-        "409":
-          description: "Conflict: Resource state mismatch or concurrent update."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ConflictError"
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
     post:
       tags:
-      - GeographicBoundary
-      summary: Retrieve a list  of entities.
-      description: Standard POST operation for /geographic-boundaries
+      - GeographicBoundaries
+      summary: create geographic boundary
+      description: create GeographicBoundary
       operationId: createGeographicBoundary
       parameters:
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/TransactionIdHeader"
-      - $ref: "#/components/parameters/ApiVersionHeader"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
       - $ref: "#/components/parameters/CountryCodeHeader"
       - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IdempotencyKeyHeader"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GeographicBoundary"
+              $ref: "#/components/schemas/GeographicBoundaryCreate"
+        required: true
       responses:
         "201":
-          description: Created
-          headers:
-            Location:
-              $ref: "#/components/headers/LocationHeader"
-            Transaction-Id:
-              $ref: "#/components/headers/TransactionIdHeader"
-            Link:
-              $ref: "#/components/headers/LinkHeader"
-            Standards-Version:
-              $ref: "#/components/headers/StandardsVersionHeader"
+          $ref: "#/components/responses/GeographicBoundaryCreatedResponse"
         "400":
-          description: "Bad Request: Malformed STAR schema or invalid syntax."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/BadRequestError"
+          $ref: "#/components/responses/BadRequestError"
         "401":
-          description: "Unauthorized: Credentials missing or expired."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnauthorizedError"
-        "412":
-          description: "Precondition Failed: Required headers or state criteria not\
-            \ met."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/PreconditionFailedError"
+          $ref: "#/components/responses/UnauthorizedError"
         "403":
-          description: "Forbidden: System code mismatch or transition guard failure."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ForbiddenError"
-        "404":
-          description: "Not Found: The requested RDR aggregate does not exist."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/NotFoundError"
-        "415":
-          description: "Unsupported Media Type: Content must be application/json."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnsupportedMediaType"
-        "500":
-          description: "Internal Server Error: An unexpected metabolic fault occurred."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ServerError"
+          $ref: "#/components/responses/ForbiddenError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
         "409":
-          description: "Conflict: Resource state mismatch or concurrent update."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ConflictError"
+          $ref: "#/components/responses/ConflictError"
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaTypeError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
   /geographic-boundaries/{geographic-boundary-key}:
     get:
       tags:
-      - GeographicBoundary
-      description: "Standard GET operation for /geographic-boundaries/{geographic-boundary-key}"
-      operationId: getGeographicBoundaryById
+      - GeographicBoundaries
+      summary: Retrieve a single item scoped by a key Geograph...
+      operationId: getGeographicBoundaryByKey
       parameters:
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/TransactionIdHeader"
-      - $ref: "#/components/parameters/ApiVersionHeader"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
       - $ref: "#/components/parameters/CountryCodeHeader"
       - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - name: geographic-boundary-key
+        in: path
+        description: The unique identifier for an GeographicBoundary...
+        required: true
+        schema:
+          type: string
+          example: "830074397184020480"
       responses:
         "200":
-          description: get GeographicBoundary By Id
-          headers:
-            Standards-Version:
-              $ref: "#/components/headers/StandardsVersionHeader"
-            Transaction-Id:
-              $ref: "#/components/headers/TransactionIdHeader"
-            Link:
-              $ref: "#/components/headers/LinkHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GeographicBoundary"
+          $ref: "#/components/responses/GeographicBoundarySingleResponse"
         "400":
-          description: "Bad Request: Malformed STAR schema or invalid syntax."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/BadRequestError"
+          $ref: "#/components/responses/BadRequestError"
         "401":
-          description: "Unauthorized: Credentials missing or expired."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnauthorizedError"
-        "412":
-          description: "Precondition Failed: Required headers or state criteria not\
-            \ met."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/PreconditionFailedError"
+          $ref: "#/components/responses/UnauthorizedError"
         "403":
-          description: "Forbidden: System code mismatch or transition guard failure."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ForbiddenError"
+          $ref: "#/components/responses/ForbiddenError"
         "404":
-          description: "Not Found: The requested RDR aggregate does not exist."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/NotFoundError"
-        "415":
-          description: "Unsupported Media Type: Content must be application/json."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnsupportedMediaType"
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
         "500":
-          description: "Internal Server Error: An unexpected metabolic fault occurred."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ServerError"
-        "409":
-          description: "Conflict: Resource state mismatch or concurrent update."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ConflictError"
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
     put:
       tags:
-      - GeographicBoundary
-      description: "Standard PUT operation for /geographic-boundaries/{geographic-boundary-key}"
-      operationId: replaceGeographicBoundary
+      - GeographicBoundaries
+      summary: Replace values in a single item scoped by a key...
+      operationId: replaceGeographicBoundaryByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IdempotencyKeyHeader"
+      - $ref: "#/components/parameters/IfMatchHeader"
+      - name: geographic-boundary-key
+        in: path
+        description: The unique identifier for an GeographicBoundary...
+        required: true
+        schema:
+          type: string
+          example: "830074397188214786"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GeographicBoundaryUpdate"
+        required: true
       responses:
         "200":
-          description: Replaced
-          headers:
-            Standards-Version:
-              $ref: "#/components/headers/StandardsVersionHeader"
-            Transaction-Id:
-              $ref: "#/components/headers/TransactionIdHeader"
-            Link:
-              $ref: "#/components/headers/LinkHeader"
+          $ref: "#/components/responses/GeographicBoundaryUpdatedResponse"
         "400":
-          description: "Bad Request: Malformed STAR schema or invalid syntax."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/BadRequestError"
+          $ref: "#/components/responses/BadRequestError"
         "401":
-          description: "Unauthorized: Credentials missing or expired."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnauthorizedError"
-        "412":
-          description: "Precondition Failed: Required headers or state criteria not\
-            \ met."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/PreconditionFailedError"
+          $ref: "#/components/responses/UnauthorizedError"
         "403":
-          description: "Forbidden: System code mismatch or transition guard failure."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ForbiddenError"
+          $ref: "#/components/responses/ForbiddenError"
         "404":
-          description: "Not Found: The requested RDR aggregate does not exist."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/NotFoundError"
-        "415":
-          description: "Unsupported Media Type: Content must be application/json."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnsupportedMediaType"
-        "500":
-          description: "Internal Server Error: An unexpected metabolic fault occurred."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ServerError"
+          $ref: "#/components/responses/NotFoundError"
         "409":
-          description: "Conflict: Resource state mismatch or concurrent update."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ConflictError"
+          $ref: "#/components/responses/ConflictError"
+        "412":
+          $ref: "#/components/responses/PreconditionFailedError"
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaTypeError"
+        "500":
+          $ref: "#/components/responses/ServerError"
     delete:
       tags:
-      - GeographicBoundary
-      description: "Standard DELETE operation for /geographic-boundaries/{geographic-boundary-key}"
-      operationId: deleteGeographicBoundaryEntity
+      - GeographicBoundaries
+      description: delete a GeographicBoundary
+      operationId: deleteGeographicBoundary
       parameters:
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/TransactionIdHeader"
-      - $ref: "#/components/parameters/ApiVersionHeader"
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
       - $ref: "#/components/parameters/CountryCodeHeader"
       - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfMatchHeader"
+      - name: geographic-boundary-key
+        in: path
+        description: The unique identifier for an GeographicBoundary...
+        required: true
+        schema:
+          type: string
+          example: "830074397188214787"
       responses:
         "204":
-          description: Deleted
-        "400":
-          description: "Bad Request: Malformed STAR schema or invalid syntax."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/BadRequestError"
+          $ref: "#/components/responses/NoContentSuccess"
         "401":
-          description: "Unauthorized: Credentials missing or expired."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnauthorizedError"
-        "412":
-          description: "Precondition Failed: Required headers or state criteria not\
-            \ met."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/PreconditionFailedError"
+          $ref: "#/components/responses/UnauthorizedError"
         "403":
-          description: "Forbidden: System code mismatch or transition guard failure."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ForbiddenError"
+          $ref: "#/components/responses/ForbiddenError"
         "404":
-          description: "Not Found: The requested RDR aggregate does not exist."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/NotFoundError"
-        "415":
-          description: "Unsupported Media Type: Content must be application/json."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnsupportedMediaType"
-        "500":
-          description: "Internal Server Error: An unexpected metabolic fault occurred."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ServerError"
+          $ref: "#/components/responses/NotFoundError"
         "409":
-          description: "Conflict: Resource state mismatch or concurrent update."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ConflictError"
+          $ref: "#/components/responses/ConflictError"
+        "412":
+          $ref: "#/components/responses/PreconditionFailedError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
     patch:
       tags:
-      - GeographicBoundary
-      description: "Standard PATCH operation for /geographic-boundaries/{geographic-boundary-key}"
-      operationId: updatePartialGeographicBoundary
+      - GeographicBoundaries
+      summary: Update a single item scoped by a key Geographic...
+      description: update a single item
+      operationId: updateGeographicBoundaryByKey
       parameters:
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/TransactionIdHeader"
-      - $ref: "#/components/parameters/ApiVersionHeader"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
       - $ref: "#/components/parameters/CountryCodeHeader"
       - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IdempotencyKeyHeader"
+      - $ref: "#/components/parameters/IfMatchHeader"
+      - name: geographic-boundary-key
+        in: path
+        description: The unique identifier for an GeographicBoundary...
+        required: true
+        schema:
+          type: string
+          example: "830074397188214784"
+      - name: geographic-boundary-key
+        in: path
+        description: The unique identifier for an GeographicBoundary...
+        required: true
+        schema:
+          type: string
+          example: "830074397188214785"
       requestBody:
         content:
           application/merge-patch+json:
             schema:
               $ref: "#/components/schemas/GeographicBoundaryUpdate"
+        required: true
       responses:
         "200":
-          description: Updated
-          headers:
-            Standards-Version:
-              $ref: "#/components/headers/StandardsVersionHeader"
-            Transaction-Id:
-              $ref: "#/components/headers/TransactionIdHeader"
-            Link:
-              $ref: "#/components/headers/LinkHeader"
+          $ref: "#/components/responses/GeographicBoundaryUpdatedResponse"
         "400":
-          description: "Bad Request: Malformed STAR schema or invalid syntax."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/BadRequestError"
+          $ref: "#/components/responses/BadRequestError"
         "401":
-          description: "Unauthorized: Credentials missing or expired."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnauthorizedError"
-        "412":
-          description: "Precondition Failed: Required headers or state criteria not\
-            \ met."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/PreconditionFailedError"
+          $ref: "#/components/responses/UnauthorizedError"
         "403":
-          description: "Forbidden: System code mismatch or transition guard failure."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ForbiddenError"
+          $ref: "#/components/responses/ForbiddenError"
         "404":
-          description: "Not Found: The requested RDR aggregate does not exist."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/NotFoundError"
-        "415":
-          description: "Unsupported Media Type: Content must be application/json."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnsupportedMediaType"
-        "500":
-          description: "Internal Server Error: An unexpected metabolic fault occurred."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ServerError"
+          $ref: "#/components/responses/NotFoundError"
         "409":
-          description: "Conflict: Resource state mismatch or concurrent update."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ConflictError"
+          $ref: "#/components/responses/ConflictError"
+        "412":
+          $ref: "#/components/responses/PreconditionFailedError"
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaTypeError"
+        "500":
+          $ref: "#/components/responses/ServerError"
     parameters:
     - name: geographic-boundary-key
       in: path
-      description: The unique identifier for the specific GeographicBoundary
+      description: The unique identifier for the specific GeographicBoundaries
       required: true
       schema:
         type: string
-        example: KEY78B
-  /geographic-boundaries/health:
+        example: "8300743971798261776"
+  /geographic-boundary/health:
     get:
       tags:
       - Health
       summary: Health Check
-      description: Public endpoint to verify service availability.
+      description: Returns the health status of the GeographicBoundary root node.
       operationId: healthGeographicBoundary
       parameters:
-      - $ref: "#/components/parameters/TransactionIdHeader"
-      - $ref: "#/components/parameters/ApiVersionHeader"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/AgentHeader"
       - $ref: "#/components/parameters/CountryCodeHeader"
       - $ref: "#/components/parameters/LocaleHeader"
       responses:
         "200":
-          description: Service is healthy
-          headers:
-            Standards-Version:
-              $ref: "#/components/headers/StandardsVersionHeader"
-            Transaction-Id:
-              $ref: "#/components/headers/TransactionIdHeader"
-            Link:
-              $ref: "#/components/headers/LinkHeader"
-          content:
-            application/json:
-              schema:
-                required:
-                - status
-                - version
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: UP
-                    enum:
-                    - UP
-                    - DOWN
-                    - MAINTENANCE
-                  version:
-                    type: string
-                    description: The version of the ontology implemented by this service.
-                    example: 1.0.0
-                  timestamp:
-                    type: string
-                    description: Server time in ISO-8601 format.
-                    format: date-time
-                    example: 2025-12-21T23:00:00Z
-        "400":
-          description: "Bad Request: Malformed STAR schema or invalid syntax."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/BadRequestError"
+          $ref: "#/components/responses/HealthStatusResponse"
         "401":
-          description: "Unauthorized: Credentials missing or expired."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnauthorizedError"
-        "412":
-          description: "Precondition Failed: Required headers or state criteria not\
-            \ met."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/PreconditionFailedError"
+          $ref: "#/components/responses/UnauthorizedError"
         "403":
-          description: "Forbidden: System code mismatch or transition guard failure."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ForbiddenError"
-        "404":
-          description: "Not Found: The requested RDR aggregate does not exist."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/NotFoundError"
-        "415":
-          description: "Unsupported Media Type: Content must be application/json."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnsupportedMediaType"
+          $ref: "#/components/responses/ForbiddenError"
         "500":
-          description: "Internal Server Error: An unexpected metabolic fault occurred."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ServerError"
-        "409":
-          description: "Conflict: Resource state mismatch or concurrent update."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ConflictError"
-      security:
-      - {}
-  /geographic-boundaries/{geographicBoundaryKey}/commands/{commandId}:
-    get:
-      tags:
-      - Default
-      summary: Poll GeographicBoundary command status
-      description: Check the progress or result of a previously submitted command.
-      operationId: getGeographicBoundaryCommandStatus
-      parameters:
-      - name: geographicBoundaryKey
-        in: path
-        required: true
-        schema:
-          type: string
-          format: string
-      - name: commandId
-        in: path
-        required: true
-        schema:
-          type: string
-          format: string
-      responses:
-        "200":
-          description: Current status of the command
-          headers:
-            Standards-Version:
-              $ref: "#/components/headers/StandardsVersionHeader"
-            Transaction-Id:
-              $ref: "#/components/headers/TransactionIdHeader"
-            Link:
-              $ref: "#/components/headers/LinkHeader"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  command_id:
-                    type: string
-                    description: The unique identifier for the command being tracked
-                    format: uuid
-                    readOnly: true
-                  status:
-                    type: string
-                    description: The current lifecycle state of the command
-                    enum:
-                    - PENDING
-                    - PROCESSING
-                    - SUCCESS
-                    - FAILED
-                    - REQUIRES_ACTION
-                  progress:
-                    maximum: 100
-                    minimum: 0
-                    type: integer
-                    description: Percentage of completion (0-100)
-                    format: int32
-                  message:
-                    type: string
-                    description: Status update or error message
-                  result:
-                    type: object
-                    additionalProperties: true
-                    description: The final output of the command (only populated on
-                      SUCCESS)
-                  errors:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/ErrorDetail"
-        "400":
-          description: "Bad Request: Malformed STAR schema or invalid syntax."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/BadRequestError"
-        "401":
-          description: "Unauthorized: Credentials missing or expired."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnauthorizedError"
-        "412":
-          description: "Precondition Failed: Required headers or state criteria not\
-            \ met."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/PreconditionFailedError"
-        "403":
-          description: "Forbidden: System code mismatch or transition guard failure."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ForbiddenError"
-        "404":
-          description: "Not Found: The requested RDR aggregate does not exist."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/NotFoundError"
-        "415":
-          description: "Unsupported Media Type: Content must be application/json."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnsupportedMediaType"
-        "500":
-          description: "Internal Server Error: An unexpected metabolic fault occurred."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ServerError"
-        "409":
-          description: "Conflict: Resource state mismatch or concurrent update."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ConflictError"
-  /geographic-boundaries/batch:
-    post:
-      tags:
-      - Default
-      summary: Bulk create geographic-boundaries
-      description: Bulk Create of GeographicBoundary
-      operationId: createGeographicBoundaryBatch
-      parameters:
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/TransactionIdHeader"
-      - $ref: "#/components/parameters/ApiVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                items:
-                  maxItems: 100
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/GeographicBoundaryCreate"
-      responses:
-        "200":
-          description: Success
-          headers:
-            Standards-Version:
-              $ref: "#/components/headers/StandardsVersionHeader"
-            Transaction-Id:
-              $ref: "#/components/headers/TransactionIdHeader"
-            Link:
-              $ref: "#/components/headers/LinkHeader"
-            Location:
-              description: The URI of the newly created resource.
-              schema:
-                type: string
-                example: /geographic-boundaries/batch/2398586269441281130
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  succeeded:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/GeographicBoundary"
-                  failed:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        index:
-                          type: integer
-                          format: int32
-                        error:
-                          $ref: "#/components/schemas/ErrorDetail"
-        "400":
-          description: "Bad Request: Malformed STAR schema or invalid syntax."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/BadRequestError"
-        "401":
-          description: "Unauthorized: Credentials missing or expired."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnauthorizedError"
-        "412":
-          description: "Precondition Failed: Required headers or state criteria not\
-            \ met."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/PreconditionFailedError"
-        "403":
-          description: "Forbidden: System code mismatch or transition guard failure."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ForbiddenError"
-        "404":
-          description: "Not Found: The requested RDR aggregate does not exist."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/NotFoundError"
-        "415":
-          description: "Unsupported Media Type: Content must be application/json."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnsupportedMediaType"
-        "500":
-          description: "Internal Server Error: An unexpected metabolic fault occurred."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ServerError"
-        "409":
-          description: "Conflict: Resource state mismatch or concurrent update."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ConflictError"
-  /geographic-boundaries/exports:
-    post:
-      tags:
-      - Default
-      summary: Initiate a bulk GeographicBoundary export
-      description: Standard POST operation for /geographic-boundaries/exports
-      operationId: initiateGeographicBoundaryExport
-      parameters:
-      - name: Idempotency-Key
-        in: header
-        description: Unique string to prevent duplicate export jobs for the same request
-        required: false
-        schema:
-          type: string
-          format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                format:
-                  type: string
-                  description: "The serialization format of the exported data. PARQUET\
-                    \ is recommended for large-scale analytical processing, while\
-                    \ JSON/XML are intended for legacy DMS compatibility."
-                  example: PARQUET
-                  default: PARQUET
-                  enum:
-                  - XML
-                  - JSON
-                  - AVRO
-                  - PARQUET
-                  - CSV
-                  - TOON
-                date_range:
-                  type: object
-                  properties:
-                    start:
-                      type: string
-                      format: date
-                      example: 2026-01-14
-                    end:
-                      type: string
-                      format: date
-                      example: 2026-01-14
-                data_contract_key:
-                  type: string
-                  description: "The identifier of the specific data contract/projection\
-                    \ (e.g., 'customer_contact_v1')"
-                  example: contact_details_only
-                compression:
-                  type: string
-                  description: "The compression algorithm to apply. ZSTD is recommended\
-                    \ for \nbalancing high compression ratios with blazing decompression\
-                    \ speeds."
-                  example: ZSTD
-                  default: ZSTD
-                  enum:
-                  - SNAPPY
-                  - GZIP
-                  - LZO
-                  - ZSTD
-                compression_level:
-                  maximum: 22
-                  minimum: 1
-                  type: string
-                  description: "Tunable intensity for ZSTD. Use lower levels (1-3)\
-                    \ for speed, higher levels (19+) for expensive bandwidth scenarios."
-                  default: "3"
-                destination:
-                  type: object
-                  properties:
-                    retrieval_url:
-                      type: string
-                      description: The URL where the user intends to receive or pull
-                        the data
-                      format: uri
-                  description: Configuration for file retrieval
-                notification:
-                  type: object
-                  properties:
-                    webhook_url:
-                      type: string
-                      format: uri
-                      example: https://client-system.com/callbacks/exports
-                    signature_key:
-                      type: string
-                      description: A secret key used to sign the webhook payload for
-                        security
-                  description: "Optional: Callback configuration for completion alerts"
-                dry_run:
-                  type: boolean
-                  description: "If true, the system validates the request and returns\
-                    \ potential violations or metadata (like estimated size) without\
-                    \ starting the job."
-                  example: false
-                  default: false
-              example: PARQUET
-      responses:
-        "200":
-          description: "Dry run results: validation and cost estimation metadata."
-          headers:
-            Standards-Version:
-              $ref: "#/components/headers/StandardsVersionHeader"
-            Transaction-Id:
-              $ref: "#/components/headers/TransactionIdHeader"
-            Link:
-              $ref: "#/components/headers/LinkHeader"
-            Location:
-              description: The URI of the newly created resource.
-              schema:
-                type: string
-                example: /geographic-boundaries/exports/4521175971731238961
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: The outcome of the dry-run evaluation. VALIDATED
-                      implies readiness; REJECTED implies blocking violations.
-                    example: VALIDATED
-                    enum:
-                    - VALIDATED
-                    - WARNING
-                    - REJECTED
-                  estimated_metrics:
-                    type: object
-                    properties:
-                      record_count:
-                        type: integer
-                        description: Total number of source records targeted by the
-                          current filter criteria.
-                        format: int32
-                        example: 1250000
-                      estimated_uncompressed_gb:
-                        type: number
-                        description: The projected raw byte size of the data set before
-                          any compression or encoding.
-                        example: 4.2
-                      estimated_compressed_gb:
-                        type: number
-                        description: "Projected final footprint based on the chosen\
-                          \ compression algorithm (e.g., ZSTD, GZIP)."
-                        example: 0.85
-                      estimated_processing_time_ms:
-                        type: integer
-                        description: The estimated wall-clock time required to complete
-                          the transformation and upload phase.
-                        format: int32
-                        example: 45000
-                    description: Heuristic-based predictions of the job's resource
-                      consumption and output size.
-                  validation_results:
-                    type: object
-                    properties:
-                      is_executable:
-                        type: boolean
-                        description: A definitive flag indicating if the request can
-                          be executed without modification.
-                        example: true
-                      warnings:
-                        type: array
-                        description: "Non-blocking advisory messages regarding performance,\
-                          \ cost, or storage limits."
-                        example:
-                        - "Large export detected: ensure destination storage exceeds\
-                          \ 1GB"
-                        items:
-                          type: string
-                      violations:
-                        type: array
-                        description: Blocking business rule or data contract violations
-                          that must be resolved prior to execution.
-                        items:
-                          $ref: "#/components/schemas/ProblemDetail"
-                    description: The logical assessment of the request against domain
-                      business rules and technical limits.
-                  suggested_optimizations:
-                    type: array
-                    description: Actionable feedback for the calling agent to improve
-                      request efficiency or lower data entropy.
-                    example:
-                    - Switch to PARQUET for 30% faster processing of this specific
-                      data contract
-                    items:
-                      type: string
-                description: "Metadata returned when dry_run is true, enabling agentic\
-                  \ pre-flight reasoning and predictive impact analysis."
-        "202":
-          description: Export job successfully created and accepted.
-          headers:
-            Standards-Version:
-              $ref: "#/components/headers/StandardsVersionHeader"
-            Transaction-Id:
-              $ref: "#/components/headers/TransactionIdHeader"
-            Link:
-              description: HATEOAS link to discover state-aware transitions.
-              schema:
-                type: string
-                example: "</exports/capabilities{?state,role}>; rel=\"capabilities\""
-            Location:
-              $ref: "#/components/headers/LocationHeader"
-        "409":
-          description: "Conflict: Resource state mismatch or concurrent update."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ConflictError"
-        "422":
-          description: Unprocessable Entity - Business Rule Violation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ProblemDetail"
-        "400":
-          description: "Bad Request: Malformed STAR schema or invalid syntax."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/BadRequestError"
-        "401":
-          description: "Unauthorized: Credentials missing or expired."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnauthorizedError"
-        "412":
-          description: "Precondition Failed: Required headers or state criteria not\
-            \ met."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/PreconditionFailedError"
-        "403":
-          description: "Forbidden: System code mismatch or transition guard failure."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ForbiddenError"
-        "404":
-          description: "Not Found: The requested RDR aggregate does not exist."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/NotFoundError"
-        "415":
-          description: "Unsupported Media Type: Content must be application/json."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnsupportedMediaType"
-        "500":
-          description: "Internal Server Error: An unexpected metabolic fault occurred."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ServerError"
-      callbacks:
-        onExportCompleted:
-          '{$request.body#/notification/webhook_url}':
-            post:
-              description: Sent when the export job reaches a terminal state (COMPLETED
-                or FAILED)
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: "#/components/schemas/ExportNotification"
-              responses:
-                "200":
-                  description: Webhook received
-  /geographic-boundaries/exports/{exportId}:
-    get:
-      tags:
-      - Default
-      summary: Get export status
-      description: Get Export Status of GeographicBoundary
-      operationId: getGeographicBoundaryExportStatus
-      parameters:
-      - name: exportId
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: Current status and file URLs
-          headers:
-            Standards-Version:
-              $ref: "#/components/headers/StandardsVersionHeader"
-            Transaction-Id:
-              $ref: "#/components/headers/TransactionIdHeader"
-            Link:
-              $ref: "#/components/headers/LinkHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ExportJob"
-        "400":
-          description: "Bad Request: Malformed STAR schema or invalid syntax."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/BadRequestError"
-        "401":
-          description: "Unauthorized: Credentials missing or expired."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnauthorizedError"
-        "412":
-          description: "Precondition Failed: Required headers or state criteria not\
-            \ met."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/PreconditionFailedError"
-        "403":
-          description: "Forbidden: System code mismatch or transition guard failure."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ForbiddenError"
-        "404":
-          description: "Not Found: The requested RDR aggregate does not exist."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/NotFoundError"
-        "415":
-          description: "Unsupported Media Type: Content must be application/json."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnsupportedMediaType"
-        "500":
-          description: "Internal Server Error: An unexpected metabolic fault occurred."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ServerError"
-        "409":
-          description: "Conflict: Resource state mismatch or concurrent update."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ConflictError"
-  /geographic-boundaries/{geographicBoundaryKey}/commands:
-    post:
-      tags:
-      - Default
-      summary: Execute a business workflow on GeographicBoundary
-      description: Single entry point for all GeographicBoundary state-changing intents.
-      operationId: executeGeographicBoundaryCommand
-      parameters:
-      - name: geographicBoundaryKey
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: Command intent and parameters
-        content:
-          application/json:
-            schema:
-              required:
-              - type
-              - method
-              - params
-              - id
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: jsonrpc
-                  default: jsonrpc
-                jsonrpc:
-                  type: string
-                  example: "2.0"
-                  default: "2.0"
-                method:
-                  type: string
-                  description: star.order.update)
-                id:
-                  type: string
-                  description: "match the response with request. If omitted, Notification\
-                    \ the server will not respond."
-                version:
-                  type: string
-                  description: "2.0"
-                workflow_state:
-                  type: string
-                  description: "The intent of the command (e.g., CREATED, DELETED)"
-                  enum:
-                  - CREATED
-                  - DELETED
-                context:
-                  type: object
-                  additionalProperties: true
-                  description: context payload required for this specific command
-                    type
-                params:
-                  $ref: "#/components/schemas/GeographicBoundary"
-      responses:
-        "200":
-          description: Success
-          headers:
-            Standards-Version:
-              $ref: "#/components/headers/StandardsVersionHeader"
-            Transaction-Id:
-              $ref: "#/components/headers/TransactionIdHeader"
-            Link:
-              $ref: "#/components/headers/LinkHeader"
-            Location:
-              description: The URI of the newly created resource.
-              schema:
-                type: string
-                example: "/geographic-boundaries/{geographicBoundaryKey}/commands/2922536448222908650"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: The execution status of the command
-                    example: SUCCESS
-                    enum:
-                    - SUCCESS
-                    - FAILED
-                    - PENDING
-                    - PROCESSING
-                    - VALIDATION_ERROR
-                    - PARTIAL_SUCCESS
-                    - REQUIRES_ACTION
-                    - MITIGATION_APPLIED
-                  message:
-                    type: string
-                    description: A human-readable summary or error detail
-                    example: "Invoice #b3e966fb has been successfully cancelled."
-                  command_id:
-                    type: string
-                    description: The tracking ID for this specific command execution
-                    format: identifier
-                  code:
-                    type: string
-                    description: detailed code for workflow business processing
-                    example: 43258f8c
-                  retry_after:
-                    type: string
-                    description: "For PENDING or PROCESSING statuses, retry_after\
-                      \ (integer, seconds) "
-                  retryable:
-                    type: boolean
-                    description: "If true, the agent can attempt this command again\
-                      \ immediately"
-                    example: false
-        "400":
-          description: "Bad Request: Malformed STAR schema or invalid syntax."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/BadRequestError"
-        "401":
-          description: "Unauthorized: Credentials missing or expired."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnauthorizedError"
-        "412":
-          description: "Precondition Failed: Required headers or state criteria not\
-            \ met."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/PreconditionFailedError"
-        "403":
-          description: "Forbidden: System code mismatch or transition guard failure."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ForbiddenError"
-        "404":
-          description: "Not Found: The requested RDR aggregate does not exist."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/NotFoundError"
-        "415":
-          description: "Unsupported Media Type: Content must be application/json."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnsupportedMediaType"
-        "500":
-          description: "Internal Server Error: An unexpected metabolic fault occurred."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ServerError"
-        "409":
-          description: "Conflict: Resource state mismatch or concurrent update."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ConflictError"
-  /geographic-boundaries/capabilities:
-    get:
-      tags:
-      - Default
-      summary: Discover GeographicBoundary Capabilities
-      description: Standard GET operation for /geographic-boundaries/capabilities
-      operationId: getGeographicBoundaryCapabilities
-      parameters:
-      - name: include
-        in: query
-        description: "Comma-separated list of sections to include (e.g., 'commands,exports,constraints')"
-        schema:
-          type: array
-          items:
-            type: string
-            enum:
-            - COMMANDS
-            - EXPORTS
-            - CONSTRAINTS
-      - name: role
-        in: query
-        description: Filter capabilities by the agent's current role(s)
-        schema:
-          type: string
-          example: ACCOUNTANT
-      - name: state
-        in: query
-        description: Filter commands and constraints relevant only to a specific aggregate
-          state
-        required: true
-        schema:
-          type: string
-          example: ACTIVE
-      responses:
-        "200":
-          description: Successful discovery response (may be partial based on filters)
-          headers:
-            Standards-Version:
-              $ref: "#/components/headers/StandardsVersionHeader"
-            Transaction-Id:
-              $ref: "#/components/headers/TransactionIdHeader"
-            Link:
-              $ref: "#/components/headers/LinkHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Capabilities"
-        "400":
-          description: "Bad Request: Malformed STAR schema or invalid syntax."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/BadRequestError"
-        "401":
-          description: "Unauthorized: Credentials missing or expired."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnauthorizedError"
-        "412":
-          description: "Precondition Failed: Required headers or state criteria not\
-            \ met."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/PreconditionFailedError"
-        "403":
-          description: "Forbidden: System code mismatch or transition guard failure."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ForbiddenError"
-        "404":
-          description: "Not Found: The requested RDR aggregate does not exist."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/NotFoundError"
-        "415":
-          description: "Unsupported Media Type: Content must be application/json."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/UnsupportedMediaType"
-        "500":
-          description: "Internal Server Error: An unexpected metabolic fault occurred."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ServerError"
-        "409":
-          description: "Conflict: Resource state mismatch or concurrent update."
-          headers:
-            Transaction-Id:
-              $ref: "#/components/parameters/TransactionIdHeader"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/responses/ConflictError"
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
 components:
   schemas:
-    Capabilities:
-      type: object
-      properties:
-        aggregate:
-          type: string
-          example: GeographicBoundary
-        version:
-          type: string
-          example: 1.2.0
-        current_state:
-          type: string
-          description: The state used to filter these capabilities
-          example: PENDING_APPROVAL
-        transitions:
-          type: array
-          description: list of array
-          example: "[]"
-          items:
-            type: object
-            properties:
-              action:
-                type: string
-                example: APPROVE_INVOICE
-              from_states:
-                type: array
-                example:
-                - PENDING_APPROVAL
-                items:
-                  type: string
-              to_state:
-                type: string
-                example: ISSUED
-              required_roles:
-                type: array
-                description: Roles authorized to trigger this transition
-                example:
-                - MANAGER
-                - FINANCE_VP
-                items:
-                  type: string
-              links:
-                type: object
-                properties:
-                  execute:
-                    type: string
-                    description: The relative or absolute URL to POST the command
-                      to
-                    example: "/geographic-boundaries/{key}/commands/approve"
-                  method:
-                    type: string
-                    example: POST
-                    enum:
-                    - POST
-                    - PUT
-                    - PATCH
-                  schema_ref:
-                    type: string
-                    description: Reference to the input payload schema for this action
-                    example: "#/components/schemas/GeographicBoundaryCommand"
-                description: HATEOAS-style links to execute the transition or fetch
-                  related metadata
-              _self:
-                type: string
-                description: Link to the specific transition documentation or detail
-                example: /metadata/capabilities/GeographicBoundary/transitions/approve
-              instructions:
-                type: array
-                description: Step-by-step checklist the agent must verify before execution
-                example:
-                - Verify credit limit is sufficient
-                - Confirm tax jurisdiction matches customer address
-                - Ensure currency matches original purchase order
-                items:
-                  type: string
-              parameters_ref:
-                type: string
-                example: "#/components/schemas/GeographicBoundary"
-        available_exports:
-          type: array
-          description: list of array
-          example: "[]"
-          items:
-            type: object
-            properties:
-              data_contract_key:
-                type: string
-                example: customer_contact_v1
-              description:
-                type: string
-                example: Optimized view containing only non-sensitive contact details.
-              supported_formats:
-                type: array
-                example:
-                - PARQUET
-                - CSV
-                items:
-                  type: string
-                  enum:
-                  - XML
-                  - JSON
-                  - AVRO
-                  - PARQUET
-                  - CSV
-                default: PARQUET
-              columns:
-                type: array
-                example:
-                - first_name
-                - last_name
-                - email
-                items:
-                  type: string
-              retention_policy:
-                type: object
-                properties:
-                  retention_period:
-                    type: string
-                    description: ISO-8601 duration the file remains available for
-                      download
-                    example: P7D
-                  is_pii_sensitive:
-                    type: boolean
-                    description: Indicates export contains PII
-                    example: false
-                  access_tier:
-                    type: string
-                    description: The security clearance required for this contract
-                    example: INTERNAL
-                    enum:
-                    - PUBLIC
-                    - INTERNAL
-                    - RESTRICTED
-                    - CONFIDENTIAL
-              constraints:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    rule_id:
-                      type: string
-                      description: Unique identifier for the business rule
-                      readOnly: true
-                      example: IDENTITY_LOCK_STATE
-                    constraint_type:
-                      type: string
-                      enum:
-                      - RANGE_LIMIT
-                      - SIZE_LIMIT
-                      - FORMAT_INCOMPATIBILITY
-                      - PATTERN_MISMATCH
-                      - PERMISSION_LOCK
-                      - MANDATORY_MISSING
-                      - STATE_TRANSITION_ERROR
-                      - IMMUTABILITY_VIOLATION
-                      - RELATIONAL_DEPENDENCY
-                      - CONFLICT_DETECTION
-                      - AGGREGATE_LIMIT
-                      - ORPHAN_PREVENTION
-                    target_fields:
-                      type: array
-                      description: The specific fields or attributes this constraint
-                        applies to
-                      example:
-                      - first_name
-                      - last_name
-                      - ssn
-                      items:
-                        type: string
-                    rule_context:
-                      type: object
-                      additionalProperties:
-                        type: string
-                      description: Key-value pairs representing the 'facts' of the
-                        current state
-                      example:
-                        item_type: Inventory
-                        count: "45"
-                        limit: "0"
-                    rule_constraints:
-                      type: object
-                      additionalProperties:
-                        type: string
-                      description: "Key-value pairs for simple UI-driven validation\
-                        \ (e.g., min, max, unit). Use this for 'Fast Path' client-side\
-                        \ checks."
-                      example:
-                        min: "1"
-                        value: "31"
-                        unit: days
-                    limit_rule:
-                      type: string
-                      description: A Prolog-based predicate defining the valid boundary
-                        for this constraint.
-                      example: "allow_export(Format, Days) :- Format == 'parquet',\
-                        \ Days =< 31; Format == 'csv', Days =< 90."
-                    estimated_size:
-                      type: string
-                      description: approximate size of
-                      example: 10gig
-                    estimated_time_min:
-                      type: string
-                      description: approximate amount of minutes to run
-                      example: "12.3"
-                    complexity:
-                      type: string
-                      description: complexity score 1-100
-                      example: "34"
-                    mitigation_hint:
-                      type: string
-                      description: Conflict Resolution Hints
-                      example: "To resolve this PERMISSION_LOCK, you must first call\
-                        \ the /unlock endpoint."
-                    message:
-                      type: string
-                      description: Human-readable explanation for UI/Logs
-                      example: Identity fields cannot be modified while in PENDING_APPROVAL
-                        state.
-                    severity:
-                      type: string
-                      enum:
-                      - ERROR
-                      - WARNING
-                    link:
-                      type: string
-                      description: Link to documentation regarding this rule
-                      format: uri
-        documentation_ref:
-          type: string
-          description: Link to full business documentation for this aggregate
-          format: uri
-          example: /documentation/geographic-boundaries
-    Code:
-      type: object
-      properties:
-        code_id:
-          maxLength: 50
-          minLength: 5
-          type: string
-          description: The unique key code
-          readOnly: true
-          example: ' e06e003b'
-        code_key:
-          maxLength: 50
-          minLength: 5
-          type: string
-          description: The unique key code
-          example: ' ee2a0b18'
-        code:
-          maxLength: 50
-          minLength: 5
-          type: string
-          description: The unique key code
-          example: ' 25a896b7'
-        description:
-          maxLength: 50
-          minLength: 5
-          type: string
-          description: The unique key code
-          example: ' c768ba8d'
-      description: not nullable
-    Codes:
-      type: array
-      items:
-        $ref: "#/components/schemas/Code"
-    CommandOption:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The command name to send to the /commands endpoint
-          example: Approve
-        description:
-          type: string
-          description: Guidance for the agent on when to use this command
-          example: Moves the invoice to ACTIVE state and triggers the payment gateway.
-        target_state:
-          type: string
-          description: The state the entity will transition to upon success
-          example: ACTIVE
     ErrorDetail:
       required:
       - category
@@ -2087,7 +334,8 @@ components:
           example: Personnel Record with ID PR-1234567 was not found.
         category:
           type: string
-          description: Classifies the error to help clients determine ...
+          description: Classifies the error to help clients determine high-level retry
+            or handling logic.
           example: DATA_INTEGRITY
           enum:
           - VALIDATION
@@ -2104,17 +352,16 @@ components:
         trace_id:
           type: string
           description: A unique identifier for this specific request.
-          readOnly: true
           example: 57c31110-859a-11ec-a8a3-0242ac120002
         doc_url:
           type: string
-          description: A URL leading to the documentation page for thi...
+          description: A URL leading to the documentation page for this specific error
+            code.
           format: uri
           example: https://api.docs.com/errors/NOT_FOUND_PR
         details:
           type: array
-          description: list of array
-          example: "[]"
+          description: Field-level validation errors or granular diagnostic information.
           items:
             type: object
             properties:
@@ -2130,187 +377,51 @@ components:
                 type: string
                 description: The value that was sent and rejected (only if non-sensitive).
                 example: "12345"
-      description: Standardized error response for the entire API ...
-    ExportFile:
-      type: object
-      properties:
-        sequence:
-          type: integer
-          description: The ordinal position of this file in a multi-part set. Essential
-            for reassembling sharded datasets.
-          format: int32
-          example: 1
-        download_url:
-          type: string
-          description: "A secure, pre-signed URL for direct binary retrieval. Access\
-            \ is restricted by the 'expires_at' timestamp."
-          format: uri
-          example: https://s3.us-east-1.amazonaws.com/star-exports/job-77216/part-1.parquet?X-Amz-Algorithm=AWS4-HMAC-SHA256&...
-        format:
-          type: string
-          description: "The technical encoding of the file, enabling the agent to\
-            \ select the correct parser (e.g., Parquet, Avro, CSV)."
-          example: PARQUET
-        checksum_sha256:
-          type: string
-          description: The hex-encoded SHA-256 hash of the file. Used by the agent
-            to verify bit-level integrity after download.
-          example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-        size_bytes:
-          type: integer
-          description: "The exact size of the file in bytes, allowing for pre-download\
-            \ storage capacity checks."
-          format: int64
-          example: 8912734
-        expires_at:
-          type: string
-          description: "The ISO 8601 deadline for initiating the download. After this\
-            \ point, the URL will return a 403 Forbidden."
-          format: date-time
-          example: 2026-03-18T12:00:00Z
-      description: "A discrete data artifact representing a segment of the total export\
-        \ set, including integrity and access metadata."
-    ExportJob:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique GUID tracking this specific export execution.
-          readOnly: true
-          example: job-99283-x7
-        status:
-          type: string
-          description: The current state of the export job in the processing pipeline.
-          example: ' c9bf98f2'
-          enum:
-          - PENDING
-          - PROCESSING
-          - COMPLETED
-          - FAILED
-        progress_percentage:
-          maximum: 100
-          minimum: 0
-          type: integer
-          description: The estimated completion percentage of the job.
-          format: int32
-          example: 75
-        files:
-          type: array
-          description: list of array
-          example: "[]"
-          items:
-            $ref: "#/components/schemas/ExportFile"
-      description: "The root tracking object for an export operation, providing real-time\
-        \ status and access to generated artifacts."
-    ExportNotification:
-      type: object
-      properties:
-        event_type:
-          type: string
-          description: The classification of the event. Used by routing logic to determine
-            the next handling step.
-          example: EXPORT_COMPLETED
-          enum:
-          - EXPORT_COMPLETED
-          - EXPORT_FAILED
-        occurred_at:
-          type: string
-          description: The ISO 8601 timestamp when the job reached its terminal state.
-          format: date-time
-          example: 2026-03-17T14:30:00Z
-        data:
-          type: object
-          properties:
-            job_id:
-              type: string
-              description: The unique tracking identifier for the completed or failed
-                export job.
-              readOnly: true
-              example: job-77216-af82
-            aggregate:
-              type: string
-              description: The Domain-Driven Design (DDD) aggregate root name targeted
-                by this export.
-              example: VehicleIdentifier
-            data_product_id:
-              type: string
-              description: The specific identifier of the data product or contract
-                used for the projection.
-              readOnly: true
-              example: standard_vin_inventory_v1
-            status:
-              type: string
-              description: The final resolution of the job. 'FAILED' will include
-                an error_message.
-              example: COMPLETED
-              enum:
-              - COMPLETED
-              - FAILED
-            error_message:
-              type: string
-              description: A human-readable explanation of why the export failed.
-                Null if status is COMPLETED.
-              example: Storage destination quota exceeded.
-            files:
-              type: array
-              description: The list of generated file artifacts. Empty if status is
-                FAILED.
-              items:
-                $ref: "#/components/schemas/ExportFile"
-          description: The core payload containing the results or failure diagnostics
-            of the export.
-      description: The asynchronous payload sent to the configured webhook URL upon
-        the terminal state of an export job.
+      description: Standardized error response for the entire API ecosystem. Follows
+        RFC 7807 principles for problem details to ensure consistency across microservices.
     GeographicBoundary:
       type: object
       properties:
         geographic_boundary_id:
           type: string
-          description: Unique identifier for the geographic bou...
-          readOnly: true
-          example: ' 27756c2b'
+          description: Unique identifier for the geographic boundary r...
+          example: gb-7721-x88
         geographic_boundary_key:
           type: string
-          description: Unique business key for the geographic b...
-          example: ' ee3e300c'
-        geographic_codes:
-          $ref: "#/components/schemas/Codes"
-        locales:
-          $ref: "#/components/schemas/Codes"
+          description: Unique business key used for referencing the bo...
+          example: GEO-ATL-METRO-001
         geographic_type:
           $ref: "#/components/schemas/LocationTypes"
-        geographic_values:
-          $ref: "#/components/schemas/Codes"
         distance_max:
           type: string
-          description: Maximum distance constraint applied in s...
-          example: ' c9f77bfc'
+          description: Upper bound distance constraint for radial sear...
+          example: "50.0"
         distance_min:
           type: string
-          description: Minimum distance constraint applied in s...
-          example: ' f0e932f1'
+          description: Lower bound distance constraint for radial sear...
+          example: "0.0"
         distance_type:
           $ref: "#/components/schemas/UnitOfMeasureTypes"
         name:
           type: string
-          description: Human-readable name of the geographic bo...
-          example: ' 0e12476f'
+          description: The common display name for the boundary.
+          example: Alpharetta Service Area
         vertices:
           type: string
-          description: Serialized coordinates defining polygon ...
-          example: ' d4e4b00c'
+          description: Comma-separated string of coordinate pairs (lat...
+          example: "34.07,-84.29, 34.08,-84.30, 34.07,-84.31"
         description:
           type: string
-          description: Detailed description of the geographic b...
-          example: ' a2fc5040'
+          description: Detailed narrative of the boundary's purpose or...
+          example: Primary sales territory for North Georgia.
         center_latitude:
           type: string
-          description: Central latitude coordinate of the bound...
-          example: ' 4ee8fe30'
+          description: Latitude of the boundary's centroid.
+          example: "34.0754"
         center_longitude:
           type: string
-          description: Central longitude coordinate of the boun...
-          example: ' 11635d5e'
+          description: Longitude of the boundary's centroid.
+          example: "-84.2941"
       description: nullable
     GeographicBoundaryCreate:
       required:
@@ -2319,81 +430,52 @@ components:
       description: GeographicBoundary Create for Post
       allOf:
       - $ref: "#/components/schemas/GeographicBoundary"
-    GeographicBoundaryResponse:
-      type: object
-      properties:
-        pagination:
-          $ref: "#/components/schemas/Pagination"
-        data:
-          type: array
-          description: list of array
-          example: "[]"
-          items:
-            $ref: "#/components/schemas/GeographicBoundary"
-      description: A paginated collection of GeographicBoundary Items.
-      allOf:
-      - $ref: "#/components/schemas/GeographicBoundary"
-      - $ref: "#/components/schemas/GeographicBoundaryWorkflowMetadata"
     GeographicBoundaryUpdate:
       type: object
       properties:
         center_latitude:
           type: string
-          description: Central latitude coordinate of the bound...
-          example: ' 4ee8fe30'
+          description: Latitude of the boundary's centroid.
+          example: "34.0754"
         center_longitude:
           type: string
-          description: Central longitude coordinate of the boun...
-          example: ' 11635d5e'
-        geographic_codes:
-          $ref: "#/components/schemas/Codes"
-        locales:
-          $ref: "#/components/schemas/Codes"
+          description: Longitude of the boundary's centroid.
+          example: "-84.2941"
         geographic_type:
           $ref: "#/components/schemas/LocationTypes"
         distance_min:
           type: string
-          description: Minimum distance constraint applied in s...
-          example: ' f0e932f1'
+          description: Lower bound distance constraint for radial sear...
+          example: "0.0"
         distance_type:
           $ref: "#/components/schemas/UnitOfMeasureTypes"
         vertices:
           type: string
-          description: Serialized coordinates defining polygon ...
-          example: ' d4e4b00c'
-        geographic_values:
-          $ref: "#/components/schemas/Codes"
+          description: Comma-separated string of coordinate pairs (lat...
+          example: "34.07,-84.29, 34.08,-84.30, 34.07,-84.31"
         distance_max:
           type: string
-          description: Maximum distance constraint applied in s...
-          example: ' c9f77bfc'
+          description: Upper bound distance constraint for radial sear...
+          example: "50.0"
         name:
           type: string
-          description: Human-readable name of the geographic bo...
-          example: ' 0e12476f'
+          description: The common display name for the boundary.
+          example: Alpharetta Service Area
         description:
           type: string
-          description: Detailed description of the geographic b...
-          example: ' a2fc5040'
+          description: Detailed narrative of the boundary's purpose or...
+          example: Primary sales territory for North Georgia.
       description: GeographicBoundary Update for Patch and Put
-    GeographicBoundaryWorkflowMetadata:
+    HealthStatus:
       type: object
       properties:
-        current_state:
+        status:
           type: string
-          description: The current lifecycle phase of this entity.
-          example: ' 3050d346'
-          enum:
-          - CREATED
-          - ACTIVE
-          - DELETED
-          - ARCHIVED
-        allowed_commands:
-          type: array
-          description: list of array
-          example: "[]"
-          items:
-            $ref: "#/components/schemas/CommandOption"
+          example: UP
+        version:
+          type: string
+          example: 2.0.0
+      description: Standard health check response body
     LocationTypes:
       type: string
       description: types of locations.
@@ -2420,41 +502,6 @@ components:
       - GPS
       - WAREHOUSE
       - DISTRICT
-    Pagination:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: The maximum number of records requested per page.
-          format: int32
-          example: 25
-        offset:
-          minimum: 0
-          type: integer
-          description: The number of records to skip from the beginning.
-          format: int32
-          example: 50
-        cursor:
-          type: string
-          description: An opaque token for stable deep-paging.
-          example: dW5pcXVlX2lkXzEyMw==
-        records_count:
-          type: integer
-          description: Total records matching search across all pages.
-          format: int64
-          example: 1050
-        total_pages:
-          type: integer
-          description: Calculated total number of pages.
-          format: int32
-          example: 42
-        page_number:
-          type: integer
-          description: The current page index (1-based).
-          format: int32
-          example: 3
-      description: Metadata for navigating paginated collection results.
     ProblemDetail:
       type: object
       properties:
@@ -2502,8 +549,8 @@ components:
           example: "#/plate_number"
         violations:
           type: array
-          description: list of array
-          example: "[]"
+          description: "A collection of specific validation failures, including field\
+            \ paths and localized messages."
           items:
             type: object
             properties:
@@ -2616,55 +663,362 @@ components:
       - MAXIMUM
       - OTHER
   responses:
-    ForbiddenError:
-      description: The authenticated user does not have the necess...
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorDetail"
     ConflictError:
-      description: The request could not be completed because it c...
+      description: The request could not be completed because it conflicts with the
+        current state of the resource.
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ErrorDetail"
     ServerError:
-      description: An unexpected error occurred on the server whil...
+      description: An unexpected error occurred on the server while processing the
+        request.
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ErrorDetail"
-    PreconditionFailedError:
-      description: The request was not processed because the 'If-M...
+    GeographicBoundaryCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorDetail"
-    UnsupportedMediaType:
-      description: The request could not be completed because of m...
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorDetail"
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of GeographicBoundaries entities.
+                items:
+                  $ref: "#/components/schemas/GeographicBoundary"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
     NotFoundError:
       description: The requested resource was not found.
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ErrorDetail"
     BadRequestError:
-      description: "The request was malformed, failed validation, o..."
+      description: "The request was malformed, failed validation, or contained invalid\
+        \ parameters."
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ErrorDetail"
     UnauthorizedError:
-      description: Authentication failed. The access token is miss...
+      description: "Authentication failed. The access token is missing, expired, or\
+        \ invalid."
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ErrorDetail"
+    TooManyRequestsError:
+      description: Rate Limit Error. Too Many Requests
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+    HealthStatusResponse:
+      description: Service is Operational
+      headers:
+        Transaction-Id:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/HealthStatus"
+    NotAcceptableError:
+      description: The client requested a format (via Accept header) the server can't
+        provide
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+    ServiceUnavailableError:
+      description: Unable to serve request.  Service is unavailable
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+    GatewayTimeout:
+      description: Timeout serving request
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+    UnsupportedMediaTypeError:
+      description: The request could not be completed because of missing or invalid
+        content type
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    NoContentSuccess:
+      description: "No Content: The resource was successfully updated."
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+    ForbiddenError:
+      description: The authenticated user does not have the necessary permissions.
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    PreconditionFailedError:
+      description: The request was not processed because the 'If-Match' header provided
+        does not match the current ETag.
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    UnprocessableEntity:
+      description: "Unprocessable Content: Semantic logic error."
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    GeographicBoundaryCreatedResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Content-Location:
+          $ref: "#/components/headers/ContentLocationHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GeographicBoundary"
+    GeographicBoundarySingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GeographicBoundary"
+    GeographicBoundaryUpdatedResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Content-Location:
+          $ref: "#/components/headers/ContentLocationHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GeographicBoundary"
   parameters:
+    CacheControlHeader:
+      name: Cache-Control
+      in: header
+      description: Tells the client and intermediary caches how to store the response.
+      schema:
+        type: string
+        example: "max-age=300, private"
     BrandHeader:
       name: Brand
       in: header
@@ -2679,18 +1033,6 @@ components:
         enum:
         - toyota
         - lexus
-    StandardsVersionHeader:
-      name: Standards-Version
-      in: header
-      description: "The version of the STAR REST Standard this request adheres to\
-        \ (e.g., 2026.01)."
-      required: true
-      schema:
-        maxLength: 12
-        minLength: 7
-        pattern: "^\\d{4}\\.\\d{2}$"
-        type: string
-        example: "2026.01"
     DealerIdHeader:
       name: Dealer-Id
       in: header
@@ -2736,60 +1078,15 @@ components:
         minLength: 2
         type: string
         example: GM_GLOBAL_NVS
-    RegionHeader:
-      name: Region
+    PreferenceAppliedHeader:
+      name: Preference-Applied
       in: header
-      description: The geographic or business region code.
-      required: false
-      schema:
-        maxLength: 10
-        minLength: 2
-        type: string
-        example: NE-01
-    ApiVersionHeader:
-      name: Api-Version
-      in: header
-      description: API Version
+      description: Indicates which client preferences (from the 'Prefer' request header)
+        were honored by the server.
       required: true
-      style: simple
-      explode: false
       schema:
         type: string
-        example: 2.0.0
-        enum:
-        - 1.0.0
-        - 1.0.1
-        - 2.0.0
-        - 2.0.1
-    CountryCodeHeader:
-      name: Country-Code
-      in: header
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-        example: "1"
-    LocaleHeader:
-      name: Locale
-      in: header
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-        example: en-US
-    TransactionIdHeader:
-      name: Transaction-Id
-      in: header
-      description: Request ID/ Transaction ID Header Parameter (UUID version 4)
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-        format: uuid
-        example: 16a7d408-aed4-43f8-8af4-7a17f407f799
+        example: return=minimal
     UnitIdQuery:
       name: unit_id
       in: query
@@ -2827,7 +1124,7 @@ components:
       explode: true
       schema:
         maxLength: 10
-        minLength: 0
+        minLength: 10
         pattern: "^\\d{4}-\\d{2}-\\d{2}$"
         type: string
         format: date
@@ -2841,57 +1138,264 @@ components:
       explode: true
       schema:
         maxLength: 10
-        minLength: 0
+        minLength: 10
         pattern: "^\\d{4}-\\d{2}-\\d{2}$"
         type: string
         format: date
         example: 2026-02-09
-    PageNumberQuery:
-      name: page_number
-      in: query
-      description: The number of returned page
+    IdempotencyKeyHeader:
+      name: Idempotency-Key
+      in: header
+      description: A unique identifier sent by the client to allow the server to prevent
+        duplicate processing of the same request.
       required: false
-      schema:
-        maximum: 1000000
-        minimum: 1
-        type: integer
-        format: int32
-        default: 1
-    PageSizeQuery:
-      name: page_size
-      in: query
-      description: The number of records to return
-      required: false
-      schema:
-        maximum: 600
-        minimum: 1
-        type: integer
-        format: int32
-        default: 100
-  headers:
-    StandardsVersionHeader:
-      description: The version of the STAR REST Standard this implementation adheres
-        to.
-      schema:
-        type: string
-        example: "2026.1"
-    TransactionIdHeader:
-      description: Forensic trace UUID echoed back for log reconciliation.
       schema:
         type: string
         format: uuid
-        example: 16a7d408-aed4-43f8-8af4-7a17f407f799
-    LocationHeader:
-      description: The relative or absolute URI of the newly created or modified resource.
+        example: 123e4567-e89b-12d3-a456-426614174000
+    CorrelationIDHeader:
+      name: Correlation-ID
+      in: header
+      description: A unique identifier spanning the entire business lifecycle. Essential
+        for tracing logic across the 13 Bounded Contexts of the Automotive Retail
+        Domain.
+      required: true
       schema:
         type: string
-        example: /retail-delivery-reports/2329046043316857069
+        format: uuid
+        example: 550e8400-e29b-41d4-a716-446655440000
+    AgentHeader:
+      name: Agent
+      in: header
+      description: "The URI profile of the calling Agent. Used to negotiate supported\
+        \ Industry Extensions (e.g., ) via the protocol."
+      required: false
+      schema:
+        pattern: ^https?://.+
+        type: string
+        format: uri
+        example: https://xxx.com/agent/v1
+    StandardsVersionHeader:
+      name: Standards-Version
+      in: header
+      description: "The version of the STAR REST Standard this request adheres to\
+        \ (e.g., 2026.01)."
+      required: true
+      schema:
+        maxLength: 12
+        minLength: 7
+        pattern: "^\\d{4}\\.\\d{2}$"
+        type: string
+        example: "2026.01"
+    TransactionIDHeader:
+      name: Transaction-ID
+      in: header
+      required: true
+      schema:
+        type: string
+        example: 550e8400-e29b-41d4-a716-446655440000
+    RegionHeader:
+      name: Region
+      in: header
+      description: The geographic or business region code.
+      required: false
+      schema:
+        maxLength: 10
+        minLength: 2
+        type: string
+        example: NE-01
+    CountryCodeHeader:
+      name: Country-Code
+      in: header
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: "1"
+    LocaleHeader:
+      name: Locale
+      in: header
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: en-US
+    LimitQuery:
+      name: limit
+      in: query
+      description: The maximum number of entities to return in a single response page.
+        Limits the 'data' array size to prevent payload bloat.
+      required: false
+      schema:
+        maximum: 100
+        minimum: 1
+        type: integer
+        format: int32
+        example: 100
+    OffsetQuery:
+      name: offset
+      in: query
+      description: The number of entities to skip before starting to collect the result
+        set. Used in conjunction with 'limit' for traditional page-based navigation.
+      required: false
+      schema:
+        minimum: 0
+        type: integer
+        format: int32
+        example: 234
+    FilterQuery:
+      name: filter
+      in: query
+      description: Filter parameters
+      required: false
+      schema:
+        maxLength: 100
+        minLength: 0
+        type: string
+        example: "sdate:2026-02-09,edate:2026-02-09"
+    SortQuery:
+      name: sort
+      in: query
+      description: Sort parameters
+      required: false
+      schema:
+        maxLength: 100
+        minLength: 0
+        type: string
+        example: "name,country"
+    IfMatchHeader:
+      name: If-Match
+      in: header
+      description: Used for optimistic concurrency control. The request will fail
+        (412) if the current ETag does not match this value.
+      required: false
+      schema:
+        type: string
+        example: '"33a64df551425fcc55e4d42a148795d9f25f89d4"'
+    IfNoneMatchHeader:
+      name: If-None-Match
+      in: header
+      description: Used for conditional GETs. The operation is executed only if the
+        stored ETag does not match this value. Prevents 'Lost Updates' in high-concurrency
+        Service Bounded Contexts.
+      required: false
+      schema:
+        pattern: "^\"?[a-f0-9]+\"?$|^\\*$"
+        type: string
+        example: '"686897696a7c876b7e"'
+  headers:
+    CacheControlHeader:
+      description: Tells the client and intermediary caches how to store the response.
+      schema:
+        type: string
+        example: "max-age=300, private"
+    VaryHeader:
+      description: Instructs downstream caches that the response varies based on the
+        Agent's profile or media type. Critical for Extension-based responses.
+      schema:
+        type: string
+        example: "Accept, UCP-Agent"
+        default: "Accept, UCP-Agent"
+    ExpiresHeader:
+      description: The timestamp after which the resource state is considered stale.
+        Vital for volatile QQQ/SQQQ market data or real-time Inventory availability.
+      schema:
+        type: string
+        format: date-time
+        example: 2026-04-06T16:00:00Z
     LinkHeader:
-      description: "RFC 5988 Link header for discovering state-aware transitions (e.g.,\
-        \ rel='capabilities')."
+      description: "RFC 8288 compliant links providing discovery for related resources\
+        \ and 'Service Primitives' (e.g., :cancel, :execute). Essential for non-linear\
+        \ state transitions across Bounded Contexts."
+      schema:
+        pattern: "^<[^>]+>;\\s*rel=\"[^\"]+\"(,\\s*<[^>]+>;\\s*rel=\"[^\"]+\")*$"
+        type: string
+        example: "<https://api.ai-sage.com/labor-operations/123:cancel>; rel=\"cancel\"\
+          , <https://api.ai-sage.com/labor-operations/123>; rel=\"self\""
+    LocationHeader:
+      description: "The absolute URI of the newly created resource or the status monitor\
+        \ for an asynchronous 'Service Primitive' (e.g., :execute). Used to follow\
+        \ the state of a Transaction across Bounded Contexts."
+      schema:
+        pattern: ^https?://.+
+        type: string
+        format: uri
+        example: https://api.ai-sage.com/labor-operations/123-abc-789
+    ContentLocationHeader:
+      description: The URI of the specific representation returned in the payload.
+        Used to disambiguate the 'Resource Identifier' from the 'Data Artifact' in
+        multi-format or versioned Bounded Contexts.
+      schema:
+        pattern: ^https?://.+
+        type: string
+        format: uri
+        example: https://api.ai-sage.com/labor-operations/123-abc-789/versions/v2
+    TransactionIDHeader:
+      description: Echoes the unique identifier for the specific atomic unit of work
+        processed by the server.
       schema:
         type: string
-        example: </rdr/99310/capabilities>; rel="capabilities"
+        format: uuid
+    CorrelationIDHeader:
+      description: Echoes the unique identifier spanning the entire business lifecycle
+        for cross-context tracing.
+      schema:
+        type: string
+        format: uuid
+    StandardsVersionHeader:
+      description: The version of the STAR REST Standard the response adheres to.
+      schema:
+        pattern: "^\\d{4}\\.\\d{2}$"
+        type: string
+        example: "2026.01"
+    AgentHeader:
+      description: The unique identifier of the agent or user executing this method.
+      schema:
+        pattern: "^\\d{4}\\.\\d{2}$"
+        type: string
+        example: "2026.01"
+    ETagHeader:
+      description: An entity tag (ETag) is an identifier for a specific version of
+        a resource.
+      schema:
+        type: string
+        example: '"33a64df551425fcc55e4d42a148795d9f25f89d4"'
+    LastModifiedHeader:
+      description: The ISO 8601 timestamp at which the resource was last modified
+        in the underlying Postgres/Saga store.
+      schema:
+        type: string
+        format: date-time
+        example: 2026-04-06T15:47:17Z
+    RateLimitLimitHeader:
+      description: The maximum number of requests allowed in the current time window.
+      schema:
+        type: integer
+        format: int32
+        example: 1000
+    RateLimitRemainingHeader:
+      description: The number of requests remaining in the current time window.
+      schema:
+        type: integer
+        format: int32
+        example: 999
+    RateLimitResetHeader:
+      description: The number of seconds until the current rate limit window resets.
+        Using 'Delta Seconds' avoids clock-skew issues between distributed systems.
+      schema:
+        minimum: 0
+        type: integer
+        format: int32
+        example: 60
+    RateLimitPolicyHeader:
+      description: "The quota policy for the current user/agent. Format: 'limit;w=window'.\
+        \ E.g., '1000;w=3600' means 1000 requests per hour."
+      schema:
+        pattern: ^\d+;w=\d+(;burst=\d+)?$
+        type: string
+        example: 1000;w=3600
   securitySchemes:
     industry-oauth:
       type: oauth2
