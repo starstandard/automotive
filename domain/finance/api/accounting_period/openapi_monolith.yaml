@@ -455,33 +455,35 @@ components:
           example: Third Quarter Fiscal Year 2026 - North American Operations
         accounting_period_id:
           type: string
-          description: System-level unique identifier for the period record.
-          example: ap-2026-07-v1
+          description: Unique system-specific internal identifier.
+          example: "847156375161851904"
         accounting_period_key:
           type: string
-          description: Business-logical key following the chronological YYYYMM format.
-          example: "202607"
+          description: Unique global internal or external business key.
+          example: "847156375161851905"
         period_name:
           type: string
           description: Short-hand display name for the period.
           example: July 2026
         start_date:
           type: string
-          description: The inclusive start date of the period in ISO-8601 format.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-16
+          example: 2026-05-13
         end_date:
           type: string
-          description: The inclusive end date of the period in ISO-8601 format.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-13
+          example: 2026-05-16
         accounting_period_status_type:
           $ref: "#/components/schemas/AccountingPeriodStatusTypes"
         fiscal_year:
+          pattern: "^\\d{4,6}$"
           type: integer
           description: The 4-digit fiscal year designation.
-          format: int32
-          example: 2026
+          example: 625
       description: "Defines a fiscal period, including its unique identifiers, start\
         \ and end dates, and current status."
     AccountingPeriodCreate:
@@ -508,18 +510,19 @@ components:
       properties:
         end_date:
           type: string
-          description: The inclusive end date of the period in ISO-8601 format.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-10
+          example: 2026-05-09
         period_desc:
           type: string
           description: Detailed narrative description of the period's scope.
           example: Third Quarter Fiscal Year 2026 - North American Operations
         fiscal_year:
+          pattern: "^\\d{4,6}$"
           type: integer
           description: The 4-digit fiscal year designation.
-          format: int32
-          example: 2026
+          example: 4477
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         accounting_period_status_type:
@@ -530,9 +533,10 @@ components:
           example: July 2026
         start_date:
           type: string
-          description: The inclusive start date of the period in ISO-8601 format.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-24
+          example: 2026-04-27
       description: AccountingPeriod Update for Patch and Put
     Code:
       type: object
@@ -541,14 +545,14 @@ components:
           maxLength: 50
           minLength: 5
           type: string
-          description: Internal system-generated unique identifier for the code record.
-          example: cd-9902-v1
+          description: Unique system-specific internal identifier.
+          example: "847156375166046208"
         code_key:
           maxLength: 50
           minLength: 5
           type: string
-          description: Unique business reference key used to identify the code's context.
-          example: VEHICLE_STATUS_CODE
+          description: Unique global internal or external business key.
+          example: "847156375166046209"
         code:
           maxLength: 50
           minLength: 1
@@ -560,8 +564,7 @@ components:
           minLength: 5
           type: string
           description: A human-readable explanation of what the code represents.
-          example: Indicates the vehicle has left the factory but not yet arrived
-            at the dealer.
+          example: Vehicle engine component.
       description: not nullable
     Codes:
       type: array
@@ -603,8 +606,8 @@ components:
           example: 2025-11-10T10:30:00Z
         trace_id:
           type: string
-          description: A unique identifier for this specific request.
-          example: 57c31110-859a-11ec-a8a3-0242ac120002
+          description: Unique system-specific internal identifier.
+          example: "847156375166046210"
         doc_url:
           type: string
           description: A URL leading to the documentation page for this specific error
@@ -615,14 +618,14 @@ components:
           type: array
           description: Field-level validation errors or granular diagnostic information.
           example:
-          - variance: 2000
-            actual: 12000
+          - actual: 12000
             budget: 10000
             account: GL-1000
-          - variance: -500
-            actual: 4500
+            variance: 2000
+          - actual: 4500
             budget: 5000
             account: GL-2000
+            variance: -500
           items:
             type: object
             properties:
@@ -646,7 +649,7 @@ components:
         status:
           type: string
           description: Current health status of the service.
-          example: UP
+          example: ACTIVE
         version:
           type: string
           description: Version of the deployed service.
@@ -659,14 +662,14 @@ components:
           maxLength: 50
           minLength: 5
           type: string
-          description: Unique identifier value
-          example: "840277003779342336"
+          description: Unique system-specific internal identifier.
+          example: "847156375166046211"
         identifier_key:
           maxLength: 50
           minLength: 5
           type: string
-          description: Business key for the identifier
-          example: "840277003779342337"
+          description: Unique global internal or external business key.
+          example: "847156375166046212"
         context:
           type: string
           description: Context or domain of the identifier
@@ -703,18 +706,17 @@ components:
           type: string
           description: "A short, human-readable summary of the problem type. It should\
             \ not change from occurrence to occurrence."
-          example: Intent Validation Failed
+          example: Resource Link
         status:
           type: integer
           description: The HTTP status code generated by the origin server for this
             occurrence of the problem.
-          format: int32
-          example: 422
+          example: 400
         detail:
           type: string
           description: "A human-readable explanation specific to this occurrence of\
             \ the problem, providing context on the failure."
-          example: The export request could not be processed due to business constraints.
+          example: Primary identifier
         instance:
           type: string
           description: "A URI reference that identifies the specific occurrence of\
@@ -740,14 +742,14 @@ components:
           description: "A collection of specific validation failures, including field\
             \ paths and localized messages."
           example:
-          - variance: 2000
-            actual: 12000
+          - actual: 12000
             budget: 10000
             account: GL-1000
-          - variance: -500
-            actual: 4500
+            variance: 2000
+          - actual: 4500
             budget: 5000
             account: GL-2000
+            variance: -500
           items:
             type: object
             properties:
@@ -1450,10 +1452,10 @@ components:
       schema:
         type: string
         example: TOYOTA
-        default: TOYOTA
         enum:
         - TOYOTA
         - LEXUS
+        default: TOYOTA
     SubscriberCodeHeader:
       name: Subscriber-Code
       in: header

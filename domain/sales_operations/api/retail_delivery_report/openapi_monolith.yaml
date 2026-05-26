@@ -29,8 +29,10 @@ security:
 tags:
 - name: Health
   description: Tag Description Health
+- name: Lifecycle
+  description: Operations related to Lifecycle
 - name: RetailDeliveryReports
-  description: Tag Description RetailDeliveryReports
+  description: Operations related to RetailDeliveryReports
 paths:
   /retail-delivery-reports:
     get:
@@ -265,10 +267,10 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - ApiKeyHeader: []
       - AuthorizationHeader: []
@@ -321,12 +323,12 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - ApiKeyHeader: []
       - AuthorizationHeader: []
@@ -389,10 +391,10 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - ApiKeyHeader: []
       - AuthorizationHeader: []
@@ -435,21 +437,21 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - ApiKeyHeader: []
       - AuthorizationHeader: []
   /retail-delivery-reports/search:
     post:
       tags:
-      - Search
+      - RetailDeliveryReports
       summary: search retail delivery report
       description: Execute a complex query using a criteria object.
       operationId: searchRetailDeliveryReport
@@ -613,12 +615,12 @@ components:
       properties:
         address_reference_key:
           type: string
-          description: A unique key for the address reference.
-          example: "840277005616447488"
+          description: Unique global internal or external business key.
+          example: "847156377321918464"
         address_reference_id:
           type: string
-          description: The unique value of the address reference.
-          example: "840277005616447489"
+          description: Unique system-specific internal identifier.
+          example: "847156377321918465"
         address_types:
           maxItems: 255
           minItems: 1
@@ -626,7 +628,7 @@ components:
           type: array
           description: address_types list
           example:
-          - POSTAL
+          - INSURANCE
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -744,9 +746,10 @@ components:
       properties:
         update_date_time:
           type: string
-          description: Timestamp of the last update to this authorization
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:19:03Z
+          example: 2026-05-06T06:01:58.757318Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -754,8 +757,8 @@ components:
           example: false
         authorization_level_key:
           type: string
-          description: Business key uniquely identifying the authorization
-          example: "840277005616447490"
+          description: Unique global internal or external business key.
+          example: "847156377321918466"
         auth_codes:
           $ref: "#/components/schemas/Codes"
       description: Establish authorization level
@@ -781,14 +784,14 @@ components:
           maxLength: 50
           minLength: 5
           type: string
-          description: Internal system-generated unique identifier for the code record.
-          example: cd-9902-v1
+          description: Unique system-specific internal identifier.
+          example: "847156377321918467"
         code_key:
           maxLength: 50
           minLength: 5
           type: string
-          description: Unique business reference key used to identify the code's context.
-          example: VEHICLE_STATUS_CODE
+          description: Unique global internal or external business key.
+          example: "847156377321918468"
         code:
           maxLength: 50
           minLength: 1
@@ -800,8 +803,7 @@ components:
           minLength: 5
           type: string
           description: A human-readable explanation of what the code represents.
-          example: Indicates the vehicle has left the factory but not yet arrived
-            at the dealer.
+          example: Vehicle engine component.
       description: not nullable
     Codes:
       type: array
@@ -812,12 +814,12 @@ components:
       properties:
         color_detail_id:
           type: string
-          description: A unique id for the color detail.
-          example: "840277005616447491"
+          description: Unique system-specific internal identifier.
+          example: "847156377321918469"
         color_detail_key:
           type: string
-          description: A unique key for the color detail.
-          example: "840277005616447492"
+          description: Unique global internal or external business key.
+          example: "847156377321918470"
         dealer_color:
           type: string
           description: The color as designated by the dealer.
@@ -848,12 +850,12 @@ components:
       properties:
         communication_channel_key:
           type: string
-          description: The unique key for the communication channel record.
-          example: "840277005616447493"
+          description: Unique global internal or external business key.
+          example: "847156377321918471"
         communication_channel_id:
           type: string
-          description: The unique ID for the communication channel.
-          example: "840277005616447494"
+          description: Unique system-specific internal identifier.
+          example: "847156377321918472"
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
         value:
@@ -976,45 +978,41 @@ components:
       description: The correlation ID or workflow execution identifier for cross-system
         distributed tracing.
       example: exec-uuid-99283-7716
-    CountryCode:
-      type: string
-      description: The ISO 3116-1 alpha-2 country code of the issuing jurisdiction.
-      example: US
     CreditApplicationReference:
       type: object
       properties:
         credit_application_reference_id:
           type: string
-          description: Unique identifier value
-          example: "840277005616447495"
+          description: Unique system-specific internal identifier.
+          example: "847156377321918473"
         credit_application_reference_key:
           type: string
-          description: Unique identifier value
-          example: "840277005616447496"
+          description: Unique global internal or external business key.
+          example: "847156377321918474"
         credit_application_key:
           type: string
-          description: Unique identifier value
-          example: "840277005616447497"
+          description: Unique global internal or external business key.
+          example: "847156377321918475"
         credit_parties:
           $ref: "#/components/schemas/PartyReferences"
         locale:
           $ref: "#/components/schemas/Locale"
         occurrence_date_time:
           type: string
-          description: The date and time the financialForecast was associated with
-            the order.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:19:03Z
+          example: 2026-04-28T05:54:46.757387Z
         credit_application_name:
           type: string
           description: The name of the credit application.
           example: Auto Loan Application
         credit_application_date:
           type: string
-          description: The date and time the financialForecast was associated with
-            the order.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-05-06
+          example: 2026-05-01
         confirmation_code:
           type: string
           description: The confirmation code for the credit application.
@@ -1042,13 +1040,12 @@ components:
       properties:
         currency_exchange_id:
           type: string
-          description: Unique system identifier for the currency exchange record.
-          example: xch-8812-k5k
+          description: Unique system-specific internal identifier.
+          example: "847156377321918476"
         currency_exchange_key:
           type: string
-          description: Business-logical key identifying the specific conversion event
-            or pair.
-          example: USD-TO-CAD-2026-04-09
+          description: Unique global internal or external business key.
+          example: "847156377321918477"
         source_currency:
           type: string
           description: The origin currency code for the conversion (Base Currency).
@@ -1069,15 +1066,15 @@ components:
           example: "1.3542"
         rate_date_time:
           type: string
-          description: The specific UTC timestamp when this exchange rate was captured
-            or finalized.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:19:03Z
+          example: 2026-05-05T12:28:05.757486Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
-    DaysOfWeekTypes:
+    DayOfWeekTypes:
       type: string
-      description: types of days of weeks.
+      description: types of day of weeks.
       example: SUN
       enum:
       - SUN
@@ -1100,34 +1097,39 @@ components:
       - REVERSED
     Dealer:
       $ref: "#/components/schemas/OrgReference"
-    DealerCode:
-      pattern: "^[A-Z0-9-]+$"
-      type: string
-      description: The OEM-assigned unique identifier for the selling/reporting dealer.
-      example: DLR-12345
     DeliveryWindow:
       $ref: "#/components/schemas/EffectivePeriod"
+    DeviceTypes:
+      type: string
+      description: types of devices.
+      example: MOBILE
+      enum:
+      - MOBILE
+      - TABLET
+      - DESKTOP
+      - SMART_TV
+      - OTHER
     DocumentReference:
       type: object
       properties:
         document_reference_id:
           type: string
-          description: The internal unique identifier for this reference record.
-          example: ref-9928-doc
+          description: Unique system-specific internal identifier.
+          example: "847156377321918478"
         document_reference_key:
           type: string
-          description: The natural business key for the document reference.
-          example: CREDIT_APP_ATTACHMENT_01
+          description: Unique global internal or external business key.
+          example: "847156377321918479"
         document_id:
           type: string
-          description: The identifier for the document. This identifier is a GUID
-            or other unique identifier set by the creator of the document.
-          example: 550e8400-e29b-41d4-a716-446655440000
+          description: Unique system-specific internal identifier.
+          example: "847156377321918480"
         document_date_time:
           type: string
-          description: The date and time that the event being documented occurred.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:19:03Z
+          example: 2026-05-10T17:33:11.757501Z
         document_identification_context:
           type: string
           description: Context or group of identifications that uniquely identifies
@@ -1217,9 +1219,8 @@ components:
       properties:
         effective_period_key:
           type: string
-          description: Unique natural business key identifying the effective period
-            record.
-          example: EP-2024-REG-001
+          description: Unique global internal or external business key.
+          example: "847156377321918481"
         active_indicator:
           type: boolean
           description: Indicates if this period is currently considered valid and
@@ -1232,15 +1233,16 @@ components:
           example: false
         start_date_time:
           type: string
-          description: The inclusive start point of the period in ISO 8601 format.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:19:03Z
+          example: 2026-05-21T02:19:49.757514Z
         complete_date_time:
           type: string
-          description: The exclusive end point of the period (completion) in ISO 8601
-            format.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:19:03Z
+          example: 2026-05-06T09:58:04.757519Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -1253,7 +1255,7 @@ components:
         recur_count:
           type: string
           description: Number of times the period repeats. Use -1 for infinite.
-          example: "12"
+          example: "89"
         recur_values:
           $ref: "#/components/schemas/Codes"
         recur_criteria:
@@ -1272,12 +1274,12 @@ components:
       properties:
         efficiency_id:
           type: string
-          description: A unique key for the efficiency record.
-          example: "840277005616447498"
+          description: Unique system-specific internal identifier.
+          example: "847156377321918482"
         efficiency_key:
           type: string
-          description: A unique key for the efficiency record.
-          example: "840277005616447499"
+          description: Unique global internal or external business key.
+          example: "847156377321918483"
         city_efficiency:
           type: string
           description: The vehicle's fuel efficiency in a city driving environment.
@@ -1336,8 +1338,8 @@ components:
           example: 2025-11-10T10:30:00Z
         trace_id:
           type: string
-          description: A unique identifier for this specific request.
-          example: 57c31110-859a-11ec-a8a3-0242ac120002
+          description: Unique system-specific internal identifier.
+          example: "847156377321918484"
         doc_url:
           type: string
           description: A URL leading to the documentation page for this specific error
@@ -1348,46 +1350,47 @@ components:
           type: array
           description: Field-level validation errors or granular diagnostic information.
           example:
-          - variance: 2000
-            actual: 12000
-            budget: 10000
-            account: GL-1000
-          - variance: -500
-            actual: 4500
-            budget: 5000
-            account: GL-2000
+          - field: payrollId
+            issue: must be unique
+            rejected_value: "12345"
           items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: The JSON path or field name that caused the error.
-                example: payrollId
-              issue:
-                type: string
-                description: The specific validation rule that failed.
-                example: must be unique
-              rejected_value:
-                type: string
-                description: The value that was sent and rejected (only if non-sensitive).
-                example: "12345"
+            $ref: "#/components/schemas/ErrorDetailItem"
       description: Standardized error response for the entire API ecosystem. Follows
         RFC 7807 principles for problem details to ensure consistency across microservices.
+    ErrorDetailItem:
+      required:
+      - field
+      - issue
+      type: object
+      properties:
+        field:
+          type: string
+          description: The JSON path or field name that caused the error.
+          example: payrollId
+        issue:
+          type: string
+          description: The specific validation rule that failed.
+          example: must be unique
+        rejected_value:
+          type: string
+          description: The value that was sent and rejected (only if non-sensitive).
+          example: "12345"
+      description: Field-level validation error or granular diagnostic information.
     EventMessage:
       type: object
       properties:
         event_message_key:
           type: string
-          description: A unique key for the eventMessage record.
-          example: "840277005616447500"
+          description: Unique global internal or external business key.
+          example: "847156377321918485"
         event_message_id:
           type: string
-          description: The unique ID for the eventMessage.
-          example: "840277005616447501"
+          description: Unique system-specific internal identifier.
+          example: "847156377321918486"
         event_actor_key:
           type: string
-          description: The ID of the actor for the event.
-          example: "840277005616447502"
+          description: Unique global internal or external business key.
+          example: "847156377321918487"
         event_actor_name:
           type: string
           description: The name of the actor for the event.
@@ -1400,14 +1403,17 @@ components:
           uniqueItems: true
           type: array
           description: Content of the event message.
-          example: event_content
+          example:
+          - "847156371168874498"
+          - "847156371168874499"
           items:
             type: string
         event_date_time:
           type: string
-          description: The date and time of the event.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:19:03Z
+          example: 2026-05-22T02:09:23.757574Z
         event_message_group:
           type: string
           description: The group to which the eventMessage belongs.
@@ -1462,56 +1468,6 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/EventMessage"
-    Feature:
-      type: object
-      properties:
-        feature_id:
-          type: string
-          description: Unique identifier for the  feature category.
-          example: feat-cat-99821
-        feature_key:
-          type: string
-          description: Natural business key for the feature category.
-          example: INTERIOR_DIMENSIONS
-        header:
-          type: string
-          description: The display header text for the feature group.
-          example: "Interior dimensions, front/rear (in.)"
-        description:
-          type: string
-          description: Brief description of the feature set.
-          example: EFC Other than Std Feature Details
-        feature_details:
-          $ref: "#/components/schemas/FeatureItems"
-      description: not nullable
-    FeatureItem:
-      type: object
-      properties:
-        feature_item_id:
-          type: string
-          description: Internal unique identifier for the item record.
-          example: "840277005616447503"
-        feature_item_key:
-          type: string
-          description: Internal unique identifier for the item record.
-          example: "840277005616447504"
-        name:
-          type: string
-          description: The name of the feature.
-          example: Headroom
-        value:
-          type: string
-          description: The value or description of the feature.
-          example: 3.5L V6 DOHC
-      description: Key value pair of feature's name and value.
-    FeatureItems:
-      type: array
-      items:
-        $ref: "#/components/schemas/FeatureItem"
-    Features:
-      type: array
-      items:
-        $ref: "#/components/schemas/Feature"
     FuelTypes:
       type: string
       description: types of fuels.
@@ -1538,16 +1494,15 @@ components:
       properties:
         general_amount_key:
           type: string
-          description: "Unique business key for the monetary entry, used for deterministic\
-            \ lookups."
-          example: MON-2026-EXP-001
+          description: Unique global internal or external business key.
+          example: "847156377321918488"
         currency_code:
           $ref: "#/components/schemas/CurrencyCode"
         value:
           type: string
           description: The raw decimal monetary amount stored as a string to prevent
             floating-point errors.
-          example: "1234.56"
+          example: user@example.com
       description: "Represents a monetary value, including its currency, locale, and\
         \ display format."
     HealthStatus:
@@ -1556,7 +1511,7 @@ components:
         status:
           type: string
           description: Current health status of the service.
-          example: UP
+          example: ACTIVE
         version:
           type: string
           description: Version of the deployed service.
@@ -1569,14 +1524,14 @@ components:
           maxLength: 50
           minLength: 5
           type: string
-          description: Unique identifier value
-          example: "840277005616447505"
+          description: Unique system-specific internal identifier.
+          example: "847156377321918489"
         identifier_key:
           maxLength: 50
           minLength: 5
           type: string
-          description: Business key for the identifier
-          example: "840277005616447506"
+          description: Unique global internal or external business key.
+          example: "847156377321918490"
         context:
           type: string
           description: Context or domain of the identifier
@@ -1605,12 +1560,12 @@ components:
       properties:
         insurance_key:
           type: string
-          description: A unique key for the insurance record.
-          example: "840277005620641792"
+          description: Unique global internal or external business key.
+          example: "847156377321918491"
         insurance_id:
           type: string
-          description: The unique ID for the insurance record.
-          example: "840277005620641793"
+          description: Unique system-specific internal identifier.
+          example: "847156377321918492"
         insurance_type:
           $ref: "#/components/schemas/InsuranceTypes"
         insurance_company:
@@ -1628,21 +1583,23 @@ components:
         agreement_number:
           type: string
           description: The insurance policy number.
-          example: "45"
+          example: "11"
         insurance_policy_number:
           type: string
           description: The insurance policy number.
-          example: "69"
+          example: "51"
         effective_date:
           type: string
-          description: The effective date of the insurance policy.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-29
+          example: 2026-05-03
         expiration_date:
           type: string
-          description: The expiration date of the insurance policy.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-16
+          example: 2026-05-09
         plan_coverage:
           $ref: "#/components/schemas/MetricValue"
         expiration_mileage:
@@ -1669,15 +1626,6 @@ components:
           uniqueItems: true
           type: array
           description: Links related to the insurance policy.
-          example:
-          - variance: 2000
-            actual: 12000
-            budget: 10000
-            account: GL-1000
-          - variance: -500
-            actual: 4500
-            budget: 5000
-            account: GL-2000
           items:
             $ref: "#/components/schemas/Link"
         price_summary:
@@ -1688,12 +1636,12 @@ components:
       properties:
         insurance_term_key:
           type: string
-          description: A unique key for the insurance term record.
-          example: "840277005620641794"
+          description: Unique global internal or external business key.
+          example: "847156377321918493"
         term_id:
           type: string
-          description: The unique ID for the insurance term.
-          example: "840277005620641795"
+          description: Unique system-specific internal identifier.
+          example: "847156377321918494"
         term_name:
           type: string
           description: The name of the insurance term.
@@ -1799,19 +1747,17 @@ components:
       properties:
         lease_term_id:
           type: string
-          description: Internal unique identifier for the lease term record.
-          example: lt-99283-x
+          description: Unique system-specific internal identifier.
+          example: "847156377321918495"
         lease_term_key:
           type: string
-          description: "Natural business key for the lease (e.g., LSE-VIN-2026)."
-          example: LSE-5TFHY5F-2026
+          description: Unique global internal or external business key.
+          example: "847156377321918496"
         term_months:
-          maximum: 120
-          minimum: 1
+          pattern: "^\\d{4,6}$"
           type: integer
           description: Duration of the lease in months.
-          format: int32
-          example: 36
+          example: 1927
         money_factor:
           $ref: "#/components/schemas/MoneyFactor"
         residual_value:
@@ -1829,21 +1775,21 @@ components:
       properties:
         lifecycle_event_id:
           type: string
-          description: The unique ID for the lifecycle event.
-          example: EVT-99887766
+          description: Unique system-specific internal identifier.
+          example: "847156377321918497"
         lifecycle_event_key:
           type: string
-          description: The unique external key or business identifier used in integrations.
-          example: LIFECYCLE-879234
+          description: Unique global internal or external business key.
+          example: "847156377321918498"
         actor_href:
           type: string
           description: The href of the actor who initiated the event.
           format: href
-          example: https://api.example.com/resources/27903
+          example: https://api.example.com/resources/45217
         actor_id:
           type: string
-          description: The unique identifier of the actor who initiated the event.
-          example: USR-24681357
+          description: Unique system-specific internal identifier.
+          example: "847156377321918499"
         actor_name:
           type: string
           description: The name of the actor who initiated the event.
@@ -1852,14 +1798,15 @@ components:
           $ref: "#/components/schemas/LifecycleEventTypes"
         occurrence_date:
           type: string
-          description: The date and time the event occurred.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-05-06
+          example: 2026-05-23
         resource_href:
           type: string
           description: The href of the resource associated with the event.
           format: href
-          example: https://api.example.com/resources/96718
+          example: https://api.example.com/resources/19349
         resource_identifier:
           type: string
           description: The unique identifier of the resource associated with the event.
@@ -1878,8 +1825,8 @@ components:
           example: ORD-44556677
         detail_key:
           type: string
-          description: The unique key for the event detail.
-          example: ORDER_ID
+          description: Unique global internal or external business key.
+          example: "847156377321918500"
         detail_code:
           type: string
           description: The code for the event detail.
@@ -1925,13 +1872,12 @@ components:
       properties:
         lifecycle_pulse_id:
           type: string
-          description: The internal unique identifier for this specific pulse record.
-          example: pls-992837-abc
+          description: Unique system-specific internal identifier.
+          example: "847156377321918501"
         lifecycle_pulse_key:
           type: string
-          description: "A natural business key for the pulse, typically formatted\
-            \ as EVENT_NAME-TIMESTAMP."
-          example: RDR_TRANSMITTED_20260318_143005
+          description: Unique global internal or external business key.
+          example: "847156377321918502"
         lifecycle_pulse_types:
           maxItems: 255
           minItems: 1
@@ -1939,15 +1885,15 @@ components:
           type: array
           description: lifecycle_pulse_types list
           example:
-          - PROCESSED
+          - ACKNOWLEDGED
           items:
             $ref: "#/components/schemas/LifecyclePulseTypes"
         occurred_at:
           type: string
-          description: The high-precision timestamp when the event actually occurred
-            in the source system.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:19:03Z
+          example: 2026-05-04T19:27:21.757789Z
         actor_name:
           type: string
           description: "The identity of the user, service, or system agent that triggered\
@@ -1989,6 +1935,8 @@ components:
         or batch transition logs for an entity.
       example:
       - source_system_code: CRM_01
+        transition_from: REVIEW
+        transition_date_time: 2026-04-23T11:04:17Z
         lifecycle_status_event_key: EVT-20260206
         transition_to: APPROVED
       items:
@@ -2005,25 +1953,23 @@ components:
       properties:
         lifecycle_status_event_key:
           title: Event Key
-          pattern: "^EVT-[0-9]{8,12}$"
           type: string
-          description: "Unique business identifier for the lifecycle event, following\
-            \ the EVT prefix format."
-          example: EVT-20260206
+          description: Unique global internal or external business key.
+          example: "847156377321918503"
         source_system_code:
           title: Source System Code
           maxLength: 20
           minLength: 2
           type: string
           description: The mnemonic code of the system originating the status change.
-          example: CRM_SYSTEM_01
+          example: DMS
         transition_date_time:
           title: Transition Timestamp
           type: string
-          description: The exact UTC timestamp when the state transition occurred
-            in ISO-8601 format.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-04-23T11:04:17Z
+          example: 2026-04-28T13:11:25.757806Z
         transition_from:
           title: Previous State
           type: string
@@ -2047,15 +1993,6 @@ components:
           type: array
           description: "A list of business identifiers (e.g., VIN, GUID) associated\
             \ with this lifecycle event."
-          example:
-          - variance: 2000
-            actual: 12000
-            budget: 10000
-            account: GL-1000
-          - variance: -500
-            actual: 4500
-            budget: 5000
-            account: GL-2000
           items:
             $ref: "#/components/schemas/Identifier"
       description: Represents a formal transition event within the entity lifecycle
@@ -2065,8 +2002,8 @@ components:
       properties:
         link_key:
           type: string
-          description: The unique key for the link.
-          example: "840277005620641796"
+          description: Unique global internal or external business key.
+          example: "847156377321918504"
         href:
           type: string
           description: The URL of the related resource.
@@ -2092,9 +2029,8 @@ components:
       properties:
         locale_key:
           type: string
-          description: "A unique, human-readable string key used for configuration\
-            \ lookups and mapping."
-          example: "840277005620641797"
+          description: Unique global internal or external business key.
+          example: "847156377321918505"
         locale_name:
           type: string
           description: The full IETF BCP 47 language tag or Java-style locale string
@@ -2130,7 +2066,7 @@ components:
           type: string
           description: The code of the inventory location or branch from which this
             part is sourced.
-          example: WH001
+          example: USNA
       description: not nullable
     Manifest:
       type: object
@@ -2139,19 +2075,19 @@ components:
           maxLength: 50
           minLength: 5
           type: string
-          description: The internal unique identifier for the manifest instance.
-          example: man-55283-abc
+          description: Unique system-specific internal identifier.
+          example: "847156377321918506"
         manifest_key:
           maxLength: 50
           minLength: 5
           type: string
-          description: The business key identifying the specific manifest configuration.
-          example: RDR_US_RETAIL_v2
+          description: Unique global internal or external business key.
+          example: "847156377321918507"
         context:
           type: string
           description: "The business domain or OEM context for this manifest (e.g.,\
             \ 'SALES', 'LOGISTICS', 'WARRANTY')."
-          example: VEHICLE_DELIVERY
+          example: FINANCE
         schema:
           $ref: "#/components/schemas/SchemaUri"
         definitions:
@@ -2162,7 +2098,7 @@ components:
           type: string
           description: "The classification of manifest (e.g., 'VALIDATION_RULES',\
             \ 'DATA_MAPPING', 'TRANSFORMATION')."
-          example: VALIDATION_RULES
+          example: manifest_type value
         version:
           $ref: "#/components/schemas/SemanticVersion"
       description: External system manifest defining the structural rules and metadata
@@ -2174,14 +2110,14 @@ components:
           maxLength: 50
           minLength: 5
           type: string
-          description: Unique manifestItem value
-          example: "840277005620641798"
+          description: Unique system-specific internal identifier.
+          example: "847156377321918508"
         manifest_item_key:
           maxLength: 50
           minLength: 5
           type: string
-          description: Business key for the manifestItem
-          example: "840277005620641799"
+          description: Unique global internal or external business key.
+          example: "847156377321918509"
         context:
           type: string
           description: Context or domain of the manifestItem
@@ -2207,77 +2143,288 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Manifest"
+    Media:
+      type: object
+      properties:
+        media_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377321918510"
+        media_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "847156377321918511"
+        authors:
+          $ref: "#/components/schemas/PartyReferences"
+        occurrence_date_time:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-05-14T23:42:59.757879Z
+        name:
+          type: string
+          description: A hyperlink to the media's content.
+          example: Vehicle Image Side View
+        media_format_type:
+          $ref: "#/components/schemas/MediaFormatTypes"
+        media_href:
+          type: string
+          description: A hyperlink to the media resource.
+          format: href
+          example: https://api.example.com/resources/45126
+        media_type:
+          $ref: "#/components/schemas/MediaTypes"
+        media_status_type:
+          $ref: "#/components/schemas/MediaTypes"
+        media_delivery_method_type:
+          $ref: "#/components/schemas/MediaDeliveryMethodTypes"
+        media_usage_type:
+          $ref: "#/components/schemas/MediaUsageTypes"
+        media_version:
+          type: string
+          description: The version of the media.
+          example: v2
+        quality:
+          type: string
+          description: A numeric value representing the quality of the media.
+          example: MEDIUM
+        media_source:
+          type: string
+          description: The source of the media.
+          example: DEALER
+        media_description:
+          type: string
+          description: The source of the media.
+          example: Updated image with corrected lighting.
+        categories:
+          $ref: "#/components/schemas/Codes"
+        dpi:
+          type: string
+          description: "The dots per inch (DPI) for the media, if applicable."
+          example: "150"
+        w_pixel:
+          type: string
+          description: The width of the media in pixels.
+          example: "1280"
+        h_pixel:
+          type: string
+          description: The height of the media in pixels.
+          example: "720"
+        media_resolution:
+          type: string
+          description: "The display resolution of the media (e.g., 480p, 720p, 1080p)."
+          example: 1280x720
+        media_duration_seconds:
+          type: string
+          description: The total duration of the media file in seconds.
+          example: "25"
+        media_sent_date_time:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-05-10T11:40:50.757923Z
+        media_keys:
+          $ref: "#/components/schemas/Codes"
+        media_access_metrics:
+          $ref: "#/components/schemas/MediaAccessMetrics"
+      description: "Media item including video, images, and sound."
+    MediaAccessMetric:
+      type: object
+      properties:
+        media_access_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "847156377321918512"
+        media_access_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377321918513"
+        media_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377321918514"
+        first_viewed_at:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          example: 2026-05-25T04:11:09.757936Z
+        completed_at:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          example: 2026-05-03T14:36:39.757939Z
+        view_count:
+          type: string
+          description: Total number of engagement events.
+          example: "87"
+        watch_time_seconds:
+          type: string
+          description: The cumulative time in seconds the user spent viewing the media.
+          example: "110"
+        completion_percentage:
+          type: string
+          description: The furthest point reached in the media as a percentage (0-100).
+          example: "95"
+        last_viewed_date_time:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-05-07T20:42:44.757947Z
+        device_type:
+          $ref: "#/components/schemas/DeviceTypes"
+        user_agent:
+          type: string
+          description: The browser user agent string from the most recent view.
+          example: Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)
+        buffer_count:
+          type: string
+          description: The number of times the media playback was interrupted by buffering.
+          example: "37"
+        load_time_ms:
+          type: string
+          description: The time in milliseconds it took for the media to begin playback
+            after the request.
+          example: "320"
+      description: "Represents a media stream, such as a video or audio file."
+    MediaAccessMetrics:
+      type: array
+      items:
+        $ref: "#/components/schemas/MediaAccessMetric"
+    MediaDeliveryMethodTypes:
+      type: string
+      description: types of media delivery methods.
+      example: MMS
+      enum:
+      - MMS
+      - SMS
+      - EMAIL
+      - PUSH_NOTIFICATION
+      - WHATSAPP
+      - IN_APP
+      - WEB_PORTAL
+    MediaFormatTypes:
+      type: string
+      description: types of media formats.
+      example: PDF
+      enum:
+      - PDF
+      - DOC
+      - DOCX
+      - XLS
+      - XLSX
+      - PPT
+      - PPTX
+      - AIFF
+      - BMP
+      - JPG
+      - PNG
+      - GIF
+      - ICO
+      - AVI
+      - MPG
+      - MP4
+      - WMV
+      - MOV
+      - FLV
+      - SWF
+      - MKV
+      - OCTET
+      - GZ
+      - BZ2
+      - ZIP
+      - RAR
+      - ODT
+      - MOBI
+      - HTML
+      - EPUB
+      - SVG
+      - FLAC
+      - WAV
+      - CONTAINER
+      - OTHER
+    MediaTypes:
+      type: string
+      description: types of medias.
+      example: OCTET
+      enum:
+      - OCTET
+      - TEXT
+      - HTML
+      - CSS
+      - JAVASCRIPT
+      - JSON
+      - XML
+      - IMAGE
+      - GIF
+      - SVG
+      - JPEG
+      - PNG
+      - AUDIO
+      - MP3
+      - WAV
+      - VIDEO
+      - MP4
+      - MPEG
+      - QUICKTIME
+      - STREAM
+      - APPLICATION
+      - ARCHIVE
+      - EXECUTABLE
+      - DOCUMENT
+      - PDF
+      - MODEL
+      - FONT
+    MediaUsageTypes:
+      type: string
+      description: types of media usages.
+      example: THUMBNAIL
+      enum:
+      - THUMBNAIL
+      - PREVIEW
+      - STANDARD
+      - HIGH_QUALITY
+      - LOW_QUALITY
+      - ORIGINAL
+      - HERO
+      - BANNER
+      - AVATAR
+      - GALLERY
+      - READ
+      - OTHER
+    Medias:
+      type: array
+      items:
+        $ref: "#/components/schemas/Media"
     Memo:
       type: array
       items:
         type: string
-    MetricNameValue:
-      type: object
-      properties:
-        metric_name_value_key:
-          type: string
-          description: A unique key for the metric name value record.
-          example: "840277005620641800"
-        metric_name_value_id:
-          type: string
-          description: The unique ID for the metric name value.
-          example: "840277005620641801"
-        header_sequence:
-          type: string
-          description: The header sequence for the metric value.
-          example: "1"
-        uom:
-          $ref: "#/components/schemas/NarrativeUomTypes"
-        value:
-          type: string
-          description: The value of the metric.
-          example: user@example.com
-        value_category:
-          type: string
-          description: The category of the metric value.
-          example: EFFICIENCY
-        value_description:
-          type: string
-          description: A description of the metric value.
-          example: City fuel efficiency
-        value_name:
-          type: string
-          description: The name of the metric value.
-          example: City MPG
-        codes:
-          $ref: "#/components/schemas/Codes"
-      description: A metric value with a name and unit of measure.
     MetricValue:
       type: object
       properties:
         metric_value_id:
           type: string
-          description: The internal unique identifier for this metric record.
-          example: 8892-abc-123-metric
+          description: Unique system-specific internal identifier.
+          example: "847156377321918515"
         metric_value_key:
           type: string
-          description: The natural business key for the metric value.
-          example: EXPIRATION_MILEAGE
+          description: Unique global internal or external business key.
+          example: "847156377321918516"
         value:
           type: string
           description: "The actual value of the metric (e.g., the amount or count)."
-          example: "100000"
+          example: user@example.com
         uom:
           $ref: "#/components/schemas/NarrativeUomTypes"
         codes:
           $ref: "#/components/schemas/Codes"
       description: "Represents a quantitative measurement including its unit, value,\
         \ and classification codes."
-    MetricValues:
-      type: array
-      items:
-        $ref: "#/components/schemas/MetricValue"
     MileageAllowance:
       $ref: "#/components/schemas/UomLengthTypes"
-    ModelYear:
-      type: string
-      description: The 4-digit model year of the vehicle.
-      example: "2024"
     MoneyFactor:
       pattern: "^0\\.[0-9]{5,8}$"
       type: string
@@ -2405,76 +2552,17 @@ components:
       - FAILURE
       - UNKNOWN
       - OTHER
-    Option:
-      type: object
-      properties:
-        option_id:
-          type: string
-          description: The unique id for the  option record.
-          example: "840277005620641802"
-        option_key:
-          type: string
-          description: The unique key for the  option record.
-          example: "840277005620641803"
-        codes:
-          $ref: "#/components/schemas/Codes"
-        option_name:
-          type: string
-          description: The name of the option.
-          example: Sunroof
-        option_long_name:
-          type: string
-          description: The long name of the option.
-          example: Panoramic Sunroof
-        manufacturer_name:
-          type: string
-          description: The manufacturer's name.
-          example: Ford
-        short_description:
-          type: string
-          description: The short description of the option.
-          example: Factory installed sunroof
-        price_summary:
-          $ref: "#/components/schemas/PriceSummary"
-        product_types:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          description: product_types list
-          example:
-          - FINANCE
-          items:
-            $ref: "#/components/schemas/ProductTypes"
-        quantity:
-          $ref: "#/components/schemas/MetricValue"
-        option_type:
-          $ref: "#/components/schemas/OptionTypes"
-        option_installation_type:
-          $ref: "#/components/schemas/OptionInstallationTypes"
-        option_code:
-          type: string
-          description: The code for the option.
-          example: SRF
-        option_categories:
-          $ref: "#/components/schemas/Codes"
-        option_groups:
-          $ref: "#/components/schemas/Codes"
-        option_descriptions:
-          $ref: "#/components/schemas/OptionDescriptions"
-      description: "Represents a specific option or feature of a , including its pricing,\
-        \ type, and descriptive information."
     OptionDescription:
       type: object
       properties:
         option_description_key:
           type: string
-          description: A unique key for the option description.
-          example: "840277005620641804"
+          description: Unique global internal or external business key.
+          example: "847156377321918517"
         option_description_id:
           type: string
-          description: The unique ID for the option description.
-          example: "840277005620641805"
+          description: Unique system-specific internal identifier.
+          example: "847156377321918518"
         option_description_group:
           type: string
           description: The group or category this option belongs to.
@@ -2486,10 +2574,6 @@ components:
           description: "A short, human-readable label for the option."
           example: Sunroof Description
       description: A description of a vehicle option or feature.
-    OptionDescriptions:
-      type: array
-      items:
-        $ref: "#/components/schemas/OptionDescription"
     OptionInstallationTypes:
       type: string
       description: types of option installations.
@@ -2527,10 +2611,6 @@ components:
       - PORT_INSTALLED
       - TELEMATICS
       - OTHER
-    Options:
-      type: array
-      items:
-        $ref: "#/components/schemas/Option"
     OrderCategoryTypes:
       type: string
       description: types of order categorys.
@@ -2556,20 +2636,20 @@ components:
       properties:
         org_reference_key:
           type: string
-          description: A unique key for the organization profile.
-          example: "840277005620641806"
+          description: Unique global internal or external business key.
+          example: "847156377321918519"
         org_reference_id:
           type: string
-          description: The unique ID for the organization profile.
-          example: "840277005620641807"
+          description: Unique system-specific internal identifier.
+          example: "847156377321918520"
         description:
           type: string
           description: A detailed description  .
-          example: Thomas Dealership
+          example: Vehicle engine component.
         party_id:
           type: string
-          description: The unique ID for the party associated with the organization.
-          example: "840277005620641808"
+          description: Unique system-specific internal identifier.
+          example: "847156377321918521"
         org_name:
           type: string
           description: An alias or common name for the organization.
@@ -2586,7 +2666,9 @@ components:
           uniqueItems: true
           type: array
           description: Lines of business associated with the organization.
-          example: line_of_businesses
+          example:
+          - Body Shop
+          - New Sales
           items:
             type: string
         operating_status_type:
@@ -2600,40 +2682,21 @@ components:
         communication_channels:
           $ref: "#/components/schemas/CommunicationChannels"
       description: not nullable
-    PartConditionTypes:
-      type: string
-      description: types of part conditions.
-      example: NEW
-      enum:
-      - NEW
-      - NEW_OLD_STOCK
-      - REMANUFACTURED
-      - REBUILT
-      - REFURBISHED
-      - USED
-      - SALVAGE
-      - DAMAGED_MINOR
-      - DAMAGED_COSMETIC
-      - SCRAP
-      - COLLECTIBLE
-      - OTHER
     PartyReference:
       type: object
       properties:
         party_reference_id:
           type: string
-          description: Unique system identifier for the reference record itself.
-          example: pr-8821-x01
+          description: Unique system-specific internal identifier.
+          example: "847156377321918522"
         party_reference_key:
           type: string
-          description: "Business-logical key for the reference, often combining the\
-            \ event and party context."
-          example: REF-SALE-2026-CUST-99
+          description: Unique global internal or external business key.
+          example: "847156377321918523"
         party_key:
           type: string
-          description: The business key of the actual Party (Person or Org) being
-            referenced.
-          example: CUST-DEALER-4412
+          description: Unique global internal or external business key.
+          example: "847156377321918524"
         party_name:
           type: string
           description: The formal display name of the Party at the time of reference.
@@ -2646,20 +2709,20 @@ components:
           type: string
           description: Security or permission code granting access to this party's
             data.
-          example: AUTH-992-SEC
+          example: AUTH-12345
         source_system_code:
           type: string
           description: "The identifier of the system of record (e.g., DMS, CRM)."
-          example: CDK-GLOBAL
+          example: DMS
         context:
           type: string
           description: The domain or operational context for the reference.
-          example: VEHICLE_SERVICE
+          example: FINANCE
         account_number:
           type: string
           description: The specific account identifier for the party in the source
             system.
-          example: ACT-771229-B
+          example: "81"
         party_relationship_types:
           maxItems: 255
           minItems: 1
@@ -2667,7 +2730,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - INSURER
+          - OWNER
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -2678,9 +2741,10 @@ components:
           $ref: "#/components/schemas/CommunicationChannels"
         occurrence_date_time:
           type: string
-          description: Timestamp indicating when this specific reference was established.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:19:03Z
+          example: 2026-05-12T18:24:46.758011Z
         org_indicator:
           type: boolean
           description: Indicates if the party is an organization (true) or an individual
@@ -2859,17 +2923,16 @@ components:
       properties:
         payment_schedule_reference_id:
           type: string
-          description: Unique identifier value for the reference record.
-          example: "840277005620641809"
+          description: Unique system-specific internal identifier.
+          example: "847156377326112768"
         payment_schedule_reference_key:
           type: string
-          description: Unique identifier value for the reference record.
-          example: "840277005620641810"
+          description: Unique global internal or external business key.
+          example: "847156377326112769"
         payment_schedule_key:
           type: string
-          description: The unique key identifying the referenced Payment Schedule
-            aggregate.
-          example: "840277005620641811"
+          description: Unique global internal or external business key.
+          example: "847156377326112770"
         payment_period:
           $ref: "#/components/schemas/EffectivePeriod"
         context:
@@ -2877,23 +2940,24 @@ components:
           description: Context or domain of the payment schedule.
           example: FINANCE
         total_payments:
+          pattern: "^\\d{4,6}$"
           type: integer
           description: The total number of payments in this schedule.
-          format: int32
-          example: 60
+          example: 199
         identifier:
           $ref: "#/components/schemas/Identifier"
         occurrence_date_time:
           type: string
-          description: The date and time the schedule was associated with the order.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:19:03Z
+          example: 2026-05-15T19:22:40.758031Z
         payment_frequency:
           $ref: "#/components/schemas/DurationIntervalTypes"
         payment_amount:
           type: string
           description: The price of all products and services before tax.
-          example: $776.99
+          example: $941.15
         annual_percentage_rate:
           type: string
           description: Context or domain of the payment schedule.
@@ -2923,7 +2987,7 @@ components:
         alias:
           type: string
           description: Alternative or informal name or role.
-          example: AJ
+          example: AAG
         family_name:
           type: string
           description: Family or last name.
@@ -2940,7 +3004,7 @@ components:
           type: string
           description: Reference to external identifiers.
           format: href
-          example: /identifiers/12345
+          example: https://api.example.com/resources/30521
         maiden_name:
           type: string
           description: Previous family name before marriage.
@@ -2955,20 +3019,20 @@ components:
           example: Jr.
         party_key:
           type: string
-          description: External party key.
-          example: PARTY-KEY-123
+          description: Unique global internal or external business key.
+          example: "847156377326112771"
         person_key:
           type: string
-          description: External person key.
-          example: PERSON-KEY-789
+          description: Unique global internal or external business key.
+          example: "847156377326112772"
         person_name_key:
           type: string
-          description: Unique person name key.
-          example: NAME-KEY-456
+          description: Unique global internal or external business key.
+          example: "847156377326112773"
         person_name_id:
           type: string
-          description: Unique person name id.
-          example: NAME-ID-456
+          description: Unique system-specific internal identifier.
+          example: "847156377326112774"
         preferred_name:
           type: string
           description: Preferred name used in informal situations.
@@ -3012,17 +3076,13 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/PersonName"
-    PlateNumber:
-      type: string
-      description: The alphanumeric string displayed on the vehicle license plate.
-      example: ABC1234
     PolicyHolder:
       type: object
       properties:
         policy_holder_key:
           type: string
-          description: A unique key for the policy holder.
-          example: PH-9872314-A
+          description: Unique global internal or external business key.
+          example: "847156377326112775"
         policy_holder_name:
           $ref: "#/components/schemas/PersonName"
         policy_holder_relationship:
@@ -3030,15 +3090,15 @@ components:
         special_remarks:
           type: string
           description: Any special remarks or notes about the policy holder.
-          example: Secondary driver requires SR-22 filing.
+          example: Preferred customer
         contact_method_key:
           type: string
-          description: The Key to the full contact method details.
-          example: CM-112024-B
+          description: Unique global internal or external business key.
+          example: "847156377326112776"
         policy_number:
           type: string
           description: The unique identifier of the insurance policy.
-          example: AIG-99823471-01
+          example: "9"
         carrier_name:
           type: string
           description: Name of the insurance company or carrier.
@@ -3047,26 +3107,28 @@ components:
           $ref: "#/components/schemas/VIN"
         effective_date:
           type: string
-          description: Policy start date.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-15
+          example: 2026-05-02
         expiration_date:
           type: string
-          description: Policy expiration date.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-24
+          example: 2026-05-08
       description: Current Insurance PolicyHolder for a customer.
     Position:
       type: object
       properties:
         position_id:
           type: string
-          description: Unique identifier for this position
-          example: pos-001
+          description: Unique system-specific internal identifier.
+          example: "847156377326112777"
         position_key:
           type: string
-          description: Business key for this position record
-          example: POS-ATL-WEST
+          description: Unique global internal or external business key.
+          example: "847156377326112778"
         latitude:
           type: string
           description: Latitude of the location
@@ -3088,7 +3150,6 @@ components:
           description: Postal code of the location
           example: "30303"
         county_code:
-          maxLength: 20
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Standardized code for the county.
@@ -3099,7 +3160,9 @@ components:
           uniqueItems: true
           type: array
           description: Position codes associated with the entity.
-          example: position_codes
+          example:
+          - Pos-847156371168874500
+          - Pos-847156371168874501
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -3126,31 +3189,31 @@ components:
         taxable_amount:
           type: string
           description: The portion of the price subject to tax.
-          example: $28.05
+          example: $599.92
         non_taxable_amount:
           type: string
           description: The portion of the price not subject to tax.
-          example: $539.46
+          example: $884.24
         total_amount:
           type: string
           description: The total final price including all components and tax.
-          example: $878.74
+          example: $263.47
         total_cost_amount:
           type: string
           description: The total cost to the provider/seller.
-          example: $802.28
+          example: $86.96
         unit_cost_amount:
           type: string
           description: The unit cost to the provider/seller.
-          example: $134.94
+          example: $299.59
         price_description:
           type: string
           description: "A descriptive title for the price (e.g., 'MSRP', 'Sale Price')."
           example: Vehicle base price
         price_key:
           type: string
-          description: Natural key or business identifier for the price entry.
-          example: "840277005620641812"
+          description: Unique global internal or external business key.
+          example: "847156377326112779"
         tax_included_indicator:
           type: boolean
           description: Indicates whether tax is included in the base price (value).
@@ -3159,8 +3222,8 @@ components:
           $ref: "#/components/schemas/CurrencyCode"
         price_id:
           type: string
-          description: Unique system identifier for the price record.
-          example: "840277005620641813"
+          description: Unique system-specific internal identifier.
+          example: "847156377326112780"
         duration:
           $ref: "#/components/schemas/EffectivePeriod"
         price_types:
@@ -3170,7 +3233,7 @@ components:
           type: array
           description: price_types list
           example:
-          - OTHER
+          - NET_SALE
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
@@ -3184,16 +3247,16 @@ components:
       properties:
         price_summary_key:
           type: string
-          description: The unique key for the payment summary record.
-          example: "840277005620641814"
+          description: Unique global internal or external business key.
+          example: "847156377326112781"
         price_summary_id:
           type: string
-          description: The unique ID for the payment summary.
-          example: "840277005620641815"
+          description: Unique system-specific internal identifier.
+          example: "847156377326112782"
         source_key:
           type: string
-          description: The unique key to the related invoice.
-          example: "840277005620641816"
+          description: Unique global internal or external business key.
+          example: "847156377326112783"
         source_type:
           $ref: "#/components/schemas/ResourceTypes"
         locale:
@@ -3310,22 +3373,21 @@ components:
           type: string
           description: "A short, human-readable summary of the problem type. It should\
             \ not change from occurrence to occurrence."
-          example: Intent Validation Failed
+          example: Resource Link
         status:
           type: integer
           description: The HTTP status code generated by the origin server for this
             occurrence of the problem.
-          format: int32
-          example: 422
+          example: 400
         detail:
           type: string
           description: "A human-readable explanation specific to this occurrence of\
             \ the problem, providing context on the failure."
-          example: The export request could not be processed due to business constraints.
+          example: Primary identifier
         instance:
           type: string
-          description: "A URI reference that identifies the specific occurrence of\
-            \ the problem (e.g., the specific resource path)."
+          description: A URI reference that identifies the specific occurrence of
+            the problem.
           format: uri
           example: https://api.yourdomain.com/money/exports
         intent:
@@ -3337,68 +3399,21 @@ components:
           type: string
           description: "A stable, machine-readable string code for the error."
           example: INSUFFICIENT_FUNDS_FOR_EXPORT
-        pointer:
-          type: string
-          description: A JSON Pointer to the field in the request body that caused
-            the violation.
-          example: "#/plate_number"
         violations:
           type: array
           description: "A collection of specific validation failures, including field\
             \ paths and localized messages."
           example:
-          - variance: 2000
-            actual: 12000
-            budget: 10000
-            account: GL-1000
-          - variance: -500
-            actual: 4500
-            budget: 5000
-            account: GL-2000
+          - pointer: "#/vehicle_license/plate_number"
+            code: PATTERN_MISMATCH
+            message: The plate number must be alphanumeric and between 1 and 20 characters.
+            severity: ERROR
+            rule: INSUFFICIENT_FUNDS
+            path: date_range.start
+            metadata:
+              regex: "^[A-Z0-9]{1,20}$"
           items:
-            type: object
-            properties:
-              pointer:
-                type: string
-                description: A JSON Pointer (RFC 6901) referencing the specific field
-                  in the request body that caused the violation.
-                example: "#/vehicle_license/plate_number"
-              code:
-                type: string
-                description: "A stable, machine-readable string identifying the specific\
-                  \ validation rule that was breached."
-                example: PATTERN_MISMATCH
-              message:
-                type: string
-                description: "A localized, human-readable description of the validation\
-                  \ error."
-                example: The plate number must be alphanumeric and between 1 and 20
-                  characters.
-              severity:
-                type: string
-                description: The impact level of this violation. ERROR blocks execution;
-                  WARNING is advisory.
-                example: ERROR
-                enum:
-                - ERROR
-                - WARNING
-                - INFO
-              metadata:
-                type: object
-                additionalProperties:
-                  type: string
-                description: "Contextual key-value pairs to help the agent resolve\
-                  \ the error (e.g., actual vs. expected limits)."
-                example:
-                  regex: "^[A-Z0-9]{1,20}$"
-              rule:
-                type: string
-                example: INSUFFICIENT_FUNDS
-              path:
-                type: string
-                example: date_range.start
-            description: "An individual validation failure within a request, providing\
-              \ a direct map to the offending field."
+            $ref: "#/components/schemas/Violation"
       description: "A standardized error response based on RFC 7807, extended with\
         \ domain-specific intent and validation violations."
     ProductContract:
@@ -3406,28 +3421,30 @@ components:
       properties:
         product_contract_id:
           type: string
-          description: Unique identifier for the product contract record.
-          example: 550e8400-e29b-41d4-a716-446655440000
+          description: Unique system-specific internal identifier.
+          example: "847156377326112784"
         product_contract_key:
           type: string
-          description: Natural business key for the product contract.
-          example: TFS-GAP-2026-001
+          description: Unique global internal or external business key.
+          example: "847156377326112785"
         party_references:
           $ref: "#/components/schemas/PartyReferences"
         contract_number:
           type: string
           description: The assigned contract reference number (Legacy Agreement Number).
-          example: "0060003675"
+          example: "7"
         execution_date:
           type: string
-          description: The date and time the contract was executed.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-09
+          example: 2026-05-20
         expiration_date:
           type: string
-          description: The date the contract is set to expire.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-05-03
+          example: 2026-05-20
         effective_period:
           $ref: "#/components/schemas/EffectivePeriod"
         expiration_distance:
@@ -3465,7 +3482,7 @@ components:
           type: array
           description: contract_types list
           example:
-          - PROTECTION
+          - OTHER
           items:
             $ref: "#/components/schemas/ContractTypes"
         identifiers:
@@ -3481,55 +3498,6 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/ProductContract"
-    ProductModel:
-      type: object
-      properties:
-        product_model_key:
-          type: string
-          description: A unique key for the vehicle identifier.
-          example: "840277005624836096"
-        product_model_id:
-          type: string
-          description: The unique ID for the vehicle identifier.
-          example: "840277005624836097"
-        identifiers:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          description: Identifiers associated with the vehicle.
-          example:
-          - variance: 2000
-            actual: 12000
-            budget: 10000
-            account: GL-1000
-          - variance: -500
-            actual: 4500
-            budget: 5000
-            account: GL-2000
-          items:
-            $ref: "#/components/schemas/Identifier"
-        brands:
-          $ref: "#/components/schemas/Codes"
-        trims:
-          $ref: "#/components/schemas/Codes"
-        marketing_names:
-          $ref: "#/components/schemas/Codes"
-        oem_names:
-          $ref: "#/components/schemas/Codes"
-        oem_codes:
-          $ref: "#/components/schemas/Codes"
-        model_codes:
-          $ref: "#/components/schemas/Codes"
-        phase_code:
-          type: string
-          description: The phase code.
-          example: PRODUCTION
-        nicknames:
-          $ref: "#/components/schemas/Codes"
-        tags:
-          $ref: "#/components/schemas/Codes"
-      description: Vehicle Identifier
     ProductStateTypes:
       type: string
       description: types of product states.
@@ -3549,30 +3517,6 @@ components:
       - THIRD_PARTY_OWNED
       - COMPANY_OWNED
       - UNKNOWN
-    ProductTypes:
-      type: string
-      description: types of products.
-      example: VEHICLE
-      enum:
-      - VEHICLE
-      - INFORMATION
-      - DURABLE_GOODS
-      - SOFTWARE
-      - APP
-      - INSURANCE
-      - FINANCE
-      - SERVICE
-      - PART
-      - ACCESSORY
-      - F_N_I_PRODUCT
-      - SERVICE_PACKAGE
-      - DEALER_PRODUCT
-      - EQUIPMENT
-      - PACKAGE_GOODS
-      - SERVICE_PLAN
-      - WARRANTY_PLAN
-      - SUBSCRIPTION
-      - OTHER
     ProtectionProducts:
       $ref: "#/components/schemas/ProductContracts"
     PurchaseTypes:
@@ -3644,12 +3588,12 @@ components:
       properties:
         retail_delivery_report_id:
           type: string
-          description: The internal unique identifier for the RDR record.
-          example: rdr-77283-x99
+          description: Unique system-specific internal identifier.
+          example: "847156377338695680"
         retail_delivery_report_key:
           type: string
-          description: "Natural business key for the RDR, often formatted as DEALER-DATE-VIN."
-          example: DLR123-20260318-5TFHY5F
+          description: Unique global internal or external business key.
+          example: "847156377338695681"
         rdr_source:
           type: string
           description: The source of the RDR
@@ -3664,10 +3608,10 @@ components:
           $ref: "#/components/schemas/EventMessages"
         occurrence_date_time:
           type: string
-          description: The exact date and time the delivery event was recorded in
-            the system.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:19:03Z
+          example: 2026-05-04T16:25:04.761356Z
         dealer_comments:
           $ref: "#/components/schemas/Comments"
         customer_comments:
@@ -3692,18 +3636,19 @@ components:
           type: string
           description: The unique identifier of the parent invoice to which this shipment
             belongs.
-          example: inv_789def456
+          example: "93"
         narratives:
           $ref: "#/components/schemas/Memo"
         sale_date:
           type: string
-          description: The effective date the sale contract was signed.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-20
+          example: 2026-05-08
         sales_transaction_number:
           type: string
           description: The dealer-assigned transaction or deal jacket number.
-          example: TXN-882931-A
+          example: "72"
         delivery_estimate:
           $ref: "#/components/schemas/ShipmentReference"
         lease_term:
@@ -3729,12 +3674,12 @@ components:
       properties:
         retail_delivery_report_criteria_id:
           type: string
-          description: The internal unique identifier for the RDR record.
-          example: rdr-77283-x99
+          description: Unique system-specific internal identifier.
+          example: "847156377338695682"
         retail_delivery_report_criteria_key:
           type: string
-          description: "Natural business key for the RDR, often formatted as DEALER-DATE-VIN."
-          example: DLR123-20260318-5TFHY5F
+          description: Unique global internal or external business key.
+          example: "847156377338695683"
         rdr_source:
           type: string
           description: The source of the RDR
@@ -3767,13 +3712,14 @@ components:
           $ref: "#/components/schemas/VehicleIdentifier"
         sale_date:
           type: string
-          description: The effective date the sale contract was signed.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-05-04
+          example: 2026-05-08
         sales_transaction_number:
           type: string
           description: The dealer-assigned transaction or deal jacket number.
-          example: TXN-882931-A
+          example: "1"
         credit_application_reference:
           $ref: "#/components/schemas/CreditApplicationReference"
       description: Represents the Retail Delivery Report (RDR) documentation for vehicle
@@ -3792,33 +3738,33 @@ components:
       properties:
         shipment_reference_id:
           type: string
-          description: Internal unique identifier for the shipment reference record.
-          example: shp-ref-55092
+          description: Unique system-specific internal identifier.
+          example: "847156377338695684"
         shipment_reference_key:
           type: string
-          description: Natural business key for the shipment reference.
-          example: LOGISTICS_ESTIMATE_2026_001
+          description: Unique global internal or external business key.
+          example: "847156377338695685"
         shipment_key:
           type: string
-          description: Key for the shipment
-          example: OEM_LOGISTICS
+          description: Unique global internal or external business key.
+          example: "847156377338695686"
         tracking_number:
           $ref: "#/components/schemas/ShipmentTrackingNumber"
         context:
           type: string
           description: "The domain or carrier context of the shipment (e.g., 'FEDEX',\
             \ 'CASSENS', 'OEM_LOGISTICS')."
-          example: OEM_LOGISTICS
+          example: FINANCE
         system_codes:
           $ref: "#/components/schemas/Codes"
         carrier_party:
           $ref: "#/components/schemas/CarrierParty"
         occurrence_date_time:
           type: string
-          description: The timestamp when the shipment was initiated or the record
-            was created.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:19:03Z
+          example: 2026-05-07T05:35:00.761527Z
         unit_of_measures:
           $ref: "#/components/schemas/UnitOfMeasures"
         estimated_delivery:
@@ -3845,48 +3791,39 @@ components:
       - CLOSING_MANAGER
       - BUSINESS_MANAGER
       - RECEPTIONIST
-      - PARTS_MANAGER
-      - PARTS_ADVISOR
-      - DETAILER
-      - DRIVER
-      - APPRAISER
-      - GENERAL_MANAGER
-      - UNKNOWN
     TimeSlot:
       type: object
       properties:
-        time_slot_id:
-          type: string
-          description: Technical unique identifier (GUID) for the time slot record.
-          example: b2d3e4f5-a6b7-c8d9-e0f1-a2b3c4d5e6f7
         time_slot_key:
+          maxLength: 50
+          minLength: 1
           type: string
-          description: Natural business key for the time slot within its specific
-            context.
-          example: TS-MON-MORNING-SHIFT
-        time_slot_source:
-          type: string
-          description: The originating system or calendar providing this availability
-            data.
-          example: GOOGLE_CALENDAR
-        start_day:
-          $ref: "#/components/schemas/DaysOfWeekTypes"
-        start_time:
-          pattern: "^([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)$"
-          type: string
-          description: The local start time in 24-hour ISO 8601 format.
-          format: date-time
+          description: Unique global internal or external business key.
+          example: "847156377338695687"
         end_day:
-          $ref: "#/components/schemas/DaysOfWeekTypes"
+          $ref: "#/components/schemas/DayOfWeekTypes"
         end_time:
+          maxLength: 8
+          minLength: 5
           pattern: "^([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)$"
           type: string
-          description: The local end time in 24-hour ISO 8601 format.
-          format: date-time
+          description: Time with format of HH:mm:ss
+          example: 21:52:31
         recurring_indicator:
           type: boolean
-          description: Indicates if this time slot is part of a repeating pattern.
+          description: Indicates whether the time slot repeats on a recurring cycle.
           example: true
+        recurring_period:
+          $ref: "#/components/schemas/EffectivePeriod"
+        start_day:
+          $ref: "#/components/schemas/DayOfWeekTypes"
+        start_time:
+          maxLength: 8
+          minLength: 5
+          pattern: "^([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)$"
+          type: string
+          description: Time with format of HH:mm:ss
+          example: 06:32:27
         timeslot_directive_types:
           maxItems: 255
           minItems: 1
@@ -3894,13 +3831,29 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - BETWEEN
+          - ANYTIME
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
+        time_slot_id:
+          maxLength: 36
+          minLength: 1
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "847156377338695688"
         week_of_date:
-          $ref: "#/components/schemas/Codes"
-      description: "Defines a specific window of time, often within a recurring schedule,\
-        \ used for service availability or appointment booking."
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
+          format: date
+          example:
+          - "1"
+          - "34"
+          items:
+            type: string
+      description: Range of time for the appointment
     TimeSlots:
       type: array
       items:
@@ -3915,18 +3868,13 @@ components:
       - BEFORE
       - BETWEEN
       - BLOCK
-      - UNKNOWN
-    UnitId:
-      type: string
-      description: A unique sequence number or business identifier provided by TMS.
-      example: "129375127"
     UnitOfMeasure:
       type: object
       properties:
         unit_of_measure_key:
           type: string
-          description: Unit of Measure Value
-          example: "840277005624836098"
+          description: Unique global internal or external business key.
+          example: "847156377338695689"
         unit_name:
           type: string
           description: Unit of Measure
@@ -4029,146 +3977,1041 @@ components:
       - MIN_PAYMENT_PERCENT
       - MIN_PAYMENT_AMOUNT
     VIN:
-      maxLength: 17
-      minLength: 17
-      pattern: "^[0-9A-HJ-NPR-Z]+$"
       type: string
-      description: The 17-character Vehicle Identification Number.
-      example: 5TFHY5F13KX799310
+      description: The 17-character Vehicle Identification Number covered by the policy.
+      example: 1FA6P8CF0Hxxxxxxx
     Vehicle:
       type: object
       properties:
         vehicle_key:
+          maxLength: 50
+          minLength: 1
           type: string
-          description: Natural business key for the vehicle (often VIN or Stock No).
-          example: VIN-5TFHY5F13KX799310
-        vehicle_id:
+          description: Unique global internal or external business key.
+          example: "847156377338695690"
+        axle_count:
+          maxLength: 2
+          minLength: 1
           type: string
-          description: Internal system GUID for the vehicle record.
-          example: veh-88293-xyz
-        odometer:
-          $ref: "#/components/schemas/MetricValue"
-        stock_number:
+          description: The total number of axles on the vehicle.
+          example: "20"
+        comments:
+          maxLength: 2000
+          minLength: 1
           type: string
-          description: The dealer's internal stock or inventory number.
-          example: STK100293
+          description: "General remarks regarding the vehicle condition, processing\
+            \ status, or storage details."
+          example: Vehicle requires a detailed detailing service before delivery.
+        control_account_desc:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: Description of the primary operating control account utilized
+            for inventory financing tracking.
+          example: Primary operating account for dealership floorplan financing.
+        control_account_id:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "847156377338695691"
+        control_account_type:
+          $ref: "#/components/schemas/ControlAccountTypes"
+        dealer_code:
+          maxLength: 30
+          minLength: 1
+          type: string
+          description: The specific franchise authorization identifier code assigned
+            to the holding dealer.
+          example: DL-99482-X
+        delivered_date_time:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-05-11T05:16:41.761599Z
+        delivery_method:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: "The logistics method used to transport the vehicle to the\
+            \ customer or dealership (e.g., Hauler, Driven, Rail)."
+          example:
+          - DELIVERY
+          - AIR
+          - EXPEDITED
+          - WAREHOUSE
+          items:
+            type: string
         identifiers:
           maxItems: 255
           minItems: 1
           uniqueItems: true
           type: array
           description: Identifiers associated with the vehicle.
-          example:
-          - variance: 2000
-            actual: 12000
-            budget: 10000
-            account: GL-1000
-          - variance: -500
-            actual: 4500
-            budget: 5000
-            account: GL-2000
           items:
             $ref: "#/components/schemas/Identifier"
-        make:
+        inventory_status_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: inventory_status_types list
+          example:
+          - SALES_HOLD
+          items:
+            $ref: "#/components/schemas/InventoryStatusTypes"
+        license:
+          $ref: "#/components/schemas/VehicleLicense"
+        odometer:
+          $ref: "#/components/schemas/MetricValue"
+        position:
+          $ref: "#/components/schemas/Position"
+        production_date:
           type: string
-          description: The manufacturer or make of the vehicle.
-          example: Toyota
-        model:
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
+          format: date
+          example: 2026-05-01
+        search_category:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: Search categorization for the vehicle.
+          example:
+          - Parts-847156371168874506
+          - Service-847156371168874507
+          items:
+            type: string
+        stock_date_time:
           type: string
-          description: The specific model name.
-          example: Tundra
-        brand:
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-05-04T05:09:56.761697Z
+        stock_number:
+          maxLength: 50
+          minLength: 1
           type: string
-          description: The consumer-facing brand name.
-          example: TRD Pro
-        trim:
+          description: Internal dealership stock control or inventory lot track number.
+          example: "90"
+        vehicle_configuration_codes:
+          $ref: "#/components/schemas/VehicleConfigurationCodes"
+        vehicle_id:
+          maxLength: 50
+          minLength: 1
           type: string
-          description: The specific trim level or package.
-          example: Limited
-        oem_model_code:
-          type: string
-          description: The manufacturer's specific internal model code.
-          example: 8442A
-        oem_name:
-          type: string
-          description: Full name of the Original Equipment Manufacturer.
-          example: Toyota Motor Corporation
-        oem_code:
-          type: string
-          description: The short code representing the OEM.
-          example: TMS
-        model_code:
-          type: string
-          description: The standardized model code used within the bounded context.
-          example: TUN
-        model_description:
-          type: string
-          description: A verbose description of the vehicle model.
-          example: 4WD CrewMax 5.5' Bed
-        model_year:
-          $ref: "#/components/schemas/ModelYear"
+          description: Unique system-specific internal identifier.
+          example: "847156377338695692"
+        vehicle_medias:
+          $ref: "#/components/schemas/VehicleMedias"
+        vehicle_options:
+          $ref: "#/components/schemas/VehicleOptions"
+        vehicle_price_summary:
+          $ref: "#/components/schemas/VehiclePriceSummary"
+        vehicle_specification:
+          $ref: "#/components/schemas/VehicleSpecification"
+        product_state_type:
+          $ref: "#/components/schemas/ProductStateTypes"
+        vehicle_status_type:
+          $ref: "#/components/schemas/VehicleStateTypes"
         vin:
-          $ref: "#/components/schemas/VIN"
+          maxLength: 17
+          minLength: 17
+          type: string
+          description: The standard 17-character legal international Vehicle Identification
+            Number code identifier.
+          example: 1HGCR2F8XHA000000
+        insurances:
+          $ref: "#/components/schemas/Insurances"
+        notes:
+          $ref: "#/components/schemas/Memo"
+        medias:
+          $ref: "#/components/schemas/Medias"
+        categories:
+          $ref: "#/components/schemas/Codes"
+        delivery_date:
+          type: string
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
+          format: date
+          example: 2026-04-28
+        original_sold_date:
+          type: string
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
+          format: date
+          example: 2026-05-05
+        odometer_capture_date:
+          type: string
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
+          format: date
+          example: 2026-05-10
+        vehicle_events:
+          $ref: "#/components/schemas/VehicleEvents"
+        vehicle_notes:
+          maxLength: 1500
+          minLength: 1
+          type: string
+          description: Informal notation string capturing temporary handling instructions
+            for lot management teams.
+          example: Vehicle inspected and ready.
+        vehicle_price_summaries:
+          $ref: "#/components/schemas/VehiclePriceSummaries"
+        warranties:
+          $ref: "#/components/schemas/Warranties"
+        account_key:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377338695693"
+        account_name:
+          maxLength: 150
+          minLength: 1
+          type: string
+          description: The official corporate name of the commercial fleet entity
+            holding financial titles.
+          example: Northside Fleet Holdings
+        condition:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: The overarching localized state assessment descriptive rating
+            of the unit.
+          example: NEW
+        inventory_days:
+          maxLength: 4
+          minLength: 1
+          type: string
+          description: The complete count of continuous days this item has been active
+            inside operating inventory arrays.
+          example: "45"
+        backup_camera_indicator:
+          type: boolean
+          description: Indicates if the vehicle is configured with a rear safety camera
+            system.
+          example: true
+        body_height:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: The external overall body structure height reading metric string
+            description.
+          example: "72"
+        body_length:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: The external overall body structure length dimension string
+            text.
+          example: "200"
+        body_style:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The baseline layout style design of the chassis structure shell.
+          example: TRUCK
+        body_width:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: The external overall shell width calculation metrics string
+            notation.
+          example: "80"
+        box_type_description:
+          maxLength: 150
+          minLength: 1
+          type: string
+          description: Description capturing cargo container configurations or bed
+            installations for commercial classification units.
+          example: Standard Cargo Box
+        bulkhead:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The style structural configuration tracking definitions used
+            on cargo boundary separations.
+          example: "YES"
+        cab_type:
+          $ref: "#/components/schemas/CabTypes"
+        compartment_depth:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: Utility storage unit depth limits metrics format values.
+          example: "30"
+        compartments:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: Compartments within the vehicle.
+          example:
+          - "847156371168874504"
+          - "847156371168874505"
+          items:
+            type: string
+        crane_indicator:
+          type: boolean
+          description: Flags if an industrial loading crane apparatus mechanism is
+            mounted onto the flatbed.
+          example: false
+        cylinder_count:
+          maxLength: 2
+          minLength: 1
+          type: string
+          description: The mechanical cylinder structural distribution setup array
+            count value.
+          example: "17"
+        doors_count:
+          maxLength: 2
+          minLength: 1
+          type: string
+          description: The functional structural access passenger door quantity entry
+            configuration numbers.
+          example: "92"
+        drive_train:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: Chassis mechanics wheel torque distribution grouping style
+            setups.
+          example: AWD
+        energy_impact_score:
+          maxLength: 10
+          minLength: 1
+          type: string
+          description: Environmental pollution factor efficiency metrics tracking
+            measurements classification output.
+          example: "85"
+        engine_type_description:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Text rendering specific complete engine parameters configurations
+            blocks descriptions.
+          example: V6 Gas Engine
+        engine_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: engine_types list
+          example:
+          - ICE
+          items:
+            $ref: "#/components/schemas/EngineTypes"
+        exterior_color:
+          $ref: "#/components/schemas/ColorDetail"
+        exterior_lights_indicator:
+          type: boolean
+          description: Flags if custom auxiliary lighting rigs are present on the
+            commercial vehicle superstructure.
+          example: true
+        floor_desc:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The foundational materials configuration setup tracking string
+            on cargo flooring surfaces.
+          example: Standard Floor
+        floor_desc_detail:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: Specific engineering descriptions applied around custom cargo
+            lining protective flooring layers.
+          example: Reinforced steel floor
+        fuel_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: fuel_types list
+          example:
+          - ELECTRIC
+          items:
+            $ref: "#/components/schemas/FuelTypes"
+        gross_vehicle_weight:
+          $ref: "#/components/schemas/MetricValue"
+        gross_vehicle_weight_rating:
+          $ref: "#/components/schemas/MetricValue"
+        hitch_indicator:
+          type: boolean
+          description: Flags if rear frame mechanical towing hitch receiving ports
+            are configured onto the truck bumper.
+          example: true
+        power_train:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Generalized grouping categorization tracking total propulsion
+            setups.
+          example: Internal Combustion
+        horse_power:
+          maxLength: 5
+          minLength: 1
+          type: string
+          description: Mechanical peak performance horsepower metrics output tracking
+            figures.
+          example: "300"
+        inside_body_height:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: Interior clear clearance height metrics on specialized trailer
+            or cargo configurations.
+          example: "60"
+        inside_body_width:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: Interior clear clearance width metrics on cargo configurations
+            panels surfaces.
+          example: "70"
+        inside_length:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: Interior clear layout length values on industrial dry-van cargo
+            structures.
+          example: "180"
+        interior_color:
+          $ref: "#/components/schemas/ColorDetail"
+        ladder_rack_desc:
+          maxLength: 150
+          minLength: 1
+          type: string
+          description: Structural notes describing overhead utility rack assemblies
+            added onto work van structures.
+          example: Standard Ladder Rack
+        liftgate_indicator:
+          type: boolean
+          description: Flags if hydraulic motorized loading liftgate machinery blocks
+            are operating on the vehicle tail section.
+          example: true
+        make:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The registered automotive manufacturer brand name label.
+          example: Toyota
+        manufacturer_model_code:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Internal manufacturing corporate engineering assembly code
+            structures tracking parameters definitions.
+          example: F150
+        manufacturer_name:
+          maxLength: 150
+          minLength: 1
+          type: string
+          description: The localized corporate name layout representing parent brand
+            operators.
+          example: Ford
+        marketing_description:
+          maxLength: 3000
+          minLength: 1
+          type: string
+          description: Dealer showroom retail text layout strings used on marketing
+            brochures listings updates.
+          example: Reliable work truck
+        merchandising_model_code:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Public commercial ordering or vehicle catalog reference alphanumeric
+            codes.
+          example: F150-XL
+        vehicle_specification_key:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377338695694"
+        model:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The commercial product line model label designation matching
+            manufacture series.
+          example: Camry
+        model_code:
+          maxLength: 30
+          minLength: 1
+          type: string
+          description: Standard short alphanumeric platform model code classification
+            indicators.
+          example: BK4AX
+        model_description:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: Descriptive summary string mapping out explicit chassis build
+            combinations details.
+          example: XLE AWD 4-Door Sedan
+        model_year:
+          maxLength: 4
+          minLength: 4
+          type: string
+          description: The formal designated calendar model year assigned to the assembly
+            build platform framework.
+          example: "2026"
+        seating_capacity:
+          maxLength: 2
+          minLength: 1
+          type: string
+          description: The total max count of legal standard passenger seats configured
+            on the platform.
+          example: "5"
+        series_code:
+          maxLength: 30
+          minLength: 1
+          type: string
+          description: Alphanumeric manufacturing identifier categorizing engineering
+            product tier classifications lines.
+          example: XL
+        side_height:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: The vertical wall panel depth height on open dump-truck beds
+            or stake-bed trailers upfits.
+          example: "65"
+        snowplow_indicator:
+          type: boolean
+          description: Indicates whether the electrical and front chassis wire networks
+            include pre-fitted plow mounts.
+          example: false
+        stake_pockets:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Description capturing sizing arrays or structural specs on
+            localized side-rail stake retention anchors.
+          example: "YES"
+        torque:
+          maxLength: 30
+          minLength: 1
+          type: string
+          description: The mechanical rotational peak torque measurements rating specification
+            descriptions.
+          example: "400"
+        towing_capacity:
+          $ref: "#/components/schemas/MetricValue"
+        transmission:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The gear layout automation category structure descriptions
+            tracking metrics text.
+          example: Automatic
+        trim:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: The package marketing specification option tier tier labels
+            level configurations tags.
+          example: XLE
+        unladen_vehicle_weight:
+          $ref: "#/components/schemas/MetricValue"
+        uplift_indicator:
+          type: boolean
+          description: Flags if customization adjustments or specialized upfit changes
+            were configured after structural factory assembly lines.
+          example: true
+        vehicle_body_style_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: vehicle_body_style_types list
+          example:
+          - CONTRACTOR
+          items:
+            $ref: "#/components/schemas/VehicleBodyStyleTypes"
+        vehicle_category_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: vehicle_category_types list
+          example:
+          - SMALL
+          items:
+            $ref: "#/components/schemas/VehicleCategoryTypes"
+        vehicle_class:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Regulatory weight grouping class designations definitions.
+          example: CLASS_2
+        vehicle_economies:
+          $ref: "#/components/schemas/VehicleEconomies"
+        vehicle_fuel_capacity:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: The capacity volume data formatting tracking liquid or electrical
+            charge max capacities.
+          example: "26"
+        vehicle_pto:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Power Take-Off utility transmission specifications text on
+            mechanical crane integrations setups.
+          example: STANDARD
+        vehicle_rear_wheels:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Rear axle structural tire distribution design descriptions
+            layouts tracking tags.
+          example: "2"
+        vehicle_type_description:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Detailed category specifications notation details reflecting
+            commercial layout alignments.
+          example: Light Duty Truck
+        vehicle_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: vehicle_types list
+          example:
+          - VEHICLE
+          items:
+            $ref: "#/components/schemas/VehicleTypes"
+        wheel_base:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: The linear dimension measuring space boundaries between front
+            axle lines and rear axle paths.
+          example: "145"
+        compartment_door_desc:
+          maxLength: 150
+          minLength: 1
+          type: string
+          description: The structural layout configurations descriptions documenting
+            exterior service box tool doors styles setup operations.
+          example: Side Access Doors
+      description: Vehicle Detail Create Information
+    VehicleBodyStyleTypes:
+      type: string
+      description: types of vehicle body styles.
+      example: COUPE
+      enum:
+      - COUPE
+      - SEDAN
+      - SPORTS
+      - WAGON
+      - HATCHBACK
+      - CONVERTIBLE
+      - SUV
+      - MINI_VAN
+      - TRUCK
+      - BIKE
+      - COMMERCIAL_VAN
+      - PASSENGER_VAN
+      - CARGO_VAN
+      - VAN
+      - CROSSOVER
+      - LUXURY
+      - DIESEL
+      - SERVICE
+      - DUMP
+      - CONTRACTOR
+      - OTHER
+    VehicleCategoryTypes:
+      type: string
+      description: types of vehicle categorys.
+      example: SUPERCAR
+      enum:
+      - SUPERCAR
+      - SPORT
+      - SMALL
+      - OFF_ROAD
+      - MUSCLE
+      - LUXURY
+      - LARGE
+      - HYBRID
+      - FUEL_EFFICIENT
+      - FAMILY
+      - ELECTRIC
+      - COMMUTER
+      - CLASSIC
+      - AMERICAN
+      - EUROPEAN
+      - FOREIGN
+      - OTHER
+    VehicleConfigurationCodes:
+      type: array
+      items:
+        type: string
+    VehicleEconomies:
+      type: array
+      items:
+        $ref: "#/components/schemas/VehicleEconomy"
+    VehicleEconomy:
+      type: object
+      properties:
+        vehicle_economy_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377338695695"
+        economy:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: Economy classification or measurement for the vehicle.
+          example:
+          - "847156371168874508"
+          - "847156371168874509"
+          items:
+            type: string
+        efficiency:
+          $ref: "#/components/schemas/Efficiency"
+        fuel_tank_capacity:
+          $ref: "#/components/schemas/MetricValue"
+        fuel_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: fuel_types list
+          example:
+          - DIESEL_OID_MDF
+          items:
+            $ref: "#/components/schemas/FuelTypes"
+        range:
+          $ref: "#/components/schemas/MetricValue"
+      description: economy of the vehicle
+    VehicleEvent:
+      type: object
+      properties:
+        vehicle_event_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377342889984"
+        event_detail:
+          type: string
+          description: The details of the event.
+          example: Pre-delivery inspection completed successfully.
+        event_duration:
+          $ref: "#/components/schemas/EffectivePeriod"
+        event_org_code:
+          type: string
+          description: The organizational code of the event.
+          example: ORG-404
+        event_org_party_name:
+          type: string
+          description: The name of the organizational party of the event.
+          example: Metro Logistics Center
+        event_sequence_num:
+          type: string
+          description: The sequence number of the event.
+          example: "3"
+        event_source:
+          type: string
+          description: The source of the event.
+          example: RFID_GATE_SCANNER
+        occurrence_date_time:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-05-25T19:36:59.762034Z
+        odometer:
+          $ref: "#/components/schemas/MetricValue"
+        position:
+          $ref: "#/components/schemas/Position"
+        vehicle_event_codes:
+          $ref: "#/components/schemas/Codes"
+        vehicle_event_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "847156377342889985"
+        vehicle_event_type:
+          $ref: "#/components/schemas/VehicleEventTypes"
+      description: Vehicle Event
+    VehicleEventTypes:
+      type: string
+      description: types of vehicle events.
+      example: OWNER_HISTORY
+      enum:
+      - OWNER_HISTORY
+      - MAJOR_ACCIDENT
+      - MINOR_ACCIDENT
+      - REPAIR_DAMAGE
+      - STRUCTURAL_DAMAGE
+      - ODOMETER_CHECK
+      - ODOMETER_ROLLBACK
+      - LEASE_USE
+      - NEW_TITLE
+      - UPDATED_TITLE
+      - CORRECTED_TITLE
+      - TOTAL_LOSS
+      - REBUILD
+      - MAINT_SERVICE
+      - RECALL_SERVICE
+      - AIRBAG_DEPLOY
+      - PERSONAL_USE
+      - RENTAL_USE
+      - COMMERCIAL_USE
+      - TAXI_USE
+      - POLICE_USE
+      - FLOOD_EVENT
+      - LEMON_TITLE
+      - SALE
+    VehicleEvents:
+      type: array
+      items:
+        $ref: "#/components/schemas/VehicleEvent"
+    VehicleIdentifier:
+      type: object
+      properties:
+        vehicle_identifier_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377342889986"
+        vehicle_identifier_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "847156377342889987"
+        odometer:
+          $ref: "#/components/schemas/MetricValue"
+        vehicle_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "847156377342889988"
+        stock_number:
+          type: string
+          description: The stock number of the vehicle.
+          example: "28"
+        identifiers:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: Identifiers associated with the vehicle.
+          items:
+            $ref: "#/components/schemas/Identifier"
+        license:
+          $ref: "#/components/schemas/VehicleLicense"
+        vehicle:
+          $ref: "#/components/schemas/Vehicle"
+        vin:
+          type: string
+          description: The Vehicle Identification Number (VIN).
+          example: 1HGCR2F8XHA000000
         nicknames:
           maxItems: 255
           minItems: 1
           uniqueItems: true
           type: array
           description: Nicknames assigned to the vehicle.
-          example: nicknames
+          example:
+          - "847156371168874502"
+          - "847156371168874503"
           items:
             type: string
         tags:
           $ref: "#/components/schemas/Codes"
-        seats:
-          pattern: "^[0-9]+$"
+      description: Vehicle Identifier
+    VehicleLicense:
+      type: object
+      properties:
+        effective_period:
+          $ref: "#/components/schemas/EffectivePeriod"
+        jurisdiction_name:
           type: string
-          description: Total passenger capacity.
-          example: "5"
-        condition_type:
-          $ref: "#/components/schemas/PartConditionTypes"
-        inventory_days:
-          pattern: "^[0-9]+$"
+          description: The name of the license jurisdiction.
+          example: Georgia
+        country_code:
           type: string
-          description: Number of days the vehicle sat in dealer inventory.
-          example: "12"
-        campaign_codes:
+          description: The country code for the license.
+          example: US
+        plate_number:
+          type: string
+          description: The license plate number.
+          example: "92"
+        vehicle_license_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377342889989"
+      description: License for vehicle
+    VehicleMedia:
+      type: object
+      properties:
+        vehicle_media_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377342889990"
+        media_href:
+          type: string
+          description: A reference link to the media.
+          format: href
+          example: https://api.example.com/resources/60956
+        media_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "847156377342889991"
+        media_name:
+          type: string
+          description: The name of the media.
+          example: front_three_quarter_exterior.jpg
+      description: Media for vehicle
+    VehicleMedias:
+      type: array
+      items:
+        $ref: "#/components/schemas/VehicleMedia"
+    VehicleOption:
+      type: object
+      properties:
+        vehicle_option_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377342889992"
+        invoice_price:
+          $ref: "#/components/schemas/Price"
+        manufacturer_name:
+          type: string
+          description: The name of the manufacturer of the option.
+          example: Ford
+        option_category:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: "The classification group for the vehicle option, such as Interior,\
+            \ Exterior, Safety, or Mechanical."
+          example:
+          - Exterior
+          - Safety
+          - Mechanical
+          items:
+            type: string
+        option_code:
+          type: string
+          description: The code for the option.
+          example: SRF
+        option_descriptions:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: Descriptions associated with the option.
+          items:
+            $ref: "#/components/schemas/OptionDescription"
+        option_groups:
           $ref: "#/components/schemas/Codes"
-        position:
-          $ref: "#/components/schemas/VehiclePosition"
-        production_date:
+        option_installation_type:
+          $ref: "#/components/schemas/OptionInstallationTypes"
+        option_name:
           type: string
-          description: The date the vehicle completed assembly (Birth Date).
-          format: date
-          example: 2026-04-26
-        stock_date_time:
+          description: The name of the option.
+          example: Sunroof
+        option_type:
+          $ref: "#/components/schemas/OptionTypes"
+        quantity:
+          $ref: "#/components/schemas/MetricValue"
+        retail_price:
+          $ref: "#/components/schemas/Price"
+        short_description:
           type: string
-          description: The timestamp when the vehicle was officially 'Received' into
-            dealer inventory (Floorplan Start).
-          format: date-time
-          example: 2026-05-07T17:19:03Z
-        control_account_id:
+          description: A short description of the option.
+          example: Factory installed sunroof
+      description: options and options of a vehicle
+    VehicleOptions:
+      type: array
+      items:
+        $ref: "#/components/schemas/VehicleOption"
+    VehiclePriceSummaries:
+      type: array
+      items:
+        $ref: "#/components/schemas/VehiclePriceSummary"
+    VehiclePriceSummary:
+      type: object
+      properties:
+        vehicle_price_summary_key:
           type: string
-          description: The unique identifier for the internal floorplan or control
-            account.
-          example: ACC-99283-TR
-        control_account_type:
-          $ref: "#/components/schemas/ControlAccountTypes"
+          description: Unique global internal or external business key.
+          example: "847156377342889993"
+        capitalized_indicator:
+          type: boolean
+          description: An indicator that determines if the price is capitalized.
+          example: false
+        payment_type:
+          $ref: "#/components/schemas/PaymentTypes"
+        price:
+          $ref: "#/components/schemas/Price"
+        price_code:
+          type: string
+          description: The code associated with the price.
+          example: MSRP
+        price_descriptions:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: Descriptions associated with the vehicle price summary.
+          example:
+          - "847156371168874510"
+          - "847156371168874511"
+          items:
+            type: string
+        purchase_type:
+          $ref: "#/components/schemas/PurchaseTypes"
+        tax_separate_indicator:
+          type: boolean
+          description: An indicator that shows if tax is separated from the price.
+          example: false
+        taxable_indicator:
+          type: boolean
+          description: An indicator that shows if the price is taxable.
+          example: false
+        vehicle_price_criteria_name:
+          type: string
+          description: The name of the criteria used for the vehicle price.
+          example: MSRP
+        vehicle_price_name:
+          type: string
+          description: The name of the vehicle price.
+          example: Base Vehicle Price
+        vehicle_price_summary_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "847156377342889994"
+      description: vehicle price
+    VehicleSpecification:
+      type: object
+      properties:
         axle_count:
           type: string
           description: The number of axles on the vehicle.
-          example: "90"
+          example: "95"
         backup_camera_indicator:
           type: boolean
-          description: Indicates if the vehicle has a backup camera.
+          description: An indicator if the vehicle has a backup camera.
           example: false
         body_height:
           type: string
-          description: The height of the vehicle's body.
+          description: The height of the vehicle body.
           example: "72"
         body_length:
           type: string
-          description: The length of the vehicle's body.
+          description: The length of the vehicle body.
           example: "200"
         body_style:
           type: string
@@ -4176,15 +5019,15 @@ components:
           example: TRUCK
         body_width:
           type: string
-          description: The width of the vehicle's body.
+          description: The width of the vehicle body.
           example: "80"
         box_type_description:
           type: string
-          description: A description of the vehicle's box type.
+          description: A description of the box type.
           example: Standard Cargo Box
         bulkhead:
           type: string
-          description: A description of the vehicle's bulkhead.
+          description: The bulkhead of the vehicle.
           example: "YES"
         cab_type:
           $ref: "#/components/schemas/CabTypes"
@@ -4198,7 +5041,9 @@ components:
           uniqueItems: true
           type: array
           description: Compartments within the vehicle.
-          example: compartments
+          example:
+          - "847156371168874504"
+          - "847156371168874505"
           items:
             type: string
         condition:
@@ -4207,19 +5052,19 @@ components:
           example: NEW
         crane_indicator:
           type: boolean
-          description: Indicates if the vehicle has a crane.
+          description: An indicator if the vehicle has a crane.
           example: false
         cylinder_count:
           type: string
           description: The number of cylinders in the engine.
-          example: "10"
+          example: "43"
         doors_count:
           type: string
           description: The number of doors on the vehicle.
-          example: "98"
+          example: "54"
         drive_train:
           type: string
-          description: The type of drive train.
+          description: The drive train of the vehicle.
           example: AWD
         energy_impact_score:
           type: string
@@ -4236,14 +5081,14 @@ components:
           type: array
           description: engine_types list
           example:
-          - ICE
+          - THERMAL_REACTION
           items:
             $ref: "#/components/schemas/EngineTypes"
         exterior_color:
           $ref: "#/components/schemas/ColorDetail"
         exterior_lights_indicator:
           type: boolean
-          description: Indicates if the vehicle has exterior lights.
+          description: An indicator if the vehicle has exterior lights.
           example: false
         floor_desc:
           type: string
@@ -4251,7 +5096,7 @@ components:
           example: Standard Floor
         floor_desc_detail:
           type: string
-          description: Detailed description of the vehicle's floor.
+          description: The details of the vehicle's floor description.
           example: Reinforced steel floor
         fuel_types:
           maxItems: 255
@@ -4260,7 +5105,7 @@ components:
           type: array
           description: fuel_types list
           example:
-          - AVIATION_GASOLINE_AVGAS
+          - GASOLINE
           items:
             $ref: "#/components/schemas/FuelTypes"
         gross_vehicle_weight:
@@ -4269,27 +5114,27 @@ components:
           $ref: "#/components/schemas/MetricValue"
         hitch_indicator:
           type: boolean
-          description: Indicates if the vehicle has a hitch.
+          description: An indicator if the vehicle has a hitch.
           example: false
         power_train:
           type: string
-          description: The type of power train.
+          description: The power train of the vehicle.
           example: Internal Combustion
         horse_power:
           type: string
-          description: The horsepower of the engine.
+          description: The horse power of the engine.
           example: "300"
         inside_body_height:
           type: string
-          description: The inside height of the vehicle's body.
+          description: The inside height of the vehicle body.
           example: "60"
         inside_body_width:
           type: string
-          description: The inside width of the vehicle's body.
+          description: The inside width of the vehicle body.
           example: "70"
         inside_length:
           type: string
-          description: The inside length of the vehicle's body.
+          description: The inside length of the vehicle.
           example: "180"
         interior_color:
           $ref: "#/components/schemas/ColorDetail"
@@ -4299,8 +5144,12 @@ components:
           example: Standard Ladder Rack
         liftgate_indicator:
           type: boolean
-          description: Indicates if the vehicle has a liftgate.
+          description: An indicator if the vehicle has a liftgate.
           example: false
+        make:
+          type: string
+          description: The make of the vehicle.
+          example: Toyota
         manufacturer_model_code:
           type: string
           description: The manufacturer's model code.
@@ -4317,6 +5166,26 @@ components:
           type: string
           description: The merchandising model code.
           example: F150-XL
+        vehicle_specification_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377342889995"
+        model:
+          type: string
+          description: The model of the vehicle.
+          example: Camry
+        model_code:
+          type: string
+          description: The model code of the vehicle.
+          example: BK4AX
+        model_description:
+          type: string
+          description: A description of the vehicle model.
+          example: XLE AWD 4-Door Sedan
+        model_year:
+          type: string
+          description: The model year of the vehicle.
+          example: "2026"
         seating_capacity:
           type: string
           description: The seating capacity of the vehicle.
@@ -4331,31 +5200,31 @@ components:
           example: "65"
         snowplow_indicator:
           type: boolean
-          description: Indicates if the vehicle is equipped with a snowplow.
+          description: An indicator if the vehicle has a snowplow.
           example: false
         stake_pockets:
           type: string
-          description: A description of the vehicle's stake pockets.
+          description: A collection of stake pockets on the vehicle.
           example: "YES"
         torque:
           type: string
-          description: The torque of the vehicle's engine.
+          description: The torque of the engine.
           example: "400"
         towing_capacity:
           $ref: "#/components/schemas/MetricValue"
         transmission:
           type: string
-          description: The type of transmission.
+          description: The transmission of the vehicle.
           example: Automatic
-        stock_image_url:
+        trim:
           type: string
-          description: The URL of the stock image
-          example: https://example.com/image.jpg
+          description: The trim level of the vehicle.
+          example: XLE
         unladen_vehicle_weight:
           $ref: "#/components/schemas/MetricValue"
         uplift_indicator:
           type: boolean
-          description: Indicates if the vehicle has an uplift.
+          description: An indicator if the vehicle has an uplift.
           example: false
         vehicle_body_style_types:
           maxItems: 255
@@ -4364,7 +5233,7 @@ components:
           type: array
           description: vehicle_body_style_types list
           example:
-          - PASSENGER_VAN
+          - HATCHBACK
           items:
             $ref: "#/components/schemas/VehicleBodyStyleTypes"
         vehicle_category_types:
@@ -4374,7 +5243,7 @@ components:
           type: array
           description: vehicle_category_types list
           example:
-          - ELECTRIC
+          - EUROPEAN
           items:
             $ref: "#/components/schemas/VehicleCategoryTypes"
         vehicle_class:
@@ -4389,15 +5258,15 @@ components:
           example: "26"
         vehicle_pto:
           type: string
-          description: A description of the vehicle's power take-off (PTO).
+          description: The Power Take-Off (PTO) of the vehicle.
           example: STANDARD
         vehicle_rear_wheels:
           type: string
-          description: A description of the vehicle's rear wheel configuration.
+          description: The rear wheels of the vehicle.
           example: "2"
         vehicle_type_description:
           type: string
-          description: A description of the vehicle's type.
+          description: A description of the vehicle type.
           example: Light Duty Truck
         vehicle_types:
           maxItems: 255
@@ -4408,532 +5277,91 @@ components:
           example:
           - VEHICLE
           items:
-            $ref: "#/components/schemas/VehicleResourceTypes"
+            $ref: "#/components/schemas/VehicleTypes"
         wheel_base:
           type: string
-          description: The vehicle's wheelbase.
+          description: The wheel base of the vehicle.
           example: "145"
         compartment_door_desc:
           type: string
           description: A description of the compartment door.
           example: Side Access Doors
-        vehicle_configuration_codes:
-          $ref: "#/components/schemas/VehicleConfigurationCodes"
-        vehicle_components:
-          $ref: "#/components/schemas/VehicleComponents"
-        hardware_codes:
-          $ref: "#/components/schemas/Codes"
-        software_codes:
-          $ref: "#/components/schemas/Codes"
-        original_sold_date:
-          type: string
-          description: The very first date this vehicle was reported as sold (In-Service
-            Date).
-          format: date
-          example: 2026-04-14
-        odometer_capture_date:
-          type: string
-          description: The timestamp when the current odometer reading was officially
-            recorded.
-          format: date
-          example: 2026-04-11
-        warranties:
-          $ref: "#/components/schemas/Warranties"
-        price_summary:
-          $ref: "#/components/schemas/PriceSummary"
-        dealer_code:
-          $ref: "#/components/schemas/DealerCode"
-        account_key:
-          type: string
-          description: Business-readable key for the associated financial account.
-          example: CHASE-AUTO-001
-        account_name:
-          type: string
-          description: The display name of the financial institution or corporate
-            account.
-          example: Chase Auto Finance
-        inventory_status_types:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          description: inventory_status_types list
-          example:
-          - RETURNED
-          items:
-            $ref: "#/components/schemas/InventoryStatusTypes"
-        product_state_type:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          description: product_state_type value
-          example:
-          - variance: 2000
-            actual: 12000
-            budget: 10000
-            account: GL-1000
-          - variance: -500
-            actual: 4500
-            budget: 5000
-            account: GL-2000
-          items:
-            $ref: "#/components/schemas/ProductStateTypes"
-        options:
-          $ref: "#/components/schemas/Options"
-        safety_ratings:
-          $ref: "#/components/schemas/Options"
-        features:
-          $ref: "#/components/schemas/Features"
-        comments:
-          type: string
-          description: General short-form internal comments about the vehicle.
-          example: Minor scratch on rear bumper.
-        vehicle_notes:
-          type: string
-          description: Long-form technical or historical notes regarding the vehicle
-            unit.
-          example: Vehicle inspected and ready.
-        notes:
-          $ref: "#/components/schemas/Memo"
+        identifiers:
+          $ref: "#/components/schemas/Identifiers"
         categories:
           $ref: "#/components/schemas/Codes"
-        total_price:
-          $ref: "#/components/schemas/VehiclePriceSummary"
-        vehicle_price_detail:
-          $ref: "#/components/schemas/VehiclePriceSummaries"
-        vehicle_events:
-          $ref: "#/components/schemas/VehicleEvents"
-        search_category:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          description: Search categorization for the vehicle.
-          example: search_category
-          items:
-            type: string
-        insurances:
-          $ref: "#/components/schemas/Insurances"
-      description: "Comprehensive vehicle details including identifiers, configuration,\
-        \ and status."
-    VehicleBodyStyleTypes:
+      description: "detail vehicle specification, descriptions, and attributes"
+    VehicleStateTypes:
       type: string
-      description: types of vehicle body styles.
-      example: COUPE
+      description: types of vehicle states.
+      example: OK
       enum:
-      - COUPE
-      - SEDAN
-      - SPORTS
-      - WAGON
-      - HATCHBACK
-      - CONVERTIBLE
-      - CROSSOVER
-      - LUXURY
-      - SUV
-      - MINI_VAN
-      - TRUCK
-      - COMMERCIAL_VAN
-      - PASSENGER_VAN
-      - CARGO_VAN
-      - VAN
-      - BIKE
-      - SERVICE
-      - DUMP
-      - CONTRACTOR
-      - OTHER
-      - UNKNOWN
-    VehicleCategoryTypes:
+      - OK
+      - WARNING
+      - CRITICAL
+      - LOW
+      - "OFF"
+      - HIGH
+      - ACTIVE
+      - "ON"
+      - DEPLOYED
+      - NONE
+      - CRASH
+      - TEST
+    VehicleTypes:
       type: string
-      description: types of vehicle categorys.
-      example: SUPERCAR
+      description: types of vehicles.
+      example: VEHICLE
       enum:
-      - SUPERCAR
-      - SPORT
-      - MUSCLE
-      - SMALL
-      - LARGE
-      - COMMUTER
-      - FAMILY
-      - OFF_ROAD
-      - CLASSIC
-      - ELECTRIC
-      - HYBRID
-      - FUEL_EFFICIENT
-      - LUXURY
-      - OTHER
-      - UNKNOWN
-    VehicleComponent:
-      type: object
-      properties:
-        vehicle_component_id:
-          type: string
-          description: A unique id for the color detail.
-          example: "840277005624836099"
-        vehicle_component_key:
-          type: string
-          description: A unique key for the color detail.
-          example: "840277005624836100"
-        vehicle_manifests:
-          $ref: "#/components/schemas/Manifests"
-        component_codes:
-          $ref: "#/components/schemas/Codes"
-        name:
-          type: string
-          description: The name of the component
-          example: Vehicle Image Side View
-        description:
-          type: string
-          description: description of the component
-          example: Vehicle engine component.
-        metric_values:
-          $ref: "#/components/schemas/MetricValues"
-        component_type:
-          $ref: "#/components/schemas/VehicleResourceTypes"
-      description: nullable
-    VehicleComponents:
-      type: array
-      items:
-        $ref: "#/components/schemas/VehicleComponent"
-    VehicleConfigurationCodes:
-      type: array
-      items:
-        type: string
-    VehicleEconomies:
-      type: array
-      items:
-        $ref: "#/components/schemas/VehicleEconomy"
-    VehicleEconomy:
-      type: object
-      properties:
-        vehicle_economy_key:
-          type: string
-          description: A unique key for the vehicle economy record.
-          example: "840277005624836101"
-        economy:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          description: Economy classification or measurement for the vehicle.
-          example: economy
-          items:
-            type: string
-        efficiency:
-          $ref: "#/components/schemas/Efficiency"
-        fuel_tank_capacity:
-          $ref: "#/components/schemas/MetricValue"
-        fuel_types:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          description: fuel_types list
-          example:
-          - ELECTRIC
-          items:
-            $ref: "#/components/schemas/FuelTypes"
-        range:
-          $ref: "#/components/schemas/MetricValue"
-      description: Details regarding the fuel economy and efficiency of a vehicle.
-    VehicleEvent:
-      type: object
-      properties:
-        vehicle_event_key:
-          type: string
-          description: The natural business key for the vehicle event record.
-          example: EVENT-VIN123-2026-001
-        vehicle_event_id:
-          type: string
-          description: The unique internal ID for the vehicle event.
-          example: 7ca12345-e89b-12d3-a456-426614174000
-        vehicle_event_type:
-          $ref: "#/components/schemas/VehicleHistoryEventTypes"
-        vehicle_event_codes:
-          $ref: "#/components/schemas/Codes"
-        event_source:
-          type: string
-          description: The originating source of the event data.
-          example: DMS_NORTH_DEALER
-        event_detail:
-          type: string
-          description: A detailed narrative or description of the event.
-          example: Full 30k mile service including oil change and brake inspection.
-        event_date_time:
-          type: string
-          description: The date and time when the event occurred.
-          format: date-time
-          example: 2026-05-07T17:19:03Z
-        event_duration:
-          $ref: "#/components/schemas/EffectivePeriod"
-        odometer:
-          $ref: "#/components/schemas/MetricValue"
-        position:
-          $ref: "#/components/schemas/Position"
-        position_desc:
-          type: string
-          description: A textual description of the location.
-          example: "Main Street Toyota Service Center, Alpharetta, GA"
-        event_sequence_num:
-          type: integer
-          description: The sequence number used to order multiple events occurring
-            on the same day.
-          format: int32
-          example: 1
-        event_org_code:
-          type: string
-          description: The unique code for the organization that performed the event.
-          example: DLR-99210
-        event_org_party_name:
-          type: string
-          description: The legal name of the party performing the event.
-          example: Southeast Toyota Distributors
-        identifiers:
-          $ref: "#/components/schemas/Identifiers"
-      description: "Represents a historical event related to a vehicle, such as a\
-        \ maintenance record, a sale, or an accident."
-    VehicleEvents:
-      type: array
-      items:
-        $ref: "#/components/schemas/VehicleEvent"
-    VehicleHistoryEventTypes:
-      type: string
-      description: types of vehicle history events.
-      example: OWNER_HISTORY
-      enum:
-      - OWNER_HISTORY
-      - NEW_TITLE
-      - UPDATED_TITLE
-      - CORRECTED_TITLE
-      - LEMON_TITLE
-      - SALE
-      - PRODUCTION
-      - PORT_ENTRY
-      - MAJOR_ACCIDENT
-      - MINOR_ACCIDENT
-      - STRUCTURAL_DAMAGE
-      - REPAIR_DAMAGE
-      - TOTAL_LOSS
-      - FLOOD_EVENT
-      - AIRBAG_DEPLOY
-      - MAINT_SERVICE
-      - RECALL_SERVICE
-      - REBUILD
-      - PERSONAL_USE
-      - RENTAL_USE
-      - COMMERCIAL_USE
-      - TAXI_USE
-      - POLICE_USE
-      - LEASE_USE
-      - ODOMETER_CHECK
-      - ODOMETER_ROLLBACK
-      - OTHER
-      - UNKNOWN
-    VehicleIdentifier:
-      type: object
-      properties:
-        vehicle_identifier_key:
-          type: string
-          description: A unique natural business key for the vehicle identifier record.
-          example: VID-KEY-992831
-        vehicle_identifier_id:
-          type: string
-          description: The unique technical GUID/ID for the vehicle identifier.
-          example: 550e8400-e29b-41d4-a716-446655440000
-        odometer:
-          $ref: "#/components/schemas/MetricValue"
-        vehicle_key:
-          type: string
-          description: The unique business key of the associated vehicle entity.
-          example: VEH-TOY-TUNDRA-2024
-        unit_id:
-          $ref: "#/components/schemas/UnitId"
-        stock_number:
-          type: string
-          description: The dealer's internal stock or inventory number.
-          example: STK100293
-        identifiers:
-          $ref: "#/components/schemas/Identifiers"
-        license:
-          $ref: "#/components/schemas/VehicleLicense"
-        make:
-          type: string
-          description: The manufacturer or make of the vehicle.
-          example: Toyota
-        model:
-          type: string
-          description: The specific model name.
-          example: Tundra
-        brand:
-          type: string
-          description: The consumer-facing brand name.
-          example: TRD Pro
-        trim:
-          type: string
-          description: The specific trim level or package.
-          example: Limited
-        oem_model_code:
-          type: string
-          description: The manufacturer's specific internal model code.
-          example: 8442A
-        oem_name:
-          type: string
-          description: Full name of the Original Equipment Manufacturer.
-          example: Toyota Motor Corporation
-        oem_code:
-          type: string
-          description: The short code representing the OEM.
-          example: TMS
-        model_code:
-          type: string
-          description: The standardized model code used within the bounded context.
-          example: TUN
-        model_description:
-          type: string
-          description: A verbose description of the vehicle model.
-          example: 4WD CrewMax 5.5' Bed
-        model_year:
-          $ref: "#/components/schemas/ModelYear"
-        vin:
-          $ref: "#/components/schemas/VIN"
-        nicknames:
-          $ref: "#/components/schemas/Codes"
-        tags:
-          $ref: "#/components/schemas/Codes"
-        model_detail:
-          $ref: "#/components/schemas/ProductModel"
-      description: Vehicle Identifier following STAR standards for cross-context vehicle
-        tracking.
-    VehicleLicense:
-      type: object
-      properties:
-        vehicle_license_key:
-          type: string
-          description: The unique business key for the vehicle license record.
-          example: LIC-GA-77291-B
-        plate_number:
-          $ref: "#/components/schemas/PlateNumber"
-        jurisdiction_name:
-          type: string
-          description: "The state, province, or territory that issued the license\
-            \ plate."
-          example: Georgia
-        country_code:
-          $ref: "#/components/schemas/CountryCode"
-        effective_period:
-          $ref: "#/components/schemas/EffectivePeriod"
-      description: "Represents the legal registration and license information for\
-        \ a vehicle, including plate details and issuing jurisdiction."
-    VehiclePosition:
-      $ref: "#/components/schemas/Position"
-    VehiclePriceSummaries:
-      type: array
-      items:
-        $ref: "#/components/schemas/VehiclePriceSummary"
-    VehiclePriceSummary:
-      type: object
-      properties:
-        vehicle_price_summary_key:
-          type: string
-          description: The unique key for the vehicle price summary record.
-          example: "840277005624836102"
-        vehicle_price_summary_id:
-          type: string
-          description: The unique ID for the vehicle price summary.
-          example: "840277005624836103"
-        vehicle_price_name:
-          type: string
-          description: The name of the vehicle price.
-          example: Base Vehicle Price
-        vehicle_price_criteria_name:
-          type: string
-          description: The name of the vehicle price criteria.
-          example: MSRP
-        price:
-          $ref: "#/components/schemas/Price"
-        price_code:
-          type: string
-          description: The code associated with the price.
-          example: MSRP
-        capitalized_indicator:
-          type: boolean
-          description: A boolean flag indicating if the price is capitalized.
-          example: false
-        taxable_indicator:
-          type: boolean
-          description: A boolean flag indicating if the price is taxable.
-          example: false
-        tax_separate_indicator:
-          type: boolean
-          description: A boolean flag indicating if tax is separate from the price.
-          example: false
-        payment_type:
-          $ref: "#/components/schemas/PaymentTypes"
-        purchase_type:
-          $ref: "#/components/schemas/OrderCategoryTypes"
-        price_descriptions:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          description: Descriptions associated with the vehicle price summary.
-          example: price_descriptions
-          items:
-            type: string
-      description: "Represents a summary of a vehicle's price, including core pricing\
-        \ details, tax information, and other related indicators."
-    VehicleResourceTypes:
-      type: string
-      description: types of vehicle resources.
-      example: POWER_TRAIN
-      enum:
-      - POWER_TRAIN
-      - BODY
+      - VEHICLE
       - CHASSIS
-      - NETWORK
-      - TRANSMISSION
-      - ELECTRICAL
-      - BRAKES
-      - ENGINE
-      - STABILITY
-      - DIAGNOSTIC
-      - CHARGER
-      - AIR_METERING
-      - EMISSION
-      - FUEL
-      - AIR_EX
-      - AIR_INT
-      - AIR_FILTER
-      - SPEED_CONTROL
-      - IDLE_CONTROL
-      - IGNITION
-      - SYSTEM_SW
-      - SYSTEM_HW
-      - TIRE
-      - OIL
-      - BRAKE_PAD
-      - BRAKE_FLUID
-      - WASHER_FLUID
-      - FLUID
-      - AIRBAG
-      - STARTER
-      - LAMPS
-      - MOTOR
-      - BATTERY
-      - LIGHTS
-      - PLACARD
-      - ODOMETER
-      - SPEED
-      - CHARGE
-      - GEAR
-      - IDLE
-      - DOOR
-      - PLUG
-      - CHARGE_PRIORITY
-      - CHARGE_POWER
-      - RANGE
-      - ENERGY
-      - DRIVE_CYCLE
+      - BODY
+    Violation:
+      type: object
+      properties:
+        pointer:
+          type: string
+          description: A JSON Pointer (RFC 6901) referencing the specific field in
+            the request body that caused the violation.
+          example: "#/vehicle_license/plate_number"
+        code:
+          type: string
+          description: "A stable, machine-readable string identifying the specific\
+            \ validation rule that was breached."
+          example: PATTERN_MISMATCH
+        message:
+          type: string
+          description: "A localized, human-readable description of the validation\
+            \ error."
+          example: The plate number must be alphanumeric and between 1 and 20 characters.
+        severity:
+          type: string
+          description: The impact level of this violation. ERROR blocks execution;
+            WARNING is advisory.
+          example: ERROR
+          enum:
+          - ERROR
+          - WARNING
+          - INFO
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+            description: Metadata value
+          description: "Contextual key-value pairs to help resolve the error (e.g.,\
+            \ actual vs. expected limits)."
+          example:
+            regex: "^[A-Z0-9]{1,20}$"
+        rule:
+          type: string
+          description: The specific validation rule name.
+          example: INSUFFICIENT_FUNDS
+        path:
+          type: string
+          description: The property path notation for the error.
+          example: date_range.start
+      description: "An individual validation failure within a request, providing a\
+        \ direct map to the offending field."
     Warranties:
       type: array
       items:
@@ -4943,21 +5371,22 @@ components:
       properties:
         warranty_id:
           type: string
-          description: The unique ID for the warranty.
-          example: "840277005624836104"
+          description: Unique system-specific internal identifier.
+          example: "847156377342889996"
         warranty_key:
           type: string
-          description: A unique key for the warranty.
-          example: "840277005624836105"
+          description: Unique global internal or external business key.
+          example: "847156377342889997"
         delayed_inspection_codes:
           $ref: "#/components/schemas/Codes"
         receipt_identifiers:
           $ref: "#/components/schemas/Codes"
         vehicle_arrival_date:
           type: string
-          description: The date the vehicle arrived.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-05-02
+          example: 2026-05-10
         actual_odometer_end:
           $ref: "#/components/schemas/MetricValue"
         actual_odometer_start:
@@ -4974,7 +5403,7 @@ components:
           example: en-US
         currency:
           type: string
-          description: The currency used for the warranty.
+          description: The currency for the warranty.
           example: USD
         identifiers:
           $ref: "#/components/schemas/Identifiers"
@@ -4982,43 +5411,15 @@ components:
     WarrantyCoverage:
       type: object
       properties:
-        warranty_coverage_key:
-          type: string
-          description: The unique key for the warranty coverage.
-          example: "840277005624836106"
-        warranty_coverage_id:
-          type: string
-          description: The unique ID for the warranty coverage.
-          example: "840277005624836107"
-        coverage_description:
-          type: string
-          description: A description of the warranty coverage.
-          example: Full coverage
-        maint_agreement_indicator:
-          type: boolean
-          description: A boolean flag indicating if this is a maintenance agreement.
-          example: false
-        deductible_price:
-          $ref: "#/components/schemas/Price"
-        deductible_pct:
-          type: string
-          description: The deductible percentage for the warranty.
-          example: "10"
-        term_measure:
-          $ref: "#/components/schemas/MetricValue"
-        warranty_coverage_interval:
-          type: string
-          description: The interval of the warranty coverage.
-          example: 36_MONTHS
-        warranty_end_distance:
-          $ref: "#/components/schemas/MetricValue"
         blue_print_code:
           maxItems: 255
           minItems: 1
           uniqueItems: true
           type: array
           description: Blueprint code for the warranty coverage.
-          example: blue_print_code
+          example:
+          - "847156371168874512"
+          - "847156371168874513"
           items:
             type: string
         coverage_code:
@@ -5027,11 +5428,42 @@ components:
           uniqueItems: true
           type: array
           description: Coverage code identifier.
-          example: coverage_code
+          example:
+          - Coverage-847156371168874514
+          - Coverage-847156371168874515
           items:
             type: string
-      description: "Represents the coverage details of a warranty, including terms,\
-        \ deductibles, and associated codes."
+        coverage_description:
+          type: string
+          description: A description of the warranty coverage.
+          example: Full coverage
+        deductible_price:
+          $ref: "#/components/schemas/Price"
+        deductible_pct:
+          type: string
+          description: The deductible percentage for the warranty coverage.
+          example: "10"
+        maint_agreement_indicator:
+          type: boolean
+          description: An indicator for a maintenance agreement.
+          example: false
+        term_measure:
+          $ref: "#/components/schemas/MetricValue"
+        warranty_coverage_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "847156377342889998"
+        warranty_coverage_interval:
+          type: string
+          description: The interval of the warranty coverage.
+          example: 36_MONTHS
+        warranty_end_distance:
+          $ref: "#/components/schemas/MetricValue"
+        warranty_coverage_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377342889999"
+      description: Warranty Coverage Information
     WarrantyCoverages:
       type: array
       items:
@@ -5039,51 +5471,27 @@ components:
     WarrantyOptionTypes:
       type: string
       description: types of warranty options.
-      example: BASE_WARRANTY
+      example: ROADSIDE_ASSIST
       enum:
-      - BASE_WARRANTY
-      - EXTENDED_WARRANTY
-      - SERVICE_CONTRACT
-      - LIMITED_WARRANTY
-      - MAINTENANCE_PLAN
-      - CANCEL
+      - ROADSIDE_ASSIST
+      - MASTER_SHIELD
+      - TRANSFERABLE
       - OTHER
     WarrantyTerm:
       type: object
       properties:
-        warranty_term_key:
-          type: string
-          description: The unique key for the warranty term.
-          example: "840277005624836108"
         warranty_term_id:
           type: string
-          description: The unique ID for the warranty term.
-          example: "840277005624836109"
-        warranty_term_type:
-          $ref: "#/components/schemas/WarrantyTermTypes"
-        warranty_expiration_date:
-          type: string
-          description: The expiration date of the warranty.
-          format: date
-          example: 2026-04-12
+          description: Unique system-specific internal identifier.
+          example: "847156377342890000"
         end_mileage:
           type: string
-          description: The end mileage of the warranty.
+          description: The mileage at which the warranty ends.
           example: "60000"
-        warranty_remaining:
-          $ref: "#/components/schemas/MetricNameValue"
-        warranty_description:
-          type: string
-          description: The description of the warranty.
-          example: Standard manufacturer warranty
-        warranty_notes:
-          $ref: "#/components/schemas/Memo"
-        warranty_status_code:
-          type: string
-          description: The status code of the warranty.
-          example: ACTIVE
         warranty_term_codes:
           $ref: "#/components/schemas/Codes"
+        warranty_term_type:
+          $ref: "#/components/schemas/WarrantyTermTypes"
         warranty_option_types:
           maxItems: 255
           minItems: 1
@@ -5091,24 +5499,42 @@ components:
           type: array
           description: warranty_option_types list
           example:
-          - LIMITED_WARRANTY
+          - TRANSFERABLE
           items:
             $ref: "#/components/schemas/WarrantyOptionTypes"
+        warranty_status_code:
+          type: string
+          description: The status code of the warranty.
+          example: ACTIVE
+        warranty_remaining:
+          $ref: "#/components/schemas/MetricValue"
+        warranty_description:
+          type: string
+          description: A description of the warranty.
+          example: Standard manufacturer warranty
+        warranty_notes:
+          $ref: "#/components/schemas/Memo"
+        warranty_term_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156377342890001"
         warranty_period:
           $ref: "#/components/schemas/EffectivePeriod"
-      description: "Represents a warranty term, including its unique identifiers,\
-        \ duration, mileage limits, and status."
+        warranty_expiration_date:
+          type: string
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
+          format: date
+          example: 2026-05-14
+      description: Warranty Information
     WarrantyTermTypes:
       type: string
       description: types of warranty terms.
-      example: BASE_WARRANTY
+      example: CANCEL
       enum:
-      - BASE_WARRANTY
-      - EXTENDED_WARRANTY
-      - SERVICE_CONTRACT
-      - LIMITED_WARRANTY
-      - MAINTENANCE_PLAN
       - CANCEL
+      - FACTORY_EXT
+      - WARRANTY
       - OTHER
     WarrantyTerms:
       type: array
@@ -5583,7 +6009,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "840276562079703041"
+        example: "846923379205443585"
     ReasonQuery:
       name: reason
       in: query
@@ -5880,10 +6306,10 @@ components:
       schema:
         type: string
         example: TOYOTA
-        default: TOYOTA
         enum:
         - TOYOTA
         - LEXUS
+        default: TOYOTA
     SubscriberCodeHeader:
       name: Subscriber-Code
       in: header
@@ -5962,7 +6388,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/840276562079703042
+        example: /labor-operations/846923379213832192
     ContentLocationHeader:
       description: The URI of the specific representation returned in the payload.
         Used to disambiguate the 'Resource Identifier' from the 'Data Artifact' in
@@ -5973,7 +6399,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/840276562079703043
+        example: /labor-operations/846923379213832193
     TransactionIDHeader:
       description: Echoes the unique identifier for the specific atomic unit of work
         processed by the server.

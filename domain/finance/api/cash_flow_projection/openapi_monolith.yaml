@@ -905,33 +905,35 @@ components:
           example: Third Quarter Fiscal Year 2026 - North American Operations
         accounting_period_id:
           type: string
-          description: System-level unique identifier for the period record.
-          example: ap-2026-07-v1
+          description: Unique system-specific internal identifier.
+          example: "847156372649463808"
         accounting_period_key:
           type: string
-          description: Business-logical key following the chronological YYYYMM format.
-          example: "202607"
+          description: Unique global internal or external business key.
+          example: "847156372649463809"
         period_name:
           type: string
           description: Short-hand display name for the period.
           example: July 2026
         start_date:
           type: string
-          description: The inclusive start date of the period in ISO-8601 format.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-28
+          example: 2026-05-01
         end_date:
           type: string
-          description: The inclusive end date of the period in ISO-8601 format.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-05-04
+          example: 2026-04-27
         accounting_period_status_type:
           $ref: "#/components/schemas/AccountingPeriodStatusTypes"
         fiscal_year:
+          pattern: "^\\d{4,6}$"
           type: integer
           description: The 4-digit fiscal year designation.
-          format: int32
-          example: 2026
+          example: 4418
       description: "Defines a fiscal period, including its unique identifiers, start\
         \ and end dates, and current status."
     AccountingPeriodStatusTypes:
@@ -951,22 +953,24 @@ components:
       properties:
         cash_flow_line_item_id:
           type: string
-          description: The unique key for the Cash Flow LineItem document.
-          example: "840277002948870144"
+          description: Unique system-specific internal identifier.
+          example: "847156372649463810"
         cash_flow_line_item_key:
           type: string
-          description: The unique key for the Cash Flow LineItem document.
-          example: "840277002948870145"
+          description: Unique global internal or external business key.
+          example: "847156372649463811"
         period_start_date:
           type: string
-          description: The start date of the reporting period for this line item.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-05-04
+          example: 2026-05-02
         period_end_date:
           type: string
-          description: The end date of the reporting period for this line item (inclusive).
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-21
+          example: 2026-05-19
         cash_inflow_total:
           $ref: "#/components/schemas/Money"
         cash_outflow_total:
@@ -991,19 +995,20 @@ components:
       properties:
         cash_flow_projection_key:
           type: string
-          description: The unique key for the Cash Flow Projection document.
-          example: "840277002948870146"
+          description: Unique global internal or external business key.
+          example: "847156372649463812"
         cash_flow_projection_id:
           type: string
-          description: The unique key for the Cash Flow Projection document.
-          example: "840277002948870147"
+          description: Unique system-specific internal identifier.
+          example: "847156372649463813"
         cash_flow_projection_criteria:
           $ref: "#/components/schemas/CashFlowProjectionCriteria"
         projection_date:
           type: string
-          description: The date the projection was generated.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-05-01
+          example: 2026-05-12
         cash_balance_opening:
           $ref: "#/components/schemas/Money"
         scenario:
@@ -1026,25 +1031,22 @@ components:
       properties:
         budget_variance_report_request_id:
           type: string
-          description: "The Accounting Period Key for which the report should be generated\
-            \ (e.g., '2025Q1')."
-          example: "840277002948870148"
+          description: Unique system-specific internal identifier.
+          example: "847156372649463814"
         budget_variance_report_request_key:
           type: string
-          description: "The Accounting Period Key for which the report should be generated\
-            \ (e.g., '2025Q1')."
-          example: "840277002948870149"
+          description: Unique global internal or external business key.
+          example: "847156372649463815"
         period_granularity_type:
           $ref: "#/components/schemas/UomTimeTypes"
         scenario_key:
           type: string
-          description: Optional key of a pre-defined CashFlowScenario to use for assumptions.
-          example: "840277002948870150"
+          description: Unique global internal or external business key.
+          example: "847156372649463816"
         accounting_period_key:
           type: string
-          description: "The Accounting Period Key for which the report should be generated\
-            \ (e.g., '2025Q1')."
-          example: "840277002948870151"
+          description: Unique global internal or external business key.
+          example: "847156372649463817"
         gl_account_keys:
           maxItems: 255
           minItems: 1
@@ -1052,7 +1054,9 @@ components:
           type: array
           description: List of general ledger account identifiers used to filter cash
             flow projections.
-          example: gl_account_keys
+          example:
+          - "847156371143708672"
+          - "847156371143708673"
           items:
             type: string
         control_account_keys:
@@ -1062,7 +1066,9 @@ components:
           type: array
           description: List of control account identifiers used to filter cash flow
             projections.
-          example: control_account_keys
+          example:
+          - "847156371143708674"
+          - "847156371143708675"
           items:
             type: string
         organization_id:
@@ -1071,19 +1077,23 @@ components:
           uniqueItems: true
           type: array
           description: Unique system-specific internal identifier.
-          example: organization_id
+          example:
+          - Org-847156371143708676
+          - Org-847156371143708677
           items:
             type: string
         start_date:
           type: string
-          description: The start date for the forecast period (inclusive).
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-18
+          example: 2026-05-14
         end_date:
           type: string
-          description: The end date for the forecast period (inclusive).
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-29
+          example: 2026-05-08
         opening_cash_balance:
           $ref: "#/components/schemas/Money"
       description: Defines the criteria and scope for generating a Budget Variance
@@ -1103,34 +1113,35 @@ components:
           $ref: "#/components/schemas/AccountingPeriod"
         projection_date:
           type: string
-          description: The date the projection was generated.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-05-06
+          example: 2026-05-01
       description: CashFlowProjection Update for Patch and Put
     CashFlowScenario:
       type: object
       properties:
         scenario_key:
           type: string
-          description: The unique key for the Cash Flow Scenario.
-          example: "840277002953064448"
+          description: Unique global internal or external business key.
+          example: "847156372653658112"
         name:
           type: string
           description: "A user-friendly name for the scenario (e.g., 'Worst Case',\
             \ 'Base Case')."
           example: Vehicle Image Side View
         ar_collection_delay_days:
+          pattern: "^\\d{4,6}$"
           type: integer
           description: The average number of days past due date customers are expected
             to pay (affects Accounts Receivable inflow timing).
-          format: int32
-          example: 0
+          example: 725
         ap_payment_hold_days:
+          pattern: "^\\d{4,6}$"
           type: integer
           description: The average number of days the business is expected to wait
             before paying bills (affects Accounts Payable outflow timing).
-          format: int32
-          example: 0
+          example: 4215
         description:
           type: string
           description: A description of the assumptions used in the scenario.
@@ -1143,14 +1154,14 @@ components:
           maxLength: 50
           minLength: 5
           type: string
-          description: Internal system-generated unique identifier for the code record.
-          example: cd-9902-v1
+          description: Unique system-specific internal identifier.
+          example: "847156372653658113"
         code_key:
           maxLength: 50
           minLength: 5
           type: string
-          description: Unique business reference key used to identify the code's context.
-          example: VEHICLE_STATUS_CODE
+          description: Unique global internal or external business key.
+          example: "847156372653658114"
         code:
           maxLength: 50
           minLength: 1
@@ -1162,8 +1173,7 @@ components:
           minLength: 5
           type: string
           description: A human-readable explanation of what the code represents.
-          example: Indicates the vehicle has left the factory but not yet arrived
-            at the dealer.
+          example: Vehicle engine component.
       description: not nullable
     Codes:
       type: array
@@ -1174,13 +1184,12 @@ components:
       properties:
         currency_exchange_id:
           type: string
-          description: Unique system identifier for the currency exchange record.
-          example: xch-8812-k5k
+          description: Unique system-specific internal identifier.
+          example: "847156372653658115"
         currency_exchange_key:
           type: string
-          description: Business-logical key identifying the specific conversion event
-            or pair.
-          example: USD-TO-CAD-2026-04-09
+          description: Unique global internal or external business key.
+          example: "847156372653658116"
         source_currency:
           type: string
           description: The origin currency code for the conversion (Base Currency).
@@ -1201,10 +1210,10 @@ components:
           example: "1.3542"
         rate_date_time:
           type: string
-          description: The specific UTC timestamp when this exchange rate was captured
-            or finalized.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:17:49Z
+          example: 2026-05-26T00:10:53.644258Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
     ErrorDetail:
@@ -1243,8 +1252,8 @@ components:
           example: 2025-11-10T10:30:00Z
         trace_id:
           type: string
-          description: A unique identifier for this specific request.
-          example: 57c31110-859a-11ec-a8a3-0242ac120002
+          description: Unique system-specific internal identifier.
+          example: "847156372653658117"
         doc_url:
           type: string
           description: A URL leading to the documentation page for this specific error
@@ -1255,14 +1264,14 @@ components:
           type: array
           description: Field-level validation errors or granular diagnostic information.
           example:
-          - variance: 2000
-            actual: 12000
+          - actual: 12000
             budget: 10000
             account: GL-1000
-          - variance: -500
-            actual: 4500
+            variance: 2000
+          - actual: 4500
             budget: 5000
             account: GL-2000
+            variance: -500
           items:
             type: object
             properties:
@@ -1286,7 +1295,7 @@ components:
         status:
           type: string
           description: Current health status of the service.
-          example: UP
+          example: ACTIVE
         version:
           type: string
           description: Version of the deployed service.
@@ -1299,14 +1308,14 @@ components:
           maxLength: 50
           minLength: 5
           type: string
-          description: Unique identifier value
-          example: "840277002953064449"
+          description: Unique system-specific internal identifier.
+          example: "847156372653658118"
         identifier_key:
           maxLength: 50
           minLength: 5
           type: string
-          description: Business key for the identifier
-          example: "840277002953064450"
+          description: Unique global internal or external business key.
+          example: "847156372653658119"
         context:
           type: string
           description: Context or domain of the identifier
@@ -1335,13 +1344,12 @@ components:
       properties:
         money_key:
           type: string
-          description: "Unique business key for the monetary entry, used for deterministic\
-            \ lookups."
-          example: MON-2026-EXP-001
+          description: Unique global internal or external business key.
+          example: "847156372653658120"
         money_id:
           type: string
-          description: System-generated unique identifier for the money record.
-          example: mny-5521-z99
+          description: Unique system-specific internal identifier.
+          example: "847156372653658121"
         vin:
           $ref: "#/components/schemas/Vin"
         currency_code:
@@ -1352,7 +1360,7 @@ components:
           type: string
           description: Formatted monetary string including symbol and separators based
             on locale.
-          example: "$1,234.56"
+          example: "$25,000"
         locale:
           type: string
           description: Language and region identifier (BCP 47 format).
@@ -1361,7 +1369,7 @@ components:
           type: string
           description: The raw decimal monetary amount stored as a string to prevent
             floating-point errors.
-          example: "1234.56"
+          example: user@example.com
         currency_exchange:
           $ref: "#/components/schemas/CurrencyExchange"
       description: "Represents a monetary value, including its currency, locale, and\
@@ -1379,18 +1387,17 @@ components:
           type: string
           description: "A short, human-readable summary of the problem type. It should\
             \ not change from occurrence to occurrence."
-          example: Intent Validation Failed
+          example: Resource Link
         status:
           type: integer
           description: The HTTP status code generated by the origin server for this
             occurrence of the problem.
-          format: int32
-          example: 422
+          example: 400
         detail:
           type: string
           description: "A human-readable explanation specific to this occurrence of\
             \ the problem, providing context on the failure."
-          example: The export request could not be processed due to business constraints.
+          example: Primary identifier
         instance:
           type: string
           description: "A URI reference that identifies the specific occurrence of\
@@ -1416,14 +1423,14 @@ components:
           description: "A collection of specific validation failures, including field\
             \ paths and localized messages."
           example:
-          - variance: 2000
-            actual: 12000
+          - actual: 12000
             budget: 10000
             account: GL-1000
-          - variance: -500
-            actual: 4500
+            variance: 2000
+          - actual: 4500
             budget: 5000
             account: GL-2000
+            variance: -500
           items:
             type: object
             properties:
@@ -2565,10 +2572,10 @@ components:
       schema:
         type: string
         example: TOYOTA
-        default: TOYOTA
         enum:
         - TOYOTA
         - LEXUS
+        default: TOYOTA
     SubscriberCodeHeader:
       name: Subscriber-Code
       in: header

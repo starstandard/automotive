@@ -263,12 +263,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
       security:
       - ApiKeyHeader: []
       - AuthorizationHeader: []
@@ -388,12 +388,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
       security:
       - ApiKeyHeader: []
       - AuthorizationHeader: []
@@ -790,12 +790,12 @@ components:
       properties:
         address_reference_key:
           type: string
-          description: A unique key for the address reference.
-          example: "840277004442042368"
+          description: Unique global internal or external business key.
+          example: "847156375983935488"
         address_reference_id:
           type: string
-          description: The unique value of the address reference.
-          example: "840277004442042369"
+          description: Unique system-specific internal identifier.
+          example: "847156375983935489"
         address_types:
           maxItems: 255
           minItems: 1
@@ -803,7 +803,7 @@ components:
           type: array
           description: address_types list
           example:
-          - WORK
+          - EMERGENCY
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -901,9 +901,10 @@ components:
       properties:
         update_date_time:
           type: string
-          description: Timestamp of the last update to this authorization
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:18:52Z
+          example: 2026-05-11T15:00:08.438871Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -911,8 +912,8 @@ components:
           example: false
         authorization_level_key:
           type: string
-          description: Business key uniquely identifying the authorization
-          example: "840277004442042370"
+          description: Unique global internal or external business key.
+          example: "847156375983935490"
         auth_codes:
           $ref: "#/components/schemas/Codes"
       description: Establish authorization level
@@ -927,14 +928,14 @@ components:
           maxLength: 50
           minLength: 5
           type: string
-          description: Internal system-generated unique identifier for the code record.
-          example: cd-9902-v1
+          description: Unique system-specific internal identifier.
+          example: "847156375983935491"
         code_key:
           maxLength: 50
           minLength: 5
           type: string
-          description: Unique business reference key used to identify the code's context.
-          example: VEHICLE_STATUS_CODE
+          description: Unique global internal or external business key.
+          example: "847156375983935492"
         code:
           maxLength: 50
           minLength: 1
@@ -946,8 +947,7 @@ components:
           minLength: 5
           type: string
           description: A human-readable explanation of what the code represents.
-          example: Indicates the vehicle has left the factory but not yet arrived
-            at the dealer.
+          example: Vehicle engine component.
       description: not nullable
     Codes:
       type: array
@@ -958,12 +958,12 @@ components:
       properties:
         communication_channel_key:
           type: string
-          description: The unique key for the communication channel record.
-          example: "840277004442042371"
+          description: Unique global internal or external business key.
+          example: "847156375983935493"
         communication_channel_id:
           type: string
-          description: The unique ID for the communication channel.
-          example: "840277004442042372"
+          description: Unique system-specific internal identifier.
+          example: "847156375983935494"
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
         value:
@@ -1022,9 +1022,9 @@ components:
     CurrencyCode:
       type: string
       description: The three-letter ISO 4217 currency code used for financial transactions.
-    DaysOfWeekTypes:
+    DayOfWeekTypes:
       type: string
-      description: types of days of weeks.
+      description: types of day of weeks.
       example: SUN
       enum:
       - SUN
@@ -1034,6 +1034,83 @@ components:
       - THURS
       - FRI
       - SAT
+    DurationUomTypes:
+      type: string
+      description: types of duration uoms.
+      example: MINUTES
+      enum:
+      - MINUTES
+      - HOURS
+      - DAYS
+      - DAY_OF_MONTH
+      - WEEKS
+      - BI_WEEKS
+      - SEMI_MONTHS
+      - MONTHS
+      - QUARTERS
+      - SEMI_YEARS
+      - YEARS
+      - MULTI_YEARS
+      - CUSTOM
+      - OCCURRENCE
+      - UNLIMITED
+      - NONE
+      - OTHER
+    EffectivePeriod:
+      type: object
+      properties:
+        effective_period_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "847156375983935495"
+        active_indicator:
+          type: boolean
+          description: Indicates if this period is currently considered valid and
+            enforceable within the domain.
+          example: true
+        exclusive_indicator:
+          type: boolean
+          description: "If true, this period represents the only valid time window,\
+            \ overriding overlapping periods."
+          example: false
+        start_date_time:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-05-16T22:42:44.438973Z
+        complete_date_time:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-04-29T01:42:18.438991Z
+        duration_uom_type:
+          $ref: "#/components/schemas/DurationUomTypes"
+        duration_value:
+          pattern: ^P(?!$)((\d+Y)?(\d+M)?(\d+W)?(\d+D)?)(T(?=\d)(\d+H)?(\d+M)?(\d+S)?)?$
+          type: string
+          description: The length of the period expressed in ISO 8601 duration format.
+          example: P1Y2M10D
+        recur_uom_type:
+          $ref: "#/components/schemas/DurationUomTypes"
+        recur_count:
+          type: string
+          description: Number of times the period repeats. Use -1 for infinite.
+          example: "80"
+        recur_values:
+          $ref: "#/components/schemas/Codes"
+        recur_criteria:
+          type: string
+          description: Natural language or DSL expression of complex recurrence logic.
+          example: Every last Friday of the month
+        recur_indicator:
+          type: boolean
+          description: Flag indicating if this period repeats based on the defined
+            criteria.
+          example: true
+      description: "Defines a temporal range and recurrence logic for business validity,\
+        \ such as license expirations or service intervals."
     ErrorDetail:
       required:
       - category
@@ -1070,8 +1147,8 @@ components:
           example: 2025-11-10T10:30:00Z
         trace_id:
           type: string
-          description: A unique identifier for this specific request.
-          example: 57c31110-859a-11ec-a8a3-0242ac120002
+          description: Unique system-specific internal identifier.
+          example: "847156375988129792"
         doc_url:
           type: string
           description: A URL leading to the documentation page for this specific error
@@ -1082,38 +1159,39 @@ components:
           type: array
           description: Field-level validation errors or granular diagnostic information.
           example:
-          - variance: 2000
-            actual: 12000
-            budget: 10000
-            account: GL-1000
-          - variance: -500
-            actual: 4500
-            budget: 5000
-            account: GL-2000
+          - field: payrollId
+            issue: must be unique
+            rejected_value: "12345"
           items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: The JSON path or field name that caused the error.
-                example: payrollId
-              issue:
-                type: string
-                description: The specific validation rule that failed.
-                example: must be unique
-              rejected_value:
-                type: string
-                description: The value that was sent and rejected (only if non-sensitive).
-                example: "12345"
+            $ref: "#/components/schemas/ErrorDetailItem"
       description: Standardized error response for the entire API ecosystem. Follows
         RFC 7807 principles for problem details to ensure consistency across microservices.
+    ErrorDetailItem:
+      required:
+      - field
+      - issue
+      type: object
+      properties:
+        field:
+          type: string
+          description: The JSON path or field name that caused the error.
+          example: payrollId
+        issue:
+          type: string
+          description: The specific validation rule that failed.
+          example: must be unique
+        rejected_value:
+          type: string
+          description: The value that was sent and rejected (only if non-sensitive).
+          example: "12345"
+      description: Field-level validation error or granular diagnostic information.
     HealthStatus:
       type: object
       properties:
         status:
           type: string
           description: Current health status of the service.
-          example: UP
+          example: ACTIVE
         version:
           type: string
           description: Version of the deployed service.
@@ -1126,14 +1204,14 @@ components:
           maxLength: 50
           minLength: 5
           type: string
-          description: Unique identifier value
-          example: "840277004442042373"
+          description: Unique system-specific internal identifier.
+          example: "847156375988129793"
         identifier_key:
           maxLength: 50
           minLength: 5
           type: string
-          description: Business key for the identifier
-          example: "840277004442042374"
+          description: Unique global internal or external business key.
+          example: "847156375988129794"
         context:
           type: string
           description: Context or domain of the identifier
@@ -1162,16 +1240,16 @@ components:
       properties:
         invoice_reference_id:
           type: string
-          description: Unique identifier value for the invoice reference record.
-          example: "840277004442042375"
+          description: Unique system-specific internal identifier.
+          example: "847156375988129795"
         invoice_reference_key:
           type: string
-          description: Unique key value for the invoice reference record.
-          example: "840277004442042376"
+          description: Unique global internal or external business key.
+          example: "847156375988129796"
         invoice_key:
           type: string
-          description: The unique key identifying the referenced Invoice aggregate.
-          example: "840277004442042377"
+          description: Unique global internal or external business key.
+          example: "847156375988129797"
         context:
           type: string
           description: "Context or domain of the invoice (e.g., 'ACCOUNTS_PAYABLE',\
@@ -1181,10 +1259,10 @@ components:
           $ref: "#/components/schemas/Identifier"
         occurrence_date_time:
           type: string
-          description: The date and time the invoice was created or linked to this
-            record.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:18:52Z
+          example: 2026-05-07T01:29:27.439107Z
         invoice_type:
           $ref: "#/components/schemas/InvoiceTypes"
       description: "Reference to an Invoice Aggregate Root, representing a financial\
@@ -1226,9 +1304,8 @@ components:
       properties:
         locale_key:
           type: string
-          description: "A unique, human-readable string key used for configuration\
-            \ lookups and mapping."
-          example: "840277004442042378"
+          description: Unique global internal or external business key.
+          example: "847156375988129798"
         locale_name:
           type: string
           description: The full IETF BCP 47 language tag or Java-style locale string
@@ -1264,19 +1341,19 @@ components:
           type: string
           description: The code of the inventory location or branch from which this
             part is sourced.
-          example: WH001
+          example: USNA
       description: not nullable
     PartReference:
       type: object
       properties:
         part_reference_id:
           type: string
-          description: Unique identifier value
-          example: "840277004442042379"
+          description: Unique system-specific internal identifier.
+          example: "847156375988129799"
         part_reference_key:
           type: string
-          description: Unique identifier value
-          example: "840277004442042380"
+          description: Unique global internal or external business key.
+          example: "847156375988129800"
         name:
           type: string
           description: Product Name.
@@ -1285,12 +1362,12 @@ components:
           $ref: "#/components/schemas/Identifiers"
         part_key:
           type: string
-          description: Unique identifier value
-          example: "840277004442042381"
+          description: Unique global internal or external business key.
+          example: "847156375988129801"
         part_master_key:
           type: string
-          description: Unique identifier value
-          example: "840277004442042382"
+          description: Unique global internal or external business key.
+          example: "847156375988129802"
         manufacturer:
           type: string
           description: Context or domain of the identifier
@@ -1306,16 +1383,17 @@ components:
           type: array
           description: product_types list
           example:
-          - DURABLE_GOODS
+          - INSURANCE
           items:
             $ref: "#/components/schemas/ProductTypes"
         system_codes:
           $ref: "#/components/schemas/Codes"
         occurrence_date_time:
           type: string
-          description: The date and time the event occurred.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:18:52Z
+          example: 2026-05-04T17:58:39.439199Z
         unit_of_measure:
           $ref: "#/components/schemas/UnitOfMeasure"
       description: External system identifier
@@ -1328,18 +1406,16 @@ components:
       properties:
         party_reference_id:
           type: string
-          description: Unique system identifier for the reference record itself.
-          example: pr-8821-x01
+          description: Unique system-specific internal identifier.
+          example: "847156375988129803"
         party_reference_key:
           type: string
-          description: "Business-logical key for the reference, often combining the\
-            \ event and party context."
-          example: REF-SALE-2026-CUST-99
+          description: Unique global internal or external business key.
+          example: "847156375988129804"
         party_key:
           type: string
-          description: The business key of the actual Party (Person or Org) being
-            referenced.
-          example: CUST-DEALER-4412
+          description: Unique global internal or external business key.
+          example: "847156375988129805"
         party_name:
           type: string
           description: The formal display name of the Party at the time of reference.
@@ -1352,20 +1428,20 @@ components:
           type: string
           description: Security or permission code granting access to this party's
             data.
-          example: AUTH-992-SEC
+          example: AUTH-12345
         source_system_code:
           type: string
           description: "The identifier of the system of record (e.g., DMS, CRM)."
-          example: CDK-GLOBAL
+          example: DMS
         context:
           type: string
           description: The domain or operational context for the reference.
-          example: VEHICLE_SERVICE
+          example: FINANCE
         account_number:
           type: string
           description: The specific account identifier for the party in the source
             system.
-          example: ACT-771229-B
+          example: "49"
         party_relationship_types:
           maxItems: 255
           minItems: 1
@@ -1373,7 +1449,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - SERVICE_TECH
+          - CONTRACTOR
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -1384,9 +1460,10 @@ components:
           $ref: "#/components/schemas/CommunicationChannels"
         occurrence_date_time:
           type: string
-          description: Timestamp indicating when this specific reference was established.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:18:52Z
+          example: 2026-05-01T21:18:28.439272Z
         org_indicator:
           type: boolean
           description: Indicates if the party is an organization (true) or an individual
@@ -1555,7 +1632,7 @@ components:
         alias:
           type: string
           description: Alternative or informal name or role.
-          example: AJ
+          example: AAG
         family_name:
           type: string
           description: Family or last name.
@@ -1572,7 +1649,7 @@ components:
           type: string
           description: Reference to external identifiers.
           format: href
-          example: /identifiers/12345
+          example: https://api.example.com/resources/16777
         maiden_name:
           type: string
           description: Previous family name before marriage.
@@ -1587,20 +1664,20 @@ components:
           example: Jr.
         party_key:
           type: string
-          description: External party key.
-          example: PARTY-KEY-123
+          description: Unique global internal or external business key.
+          example: "847156375988129806"
         person_key:
           type: string
-          description: External person key.
-          example: PERSON-KEY-789
+          description: Unique global internal or external business key.
+          example: "847156375988129807"
         person_name_key:
           type: string
-          description: Unique person name key.
-          example: NAME-KEY-456
+          description: Unique global internal or external business key.
+          example: "847156375988129808"
         person_name_id:
           type: string
-          description: Unique person name id.
-          example: NAME-ID-456
+          description: Unique system-specific internal identifier.
+          example: "847156375988129809"
         preferred_name:
           type: string
           description: Preferred name used in informal situations.
@@ -1645,12 +1722,12 @@ components:
       properties:
         position_id:
           type: string
-          description: Unique identifier for this position
-          example: pos-001
+          description: Unique system-specific internal identifier.
+          example: "847156375988129810"
         position_key:
           type: string
-          description: Business key for this position record
-          example: POS-ATL-WEST
+          description: Unique global internal or external business key.
+          example: "847156375988129811"
         latitude:
           type: string
           description: Latitude of the location
@@ -1672,7 +1749,6 @@ components:
           description: Postal code of the location
           example: "30303"
         county_code:
-          maxLength: 20
           pattern: "^[a-zA-Z0-9_]+$"
           type: string
           description: Standardized code for the county.
@@ -1683,7 +1759,9 @@ components:
           uniqueItems: true
           type: array
           description: Position codes associated with the entity.
-          example: position_codes
+          example:
+          - Pos-847156371168874500
+          - Pos-847156371168874501
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -1700,22 +1778,21 @@ components:
           type: string
           description: "A short, human-readable summary of the problem type. It should\
             \ not change from occurrence to occurrence."
-          example: Intent Validation Failed
+          example: Resource Link
         status:
           type: integer
           description: The HTTP status code generated by the origin server for this
             occurrence of the problem.
-          format: int32
-          example: 422
+          example: 400
         detail:
           type: string
           description: "A human-readable explanation specific to this occurrence of\
             \ the problem, providing context on the failure."
-          example: The export request could not be processed due to business constraints.
+          example: Primary identifier
         instance:
           type: string
-          description: "A URI reference that identifies the specific occurrence of\
-            \ the problem (e.g., the specific resource path)."
+          description: A URI reference that identifies the specific occurrence of
+            the problem.
           format: uri
           example: https://api.yourdomain.com/money/exports
         intent:
@@ -1727,68 +1804,21 @@ components:
           type: string
           description: "A stable, machine-readable string code for the error."
           example: INSUFFICIENT_FUNDS_FOR_EXPORT
-        pointer:
-          type: string
-          description: A JSON Pointer to the field in the request body that caused
-            the violation.
-          example: "#/plate_number"
         violations:
           type: array
           description: "A collection of specific validation failures, including field\
             \ paths and localized messages."
           example:
-          - variance: 2000
-            actual: 12000
-            budget: 10000
-            account: GL-1000
-          - variance: -500
-            actual: 4500
-            budget: 5000
-            account: GL-2000
+          - pointer: "#/vehicle_license/plate_number"
+            code: PATTERN_MISMATCH
+            message: The plate number must be alphanumeric and between 1 and 20 characters.
+            severity: ERROR
+            rule: INSUFFICIENT_FUNDS
+            path: date_range.start
+            metadata:
+              regex: "^[A-Z0-9]{1,20}$"
           items:
-            type: object
-            properties:
-              pointer:
-                type: string
-                description: A JSON Pointer (RFC 6901) referencing the specific field
-                  in the request body that caused the violation.
-                example: "#/vehicle_license/plate_number"
-              code:
-                type: string
-                description: "A stable, machine-readable string identifying the specific\
-                  \ validation rule that was breached."
-                example: PATTERN_MISMATCH
-              message:
-                type: string
-                description: "A localized, human-readable description of the validation\
-                  \ error."
-                example: The plate number must be alphanumeric and between 1 and 20
-                  characters.
-              severity:
-                type: string
-                description: The impact level of this violation. ERROR blocks execution;
-                  WARNING is advisory.
-                example: ERROR
-                enum:
-                - ERROR
-                - WARNING
-                - INFO
-              metadata:
-                type: object
-                additionalProperties:
-                  type: string
-                description: "Contextual key-value pairs to help the agent resolve\
-                  \ the error (e.g., actual vs. expected limits)."
-                example:
-                  regex: "^[A-Z0-9]{1,20}$"
-              rule:
-                type: string
-                example: INSUFFICIENT_FUNDS
-              path:
-                type: string
-                example: date_range.start
-            description: "An individual validation failure within a request, providing\
-              \ a direct map to the offending field."
+            $ref: "#/components/schemas/Violation"
       description: "A standardized error response based on RFC 7807, extended with\
         \ domain-specific intent and validation violations."
     ProductTypes:
@@ -1820,13 +1850,12 @@ components:
       properties:
         shipment_id:
           type: string
-          description: Unique identifier for this specific parts invoice line item.
-          example: pii_abc123xyz
+          description: Unique system-specific internal identifier.
+          example: "847156375988129812"
         shipment_key:
           type: string
-          description: "A unique key for the parts invoice line item, often used for\
-            \ external systems integration."
-          example: PARTINVITEM-2023-001-A
+          description: Unique global internal or external business key.
+          example: "847156375988129813"
         shipping_carriers:
           $ref: "#/components/schemas/PartyReferences"
         ship_from_party:
@@ -1840,68 +1869,52 @@ components:
         tracking_number:
           type: string
           description: Tracking number provided by the shipping carrier.
-          example: 1Z999AA99999999999
+          example: "11"
         packing_slip_number:
           type: string
           description: Number from the supplier's packing slip.
-          example: PS-2025-54321
+          example: "63"
         bill_of_lading_number:
           type: string
           description: The Bill of Lading number for freight shipments.
-          example: BOL-XYZ-9876
+          example: "9"
         reference_key:
           type: string
-          description: Reference Key.
-          example: PARTINVITEM-2023-001-A
+          description: Unique global internal or external business key.
+          example: "847156375988129814"
         invoice_references:
           $ref: "#/components/schemas/InvoiceReferences"
         case_number:
           type: string
           description: The unique identifier case number
-          example: inv_789def456
+          example: "11"
         identifiers:
           maxItems: 255
           minItems: 1
           uniqueItems: true
           type: array
           description: Identifiers associated with the vehicle.
-          example:
-          - variance: 2000
-            actual: 12000
-            budget: 10000
-            account: GL-1000
-          - variance: -500
-            actual: 4500
-            budget: 5000
-            account: GL-2000
           items:
             $ref: "#/components/schemas/Identifier"
         invoice_number:
           type: string
           description: The unique identifier of the parent invoice to which this shipment
             belongs.
-          example: inv_789def456
+          example: "13"
         unit_of_measures:
           $ref: "#/components/schemas/UnitOfMeasures"
         part_references:
           $ref: "#/components/schemas/PartReferences"
         shipment_status_type:
           $ref: "#/components/schemas/ShipmentStateTypes"
-        shipping_method_type:
+        shipping_method_types:
           maxItems: 255
           minItems: 1
           uniqueItems: true
           type: array
-          description: shipping_method_type value
+          description: shipping_method_types list
           example:
-          - variance: 2000
-            actual: 12000
-            budget: 10000
-            account: GL-1000
-          - variance: -500
-            actual: 4500
-            budget: 5000
-            account: GL-2000
+          - ECO_FRIENDLY
           items:
             $ref: "#/components/schemas/ShippingMethodTypes"
         address_references:
@@ -1923,13 +1936,12 @@ components:
       properties:
         shipment_event_id:
           type: string
-          description: Unique identifier for this specific parts invoice line item.
-          example: pii_abc123xyz
+          description: Unique system-specific internal identifier.
+          example: "847156376000712704"
         shipment_event_key:
           type: string
-          description: "A unique key for the parts invoice line item, often used for\
-            \ external systems integration."
-          example: PARTINVITEM-2023-001-A
+          description: Unique global internal or external business key.
+          example: "847156376000712705"
         location:
           $ref: "#/components/schemas/Position"
         description:
@@ -1938,14 +1950,16 @@ components:
           example: Vehicle engine component.
         occurrence_date_time:
           type: string
-          description: The date and time the event physically occurred.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:18:52Z
+          example: 2026-05-07T11:49:19.442076Z
         effective_date_time:
           type: string
-          description: The date and time the event's status or state becomes effective.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:18:52Z
+          example: 2026-04-28T00:11:27.442099Z
         shipment_state_types:
           maxItems: 255
           minItems: 1
@@ -1953,7 +1967,7 @@ components:
           type: array
           description: shipment_state_types list
           example:
-          - MANIFEST_CREATED
+          - LOST_IN_TRANSIT
           items:
             $ref: "#/components/schemas/ShipmentStateTypes"
       description: not nullable
@@ -1988,21 +2002,22 @@ components:
       properties:
         shipping_carriers:
           $ref: "#/components/schemas/PartyReferences"
+        shipping_method_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: shipping_method_types list
+          example:
+          - OVERNIGHT
+          items:
+            $ref: "#/components/schemas/ShippingMethodTypes"
         identifiers:
           maxItems: 255
           minItems: 1
           uniqueItems: true
           type: array
           description: Identifiers associated with the vehicle.
-          example:
-          - variance: 2000
-            actual: 12000
-            budget: 10000
-            account: GL-1000
-          - variance: -500
-            actual: 4500
-            budget: 5000
-            account: GL-2000
           items:
             $ref: "#/components/schemas/Identifier"
         country_of_origin:
@@ -2016,7 +2031,7 @@ components:
         packing_slip_number:
           type: string
           description: Number from the supplier's packing slip.
-          example: PS-2025-54321
+          example: "7"
         tracking_information:
           $ref: "#/components/schemas/TrackingInformations"
         ship_to_party:
@@ -2025,44 +2040,27 @@ components:
           $ref: "#/components/schemas/UnitOfMeasures"
         shipment_status_type:
           $ref: "#/components/schemas/ShipmentStateTypes"
-        shipping_method_type:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          description: shipping_method_type value
-          example:
-          - variance: 2000
-            actual: 12000
-            budget: 10000
-            account: GL-1000
-          - variance: -500
-            actual: 4500
-            budget: 5000
-            account: GL-2000
-          items:
-            $ref: "#/components/schemas/ShippingMethodTypes"
         address_references:
           $ref: "#/components/schemas/AddressReferences"
         bill_of_lading_number:
           type: string
           description: The Bill of Lading number for freight shipments.
-          example: BOL-XYZ-9876
+          example: "98"
         tracking_number:
           type: string
           description: Tracking number provided by the shipping carrier.
-          example: 1Z999AA99999999999
+          example: "88"
         case_number:
           type: string
           description: The unique identifier case number
-          example: inv_789def456
+          example: "30"
         shipment_events:
           $ref: "#/components/schemas/ShipmentEvents"
         invoice_number:
           type: string
           description: The unique identifier of the parent invoice to which this shipment
             belongs.
-          example: inv_789def456
+          example: "66"
         part_references:
           $ref: "#/components/schemas/PartReferences"
       description: Shipment Update for Patch and Put
@@ -2100,38 +2098,36 @@ components:
     TimeSlot:
       type: object
       properties:
-        time_slot_id:
-          type: string
-          description: Technical unique identifier (GUID) for the time slot record.
-          example: b2d3e4f5-a6b7-c8d9-e0f1-a2b3c4d5e6f7
         time_slot_key:
+          maxLength: 50
+          minLength: 1
           type: string
-          description: Natural business key for the time slot within its specific
-            context.
-          example: TS-MON-MORNING-SHIFT
-        time_slot_source:
-          type: string
-          description: The originating system or calendar providing this availability
-            data.
-          example: GOOGLE_CALENDAR
-        start_day:
-          $ref: "#/components/schemas/DaysOfWeekTypes"
-        start_time:
-          pattern: "^([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)$"
-          type: string
-          description: The local start time in 24-hour ISO 8601 format.
-          format: date-time
+          description: Unique global internal or external business key.
+          example: "847156376004907008"
         end_day:
-          $ref: "#/components/schemas/DaysOfWeekTypes"
+          $ref: "#/components/schemas/DayOfWeekTypes"
         end_time:
+          maxLength: 8
+          minLength: 5
           pattern: "^([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)$"
           type: string
-          description: The local end time in 24-hour ISO 8601 format.
-          format: date-time
+          description: Time with format of HH:mm:ss
+          example: 18:15:18
         recurring_indicator:
           type: boolean
-          description: Indicates if this time slot is part of a repeating pattern.
+          description: Indicates whether the time slot repeats on a recurring cycle.
           example: true
+        recurring_period:
+          $ref: "#/components/schemas/EffectivePeriod"
+        start_day:
+          $ref: "#/components/schemas/DayOfWeekTypes"
+        start_time:
+          maxLength: 8
+          minLength: 5
+          pattern: "^([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)$"
+          type: string
+          description: Time with format of HH:mm:ss
+          example: 11:39:57
         timeslot_directive_types:
           maxItems: 255
           minItems: 1
@@ -2142,10 +2138,26 @@ components:
           - ANYTIME
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
+        time_slot_id:
+          maxLength: 36
+          minLength: 1
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "847156376004907009"
         week_of_date:
-          $ref: "#/components/schemas/Codes"
-      description: "Defines a specific window of time, often within a recurring schedule,\
-        \ used for service availability or appointment booking."
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
+          format: date
+          example:
+          - "1"
+          - "34"
+          items:
+            type: string
+      description: Range of time for the appointment
     TimeSlots:
       type: array
       items:
@@ -2160,28 +2172,27 @@ components:
       - BEFORE
       - BETWEEN
       - BLOCK
-      - UNKNOWN
     TrackingInformation:
       type: object
       properties:
         tracking_information_key:
           type: string
-          description: Unique key identifying this specific tracking information entry.
-          example: track_info_abc123
+          description: Unique global internal or external business key.
+          example: "847156376004907010"
         tracking_information_id:
           type: string
-          description: "Identifier for this specific tracking information entry, often\
-            \ an external ID from the carrier."
-          example: TRACK-UPDATE-20250812-001
+          description: Unique system-specific internal identifier.
+          example: "847156376004907011"
         tracking_number:
           type: string
           description: The unique tracking number provided by the carrier.
-          example: 1Z9999999999999999
+          example: "48"
         tracking_date_time:
           type: string
-          description: Date and time when this specific tracking update was recorded.
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-05-07T17:18:52Z
+          example: 2026-05-15T18:52:50.443142Z
         tracking_status:
           $ref: "#/components/schemas/ShipmentStateTypes"
         status_description:
@@ -2207,8 +2218,8 @@ components:
       properties:
         unit_of_measure_key:
           type: string
-          description: Unit of Measure Value
-          example: "840277004446236672"
+          description: Unique global internal or external business key.
+          example: "847156376004907012"
         unit_name:
           type: string
           description: Unit of Measure
@@ -2268,6 +2279,52 @@ components:
       - EXPIRATION_DATE
       - MIN_PAYMENT_PERCENT
       - MIN_PAYMENT_AMOUNT
+    Violation:
+      type: object
+      properties:
+        pointer:
+          type: string
+          description: A JSON Pointer (RFC 6901) referencing the specific field in
+            the request body that caused the violation.
+          example: "#/vehicle_license/plate_number"
+        code:
+          type: string
+          description: "A stable, machine-readable string identifying the specific\
+            \ validation rule that was breached."
+          example: PATTERN_MISMATCH
+        message:
+          type: string
+          description: "A localized, human-readable description of the validation\
+            \ error."
+          example: The plate number must be alphanumeric and between 1 and 20 characters.
+        severity:
+          type: string
+          description: The impact level of this violation. ERROR blocks execution;
+            WARNING is advisory.
+          example: ERROR
+          enum:
+          - ERROR
+          - WARNING
+          - INFO
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+            description: Metadata value
+          description: "Contextual key-value pairs to help resolve the error (e.g.,\
+            \ actual vs. expected limits)."
+          example:
+            regex: "^[A-Z0-9]{1,20}$"
+        rule:
+          type: string
+          description: The specific validation rule name.
+          example: INSUFFICIENT_FUNDS
+        path:
+          type: string
+          description: The property path notation for the error.
+          example: date_range.start
+      description: "An individual validation failure within a request, providing a\
+        \ direct map to the offending field."
   responses:
     UnauthorizedError:
       description: "Authentication failed. The access token is missing, expired, or\
@@ -3035,7 +3092,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "840276514587598849"
+        example: "847103384300097539"
     LocaleHeader:
       name: Locale
       in: header
@@ -3176,7 +3233,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "840276514587598850"
+        example: "847103384300097540"
     StandardsVersionHeader:
       name: Standards-Version
       in: header
@@ -3200,7 +3257,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "840276514587598848"
+        example: "847103384300097538"
     ShipmentKey:
       name: shipment-key
       in: path
@@ -3210,7 +3267,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "840276514583404545"
+        example: "847103384300097537"
     TransactionIDHeader:
       name: Transaction-ID
       in: header
@@ -3230,10 +3287,10 @@ components:
       schema:
         type: string
         example: TOYOTA
-        default: TOYOTA
         enum:
         - TOYOTA
         - LEXUS
+        default: TOYOTA
     SubscriberCodeHeader:
       name: Subscriber-Code
       in: header
@@ -3312,7 +3369,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/840276514587598851
+        example: /labor-operations/847103384300097541
     ContentLocationHeader:
       description: The URI of the specific representation returned in the payload.
         Used to disambiguate the 'Resource Identifier' from the 'Data Artifact' in
@@ -3323,7 +3380,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/840276514587598852
+        example: /labor-operations/847103384300097542
     TransactionIDHeader:
       description: Echoes the unique identifier for the specific atomic unit of work
         processed by the server.

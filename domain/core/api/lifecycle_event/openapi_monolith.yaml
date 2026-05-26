@@ -480,8 +480,8 @@ components:
           example: 2025-11-10T10:30:00Z
         trace_id:
           type: string
-          description: A unique identifier for this specific request.
-          example: 57c31110-859a-11ec-a8a3-0242ac120002
+          description: Unique system-specific internal identifier.
+          example: "847156372003540992"
         doc_url:
           type: string
           description: A URL leading to the documentation page for this specific error
@@ -492,14 +492,14 @@ components:
           type: array
           description: Field-level validation errors or granular diagnostic information.
           example:
-          - variance: 2000
-            actual: 12000
+          - actual: 12000
             budget: 10000
             account: GL-1000
-          - variance: -500
-            actual: 4500
+            variance: 2000
+          - actual: 4500
             budget: 5000
             account: GL-2000
+            variance: -500
           items:
             type: object
             properties:
@@ -523,7 +523,7 @@ components:
         status:
           type: string
           description: Current health status of the service.
-          example: UP
+          example: ACTIVE
         version:
           type: string
           description: Version of the deployed service.
@@ -534,21 +534,21 @@ components:
       properties:
         lifecycle_event_id:
           type: string
-          description: The unique ID for the lifecycle event.
-          example: EVT-99887766
+          description: Unique system-specific internal identifier.
+          example: "847156372003540993"
         lifecycle_event_key:
           type: string
-          description: The unique external key or business identifier used in integrations.
-          example: LIFECYCLE-879234
+          description: Unique global internal or external business key.
+          example: "847156372003540994"
         actor_href:
           type: string
           description: The href of the actor who initiated the event.
           format: href
-          example: https://api.example.com/resources/74830
+          example: https://api.example.com/resources/99258
         actor_id:
           type: string
-          description: The unique identifier of the actor who initiated the event.
-          example: USR-24681357
+          description: Unique system-specific internal identifier.
+          example: "847156372003540995"
         actor_name:
           type: string
           description: The name of the actor who initiated the event.
@@ -557,14 +557,15 @@ components:
           $ref: "#/components/schemas/LifecycleEventTypes"
         occurrence_date:
           type: string
-          description: The date and time the event occurred.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-28
+          example: 2026-05-08
         resource_href:
           type: string
           description: The href of the resource associated with the event.
           format: href
-          example: https://api.example.com/resources/60185
+          example: https://api.example.com/resources/71594
         resource_identifier:
           type: string
           description: The unique identifier of the resource associated with the event.
@@ -583,8 +584,8 @@ components:
           example: ORD-44556677
         detail_key:
           type: string
-          description: The unique key for the event detail.
-          example: ORDER_ID
+          description: Unique global internal or external business key.
+          example: "847156372007735296"
         detail_code:
           type: string
           description: The code for the event detail.
@@ -633,14 +634,15 @@ components:
       properties:
         occurrence_date:
           type: string
-          description: The date and time the event occurred.
+          description: "Calendar date associated with this value, represented in ISO-8601\
+            \ date format."
           format: date
-          example: 2026-04-15
+          example: 2026-05-09
         resource_href:
           type: string
           description: The href of the resource associated with the event.
           format: href
-          example: https://api.example.com/resources/49050
+          example: https://api.example.com/resources/53136
         detail_name:
           type: string
           description: The name of the event detail.
@@ -671,7 +673,7 @@ components:
           type: string
           description: The href of the actor who initiated the event.
           format: href
-          example: https://api.example.com/resources/22275
+          example: https://api.example.com/resources/89871
         resource_types:
           $ref: "#/components/schemas/ResourceTypes"
       description: LifecycleEvent Update for Patch and Put
@@ -688,18 +690,17 @@ components:
           type: string
           description: "A short, human-readable summary of the problem type. It should\
             \ not change from occurrence to occurrence."
-          example: Intent Validation Failed
+          example: Resource Link
         status:
           type: integer
           description: The HTTP status code generated by the origin server for this
             occurrence of the problem.
-          format: int32
-          example: 422
+          example: 400
         detail:
           type: string
           description: "A human-readable explanation specific to this occurrence of\
             \ the problem, providing context on the failure."
-          example: The export request could not be processed due to business constraints.
+          example: Primary identifier
         instance:
           type: string
           description: "A URI reference that identifies the specific occurrence of\
@@ -725,14 +726,14 @@ components:
           description: "A collection of specific validation failures, including field\
             \ paths and localized messages."
           example:
-          - variance: 2000
-            actual: 12000
+          - actual: 12000
             budget: 10000
             account: GL-1000
-          - variance: -500
-            actual: 4500
+            variance: 2000
+          - actual: 4500
             budget: 5000
             account: GL-2000
+            variance: -500
           items:
             type: object
             properties:
@@ -1484,10 +1485,10 @@ components:
       schema:
         type: string
         example: TOYOTA
-        default: TOYOTA
         enum:
         - TOYOTA
         - LEXUS
+        default: TOYOTA
     SubscriberCodeHeader:
       name: Subscriber-Code
       in: header
