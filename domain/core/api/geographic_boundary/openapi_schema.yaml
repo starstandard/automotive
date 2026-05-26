@@ -195,8 +195,4 @@ components:
       - UNIT
       - WATT
       - ITEM
-      - NET
-      - GROSS
-      - MINIMUM
-      - MAXIMUM
       - OTHER
