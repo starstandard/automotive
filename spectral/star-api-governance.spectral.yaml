@@ -435,9 +435,9 @@ rules:
             - required: ["created_at"]
             - required: ["updated_at"]
 
-   ============================
-   MAY (info)
-   ============================
+   #============================
+   #MAY (info)
+   #============================
 
   may-document-versioning:
     description: "MAY: document a versioning strategy (e.g., /v1 or headers)."
