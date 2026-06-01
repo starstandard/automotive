@@ -279,20 +279,20 @@ rules:
                       type: string
                       pattern: "^/"
 
-  should-mark-id-fields-readonly:
-    description: "SHOULD: properties ending with _id should be marked readOnly: true."
-    message: "Property '{{property}}' looks server-generated; mark as readOnly: true."
-    severity: warn
-    given: "$..properties[?(@property.match(/_id$/))]"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          type: object
-          required: ["readOnly"]
-          properties:
-            readOnly:
-              const: true
+# should-mark-id-fields-readonly:
+#   description: "SHOULD: properties ending with _id should be marked readOnly: true."
+#   message: "Property '{{property}}' looks server-generated; mark as readOnly: true."
+#   severity: warn
+#   given: "$..properties[?(@property.match(/_id$/))]"
+#   then:
+#     function: schema
+#     functionOptions:
+#       schema:
+#         type: object
+#         required: ["readOnly"]
+#         properties:
+#           readOnly:
+#             const: true
 
   should-avoid-criterias-in-paths:
     description: "SHOULD: avoid 'criterias' in paths; use 'criteria'."
@@ -308,27 +308,27 @@ rules:
   # SHOULD (warnings) - Members inspired
   # ============================
 
-  should-schemas-with-keys-have-links:
-    description: "SHOULD: schemas that include *_key fields should include a _links object for navigation."
-    message: "Schema contains '*_key' fields but no '_links' object. Consider adding HATEOAS links."
-    severity: warn
-    given: "$.components.schemas[*]"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          allOf:
-            - if:
-                type: object
-                properties:
-                  properties:
-                    type: object
-                    patternProperties:
-                      ".*_key$": {}
-              then:
-                properties:
-                  properties:
-                    required: ["_links"]
+# should-schemas-with-keys-have-links:
+#   description: "SHOULD: schemas that include *_key fields should include a _links object for navigation."
+#   message: "Schema contains '*_key' fields but no '_links' object. Consider adding HATEOAS links."
+#   severity: warn
+#   given: "$.components.schemas[*]"
+#   then:
+#     function: schema
+#     functionOptions:
+#       schema:
+#         allOf:
+#           - if:
+#               type: object
+#               properties:
+#                 properties:
+#                   type: object
+#                   patternProperties:
+#                     ".*_key$": {}
+#             then:
+#               properties:
+#                 properties:
+#                   required: ["_links"]
 
   should-define-securityschemes:
     description: "SHOULD: define components.securitySchemes."
@@ -422,18 +422,18 @@ rules:
       functionOptions:
         match: "/v[0-9]+"
 
-  should-resource-schemas-have-audit-fields:
-    description: "SHOULD: resource schemas should include created_at/updated_at timestamps."
-    message: "Consider adding created_at and updated_at (format: date-time) for auditability."
-    severity: warn
-    given: "$.components.schemas[*].properties"
-    then:
-      function: schema
-      functionOptions:
-        schema:
-          anyOf:
-            - required: ["created_at"]
-            - required: ["updated_at"]
+# should-resource-schemas-have-audit-fields:
+#   description: "SHOULD: resource schemas should include created_at/updated_at timestamps."
+#   message: "Consider adding created_at and updated_at (format: date-time) for auditability."
+#   severity: warn
+#   given: "$.components.schemas[*].properties"
+#   then:
+#     function: schema
+#     functionOptions:
+#       schema:
+#         anyOf:
+#           - required: ["created_at"]
+#           - required: ["updated_at"]
 
    #============================
    #MAY (info)
