@@ -37,6 +37,8 @@ tags:
   description: Tag Description ColorSummaries
 - name: ControlAccounts
   description: Tag Description ControlAccounts
+- name: Customers
+  description: Tag Description Customers
 - name: DailyHours
   description: Tag Description DailyHours
 - name: Departments
@@ -69,8 +71,6 @@ tags:
   description: Tag Description MediaVisibilities
 - name: Narratives
   description: Tag Description Narratives
-- name: OptionDescriptions
-  description: Tag Description OptionDescriptions
 - name: PartIdentifiers
   description: Tag Description PartIdentifiers
 - name: PartNames
@@ -83,6 +83,10 @@ tags:
   description: Tag Description PrivacyItems
 - name: PrivacyPolicyRules
   description: Tag Description PrivacyPolicyRules
+- name: RepairEffortSummaries
+  description: Tag Description RepairEffortSummaries
+- name: RepairFinancialSummaries
+  description: Tag Description RepairFinancialSummaries
 - name: RepairStatusEvents
   description: Tag Description RepairStatusEvents
 - name: ResourceGroups
@@ -101,26 +105,20 @@ tags:
   description: Tag Description ServiceParts
 - name: Services
   description: Tag Description Services
-- name: ShipmentEvents
-  description: Tag Description ShipmentEvents
 - name: StaffMembers
   description: Tag Description StaffMembers
 - name: StaffSkills
   description: Tag Description StaffSkills
 - name: Sublets
   description: Tag Description Sublets
+- name: TimeMeasures
+  description: Tag Description TimeMeasures
 - name: TransmissionSummaries
   description: Tag Description TransmissionSummaries
-- name: VehicleBuildProfiles
-  description: Tag Description VehicleBuildProfiles
 - name: VehicleIdentifiers
   description: Tag Description VehicleIdentifiers
 - name: VehicleLicenses
   description: Tag Description VehicleLicenses
-- name: VehicleLogisticsProfiles
-  description: Tag Description VehicleLogisticsProfiles
-- name: VehicleOptions
-  description: Tag Description VehicleOptions
 - name: VehicleSummaries
   description: Tag Description VehicleSummaries
 - name: WarrantyClaims
@@ -438,12 +436,12 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -522,13 +520,13 @@ paths:
         - standard:read
       - ApiKeyHeader: []
       - AuthorizationHeader: []
-  /labor-operations/{labor-operation-key}/vehicle-logistics-profiles:
+  /labor-operations/{labor-operation-key}/repair-financial-summaries:
     get:
       tags:
-      - VehicleLogisticsProfiles
-      summary: Returns a paginated list of vehicle logistics profile
-      description: a list of VehicleLogisticsProfile
-      operationId: listVehicleLogisticsProfilesByLaborOperationKey
+      - RepairFinancialSummaries
+      summary: Returns a paginated list of repair financial summary
+      description: a list of RepairFinancialSummary
+      operationId: listRepairFinancialSummariesByLaborOperationKey
       parameters:
       - $ref: "#/components/parameters/FilterQuery"
       - $ref: "#/components/parameters/LimitQuery"
@@ -556,7 +554,7 @@ paths:
       - $ref: "#/components/parameters/SubscriberCodeHeader"
       responses:
         "200":
-          $ref: "#/components/responses/VehicleLogisticsProfileCollectionResponse"
+          $ref: "#/components/responses/RepairFinancialSummaryCollectionResponse"
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -583,14 +581,13 @@ paths:
       - AuthorizationHeader: []
     parameters:
     - $ref: "#/components/parameters/LaborOperationKey"
-  /labor-operations/{labor-operation-key}/vehicle-logistics-profiles/{vehicle-logistics-profile-key}:
+  /labor-operations/{labor-operation-key}/repair-financial-summaries/{repair-financial-summary-key}:
     get:
       tags:
-      - VehicleLogisticsProfiles
-      summary: Retrieve a single item scoped by a key VehicleLogisticsProfile entities.
-      description: Retrieve a single item scoped by a key VehicleLogisticsProfile
-        entities.
-      operationId: getVehicleLogisticsProfileByKey
+      - RepairFinancialSummaries
+      summary: Retrieve a single item scoped by a key RepairFinancialSummary entities.
+      description: Retrieve a single item scoped by a key RepairFinancialSummary entities.
+      operationId: getRepairFinancialSummaryByKey
       parameters:
       - $ref: "#/components/parameters/TransactionIDHeader"
       - $ref: "#/components/parameters/StandardsVersionHeader"
@@ -603,10 +600,10 @@ paths:
       - $ref: "#/components/parameters/OrgVersionHeader"
       - $ref: "#/components/parameters/PreferHeader"
       - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/RepairFinancialSummaryKey"
       - $ref: "#/components/parameters/ResourceDomainHeader"
       - $ref: "#/components/parameters/StoreIDHeader"
       - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/VehicleLogisticsProfileKey"
       - $ref: "#/components/parameters/LimitQuery"
       - $ref: "#/components/parameters/OffsetQuery"
       - $ref: "#/components/parameters/SortQuery"
@@ -618,7 +615,7 @@ paths:
       - $ref: "#/components/parameters/SubscriberCodeHeader"
       responses:
         "200":
-          $ref: "#/components/responses/VehicleLogisticsProfileSingleResponse"
+          $ref: "#/components/responses/RepairFinancialSummarySingleResponse"
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -741,6 +738,128 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/AddressSingleResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+      - ApiKeyHeader: []
+      - AuthorizationHeader: []
+    parameters:
+    - $ref: "#/components/parameters/LaborOperationKey"
+  /labor-operations/{labor-operation-key}/customers:
+    get:
+      tags:
+      - Customers
+      summary: Returns a paginated list of customer
+      description: a list of Customer
+      operationId: listCustomersByLaborOperationKey
+      parameters:
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      - $ref: "#/components/parameters/BrandHeader"
+      - $ref: "#/components/parameters/CreatorCodeHeader"
+      - $ref: "#/components/parameters/DealerIdHeader"
+      - $ref: "#/components/parameters/RegionHeader"
+      - $ref: "#/components/parameters/SourceSystemHeader"
+      - $ref: "#/components/parameters/SubscriberCodeHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/CustomerCollectionResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+      - ApiKeyHeader: []
+      - AuthorizationHeader: []
+    parameters:
+    - $ref: "#/components/parameters/LaborOperationKey"
+  /labor-operations/{labor-operation-key}/customers/{customer-key}:
+    get:
+      tags:
+      - Customers
+      summary: Retrieve a single item scoped by a key Customer entities.
+      description: Retrieve a single item scoped by a key Customer entities.
+      operationId: getCustomerByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/CustomerKey"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/BrandHeader"
+      - $ref: "#/components/parameters/CreatorCodeHeader"
+      - $ref: "#/components/parameters/DealerIdHeader"
+      - $ref: "#/components/parameters/RegionHeader"
+      - $ref: "#/components/parameters/SourceSystemHeader"
+      - $ref: "#/components/parameters/SubscriberCodeHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/CustomerSingleResponse"
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -2731,6 +2850,12 @@ paths:
       - AuthorizationHeader: []
     parameters:
     - $ref: "#/components/parameters/LaborOperationKey"
+  /labor-operations/{labor-operation-key}/technician-time-references:
+    parameters:
+    - $ref: "#/components/parameters/LaborOperationKey"
+  /labor-operations/{labor-operation-key}/technician-time-references/{technician-time-reference-key}:
+    parameters:
+    - $ref: "#/components/parameters/LaborOperationKey"
   /labor-operations/{labor-operation-key}/department-references:
     parameters:
     - $ref: "#/components/parameters/LaborOperationKey"
@@ -3223,128 +3348,6 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/SubletSingleResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
-    parameters:
-    - $ref: "#/components/parameters/LaborOperationKey"
-  /labor-operations/{labor-operation-key}/vehicle-options:
-    get:
-      tags:
-      - VehicleOptions
-      summary: Returns a paginated list of vehicle option
-      description: a list of VehicleOption
-      operationId: listVehicleOptionsByLaborOperationKey
-      parameters:
-      - $ref: "#/components/parameters/FilterQuery"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/VehicleOptionCollectionResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
-    parameters:
-    - $ref: "#/components/parameters/LaborOperationKey"
-  /labor-operations/{labor-operation-key}/vehicle-options/{vehicle-option-key}:
-    get:
-      tags:
-      - VehicleOptions
-      summary: Retrieve a single item scoped by a key VehicleOption entities.
-      description: Retrieve a single item scoped by a key VehicleOption entities.
-      operationId: getVehicleOptionByKey
-      parameters:
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/VehicleOptionKey"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/VehicleOptionSingleResponse"
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -3981,6 +3984,12 @@ paths:
       - AuthorizationHeader: []
     parameters:
     - $ref: "#/components/parameters/LaborOperationKey"
+  /labor-operations/{labor-operation-key}/invoice-references:
+    parameters:
+    - $ref: "#/components/parameters/LaborOperationKey"
+  /labor-operations/{labor-operation-key}/invoice-references/{invoice-reference-key}:
+    parameters:
+    - $ref: "#/components/parameters/LaborOperationKey"
   /labor-operations/{labor-operation-key}/vehicle-references:
     parameters:
     - $ref: "#/components/parameters/LaborOperationKey"
@@ -4109,126 +4118,10 @@ paths:
       - AuthorizationHeader: []
     parameters:
     - $ref: "#/components/parameters/LaborOperationKey"
-  /labor-operations/{labor-operation-key}/option-descriptions:
-    get:
-      tags:
-      - OptionDescriptions
-      summary: Returns a paginated list of option description
-      description: a list of OptionDescription
-      operationId: listOptionDescriptionsByLaborOperationKey
-      parameters:
-      - $ref: "#/components/parameters/FilterQuery"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/OptionDescriptionCollectionResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
+  /labor-operations/{labor-operation-key}/effort-split-references:
     parameters:
     - $ref: "#/components/parameters/LaborOperationKey"
-  /labor-operations/{labor-operation-key}/option-descriptions/{option-description-key}:
-    get:
-      tags:
-      - OptionDescriptions
-      summary: Retrieve a single item scoped by a key OptionDescription entities.
-      description: Retrieve a single item scoped by a key OptionDescription entities.
-      operationId: getOptionDescriptionByKey
-      parameters:
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/OptionDescriptionKey"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/OptionDescriptionSingleResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
+  /labor-operations/{labor-operation-key}/effort-split-references/{effort-split-reference-key}:
     parameters:
     - $ref: "#/components/parameters/LaborOperationKey"
   /labor-operations/{labor-operation-key}/diagnostics:
@@ -4327,128 +4220,6 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/DiagnosticSingleResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
-    parameters:
-    - $ref: "#/components/parameters/LaborOperationKey"
-  /labor-operations/{labor-operation-key}/vehicle-build-profiles:
-    get:
-      tags:
-      - VehicleBuildProfiles
-      summary: Returns a paginated list of vehicle build profile
-      description: a list of VehicleBuildProfile
-      operationId: listVehicleBuildProfilesByLaborOperationKey
-      parameters:
-      - $ref: "#/components/parameters/FilterQuery"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/VehicleBuildProfileCollectionResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
-    parameters:
-    - $ref: "#/components/parameters/LaborOperationKey"
-  /labor-operations/{labor-operation-key}/vehicle-build-profiles/{vehicle-build-profile-key}:
-    get:
-      tags:
-      - VehicleBuildProfiles
-      summary: Retrieve a single item scoped by a key VehicleBuildProfile entities.
-      description: Retrieve a single item scoped by a key VehicleBuildProfile entities.
-      operationId: getVehicleBuildProfileByKey
-      parameters:
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/VehicleBuildProfileKey"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/VehicleBuildProfileSingleResponse"
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -5231,6 +5002,128 @@ paths:
       - AuthorizationHeader: []
     parameters:
     - $ref: "#/components/parameters/LaborOperationKey"
+  /labor-operations/{labor-operation-key}/repair-effort-summaries:
+    get:
+      tags:
+      - RepairEffortSummaries
+      summary: Returns a paginated list of repair effort summary
+      description: a list of RepairEffortSummary
+      operationId: listRepairEffortSummariesByLaborOperationKey
+      parameters:
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      - $ref: "#/components/parameters/BrandHeader"
+      - $ref: "#/components/parameters/CreatorCodeHeader"
+      - $ref: "#/components/parameters/DealerIdHeader"
+      - $ref: "#/components/parameters/RegionHeader"
+      - $ref: "#/components/parameters/SourceSystemHeader"
+      - $ref: "#/components/parameters/SubscriberCodeHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/RepairEffortSummaryCollectionResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+      - ApiKeyHeader: []
+      - AuthorizationHeader: []
+    parameters:
+    - $ref: "#/components/parameters/LaborOperationKey"
+  /labor-operations/{labor-operation-key}/repair-effort-summaries/{repair-effort-summary-key}:
+    get:
+      tags:
+      - RepairEffortSummaries
+      summary: Retrieve a single item scoped by a key RepairEffortSummary entities.
+      description: Retrieve a single item scoped by a key RepairEffortSummary entities.
+      operationId: getRepairEffortSummaryByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/RepairEffortSummaryKey"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/BrandHeader"
+      - $ref: "#/components/parameters/CreatorCodeHeader"
+      - $ref: "#/components/parameters/DealerIdHeader"
+      - $ref: "#/components/parameters/RegionHeader"
+      - $ref: "#/components/parameters/SourceSystemHeader"
+      - $ref: "#/components/parameters/SubscriberCodeHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/RepairEffortSummarySingleResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+      - ApiKeyHeader: []
+      - AuthorizationHeader: []
+    parameters:
+    - $ref: "#/components/parameters/LaborOperationKey"
   /labor-operations/{labor-operation-key}/store-references:
     parameters:
     - $ref: "#/components/parameters/LaborOperationKey"
@@ -5725,128 +5618,6 @@ paths:
       - AuthorizationHeader: []
     parameters:
     - $ref: "#/components/parameters/LaborOperationKey"
-  /labor-operations/{labor-operation-key}/shipment-events:
-    get:
-      tags:
-      - ShipmentEvents
-      summary: Returns a paginated list of shipment event
-      description: a list of ShipmentEvent
-      operationId: listShipmentEventsByLaborOperationKey
-      parameters:
-      - $ref: "#/components/parameters/FilterQuery"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/ShipmentEventCollectionResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
-    parameters:
-    - $ref: "#/components/parameters/LaborOperationKey"
-  /labor-operations/{labor-operation-key}/shipment-events/{shipment-event-key}:
-    get:
-      tags:
-      - ShipmentEvents
-      summary: Retrieve a single item scoped by a key ShipmentEvent entities.
-      description: Retrieve a single item scoped by a key ShipmentEvent entities.
-      operationId: getShipmentEventByKey
-      parameters:
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/ShipmentEventKey"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/ShipmentEventSingleResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
-    parameters:
-    - $ref: "#/components/parameters/LaborOperationKey"
   /labor-operations/{labor-operation-key}/general-amounts:
     get:
       tags:
@@ -6213,6 +5984,128 @@ paths:
       - AuthorizationHeader: []
     parameters:
     - $ref: "#/components/parameters/LaborOperationKey"
+  /labor-operations/{labor-operation-key}/time-measures:
+    get:
+      tags:
+      - TimeMeasures
+      summary: Returns a paginated list of time measure
+      description: a list of TimeMeasure
+      operationId: listTimeMeasuresByLaborOperationKey
+      parameters:
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      - $ref: "#/components/parameters/BrandHeader"
+      - $ref: "#/components/parameters/CreatorCodeHeader"
+      - $ref: "#/components/parameters/DealerIdHeader"
+      - $ref: "#/components/parameters/RegionHeader"
+      - $ref: "#/components/parameters/SourceSystemHeader"
+      - $ref: "#/components/parameters/SubscriberCodeHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/TimeMeasureCollectionResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+      - ApiKeyHeader: []
+      - AuthorizationHeader: []
+    parameters:
+    - $ref: "#/components/parameters/LaborOperationKey"
+  /labor-operations/{labor-operation-key}/time-measures/{time-measure-key}:
+    get:
+      tags:
+      - TimeMeasures
+      summary: Retrieve a single item scoped by a key TimeMeasure entities.
+      description: Retrieve a single item scoped by a key TimeMeasure entities.
+      operationId: getTimeMeasureByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TimeMeasureKey"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/BrandHeader"
+      - $ref: "#/components/parameters/CreatorCodeHeader"
+      - $ref: "#/components/parameters/DealerIdHeader"
+      - $ref: "#/components/parameters/RegionHeader"
+      - $ref: "#/components/parameters/SourceSystemHeader"
+      - $ref: "#/components/parameters/SubscriberCodeHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/TimeMeasureSingleResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+      - ApiKeyHeader: []
+      - AuthorizationHeader: []
+    parameters:
+    - $ref: "#/components/parameters/LaborOperationKey"
   /labor-operations/{labor-operation-key}/service-activities:
     get:
       tags:
@@ -6377,14 +6270,14 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -6421,7 +6314,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
       description: External system identifier
     ActorTypes:
       type: string
@@ -6474,13 +6367,13 @@ components:
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205588992"
+          example: "868306130504253440"
         address_id:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871205588993"
+          example: "868306130504253441"
         address_input:
           maxLength: 255
           minLength: 1
@@ -6520,7 +6413,7 @@ components:
           type: array
           description: address_types list
           example:
-          - CURRENT
+          - BILLING
           items:
             $ref: "#/components/schemas/AddressTypes"
         authorization_levels:
@@ -6598,11 +6491,11 @@ components:
         address_locale_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205588994"
+          example: "868306130504253442"
         address_locale_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871205588995"
+          example: "868306130504253443"
         region_code:
           type: string
           description: Code representing the region for the locale.
@@ -6626,11 +6519,11 @@ components:
         address_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205588996"
+          example: "868306130504253444"
         address_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871205588997"
+          example: "868306130504253445"
         address_types:
           maxItems: 255
           minItems: 1
@@ -6638,7 +6531,7 @@ components:
           type: array
           description: address_types list
           example:
-          - VACATION
+          - REBATE
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -6689,6 +6582,8 @@ components:
           type: string
           description: State or equivalent subdivision.
           example: GA
+        authorization_levels:
+          $ref: "#/components/schemas/AuthorizationLevels"
       description: "A reference to an address, including its unique key and a list\
         \ of its usage types."
     AddressReferences:
@@ -6748,7 +6643,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -6757,7 +6652,7 @@ components:
         authorization_level_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205588998"
+          example: "868306130504253446"
         auth_codes:
           $ref: "#/components/schemas/Codes"
         privacy_policy_rules:
@@ -6773,15 +6668,15 @@ components:
         bill_of_material_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871205588999"
+          example: "868306130504253447"
         bill_of_material_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205589000"
+          example: "868306130504253448"
         bill_of_material_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205589001"
+          example: "868306130504253449"
         context:
           type: string
           description: Context or domain of the identifier
@@ -6795,7 +6690,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         captured_financial_split:
           $ref: "#/components/schemas/FinancialSplitReference"
         part_identifier_reference:
@@ -6825,15 +6720,13 @@ components:
         correlation_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871205589002"
+          example: "868306130504253450"
         previous_balance:
           $ref: "#/components/schemas/GeneralAmount"
         resulting_balance:
           $ref: "#/components/schemas/GeneralAmount"
       description: "Represents the strategic lineage, intention, and operational state\
         \ accompanying an execution vector or streaming lifecycle event."
-    CarrierParty:
-      $ref: "#/components/schemas/PartyReference"
     Code:
       type: object
       properties:
@@ -6877,11 +6770,11 @@ components:
         color_summary_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871205589003"
+          example: "868306130504253451"
         color_summary_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205589004"
+          example: "868306130504253452"
         dealer_color:
           type: string
           description: The color as designated by the dealer.
@@ -6913,13 +6806,17 @@ components:
         communication_channel_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205589005"
+          example: "868306130504253453"
         communication_channel_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871205589006"
+          example: "868306130504253454"
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
+        context:
+          type: string
+          description: Context or domain of the identifier
+          example: FINANCE
         value:
           type: string
           description: "The value of the communication channel (e.g., an email address\
@@ -7018,15 +6915,15 @@ components:
         control_account_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871205589007"
+          example: "868306130504253455"
         control_account_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205589008"
+          example: "868306130504253456"
         account_number:
           type: string
           description: Business key for the control account.
-          example: "5"
+          example: "33"
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         control_account_desc:
@@ -7042,11 +6939,11 @@ components:
         control_type_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871205589009"
+          example: "868306130504253457"
         bank_account_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871205589010"
+          example: "868306130504253458"
         is_counted:
           type: boolean
           description: "Indicates if the account is a counted account (e.g., for inventory)."
@@ -7072,7 +6969,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         subsidiary_ledger_type:
           $ref: "#/components/schemas/SubsidiaryLedgerTypes"
       description: "Journal entry for general ledger, capturing control account details\
@@ -7181,9 +7078,31 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
+    Customer:
+      type: object
+      properties:
+        customer_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "868306130504253459"
+        customer_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "868306130504253460"
+        universal_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "868306130504253461"
+        party_references:
+          $ref: "#/components/schemas/PartyReferences"
+        authorization_levels:
+          $ref: "#/components/schemas/AuthorizationLevels"
+      description: "Represents a customer, which can be a person or an organization.\
+        \ This class includes core personal information, contact methods, financial\
+        \ profiles, and related resources."
     CustomerInteractionTypes:
       type: string
       description: types of customer interactions.
@@ -7222,13 +7141,17 @@ components:
       - CONSULTATION
       - NOTES_ADDED
       - EMAIL_BROADCAST_SENT
+    Customers:
+      type: array
+      items:
+        $ref: "#/components/schemas/Customer"
     DailyHour:
       type: object
       properties:
         daily_hour_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205589011"
+          example: "868306130504253462"
         start_day:
           type: string
           description: The starting day of the week for the hours
@@ -7254,13 +7177,13 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-06-29
+          example: 2026-06-26
         week_ending_date:
           type: string
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-06
+          example: 2026-07-11
       description: Daily Hours that the department is open
     DailyHours:
       type: array
@@ -7278,19 +7201,17 @@ components:
       - THURS
       - FRI
       - SAT
-    DeliveryWindow:
-      $ref: "#/components/schemas/EffectivePeriod"
     Department:
       type: object
       properties:
         department_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205589012"
+          example: "868306130504253463"
         department_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871205589013"
+          example: "868306130504253464"
         department_codes:
           $ref: "#/components/schemas/Codes"
         department_name:
@@ -7315,12 +7236,12 @@ components:
           type: string
           description: A hyperlink to the department's contact methods.
           format: href
-          example: https://api.example.com/resources/94452
+          example: https://api.example.com/resources/75969
         departments_href:
           type: string
           description: A hyperlink to related departments.
           format: href
-          example: https://api.example.com/resources/26274
+          example: https://api.example.com/resources/83294
         daily_hours:
           $ref: "#/components/schemas/DailyHours"
         links:
@@ -7341,7 +7262,7 @@ components:
           type: array
           description: department_types list
           example:
-          - ACCESSORY_INSTALL
+          - BODY_SHOP
           items:
             $ref: "#/components/schemas/DepartmentTypes"
         control_accounts:
@@ -7353,15 +7274,15 @@ components:
         department_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871205589014"
+          example: "868306130504253465"
         department_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205589015"
+          example: "868306130504253466"
         department_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205589016"
+          example: "868306130504253467"
         department_name:
           type: string
           description: The name of the department.
@@ -7381,7 +7302,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         duration:
           $ref: "#/components/schemas/EffectivePeriod"
       description: External system identifier
@@ -7424,11 +7345,11 @@ components:
         diagnostic_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871205589017"
+          example: "868306130504253468"
         diagnostic_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871205589018"
+          example: "868306130504253469"
         diagnostic_indicators:
           $ref: "#/components/schemas/Codes"
         diagnostic_codes:
@@ -7492,13 +7413,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         complete_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -7525,6 +7446,22 @@ components:
           example: true
       description: "Defines a temporal range and recurrence logic for business validity,\
         \ such as license expirations or service intervals."
+    EffortSplitReference:
+      type: object
+      properties:
+        customer_effort_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        warranty_effort_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        internal_effort_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        split_type_codes:
+          $ref: "#/components/schemas/Codes"
+      description: effort.split.reference.desc
+    EffortSplitReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/EffortSplitReference"
     ErrorDetail:
       required:
       - category
@@ -7636,7 +7573,7 @@ components:
         financial_event_snapshot_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783296"
+          example: "868306130504253470"
         financial_category_type:
           $ref: "#/components/schemas/FinancialCategoryTypes"
         general_ledger_reference:
@@ -7655,17 +7592,17 @@ components:
         financial_split_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783297"
+          example: "868306130504253471"
         financial_split_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783298"
+          example: "868306130504253472"
         financial_split_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783299"
+          example: "868306130504253473"
         context:
           type: string
           description: Context or domain of the payment financialSplit.
@@ -7681,8 +7618,12 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
       description: Reference to a Payment FinancialSplit Aggregate Root.
+    FinancialSplitReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/FinancialSplitReference"
     FuelSummary:
       type: object
       properties:
@@ -7730,19 +7671,19 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783300"
+          example: "868306130504253474"
         general_ledger_reference_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783301"
+          example: "868306130504253475"
         general_ledger_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783302"
+          example: "868306130504253476"
         context:
           type: string
           description: Context or domain of the reference
@@ -7756,7 +7697,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
       description: External system reference
     GeographicBoundary:
       type: object
@@ -7815,15 +7756,15 @@ components:
         geographic_boundary_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783303"
+          example: "868306130504253477"
         geographic_boundary_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783304"
+          example: "868306130504253478"
         geographic_boundary_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783305"
+          example: "868306130504253479"
         context:
           type: string
           description: Context or domain of the payment schedule.
@@ -7835,7 +7776,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
       description: Reference to a Payment Schedule Aggregate Root.
     GeographicBoundaryReferences:
       type: array
@@ -7861,13 +7802,13 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783306"
+          example: "868306130504253480"
         identifier_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783307"
+          example: "868306130504253481"
         context:
           type: string
           description: Context or domain of the identifier
@@ -7899,11 +7840,11 @@ components:
         inspection_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783308"
+          example: "868306130508447744"
         inspection_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783309"
+          example: "868306130508447745"
         part_inspected:
           type: string
           description: The name of the actor for the event.
@@ -7915,7 +7856,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         inspection_category:
           type: string
           description: The unique ID for the inspection report.
@@ -7951,6 +7892,73 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Inspection"
+    InvoiceReference:
+      type: object
+      properties:
+        invoice_reference_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "868306130508447746"
+        invoice_reference_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "868306130508447747"
+        invoice_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "868306130508447748"
+        context:
+          type: string
+          description: "Context or domain of the invoice (e.g., 'ACCOUNTS_PAYABLE',\
+            \ 'SALES_INVOICE')."
+          example: FINANCE
+        identifier:
+          $ref: "#/components/schemas/Identifier"
+        occurrence_date_time:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-07-24T01:34:53Z
+        invoice_type:
+          $ref: "#/components/schemas/InvoiceTypes"
+      description: "Reference to an Invoice Aggregate Root, representing a financial\
+        \ obligation."
+    InvoiceReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/InvoiceReference"
+    InvoiceTypes:
+      type: string
+      description: types of invoices.
+      example: INVOICE
+      enum:
+      - INVOICE
+      - SERVICE_INVOICE
+      - PART_INVOICE
+      - LOAN
+      - STANDARD
+      - ORIGINAL
+      - ADJUSTED
+      - CREDIT_MEMO
+      - DEBIT_MEMO
+      - PRO_FORMA
+      - COMMERCIAL
+      - VEHICLE_SALE
+      - VEHICLE_INVOICE
+      - SERVICE
+      - PARTS
+      - LEASE
+      - FINANCE_CHARGE
+      - WARRANTY_CLAIM
+      - INSURANCE_CLAIM
+      - STATEMENT
+      - ADVANCE
+      - FINAL
+      - REPAIR
+      - FUEL
+      - RENTAL
+      - SUBSCRIPTION
     JurisdictionProfile:
       type: object
       properties:
@@ -8023,13 +8031,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         occurrence_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
       description: nullable
     LaborLocationTypes:
       type: string
@@ -8048,11 +8056,11 @@ components:
         labor_operation_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783310"
+          example: "868306130508447749"
         labor_operation_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783311"
+          example: "868306130508447750"
         standard_repair_sec:
           type: integer
           description: The number of seconds the standard repair takes.
@@ -8098,11 +8106,11 @@ components:
         parent_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783312"
+          example: "868306130508447751"
         department_context:
           $ref: "#/components/schemas/ServiceJobTypes"
         customers:
-          $ref: "#/components/schemas/PartyReferences"
+          $ref: "#/components/schemas/Customers"
         service_catalog_references:
           $ref: "#/components/schemas/ServiceCatalogReferences"
         labor_operation_events:
@@ -8114,9 +8122,9 @@ components:
         legacy_tech_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783313"
-        resolved_amount:
-          $ref: "#/components/schemas/Money"
+          example: "868306130508447752"
+        financial_summary:
+          $ref: "#/components/schemas/RepairFinancialSummary"
         inspections:
           $ref: "#/components/schemas/Inspections"
         attached_medias:
@@ -8136,6 +8144,10 @@ components:
           description: The human-readable name of the specific dealership workshop
             area where the operation takes place.
           example: Body Shop Back Lot
+        labor_operation_status_desc:
+          type: string
+          description: laborOperationStatusDesc
+          example: laborOperationStatusDesc
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         service_activities:
@@ -8153,6 +8165,8 @@ components:
           $ref: "#/components/schemas/LaborOperationPriorityTypes"
         services:
           $ref: "#/components/schemas/ServiceReferences"
+        repair_effort_summary:
+          $ref: "#/components/schemas/RepairEffortSummary"
       description: "Represents a labor operation, including its unique identifiers,\
         \ codes, and description."
     LaborOperationCreate:
@@ -8168,16 +8182,16 @@ components:
         labor_operation_event_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783314"
+          example: "868306130508447753"
         labor_operation_event_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783315"
+          example: "868306130508447754"
         occurrence_timestamp:
           type: string
           description: The precise date and time the event occurred.
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         previous_status_type:
           $ref: "#/components/schemas/LaborOperationStatusTypes"
         new_status_type:
@@ -8185,7 +8199,7 @@ components:
         actor_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783316"
+          example: "868306130508447755"
         actor:
           $ref: "#/components/schemas/ActorReference"
         event_note:
@@ -8223,11 +8237,11 @@ components:
         labor_operation_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783317"
+          example: "868306130508447756"
         labor_operation_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783318"
+          example: "868306130508447757"
         sequential_line_identifier:
           maxLength: 10
           minLength: 1
@@ -8320,6 +8334,8 @@ components:
           $ref: "#/components/schemas/PricePlanReferences"
         labor_operation_type:
           $ref: "#/components/schemas/LaborOperationTypes"
+        repair_effort_summary:
+          $ref: "#/components/schemas/RepairEffortSummary"
         labor_operation_priority_type:
           $ref: "#/components/schemas/LaborOperationPriorityTypes"
         department_context:
@@ -8335,10 +8351,12 @@ components:
           example: Synthetic Oil & Filter Change
         labor_operation_codes:
           $ref: "#/components/schemas/Codes"
+        financial_summary:
+          $ref: "#/components/schemas/RepairFinancialSummary"
         pay_type:
           $ref: "#/components/schemas/PayTypes"
         customers:
-          $ref: "#/components/schemas/PartyReferences"
+          $ref: "#/components/schemas/Customers"
         labor_operation_description:
           type: string
           description: The description of the labor operation.
@@ -8381,8 +8399,6 @@ components:
           $ref: "#/components/schemas/LaborLocationTypes"
         bill_of_material_references:
           $ref: "#/components/schemas/BillOfMaterialReferences"
-        resolved_amount:
-          $ref: "#/components/schemas/Money"
         labor_operation_status_type:
           $ref: "#/components/schemas/LaborOperationStatusTypes"
         sequential_line_identifier:
@@ -8394,23 +8410,31 @@ components:
           example: A
         attached_medias:
           $ref: "#/components/schemas/MediaReferences"
+        labor_operation_status_desc:
+          type: string
+          description: laborOperationStatusDesc
+          example: laborOperationStatusDesc
         standard_repair_sec:
           type: integer
           description: The number of seconds the standard repair takes.
           format: int64
           example: 1223
       description: LaborOperation Update for Patch and Put
+    LaborOperations:
+      type: array
+      items:
+        $ref: "#/components/schemas/LaborOperation"
     LaborResource:
       type: object
       properties:
         labor_resource_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783319"
+          example: "868306130508447758"
         labor_resource_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783320"
+          example: "868306130508447759"
         resources:
           $ref: "#/components/schemas/PartIdentifiers"
         resource_type:
@@ -8453,7 +8477,7 @@ components:
         link_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783321"
+          example: "868306130508447760"
         href:
           type: string
           description: The URL of the related resource.
@@ -8480,7 +8504,7 @@ components:
         locale_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783322"
+          example: "868306130508447761"
         locale_name:
           type: string
           description: The full IETF BCP 47 language tag or Java-style locale string
@@ -8584,11 +8608,11 @@ components:
         media_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783323"
+          example: "868306130508447762"
         media_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783324"
+          example: "868306130508447763"
         authors:
           $ref: "#/components/schemas/PartyReferences"
         occurrence_date_time:
@@ -8596,7 +8620,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         name:
           type: string
           description: A hyperlink to the media's content.
@@ -8607,7 +8631,7 @@ components:
           type: string
           description: A hyperlink to the media resource.
           format: href
-          example: https://api.example.com/resources/14285
+          example: https://api.example.com/resources/68181
         media_type:
           $ref: "#/components/schemas/MediaTypes"
         media_status_type:
@@ -8631,14 +8655,14 @@ components:
         signature:
           type: string
           description: A unique signature or hash of the media content.
-          example: SIG-001-867883865325174818
+          example: SIG-001-868306123004837896
         textual_details:
           $ref: "#/components/schemas/TextualDetails"
         raw_content:
           type: string
           description: "A collection of textual details, such as titles and descriptions,\
             \ for the media."
-          example: CFG-001-867883865325174819
+          example: CFG-001-868306123004837897
         media_source:
           type: string
           description: The source of the media.
@@ -8674,7 +8698,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         media_keys:
           $ref: "#/components/schemas/Codes"
         media_access_metrics:
@@ -8686,29 +8710,29 @@ components:
         media_access_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783325"
+          example: "868306130508447764"
         media_access_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783326"
+          example: "868306130508447765"
         media_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783327"
+          example: "868306130508447766"
         first_viewed_at:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
-          example: 2026-07-20T23:17:04.399350Z
+          example: 2026-07-19T07:02:12.861241Z
         completed_at:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
-          example: 2026-07-20T03:37:33.399404Z
+          example: 2026-07-23T09:09:58.861256Z
         view_count:
           type: string
           description: Total number of engagement events.
-          example: "88"
+          example: "47"
         watch_time_seconds:
           type: string
           description: The cumulative time in seconds the user spent viewing the media.
@@ -8722,7 +8746,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-16T05:12:40.399416Z
+          example: 2026-07-03T07:18:40.861267Z
         device_type:
           $ref: "#/components/schemas/DeviceTypes"
         user_agent:
@@ -8732,7 +8756,7 @@ components:
         buffer_count:
           type: string
           description: The number of times the media playback was interrupted by buffering.
-          example: "23"
+          example: "44"
         load_time_ms:
           type: string
           description: The time in milliseconds it took for the media to begin playback
@@ -8816,11 +8840,11 @@ components:
         media_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783328"
+          example: "868306130508447767"
         media_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783329"
+          example: "868306130508447768"
         name:
           type: string
           description: The descriptive name or filename of the media item.
@@ -8835,13 +8859,13 @@ components:
           type: string
           description: The unique checksum hash validating the raw media file's structural
             integrity.
-          example: SIG-001-867883865325174818
+          example: SIG-001-868306123004837896
         media_href:
           type: string
           description: The direct hypermedia link pointing to the downstream physical
             binary or target REST resource.
           format: href
-          example: https://api.example.com/resources/52985
+          example: https://api.example.com/resources/46519
         capture_stage_type:
           type: string
           description: "The operational service phase or workflow event during which\
@@ -8923,11 +8947,11 @@ components:
         media_visibility_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783330"
+          example: "868306130508447769"
         visibility_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783331"
+          example: "868306130508447770"
         media_privacy_type:
           $ref: "#/components/schemas/MediaPrivacyTypes"
         externally_hosted_indicator:
@@ -8950,11 +8974,11 @@ components:
         metric_name_value_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783332"
+          example: "868306130508447771"
         metric_name_value_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783333"
+          example: "868306130508447772"
         header_sequence:
           type: string
           description: The header sequence for the metric value.
@@ -8984,27 +9008,6 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/MetricNameValue"
-    MetricValue:
-      type: object
-      properties:
-        metric_value_id:
-          type: string
-          description: Unique system-specific internal identifier.
-          example: 8892-abc-123-metric
-        metric_value_key:
-          type: string
-          description: Unique global internal or external business key.
-          example: EXPIRATION_MILEAGE
-        value:
-          type: string
-          description: "The actual value of the metric (e.g., the amount or count)."
-          example: "100000"
-        uom:
-          $ref: "#/components/schemas/NarrativeUomTypes"
-        codes:
-          $ref: "#/components/schemas/Codes"
-      description: "Represents a quantitative measurement including its unit, value,\
-        \ and classification codes."
     Money:
       type: object
       properties:
@@ -9041,11 +9044,11 @@ components:
         narrative_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783334"
+          example: "868306130508447773"
         narrative_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783335"
+          example: "868306130508447774"
         actor:
           $ref: "#/components/schemas/ActorReference"
         event_actor_role_type:
@@ -9057,7 +9060,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         narrative_group:
           type: string
           description: The group to which the narrative belongs.
@@ -9246,80 +9249,17 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Narrative"
-    OptionDescription:
-      type: object
-      properties:
-        option_description_key:
-          type: string
-          description: Unique global internal or external business key.
-          example: "867883871209783336"
-        option_description_id:
-          type: string
-          description: Unique system-specific internal identifier.
-          example: "867883871209783337"
-        option_description_group:
-          type: string
-          description: The group or category this option belongs to.
-          example: FEATURES
-        option_detail_descriptions:
-          $ref: "#/components/schemas/Memo"
-        option_description_label:
-          type: string
-          description: "A short, human-readable label for the option."
-          example: Sunroof Description
-      description: A description of a vehicle option or feature.
-    OptionDescriptions:
-      type: array
-      items:
-        $ref: "#/components/schemas/OptionDescription"
-    OptionInstallationTypes:
-      type: string
-      description: types of option installations.
-      example: FACTORY_INSTALLED
-      enum:
-      - FACTORY_INSTALLED
-      - PORT_INSTALLED
-      - DEALER_INSTALLED
-      - SOFTWARE_UPDATE
-      - ACCESSORY_KIT
-      - CUSTOM_FABRICATION
-      - OWNER_INSTALLED
-      - THIRD_PARTY_INSTALLED
-      - UNKNOWN
-      - OTHER
-    OptionTypes:
-      type: string
-      description: types of options.
-      example: PARTS
-      enum:
-      - PARTS
-      - ACCESSORY
-      - EQUIPMENT
-      - PACKAGE_GOODS
-      - SERVICE_PLAN
-      - WARRANTY_PLAN
-      - SUBSCRIPTION
-      - SOFTWARE
-      - CERTIFICATION
-      - APPEARANCE
-      - INCENTIVE
-      - COLOR
-      - FABRIC
-      - REBATE_INCENTIVE
-      - PORT_INSTALLED
-      - TELEMATICS
-      - OTHER
     PartIdentifier:
       type: object
       properties:
         part_identifier_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783338"
+          example: "868306130508447775"
         part_identifier_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783339"
+          example: "868306130508447776"
         part_source:
           type: string
           description: Unique identifier ID for the source of the part
@@ -9464,11 +9404,11 @@ components:
         part_name_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783340"
+          example: "868306130508447777"
         part_name_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783341"
+          example: "868306130508447778"
         part_prefix:
           $ref: "#/components/schemas/Codes"
         part_suffix:
@@ -9618,7 +9558,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - FAMILY_MEMBER
+          - ADVISOR_CONSULTANT
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -9632,7 +9572,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         org_indicator:
           type: boolean
           description: Indicates if the party is an organization (true) or an individual
@@ -9684,6 +9624,9 @@ components:
       - DRIVER
       - LIEN_HOLDER
       - PROVIDER
+      - WARRANTY_PROVIDER
+      - INSURANCE_PROVIDER
+      - SUBLET_PROVIDER
       - ACCOUNTABLE
       - RESPONSIBLE
       - CONSULT
@@ -9703,6 +9646,7 @@ components:
       - BUSINESS_DEVELOPMENT
       - SPECIALIST
       - ADVISOR
+      - PRIMARY_TECHNICIAN
       - SERVICE_TECH
       - CONCIERGE_STAFF
       - VALET
@@ -9853,7 +9797,7 @@ components:
         person_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783342"
+          example: "868306130508447779"
         person_key:
           type: string
           description: Unique global internal or external business key.
@@ -9872,7 +9816,7 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-07
+          example: 2026-07-16
         comments:
           type: string
           description: Additional comments about the person.
@@ -9899,7 +9843,7 @@ components:
           type: string
           description: Link to identifiers resource.
           format: href
-          example: https://api.example.com/resources/31365
+          example: https://api.example.com/resources/89753
         language_codes:
           maxItems: 255
           minItems: 1
@@ -9917,7 +9861,7 @@ components:
           type: string
           description: Link to organizational profiles resource.
           format: href
-          example: https://api.example.com/resources/99969
+          example: https://api.example.com/resources/80859
         party_key:
           type: string
           description: Unique global internal or external business key.
@@ -9929,7 +9873,7 @@ components:
           type: array
           description: party_types list
           example:
-          - RESALE
+          - RENTAL
           items:
             $ref: "#/components/schemas/PartyTypes"
         person_attributes:
@@ -9944,7 +9888,7 @@ components:
           type: string
           description: Link to privacy settings resource.
           format: href
-          example: https://api.example.com/resources/60383
+          example: https://api.example.com/resources/14515
         special_remarks_description:
           type: string
           description: Special remarks about the person.
@@ -10042,6 +9986,20 @@ components:
           type: string
           description: Nationality of the person.
           example: Canadian
+        person_label:
+          maxLength: 150
+          minLength: 1
+          type: string
+          description: The human-readable display label or business name representing
+            the party entity within the bounded context.
+          example: Apex Automotive Group
+        person_description:
+          maxLength: 500
+          type: string
+          description: Detailed contextual narrative or organizational notes describing
+            the referenced party entity.
+          example: Primary regional dealership franchise operating across southeast
+            service territories.
       description: a Name for a person
     Position:
       type: object
@@ -10086,8 +10044,8 @@ components:
           type: array
           description: Position codes associated with the entity.
           example:
-          - Pos-867912663852646412
-          - Pos-867912663852646413
+          - Pos-868307857861246980
+          - Pos-868307857861246981
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -10109,16 +10067,16 @@ components:
         price_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783343"
+          example: "868306130508447780"
         price_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783344"
+          example: "868306130508447781"
         display_amount:
           type: string
           description: "Human-readable display value for the price, including currency\
             \ symbol and proper decimal formatting."
-          example: $186.42
+          example: $971.56
         amount:
           $ref: "#/components/schemas/Money"
         tax_amount:
@@ -10152,7 +10110,7 @@ components:
           type: array
           description: price_types list
           example:
-          - TDA
+          - NONTAXABLE
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
@@ -10165,15 +10123,15 @@ components:
         price_plan_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783345"
+          example: "868306130508447782"
         price_plan_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783346"
+          example: "868306130508447783"
         price_plan_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783347"
+          example: "868306130508447784"
         price_levels:
           $ref: "#/components/schemas/Codes"
         context:
@@ -10189,7 +10147,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         geographic_boundaries:
           $ref: "#/components/schemas/GeographicBoundaryReferences"
         captured_financial_split:
@@ -10322,10 +10280,6 @@ components:
       - DEALER_NET_AMOUNT
       - LANDED_COST_AMOUNT
       - OTHER
-    Prices:
-      type: array
-      items:
-        $ref: "#/components/schemas/Price"
     PrivacyAdapterTypes:
       type: string
       description: types of privacy adapters.
@@ -10344,11 +10298,11 @@ components:
         privacy_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783348"
+          example: "868306130508447785"
         privacy_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783349"
+          example: "868306130508447786"
         target_persona:
           $ref: "#/components/schemas/PrivacyPersonaTypes"
         masking_strategy:
@@ -10378,11 +10332,11 @@ components:
         privacy_policy_rule_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783350"
+          example: "868306130508447787"
         privacy_policy_rule_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783351"
+          example: "868306130508447788"
         target_persona_type:
           $ref: "#/components/schemas/PrivacyPersonaTypes"
         target_data_category_type:
@@ -10395,6 +10349,8 @@ components:
           type: boolean
           description: Indicates if this macro policy rule is actively being enforced.
           example: false
+        effective_period:
+          $ref: "#/components/schemas/EffectivePeriod"
       description: PrivacyPolicyRule
     PrivacyPolicyRules:
       type: array
@@ -10516,6 +10472,118 @@ components:
             $ref: "#/components/schemas/Violation"
       description: "A standardized error response based on RFC 7807, extended with\
         \ domain-specific intent and validation violations."
+    RepairEffortSummary:
+      type: object
+      properties:
+        repair_effort_summary_key:
+          maxLength: 60
+          minLength: 1
+          type: string
+          description: Unique global internal or external business key.
+          example: EFF-PROF-993011
+        repair_effort_summary_id:
+          maxLength: 60
+          minLength: 1
+          type: string
+          description: Unique system-specific internal identifier.
+          example: EFF-PROF-993011
+        unit_of_time_code:
+          maxLength: 10
+          minLength: 1
+          type: string
+          description: "The unit of measure for time values across effort metrics\
+            \ (e.g., HUR for hours, MIN for minutes)."
+          example: HUR
+        estimated_labor_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        estimated_sublet_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        estimated_total_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        authorized_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        actual_clocked_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        actual_billed_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        actual_sublet_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        actual_total_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        efficiency_ratio:
+          type: number
+          description: The calculated shop performance ratio comparing billed hours
+            against actual clocked hours.
+          format: double
+          example: 1.15
+        effort_split_references:
+          $ref: "#/components/schemas/EffortSplitReferences"
+        technician_time_references:
+          $ref: "#/components/schemas/TechnicianTimeReferences"
+      description: External system identifier
+    RepairFinancialSummary:
+      type: object
+      properties:
+        repair_financial_profile_key:
+          maxLength: 60
+          minLength: 1
+          type: string
+          description: Unique global internal or external business key.
+          example: FIN-PROF-884410
+        repair_financial_profile_id:
+          maxLength: 80
+          minLength: 1
+          type: string
+          description: Unique system-specific internal identifier.
+          example: FIN-ID-2026-99
+        currency_code:
+          maxLength: 3
+          minLength: 3
+          type: string
+          description: "The ISO 4217 three-letter currency code applicable to all\
+            \ monetary amounts (e.g., USD, CAD)."
+          example: USD
+        estimated_labor_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        estimated_parts_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        estimated_sublet_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        estimated_misc_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        estimated_tax_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        estimated_grand_total_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        authorized_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        actual_labor_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        actual_parts_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        actual_sublet_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        actual_misc_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        actual_tax_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        actual_grand_total_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        paid_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        outstanding_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        financial_split_references:
+          $ref: "#/components/schemas/FinancialSplitReferences"
+        invoice_references:
+          $ref: "#/components/schemas/InvoiceReferences"
+        actual_total_labor_amount:
+          $ref: "#/components/schemas/Price"
+        actual_total_parts_amount:
+          $ref: "#/components/schemas/Price"
+        actual_total_misc_amount:
+          $ref: "#/components/schemas/Price"
+      description: External system identifier
     RepairStageTypes:
       type: string
       description: types of repair stages.
@@ -10550,11 +10618,11 @@ components:
         repair_status_event_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783352"
+          example: "868306130508447789"
         repair_status_event_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783353"
+          example: "868306130508447790"
         repair_status_type:
           $ref: "#/components/schemas/RepairStatusTypes"
         repair_stage_type:
@@ -10564,7 +10632,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         comments:
           type: string
           description: Any additional comments related to the event.
@@ -10600,21 +10668,28 @@ components:
       - PAYMENT_HOLD
       - FINANCE_HOLD
       - CUSTOMER_HOLD
+      - OPEN
+      - ESTIMATE
+      - WARRANTY_HOLD
+      - READY_TO_BILL
+      - CLOSED
+      - VOIDED
+      - OTHER
     ResourceGroup:
       type: object
       properties:
         resource_group_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783354"
+          example: "868306130508447791"
         resource_group_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783355"
+          example: "868306130508447792"
         resource_group_name:
           type: string
           description: The name of the resource group.
-          example: RESOURCE-GRP-867883865325174820
+          example: RESOURCE-GRP-868306123004837898
         resource_type:
           $ref: "#/components/schemas/ResourceTypes"
         resource_ids:
@@ -10715,15 +10790,15 @@ components:
         service_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783356"
+          example: "868306130508447793"
         service_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783357"
+          example: "868306130508447794"
         service_universal_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783358"
+          example: "868306130508447795"
         service_type:
           $ref: "#/components/schemas/ServiceTypes"
         service_codes:
@@ -10777,11 +10852,11 @@ components:
         service_activity_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783359"
+          example: "868306130508447796"
         service_activity_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783360"
+          example: "868306130508447797"
         activity_sequence_num:
           type: string
           description: The sequence number of the activity.
@@ -10791,7 +10866,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         activity_direction:
           type: string
           description: "The direction of the activity (e.g., inbound or outbound)."
@@ -10812,11 +10887,11 @@ components:
         staff_universal_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871209783361"
+          example: "868306130508447798"
         service_advisor_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871209783362"
+          example: "868306130508447799"
         service_advisor_name:
           type: string
           description: The name of the service advisor.
@@ -10825,7 +10900,7 @@ components:
           type: string
           description: A hyper-reference to the service advisor's resource.
           format: href
-          example: https://api.example.com/resources/55794
+          example: https://api.example.com/resources/66635
         invoice_identifier:
           type: string
           description: The identifier of the invoice related to the service activity.
@@ -10856,7 +10931,7 @@ components:
           type: array
           description: service_activity_types list
           example:
-          - APPOINTMENT_REQUESTED
+          - LEAD_IN_PROGRESS
           items:
             $ref: "#/components/schemas/CustomerInteractionTypes"
         service_activity_resource_types:
@@ -10866,7 +10941,7 @@ components:
           type: array
           description: service_activity_resource_types list
           example:
-          - SHOP_SUPPLIES
+          - FREIGHT
           items:
             $ref: "#/components/schemas/ServiceActivityResourceTypes"
         service_activity_codes:
@@ -10893,11 +10968,11 @@ components:
         service_identifier_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871226560512"
+          example: "868306130525224960"
         service_identifier_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871226560513"
+          example: "868306130525224961"
         service_source:
           type: string
           description: "Unique identifier ID for the source of the service (e.g.,\
@@ -10908,7 +10983,7 @@ components:
         service_identifier_value:
           type: string
           description: Value of the service identifier
-          example: "867883865325174814"
+          example: "868306123004837892"
         description:
           type: string
           description: Optional description for the service identifier
@@ -10942,11 +11017,11 @@ components:
         service_job_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871226560514"
+          example: "868306130525224962"
         service_job_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871226560515"
+          example: "868306130525224963"
         operation_codes:
           $ref: "#/components/schemas/Codes"
         operation_name:
@@ -10956,7 +11031,7 @@ components:
         operation_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871226560516"
+          example: "868306130525224964"
         job_codes:
           $ref: "#/components/schemas/Codes"
         job_invoice_ids:
@@ -10968,7 +11043,7 @@ components:
           type: array
           description: service_job_types list
           example:
-          - PDI_INSPECTION
+          - TRADE_IN
           items:
             $ref: "#/components/schemas/ServiceJobTypes"
         warranty_references:
@@ -10979,6 +11054,10 @@ components:
           $ref: "#/components/schemas/Narratives"
         service_labors:
           $ref: "#/components/schemas/ServiceLabors"
+        labor_operations:
+          $ref: "#/components/schemas/LaborOperations"
+        inspections:
+          $ref: "#/components/schemas/Inspections"
         sublets:
           $ref: "#/components/schemas/Sublets"
         service_activities:
@@ -11008,7 +11087,7 @@ components:
         plan_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143424"
+          example: "868306130546196480"
         staff:
           $ref: "#/components/schemas/Staff"
         service_parts:
@@ -11052,15 +11131,15 @@ components:
         service_labor_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143425"
+          example: "868306130546196481"
         service_labor_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871239143426"
+          example: "868306130546196482"
         service_job_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143427"
+          example: "868306130546196483"
         invoice_identifier:
           type: string
           description: The unique identifier for the invoice.
@@ -11098,45 +11177,33 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/ServiceLabor"
-    ServiceLevelTypes:
-      type: string
-      description: types of service levels.
-      example: GROUND
-      enum:
-      - GROUND
-      - TWO_DAY_AIR
-      - OVERNIGHT
-      - SAME_DAY
-      - LOCAL_DELIVERY
-      - FREIGHT
-      - PICKUP
     ServiceLineItem:
       type: object
       properties:
         service_line_item_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143428"
+          example: "868306130546196484"
         service_line_item_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871239143429"
+          example: "868306130546196485"
         party_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143430"
+          example: "868306130546196486"
         store_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143431"
+          example: "868306130546196487"
         department_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143432"
+          example: "868306130546196488"
         primary_service_advisor_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143433"
+          example: "868306130546196489"
         primary_service_advisor_name:
           type: string
           description: The name of the service advisor.
@@ -11181,11 +11248,11 @@ components:
         service_part_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143434"
+          example: "868306130546196490"
         service_part_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871239143435"
+          example: "868306130546196491"
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         quantity:
@@ -11199,7 +11266,7 @@ components:
         group_code:
           type: string
           description: The group code for the service part.
-          example: GRP-867883865325174817
+          example: GRP-868306123004837895
         description:
           type: string
           description: The description of the service part.
@@ -11225,11 +11292,11 @@ components:
         service_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143436"
+          example: "868306130546196492"
         service_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871239143437"
+          example: "868306130546196493"
         service_identifiers:
           $ref: "#/components/schemas/ServiceIdentifiers"
         service_type:
@@ -11303,149 +11370,6 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Service"
-    ShipmentEvent:
-      type: object
-      properties:
-        shipment_event_key:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: Unique global internal or external business key.
-          example: SHEVT-882211
-        shipment_event_id:
-          maxLength: 80
-          minLength: 1
-          type: string
-          description: Unique system-specific internal identifier.
-          example: CARRIER-EVT-2026-001
-        shipment_event_type:
-          maxLength: 80
-          minLength: 1
-          type: string
-          description: The business or operational type of shipment event.
-          example: PICKED_UP
-        shipment_state_type:
-          $ref: "#/components/schemas/ShipmentStateTypes"
-        previous_shipment_state_type:
-          $ref: "#/components/schemas/ShipmentStateTypes"
-        location:
-          $ref: "#/components/schemas/Position"
-        occurrence_date_time:
-          type: string
-          description: "Date and time when the event or value occurred, represented\
-            \ in ISO-8601 date-time format."
-          format: date-time
-          example: 2026-07-22T17:25:19Z
-        recorded_date_time:
-          type: string
-          description: "Date and time when the event or value occurred, represented\
-            \ in ISO-8601 date-time format."
-          format: date-time
-          example: 2026-07-22T17:25:19Z
-        effective_date_time:
-          type: string
-          description: "Date and time when the event or value occurred, represented\
-            \ in ISO-8601 date-time format."
-          format: date-time
-          example: 2026-07-22T17:25:19Z
-        event_source:
-          maxLength: 120
-          minLength: 1
-          type: string
-          description: "The carrier, logistics provider, platform, user, or system\
-            \ that generated the shipment event."
-          example: UPS
-        description:
-          maxLength: 2000
-          minLength: 1
-          type: string
-          description: The human-readable description of the shipment event.
-          example: Shipment picked up by carrier.
-        actor:
-          $ref: "#/components/schemas/ActorReference"
-        business_context:
-          $ref: "#/components/schemas/BusinessContext"
-        financial_event_snapshot:
-          $ref: "#/components/schemas/FinancialEventSnapshot"
-      description: nullable
-    ShipmentEvents:
-      type: array
-      items:
-        $ref: "#/components/schemas/ShipmentEvent"
-    ShipmentReference:
-      type: object
-      properties:
-        shipment_reference_id:
-          type: string
-          description: Unique system-specific internal identifier.
-          example: shp-ref-55092
-        shipment_reference_key:
-          type: string
-          description: Unique global internal or external business key.
-          example: LOGISTICS_ESTIMATE_2026_001
-        shipment_key:
-          type: string
-          description: Unique global internal or external business key.
-          example: OEM_LOGISTICS
-        tracking_number:
-          $ref: "#/components/schemas/ShipmentTrackingNumber"
-        context:
-          type: string
-          description: "The domain or carrier context of the shipment (e.g., 'FEDEX',\
-            \ 'CASSENS', 'OEM_LOGISTICS')."
-          example: OEM_LOGISTICS
-        system_codes:
-          $ref: "#/components/schemas/Codes"
-        carrier_party:
-          $ref: "#/components/schemas/CarrierParty"
-        occurrence_date_time:
-          type: string
-          description: "Date and time when the event or value occurred, represented\
-            \ in ISO-8601 date-time format."
-          format: date-time
-          example: 2026-07-22T17:25:19Z
-        unit_of_measures:
-          $ref: "#/components/schemas/UnitOfMeasures"
-        estimated_delivery_period:
-          $ref: "#/components/schemas/DeliveryWindow"
-        shipment_state_type:
-          $ref: "#/components/schemas/ShipmentStateTypes"
-        carrier_name:
-          maxLength: 120
-          minLength: 1
-          type: string
-          description: The display name of the carrier associated with the shipment
-            reference.
-          example: UPS
-        carrier_tracking_url:
-          maxLength: 2000
-          minLength: 1
-          type: string
-          description: The carrier-provided URL used to track the shipment.
-          example: https://carrier.example.com/track/TRK123456789
-        ship_from_party:
-          $ref: "#/components/schemas/PartyReference"
-        ship_to_party:
-          $ref: "#/components/schemas/PartyReference"
-        service_level_type:
-          $ref: "#/components/schemas/ServiceLevelTypes"
-      description: Reference details for the logistics and shipment of a vehicle during
-        the RDR process.
-    ShipmentStateTypes:
-      type: string
-      description: types of shipment states.
-      example: OPEN
-      enum:
-      - OPEN
-      - ACTIVE
-      - TRACKED
-      - DELIVERED
-      - RETURNED_TO_WAREHOUSE
-      - LOST_IN_TRANSIT
-    ShipmentTrackingNumber:
-      type: string
-      description: The external tracking number.
-      example: TRK123456789
     SkillCategoryTypes:
       type: string
       description: types of skill categorys.
@@ -11468,19 +11392,19 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871239143438"
+          example: "868306130546196494"
         staff_reference_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143439"
+          example: "868306130546196495"
         staff_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143440"
+          example: "868306130546196496"
         service_job_type:
           $ref: "#/components/schemas/ServiceJobTypes"
         identifier:
@@ -11490,7 +11414,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         role_types:
           maxItems: 255
           minItems: 1
@@ -11498,7 +11422,7 @@ components:
           type: array
           description: role_types list
           example:
-          - MOBILE_SERVICE_VAN
+          - SALES_MGR
           items:
             $ref: "#/components/schemas/RoleTypes"
         timeslots:
@@ -11528,14 +11452,14 @@ components:
           type: string
           description: staff.member.contact.methods.href.desc
           format: href
-          example: https://api.example.com/resources/50574
+          example: https://api.example.com/resources/90543
         department:
           $ref: "#/components/schemas/Department"
         department_href:
           type: string
           description: staff.member.department.href.desc
           format: href
-          example: https://api.example.com/resources/61476
+          example: https://api.example.com/resources/77152
         department_name:
           type: string
           description: staff.member.department.name.desc
@@ -11543,7 +11467,7 @@ components:
         party_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143441"
+          example: "868306130546196497"
         email:
           type: string
           description: staff.member.email.desc
@@ -11551,7 +11475,7 @@ components:
         employee_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143442"
+          example: "868306130546196498"
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         job_title:
@@ -11561,7 +11485,7 @@ components:
         manager_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143443"
+          example: "868306130546196499"
         manager_name:
           type: string
           description: staff.member.manager.name.desc
@@ -11572,7 +11496,7 @@ components:
           type: string
           description: staff.member.profile.href.desc
           format: href
-          example: https://api.example.com/resources/38449
+          example: https://api.example.com/resources/26362
         role_types:
           maxItems: 255
           minItems: 1
@@ -11580,29 +11504,29 @@ components:
           type: array
           description: role_types list
           example:
-          - HELPER_TECHNICIAN
+          - TECHNICIAN
           items:
             $ref: "#/components/schemas/RoleTypes"
         staff_member_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871239143444"
+          example: "868306130546196500"
         staff_member_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143445"
+          example: "868306130546196501"
         state_license_number:
           type: string
           description: staff.member.state.license.number.desc
-          example: "56"
+          example: "9"
         team_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871239143446"
+          example: "868306130546196502"
         team_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143447"
+          example: "868306130546196503"
         team_name:
           type: string
           description: staff.member.team.name.desc
@@ -11614,15 +11538,15 @@ components:
         staff_member_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143448"
+          example: "868306130546196504"
         staff_member_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871239143449"
+          example: "868306130546196505"
         staff_member_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143450"
+          example: "868306130546196506"
         full_name:
           type: string
           description: The display or full name of the staff member.
@@ -11719,15 +11643,15 @@ components:
         store_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871239143451"
+          example: "868306130546196507"
         store_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143452"
+          example: "868306130546196508"
         store_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143453"
+          example: "868306130546196509"
         store_name:
           type: string
           description: The name of the store.
@@ -11747,7 +11671,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
       description: External system identifier
     Sublet:
       type: object
@@ -11755,15 +11679,15 @@ components:
         sublet_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871239143454"
+          example: "868306130546196510"
         sublet_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143455"
+          example: "868306130546196511"
         party_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143456"
+          example: "868306130546196512"
         narratives:
           $ref: "#/components/schemas/Narratives"
         price_plan_references:
@@ -11790,17 +11714,56 @@ components:
       - PAYROLL
       - SERVICE_WORK_IN_PROGRESS
       - OEM_INCENTIVES
+    TechnicianTimeReference:
+      type: object
+      properties:
+        time_punch_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: PUNCH-99201
+        technician_time_reference_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: EMP-8821
+        technician_time_reference_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: EMP-8821
+        start_date_time:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-07-24T01:34:53Z
+        end_date_time:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-07-24T01:34:53Z
+        duration:
+          $ref: "#/components/schemas/TimeMeasure"
+        punch_type_code:
+          type: string
+          description: "The type of labor punch session (e.g., DIRECT_LABOR, DIAGNOSTIC,\
+            \ IDLE, OVERTIME)."
+          example: DIRECT_LABOR
+      description: technician.time.reference.desc
+    TechnicianTimeReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/TechnicianTimeReference"
     TextualDetail:
       type: object
       properties:
         textual_detail_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871239143457"
+          example: "868306130546196513"
         textual_detail_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "867883871239143458"
+          example: "868306130546196514"
         comments:
           $ref: "#/components/schemas/Memo"
         locale_codes:
@@ -11814,7 +11777,7 @@ components:
         text_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871243337728"
+          example: "868306130546196515"
         name:
           type: string
           description: textual.detail.name.desc
@@ -11854,6 +11817,24 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/TextualDetail"
+    TimeMeasure:
+      type: object
+      properties:
+        time_measure_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "3.50"
+        time_measure_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "3.50"
+        value:
+          type: string
+          description: The numeric duration or quantity of time.
+          example: "3.50"
+        uom_time_type:
+          $ref: "#/components/schemas/UomTimeTypes"
+      description: time.measure.desc
     TimeSlot:
       type: object
       properties:
@@ -11896,7 +11877,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - AFTER
+          - ANYTIME
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
@@ -11963,26 +11944,6 @@ components:
           description: The descriptive name of the transmission configuration.
           example: 6-Speed Automatic
       description: A lightweight summary of the vehicle's transmission configuration.
-    UnitOfMeasure:
-      type: object
-      properties:
-        unit_of_measure_key:
-          type: string
-          description: Unique global internal or external business key.
-          example: "867883871243337729"
-        unit_name:
-          type: string
-          description: Unit of Measure
-          example: Mile
-        uom_value:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Unit of Measure Value
-          example: mi
-        uom_quantity_category_type:
-          $ref: "#/components/schemas/UomQuantityCategoryTypes"
-      description: value price with unit of measure
     UnitOfMeasureTypes:
       type: string
       description: types of unit of measures.
@@ -12048,185 +12009,43 @@ components:
       - NA
       - OTHER
       - UNKNOWN
-    UnitOfMeasures:
-      type: array
-      items:
-        $ref: "#/components/schemas/UnitOfMeasure"
-    UomQuantityCategoryTypes:
+    UomTimeTypes:
       type: string
-      description: types of uom quantity categorys.
-      example: COUNT
+      description: types of uom times.
+      example: NANOSECOND
       enum:
-      - COUNT
-      - WEIGHT
-      - VOLUME
-      - TIME
-      - NET_WEIGHT
-      - NET_VOLUME
-      - PACKAGE_QUANTITY
-      - MIN_ORDER_QUANTITY
-      - GROSS_WEIGHT
-      - GROSS_VOLUME
-      - SHIPPING_WEIGHT
-      - DIMENSIONAL_WEIGHT
-      - MATERIAL
-      - ELECTRICAL_RATING
-      - DEFAULT_LEAD_TIME
-      - MAX_LEAD_TIME
-      - DIMENSION_UNIT
-      - MIN_LENGTH
-      - MAX_LENGTH
-      - MIN_WIDTH
-      - MAX_WIDTH
-      - MIN_HEIGHT
-      - MAX_HEIGHT
-      - MIN_WEIGHT
-      - MAX_WEIGHT
-      - MAX_ORDER_QUANTITY
-      - MIN_ORDER_AVAILABLE
-      - DIMENSIONS
-      - SHIPPING_DIM_LENGTH
-      - SHIPPING_DIM_WIDTH
-      - SHIPPING_DIM_HEIGHT
-      - SHIPPING_DIM_GROSS_WEIGHT
-      - SHIPPING_DIM_NET_WEIGHT
-      - SHELF_LIFE_HOURS
-      - EXPIRATION_DATE
-      - MIN_PAYMENT_PERCENT
-      - MIN_PAYMENT_AMOUNT
-    VehicleBuildProfile:
-      type: object
-      properties:
-        vehicle_build_profile_key:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: Unique global internal or external business key.
-          example: VBP-2026-000001
-        vehicle_build_profile_id:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: Unique system-specific internal identifier.
-          example: VBP-ID-884512
-        vehicle_order_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The dealer or customer-facing vehicle order number associated
-            with the vehicle order lifecycle.
-          example: ORD-2026-001245
-        factory_order_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The manufacturer-assigned factory order number used to track
-            production and fulfillment activities.
-          example: FO-884512
-        reservation_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The reservation number assigned to a vehicle reservation prior
-            to order placement or production scheduling.
-          example: RSV-2026-004512
-        allocation_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: "The allocation number representing the manufacturer's inventory\
-            \ allocation assignment to a dealer, distributor, or fleet organization."
-          example: ALLOC-2026-00987
-        allocation_pool_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: "The allocation pool number identifying the manufacturer allocation\
-            \ program, distribution pool, or inventory assignment group associated\
-            \ with the vehicle."
-          example: POOL-SE-2026-015
-        build_batch_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The manufacturing batch number grouping vehicles scheduled
-            for assembly during the same production cycle.
-          example: BATCH-2026-0821
-        build_sequence_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The manufacturing build sequence number assigned during vehicle
-            assembly scheduling.
-          example: SEQ-10542
-        production_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The production tracking number assigned by the manufacturer
-            for vehicle assembly and plant operations.
-          example: PROD-778921
-        production_plant_code:
-          maxLength: 30
-          minLength: 1
-          type: string
-          description: The manufacturer-assigned production plant code identifying
-            the assembly facility where the vehicle was produced.
-          example: TMMK
-        build_status_type:
-          $ref: "#/components/schemas/VehicleBuildStatusTypes"
-        build_period:
-          $ref: "#/components/schemas/EffectivePeriod"
-        configuration_codes:
-          $ref: "#/components/schemas/Codes"
-        vehicle_options:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          description: Vehicle Options
-          example:
-          - VEH-867912663848452096
-          - VEH-867912663848452097
-          items:
-            $ref: "#/components/schemas/VehicleOption"
-        identifiers:
-          $ref: "#/components/schemas/Identifiers"
-        tags:
-          $ref: "#/components/schemas/Codes"
-        source_system_code:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The source system code identifying the system of record or
-            integration source for the vehicle build profile.
-          example: OEM_ORDER_BANK
-        occurrence_date_time:
-          type: string
-          description: "Date and time when the event or value occurred, represented\
-            \ in ISO-8601 date-time format."
-          format: date-time
-          example: 2026-07-22T17:25:19Z
-      description: "Comprehensive vehicle details including identifiers, configuration,\
-        \ and status."
-    VehicleBuildStatusTypes:
-      type: string
-      description: types of vehicle build status.
-      example: PENDING
-      enum:
-      - PENDING
-      - RESERVED
-      - ALLOCATED
-      - SCHEDULED
-      - IN_PRODUCTION
-      - BUILT
-      - QUALITY_INSPECTION
-      - RELEASED
-      - IN_TRANSIT
-      - DELIVERED
-      - ON_HOLD
-      - REWORK
-      - CANCELLED
+      - NANOSECOND
+      - MICROSECOND
+      - MILLISECOND
+      - SECOND
+      - MINUTE
+      - HOUR
+      - DAY
+      - WEEK
+      - MONTH
+      - YEAR
+      - DECADE
+      - CENTURY
+      - MILLENNIUM
+      - PERCENTAGE_OF_HOUR
+      - DURATION
+      - MINUTES
+      - HOURS
+      - DAYS
+      - WEEKS
+      - DAY_OF_MONTH
+      - BI_WEEKS
+      - SEMI_MONTHS
+      - MONTHS
+      - QUARTERS
+      - SEMI_YEARS
+      - YEARS
+      - MULTI_YEARS
+      - OCCURRENCE
+      - UNLIMITED
+      - NONE
+      - CUSTOM
+      - OTHER
     VehicleIdentifier:
       type: object
       properties:
@@ -12306,7 +12125,7 @@ components:
         vehicle_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871243337730"
+          example: "868306130546196516"
         vehicle_summary:
           $ref: "#/components/schemas/VehicleSummary"
       description: Vehicle Identifier
@@ -12326,253 +12145,12 @@ components:
         plate_number:
           type: string
           description: The license plate number.
-          example: "50"
+          example: "0"
         vehicle_license_key:
           type: string
           description: Unique global internal or external business key.
-          example: "867883871243337731"
+          example: "868306130546196517"
       description: License for vehicle
-    VehicleLogisticsProfile:
-      type: object
-      properties:
-        vehicle_logistics_profile_key:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: Unique global internal or external business key.
-          example: VLP-2026-000001
-        vehicle_logistics_profile_id:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: Unique system-specific internal identifier.
-          example: VLP-ID-884512
-        railcar_number:
-          maxLength: 40
-          minLength: 1
-          type: string
-          description: The railcar number used to transport the vehicle through the
-            rail distribution network during fulfillment.
-          example: TTGX982145
-        vessel_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The vessel number identifying the ocean-going vessel responsible
-            for transporting the vehicle during maritime shipment.
-          example: VESSEL-ATLANTIC-001
-        voyage_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The voyage number assigned by the shipping carrier to identify
-            a specific maritime journey.
-          example: VOY-2026-0421
-        port_processing_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: "The port processing number used to track vehicle inspection,\
-            \ preparation, and accessory installation activities performed at the\
-            \ port facility."
-          example: PORT-PP-884512
-        carrier_reference_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The carrier-assigned reference number used to track transportation
-            activities across shipping and logistics providers.
-          example: CARR-REF-992311
-        transport_load_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: "The transportation load number identifying the shipment load,\
-            \ convoy, rail consist, or carrier movement containing the vehicle."
-          example: LOAD-2026-10842
-        distribution_center_code:
-          maxLength: 30
-          minLength: 1
-          type: string
-          description: "The code identifying the distribution center, processing center,\
-            \ or logistics hub responsible for handling the vehicle."
-          example: ATL-DC01
-        ramp_code:
-          maxLength: 30
-          minLength: 1
-          type: string
-          description: The rail ramp or vehicle processing ramp code identifying the
-            transfer location used during vehicle distribution.
-          example: ATL-RAMP-07
-        convoy_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The convoy number identifying a grouped transportation movement
-            of vehicles managed as a single logistics unit.
-          example: CONVOY-2026-015
-        logistics_identifiers:
-          $ref: "#/components/schemas/Identifiers"
-        shipment_references:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          description: Shipment References
-          example:
-          - 0cfc2334
-          - TAG-7793519d
-          items:
-            $ref: "#/components/schemas/ShipmentReference"
-        logistics_status_type:
-          $ref: "#/components/schemas/VehicleLogisticsStatusTypes"
-        logistics_period:
-          $ref: "#/components/schemas/EffectivePeriod"
-        source_system_code:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The source system code identifying the system of record or
-            integration source for the vehicle logistics profile.
-          example: OEM_LOGISTICS
-        occurrence_date_time:
-          type: string
-          description: "Date and time when the event or value occurred, represented\
-            \ in ISO-8601 date-time format."
-          format: date-time
-          example: 2026-07-22T17:25:19Z
-        shipment_events:
-          $ref: "#/components/schemas/ShipmentEvents"
-        rail_position:
-          maxLength: 80
-          minLength: 1
-          type: string
-          description: The assigned position of the vehicle on the railcar.
-          example: A12
-        truck_position:
-          maxLength: 80
-          minLength: 1
-          type: string
-          description: The assigned position of the vehicle on the transport truck.
-          example: UPPER_FRONT
-        deck:
-          maxLength: 80
-          minLength: 1
-          type: string
-          description: "The vessel, rail, or transport deck where the vehicle is positioned."
-          example: DECK-3
-        container_number:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: "The container number associated with the vehicle movement,\
-            \ when applicable."
-          example: CONT-77821
-        chock_position:
-          maxLength: 120
-          minLength: 1
-          type: string
-          description: The chock position used to secure the vehicle during transportation.
-          example: FRONT_LEFT_REAR_RIGHT
-        tie_down_information:
-          maxLength: 1000
-          minLength: 1
-          type: string
-          description: "Tie-down, restraint, or securement information used during\
-            \ vehicle transportation."
-          example: allowed and available
-        load_sequence:
-          maxLength: 40
-          minLength: 1
-          type: string
-          description: The loading sequence assigned to the vehicle during transportation.
-          example: "004"
-      description: "Comprehensive vehicle details including identifiers, configuration,\
-        \ and status."
-    VehicleLogisticsStatusTypes:
-      type: string
-      description: types of vehicle logistics status.
-      example: PENDING
-      enum:
-      - PENDING
-      - PORT_PROCESSING
-      - RAIL_ASSIGNED
-      - CARRIER_ASSIGNED
-      - IN_TRANSIT
-      - AT_RAMP
-      - AT_DISTRIBUTION_CENTER
-      - DELAYED
-      - ON_HOLD
-      - DELIVERED
-      - CANCELLED
-      - LOST
-      - DAMAGED
-    VehicleOption:
-      type: object
-      properties:
-        vehicle_option_key:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: Unique global internal or external business key.
-          example: "867883871243337732"
-        manufacturer_name:
-          maxLength: 120
-          minLength: 1
-          type: string
-          description: "The manufacturer, brand, or source responsible for producing\
-            \ or supplying the vehicle option."
-          example: Ford
-        option_category:
-          $ref: "#/components/schemas/Codes"
-        option_code:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: "The manufacturer, OEM, or source system code assigned to the\
-            \ vehicle option."
-          example: SRF
-        option_descriptions:
-          $ref: "#/components/schemas/OptionDescriptions"
-        option_groups:
-          $ref: "#/components/schemas/Codes"
-        option_installation_types:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          description: option_installation_types list
-          example:
-          - CUSTOM_FABRICATION
-          items:
-            $ref: "#/components/schemas/OptionInstallationTypes"
-        option_name:
-          maxLength: 120
-          minLength: 1
-          type: string
-          description: The display name or business name of the vehicle option.
-          example: Sunroof
-        option_types:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          description: option_types list
-          example:
-          - APPEARANCE
-          items:
-            $ref: "#/components/schemas/OptionTypes"
-        quantity:
-          $ref: "#/components/schemas/MetricValue"
-        prices:
-          $ref: "#/components/schemas/Prices"
-        short_description:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: A concise display description of the vehicle option.
-          example: Factory installed sunroof
-      description: options and options of a vehicle
     VehicleReference:
       type: object
       properties:
@@ -12659,10 +12237,6 @@ components:
           $ref: "#/components/schemas/Identifiers"
         tags:
           $ref: "#/components/schemas/Codes"
-        vehicle_build_profile:
-          $ref: "#/components/schemas/VehicleBuildProfile"
-        vehicle_logistics_profile:
-          $ref: "#/components/schemas/VehicleLogisticsProfile"
       description: Vehicle Detail Create Information
     VehicleSummary:
       type: object
@@ -12701,6 +12275,12 @@ components:
           $ref: "#/components/schemas/ColorSummaries"
         fuel_summary:
           $ref: "#/components/schemas/FuelSummary"
+        body_style:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The baseline layout style design of the chassis structure shell.
+          example: Crew Cab Pickup
         vehicle_description:
           $ref: "#/components/schemas/Memo"
         vehicle_notes:
@@ -12821,19 +12401,19 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         adjudicated_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         paid_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         claim_codes:
           $ref: "#/components/schemas/Codes"
         media:
@@ -12856,13 +12436,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         last_updated_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
         narratives:
           $ref: "#/components/schemas/Narratives"
       description: "Represents a warranty claim submitted for coverage, authorization,\
@@ -12930,7 +12510,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-22T17:25:19Z
+          example: 2026-07-24T01:34:53Z
       description: Lightweight reference to a Warranty aggregate.
     WarrantyReferences:
       type: array
@@ -13103,61 +12683,6 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/FuelSummary"
-    VehicleBuildProfileCollectionResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Link:
-          $ref: "#/components/headers/LinkHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                description: The list of VehicleBuildProfiles entities.
-                items:
-                  $ref: "#/components/schemas/VehicleBuildProfile"
-              has_more:
-                type: boolean
-                description: Indicates if more results are available.
-              total_count:
-                maximum: 2147483647
-                minimum: 0
-                type: integer
-                description: The number of total entities.
-                format: int32
-                example: 2550
     ServiceIdentifierCollectionResponse:
       description: Success
       headers:
@@ -13360,7 +12885,7 @@ components:
                 description: The number of total entities.
                 format: int32
                 example: 2550
-    ShipmentEventSingleResponse:
+    RepairEffortSummaryCollectionResponse:
       description: Success
       headers:
         Standards-Version:
@@ -13391,49 +12916,30 @@ components:
           $ref: "#/components/headers/ExpiresHeader"
         Org-Version:
           $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
         Location:
           $ref: "#/components/headers/LocationHeader"
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ShipmentEvent"
-    VehicleBuildProfileSingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/VehicleBuildProfile"
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of RepairEffortSummaries entities.
+                items:
+                  $ref: "#/components/schemas/RepairEffortSummary"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
     LaborResourceCollectionResponse:
       description: Success
       headers:
@@ -13618,43 +13124,6 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/AddressLocale"
-    VehicleOptionSingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/VehicleOption"
     ServiceJobCollectionResponse:
       description: Success
       headers:
@@ -13700,6 +13169,61 @@ components:
                 description: The list of ServiceJobs entities.
                 items:
                   $ref: "#/components/schemas/ServiceJob"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
+    TimeMeasureCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of TimeMeasures entities.
+                items:
+                  $ref: "#/components/schemas/TimeMeasure"
               has_more:
                 type: boolean
                 description: Indicates if more results are available.
@@ -13760,61 +13284,6 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/PartIdentifier"
-    VehicleOptionCollectionResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Link:
-          $ref: "#/components/headers/LinkHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                description: The list of VehicleOptions entities.
-                items:
-                  $ref: "#/components/schemas/VehicleOption"
-              has_more:
-                type: boolean
-                description: Indicates if more results are available.
-              total_count:
-                maximum: 2147483647
-                minimum: 0
-                type: integer
-                description: The number of total entities.
-                format: int32
-                example: 2550
     WarrantyClaimSingleResponse:
       description: Success
       headers:
@@ -14450,6 +13919,43 @@ components:
                 description: The number of total entities.
                 format: int32
                 example: 2550
+    RepairEffortSummarySingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RepairEffortSummary"
     ColorSummaryCollectionResponse:
       description: Success
       headers:
@@ -14634,43 +14140,6 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ServiceJob"
-    VehicleLogisticsProfileSingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/VehicleLogisticsProfile"
     VehicleSummaryCollectionResponse:
       description: Success
       headers:
@@ -14946,6 +14415,43 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/BusinessContext"
+    CustomerSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Customer"
     MediaCollectionResponse:
       description: Success
       headers:
@@ -15818,43 +15324,6 @@ components:
                 description: The number of total entities.
                 format: int32
                 example: 2550
-    OptionDescriptionSingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/OptionDescription"
     ResourceGroupSingleResponse:
       description: Success
       headers:
@@ -16314,6 +15783,61 @@ components:
                 description: The number of total entities.
                 format: int32
                 example: 2550
+    CustomerCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of Customers entities.
+                items:
+                  $ref: "#/components/schemas/Customer"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
     PersonCollectionResponse:
       description: Success
       headers:
@@ -16359,61 +15883,6 @@ components:
                 description: The list of People entities.
                 items:
                   $ref: "#/components/schemas/Person"
-              has_more:
-                type: boolean
-                description: Indicates if more results are available.
-              total_count:
-                maximum: 2147483647
-                minimum: 0
-                type: integer
-                description: The number of total entities.
-                format: int32
-                example: 2550
-    VehicleLogisticsProfileCollectionResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Link:
-          $ref: "#/components/headers/LinkHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                description: The list of VehicleLogisticsProfiles entities.
-                items:
-                  $ref: "#/components/schemas/VehicleLogisticsProfile"
               has_more:
                 type: boolean
                 description: Indicates if more results are available.
@@ -16571,6 +16040,43 @@ components:
                 description: The number of total entities.
                 format: int32
                 example: 2550
+    TimeMeasureSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TimeMeasure"
     TransmissionSummarySingleResponse:
       description: Success
       headers:
@@ -16988,7 +16494,7 @@ components:
                 description: The number of total entities.
                 format: int32
                 example: 2550
-    OptionDescriptionCollectionResponse:
+    RepairFinancialSummarySingleResponse:
       description: Success
       headers:
         Standards-Version:
@@ -17019,30 +16525,12 @@ components:
           $ref: "#/components/headers/ExpiresHeader"
         Org-Version:
           $ref: "#/components/headers/OrgVersionHeader"
-        Link:
-          $ref: "#/components/headers/LinkHeader"
         Location:
           $ref: "#/components/headers/LocationHeader"
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              data:
-                type: array
-                description: The list of OptionDescriptions entities.
-                items:
-                  $ref: "#/components/schemas/OptionDescription"
-              has_more:
-                type: boolean
-                description: Indicates if more results are available.
-              total_count:
-                maximum: 2147483647
-                minimum: 0
-                type: integer
-                description: The number of total entities.
-                format: int32
-                example: 2550
+            $ref: "#/components/schemas/RepairFinancialSummary"
     StaffSkillSingleResponse:
       description: Success
       headers:
@@ -17438,6 +16926,61 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/StaffMember"
+    RepairFinancialSummaryCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of RepairFinancialSummaries entities.
+                items:
+                  $ref: "#/components/schemas/RepairFinancialSummary"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
     JurisdictionProfileSingleResponse:
       description: Success
       headers:
@@ -17549,61 +17092,6 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/GeographicBoundary"
-    ShipmentEventCollectionResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Link:
-          $ref: "#/components/headers/LinkHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                description: The list of ShipmentEvents entities.
-                items:
-                  $ref: "#/components/schemas/ShipmentEvent"
-              has_more:
-                type: boolean
-                description: Indicates if more results are available.
-              total_count:
-                maximum: 2147483647
-                minimum: 0
-                type: integer
-                description: The number of total entities.
-                format: int32
-                example: 2550
     PositionCollectionResponse:
       description: Success
       headers:
@@ -17669,7 +17157,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615357501441"
+        example: "868305204271906817"
     OrgVersionHeader:
       name: Org-Version
       in: header
@@ -17684,6 +17172,16 @@ components:
         pattern: "^[a-zA-Z0-9\\.\\-]+$"
         type: string
         example: "2026.01"
+    RepairEffortSummaryKey:
+      name: repair-effort-summary-key
+      in: path
+      description: The unique identifier for an RepairEffortSummary entity.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: "868305204276101132"
     LaborResourceKey:
       name: labor-resource-key
       in: path
@@ -17693,17 +17191,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695750"
-    OptionDescriptionKey:
-      name: option-description-key
-      in: path
-      description: The unique identifier for an OptionDescription entity.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-        example: "867819615365890050"
+        example: "868305204271906834"
     SourceSystemHeader:
       name: Source-System
       in: header
@@ -17743,7 +17231,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695746"
+        example: "868305204271906830"
     TransmissionSummaryKey:
       name: transmission-summary-key
       in: path
@@ -17753,7 +17241,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695760"
+        example: "868305204276101121"
     ServiceKey:
       name: service-key
       in: path
@@ -17763,7 +17251,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615365890060"
+        example: "868305204276101134"
     FilterQuery:
       name: filter
       in: query
@@ -17819,7 +17307,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615365890053"
+        example: "868305204276101126"
     ServicePartKey:
       name: service-part-key
       in: path
@@ -17829,7 +17317,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615365890055"
+        example: "868305204276101128"
     VehicleSummaryKey:
       name: vehicle-summary-key
       in: path
@@ -17839,7 +17327,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695758"
+        example: "868305204271906841"
     StaffSkillKey:
       name: staff-skill-key
       in: path
@@ -17849,7 +17337,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615365890048"
+        example: "868305204276101123"
     LaborOperationEventKey:
       name: labor-operation-event-key
       in: path
@@ -17859,7 +17347,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615365890058"
+        example: "868305204276101131"
     FinancialEventSnapshotKey:
       name: financial-event-snapshot-key
       in: path
@@ -17869,7 +17357,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695755"
+        example: "868305204271906839"
     ServiceJobKey:
       name: service-job-key
       in: path
@@ -17879,7 +17367,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615365890061"
+        example: "868305204276101135"
     AgentHeader:
       name: Agent
       in: header
@@ -17902,7 +17390,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615365890057"
+        example: "868305204276101130"
     ResourceGroupKey:
       name: resource-group-key
       in: path
@@ -17912,7 +17400,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615365890056"
+        example: "868305204276101129"
     IdempotencyKeyHeader:
       name: Idempotency-Key
       in: header
@@ -17934,7 +17422,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615357501448"
+        example: "868305204271906825"
     ServiceLineItemKey:
       name: service-line-item-key
       in: path
@@ -17944,7 +17432,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695748"
+        example: "868305204271906832"
     DiagnosticKey:
       name: diagnostic-key
       in: path
@@ -17954,7 +17442,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615365890051"
+        example: "868305204276101125"
     ServiceActivityKey:
       name: service-activity-key
       in: path
@@ -17964,7 +17452,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615370084356"
+        example: "868305204276101141"
     LimitQuery:
       name: limit
       in: query
@@ -17988,7 +17476,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695756"
+        example: "868305204271906840"
     RegionHeader:
       name: Region
       in: header
@@ -18010,7 +17498,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615365890049"
+        example: "868305204276101124"
     GeographicBoundaryKey:
       name: geographic-boundary-key
       in: path
@@ -18020,17 +17508,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615357501444"
-    ShipmentEventKey:
-      name: shipment-event-key
-      in: path
-      description: The unique identifier for an ShipmentEvent entity.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-        example: "867819615370084352"
+        example: "868305204271906821"
     AddressKey:
       name: address-key
       in: path
@@ -18040,7 +17518,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615357501443"
+        example: "868305204271906819"
     PrivacyPolicyRuleKey:
       name: privacy-policy-rule-key
       in: path
@@ -18050,7 +17528,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615365890054"
+        example: "868305204276101127"
     DailyHourKey:
       name: daily-hour-key
       in: path
@@ -18060,7 +17538,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615370084355"
+        example: "868305204276101139"
     BrandHeader:
       name: Brand
       in: header
@@ -18084,7 +17562,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615365890062"
+        example: "868305204276101136"
     PreferenceAppliedHeader:
       name: Preference-Applied
       in: header
@@ -18105,6 +17583,16 @@ components:
       schema:
         type: string
         example: urn:oem/dealer/ServiceAppointment/v6.0
+    TimeMeasureKey:
+      name: time-measure-key
+      in: path
+      description: The unique identifier for an TimeMeasure entity.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: "868305204276101140"
     GeneralAmountKey:
       name: general-amount-key
       in: path
@@ -18114,7 +17602,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615370084353"
+        example: "868305204276101137"
     JurisdictionProfileKey:
       name: jurisdiction-profile-key
       in: path
@@ -18124,7 +17612,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695754"
+        example: "868305204271906838"
     ReasonQuery:
       name: reason
       in: query
@@ -18146,7 +17634,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615370084354"
+        example: "868305204276101138"
     CacheControlHeader:
       name: Cache-Control
       in: header
@@ -18157,16 +17645,6 @@ components:
       schema:
         type: string
         example: "max-age=300, private"
-    VehicleLogisticsProfileKey:
-      name: vehicle-logistics-profile-key
-      in: path
-      description: The unique identifier for an VehicleLogisticsProfile entity.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-        example: "867819615357501442"
     PrivacyItemKey:
       name: privacy-item-key
       in: path
@@ -18176,7 +17654,17 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695747"
+        example: "868305204271906831"
+    CustomerKey:
+      name: customer-key
+      in: path
+      description: The unique identifier for an Customer entity.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: "868305204271906820"
     ControlAccountKey:
       name: control-account-key
       in: path
@@ -18186,17 +17674,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615357501447"
-    VehicleBuildProfileKey:
-      name: vehicle-build-profile-key
-      in: path
-      description: The unique identifier for an VehicleBuildProfile entity.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-        example: "867819615365890052"
+        example: "868305204271906824"
     PreferHeader:
       name: Prefer
       in: header
@@ -18227,7 +17705,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695752"
+        example: "868305204271906836"
     FuelSummaryKey:
       name: fuel-summary-key
       in: path
@@ -18237,7 +17715,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615365890059"
+        example: "868305204276101133"
     CountryCodeHeader:
       name: Country-Code
       in: header
@@ -18256,7 +17734,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615357501445"
+        example: "868305204271906822"
     CorrelationIDHeader:
       name: Correlation-ID
       in: header
@@ -18279,7 +17757,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695745"
+        example: "868305204271906829"
     InspectionKey:
       name: inspection-key
       in: path
@@ -18289,7 +17767,17 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695751"
+        example: "868305204271906835"
+    RepairFinancialSummaryKey:
+      name: repair-financial-summary-key
+      in: path
+      description: The unique identifier for an RepairFinancialSummary entity.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: "868305204271906818"
     SortQuery:
       name: sort
       in: query
@@ -18311,7 +17799,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695744"
+        example: "868305204271906828"
     VehicleIdentifierKey:
       name: vehicle-identifier-key
       in: path
@@ -18321,7 +17809,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695761"
+        example: "868305204276101122"
     OffsetQuery:
       name: offset
       in: query
@@ -18344,7 +17832,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615357501449"
+        example: "868305204271906826"
     PersonKey:
       name: person-key
       in: path
@@ -18354,7 +17842,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695759"
+        example: "868305204276101120"
     PartNameKey:
       name: part-name-key
       in: path
@@ -18364,7 +17852,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615357501450"
+        example: "868305204271906827"
     StandardsVersionHeader:
       name: Standards-Version
       in: header
@@ -18388,7 +17876,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615357501446"
+        example: "868305204271906823"
     PositionKey:
       name: position-key
       in: path
@@ -18398,7 +17886,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695749"
+        example: "868305204271906833"
     ServiceLaborKey:
       name: service-labor-key
       in: path
@@ -18408,7 +17896,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "867819615361695753"
+        example: "868305204271906837"
     TransactionIDHeader:
       name: Transaction-ID
       in: header
@@ -18439,16 +17927,6 @@ components:
         minLength: 5
         type: string
         example: "42278"
-    VehicleOptionKey:
-      name: vehicle-option-key
-      in: path
-      description: The unique identifier for an VehicleOption entity.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-        example: "867819615361695757"
   headers:
     CacheControlHeader:
       description: Tells the client and intermediary caches how to store the response.
@@ -18495,7 +17973,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/867819615370084357
+        example: /labor-operations/868305204276101142
     ContentLocationHeader:
       description: The URI of the specific representation returned in the payload.
         Used to disambiguate the 'Resource Identifier' from the 'Data Artifact' in
@@ -18506,7 +17984,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/867819615370084358
+        example: /labor-operations/868305204276101143
     TransactionIDHeader:
       description: Echoes the unique identifier for the specific atomic unit of work
         processed by the server.

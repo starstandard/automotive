@@ -53,7 +53,7 @@ components:
           type: string
           description: Timestamp indicating when this specific reference was established.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
       description: External system identifier
     ActorTypes:
       type: string
@@ -278,6 +278,8 @@ components:
           maxLength: 50
           type: string
           description: State or equivalent subdivision.
+        authorization_levels:
+          $ref: "#/components/schemas/AuthorizationLevels"
       description: "A reference to an address, including its unique key and a list\
         \ of its usage types."
     AddressReferences:
@@ -335,7 +337,7 @@ components:
           type: string
           description: Timestamp of the last update to this authorization
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -376,7 +378,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         captured_financial_split:
           $ref: "#/components/schemas/FinancialSplitReference"
         part_identifier_reference:
@@ -411,8 +413,6 @@ components:
           $ref: "#/components/schemas/GeneralAmount"
       description: "Represents the strategic lineage, intention, and operational state\
         \ accompanying an execution vector or streaming lifecycle event."
-    CarrierParty:
-      $ref: "#/components/schemas/PartyReference"
     Code:
       type: object
       properties:
@@ -489,6 +489,9 @@ components:
           description: The unique ID for the communication channel.
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
+        context:
+          type: string
+          description: Context or domain of the identifier
         value:
           type: string
           description: "The value of the communication channel (e.g., an email address\
@@ -661,7 +664,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         subsidiary_ledger_type:
           $ref: "#/components/schemas/SubsidiaryLedgerTypes"
       description: "Journal entry for general ledger, capturing control account details\
@@ -695,7 +698,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
       description: External system identifier
     ControlAccountReferences:
       type: array
@@ -803,9 +806,28 @@ components:
           description: The specific UTC timestamp when this exchange rate was captured
             or finalized.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
+    Customer:
+      type: object
+      properties:
+        customer_key:
+          type: string
+          description: The unique key for the customer record.
+        customer_id:
+          type: string
+          description: The unique ID for the customer.
+        universal_id:
+          type: string
+          description: The universal ID for the customer.
+        party_references:
+          $ref: "#/components/schemas/PartyReferences"
+        authorization_levels:
+          $ref: "#/components/schemas/AuthorizationLevels"
+      description: "Represents a customer, which can be a person or an organization.\
+        \ This class includes core personal information, contact methods, financial\
+        \ profiles, and related resources."
     CustomerInteractionTypes:
       type: string
       description: types of customer interactions.
@@ -843,6 +865,10 @@ components:
       - CONSULTATION
       - NOTES_ADDED
       - EMAIL_BROADCAST_SENT
+    Customers:
+      type: array
+      items:
+        $ref: "#/components/schemas/Customer"
     DailyHour:
       type: object
       properties:
@@ -889,8 +915,6 @@ components:
       - THURS
       - FRI
       - SAT
-    DeliveryWindow:
-      $ref: "#/components/schemas/EffectivePeriod"
     Department:
       type: object
       properties:
@@ -971,7 +995,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         duration:
           $ref: "#/components/schemas/EffectivePeriod"
       description: External system identifier
@@ -1076,13 +1100,13 @@ components:
           type: string
           description: The inclusive start point of the period in ISO 8601 format.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         complete_date_time:
           type: string
           description: The exclusive end point of the period (completion) in ISO 8601
             format.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -1109,6 +1133,22 @@ components:
           example: true
       description: "Defines a temporal range and recurrence logic for business validity,\
         \ such as license expirations or service intervals."
+    EffortSplitReference:
+      type: object
+      properties:
+        customer_effort_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        warranty_effort_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        internal_effort_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        split_type_codes:
+          $ref: "#/components/schemas/Codes"
+      description: effort.split.reference.desc
+    EffortSplitReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/EffortSplitReference"
     FinancialCategoryTypes:
       type: string
       description: types of financial categorys.
@@ -1186,8 +1226,12 @@ components:
           description: The date and time the financialSplit was associated with the
             order.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
       description: Reference to a Payment FinancialSplit Aggregate Root.
+    FinancialSplitReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/FinancialSplitReference"
     FuelSummary:
       type: object
       properties:
@@ -1256,7 +1300,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
       description: External system reference
     GeographicBoundary:
       type: object
@@ -1332,7 +1376,7 @@ components:
           type: string
           description: The date and time the schedule was associated with the order.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
       description: Reference to a Payment Schedule Aggregate Root.
     GeographicBoundaryReferences:
       type: array
@@ -1390,7 +1434,7 @@ components:
           type: string
           description: The date and time of the event.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         inspection_category:
           type: string
           description: The unique ID for the inspection report.
@@ -1420,6 +1464,68 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Inspection"
+    InvoiceReference:
+      type: object
+      properties:
+        invoice_reference_id:
+          type: string
+          description: Unique identifier value for the invoice reference record.
+        invoice_reference_key:
+          type: string
+          description: Unique key value for the invoice reference record.
+        invoice_key:
+          type: string
+          description: The unique key identifying the referenced Invoice aggregate.
+        context:
+          type: string
+          description: "Context or domain of the invoice (e.g., 'ACCOUNTS_PAYABLE',\
+            \ 'SALES_INVOICE')."
+        identifier:
+          $ref: "#/components/schemas/Identifier"
+        occurrence_date_time:
+          type: string
+          description: The date and time the invoice was created or linked to this
+            record.
+          format: date-time
+          example: 2026-07-24T01:35:12Z
+        invoice_type:
+          $ref: "#/components/schemas/InvoiceTypes"
+      description: "Reference to an Invoice Aggregate Root, representing a financial\
+        \ obligation."
+    InvoiceReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/InvoiceReference"
+    InvoiceTypes:
+      type: string
+      description: types of invoices.
+      enum:
+      - INVOICE
+      - SERVICE_INVOICE
+      - PART_INVOICE
+      - LOAN
+      - STANDARD
+      - ORIGINAL
+      - ADJUSTED
+      - CREDIT_MEMO
+      - DEBIT_MEMO
+      - PRO_FORMA
+      - COMMERCIAL
+      - VEHICLE_SALE
+      - VEHICLE_INVOICE
+      - SERVICE
+      - PARTS
+      - LEASE
+      - FINANCE_CHARGE
+      - WARRANTY_CLAIM
+      - INSURANCE_CLAIM
+      - STATEMENT
+      - ADVANCE
+      - FINAL
+      - REPAIR
+      - FUEL
+      - RENTAL
+      - SUBSCRIPTION
     JurisdictionProfile:
       type: object
       properties:
@@ -1494,13 +1600,13 @@ components:
             \ synchronized from the source governance, legal, policy, or compliance\
             \ system."
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         occurrence_date_time:
           type: string
           description: "The date and time when the jurisdiction profile was observed,\
             \ created, received, updated, or became effective."
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
       description: nullable
     LaborLocationTypes:
       type: string
@@ -1566,7 +1672,7 @@ components:
         department_context:
           $ref: "#/components/schemas/ServiceJobTypes"
         customers:
-          $ref: "#/components/schemas/PartyReferences"
+          $ref: "#/components/schemas/Customers"
         service_catalog_references:
           $ref: "#/components/schemas/ServiceCatalogReferences"
         labor_operation_events:
@@ -1578,8 +1684,8 @@ components:
         legacy_tech_id:
           type: string
           description: "The legacy ID of the technician (e.g., '101')."
-        resolved_amount:
-          $ref: "#/components/schemas/Money"
+        financial_summary:
+          $ref: "#/components/schemas/RepairFinancialSummary"
         inspections:
           $ref: "#/components/schemas/Inspections"
         attached_medias:
@@ -1598,6 +1704,10 @@ components:
           description: The human-readable name of the specific dealership workshop
             area where the operation takes place.
           example: Body Shop Back Lot
+        labor_operation_status_desc:
+          type: string
+          description: laborOperationStatusDesc
+          example: laborOperationStatusDesc
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         service_activities:
@@ -1615,6 +1725,8 @@ components:
           $ref: "#/components/schemas/LaborOperationPriorityTypes"
         services:
           $ref: "#/components/schemas/ServiceReferences"
+        repair_effort_summary:
+          $ref: "#/components/schemas/RepairEffortSummary"
       description: "Represents a labor operation, including its unique identifiers,\
         \ codes, and description."
     LaborOperationEvent:
@@ -1631,7 +1743,7 @@ components:
           type: string
           description: The precise date and time the event occurred.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         previous_status_type:
           $ref: "#/components/schemas/LaborOperationStatusTypes"
         new_status_type:
@@ -1926,7 +2038,7 @@ components:
           type: string
           description: The date and time the media was created or captured.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         name:
           type: string
           description: A hyperlink to the media's content.
@@ -1991,7 +2103,7 @@ components:
           description: The ISO 8601 date and time when the media was dispatched to
             the recipient.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         media_keys:
           $ref: "#/components/schemas/Codes"
         media_access_metrics:
@@ -2266,27 +2378,6 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/MetricNameValue"
-    MetricValue:
-      type: object
-      properties:
-        metric_value_id:
-          type: string
-          description: The internal unique identifier for this metric record.
-          example: 8892-abc-123-metric
-        metric_value_key:
-          type: string
-          description: The natural business key for the metric value.
-          example: EXPIRATION_MILEAGE
-        value:
-          type: string
-          description: "The actual value of the metric (e.g., the amount or count)."
-          example: "100000"
-        uom:
-          $ref: "#/components/schemas/NarrativeUomTypes"
-        codes:
-          $ref: "#/components/schemas/Codes"
-      description: "Represents a quantitative measurement including its unit, value,\
-        \ and classification codes."
     Money:
       type: object
       properties:
@@ -2337,7 +2428,7 @@ components:
           type: string
           description: The date and time of the event.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         narrative_group:
           type: string
           description: The group to which the narrative belongs.
@@ -2519,63 +2610,6 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Narrative"
-    OptionDescription:
-      type: object
-      properties:
-        option_description_key:
-          type: string
-          description: A unique key for the option description.
-        option_description_id:
-          type: string
-          description: The unique ID for the option description.
-        option_description_group:
-          type: string
-          description: The group or category this option belongs to.
-        option_detail_descriptions:
-          $ref: "#/components/schemas/Memo"
-        option_description_label:
-          type: string
-          description: "A short, human-readable label for the option."
-      description: A description of a vehicle option or feature.
-    OptionDescriptions:
-      type: array
-      items:
-        $ref: "#/components/schemas/OptionDescription"
-    OptionInstallationTypes:
-      type: string
-      description: types of option installations.
-      enum:
-      - FACTORY_INSTALLED
-      - PORT_INSTALLED
-      - DEALER_INSTALLED
-      - SOFTWARE_UPDATE
-      - ACCESSORY_KIT
-      - CUSTOM_FABRICATION
-      - OWNER_INSTALLED
-      - THIRD_PARTY_INSTALLED
-      - UNKNOWN
-      - OTHER
-    OptionTypes:
-      type: string
-      description: types of options.
-      enum:
-      - PARTS
-      - ACCESSORY
-      - EQUIPMENT
-      - PACKAGE_GOODS
-      - SERVICE_PLAN
-      - WARRANTY_PLAN
-      - SUBSCRIPTION
-      - SOFTWARE
-      - CERTIFICATION
-      - APPEARANCE
-      - INCENTIVE
-      - COLOR
-      - FABRIC
-      - REBATE_INCENTIVE
-      - PORT_INSTALLED
-      - TELEMATICS
-      - OTHER
     Part:
       type: object
       properties:
@@ -2631,7 +2665,7 @@ components:
           type: string
           description: The date and time of the event's occurrence.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         actor:
           $ref: "#/components/schemas/ActorReference"
         event_category:
@@ -3149,7 +3183,7 @@ components:
           type: string
           description: Timestamp indicating when this specific reference was established.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         org_indicator:
           type: boolean
           description: Indicates if the party is an organization (true) or an individual
@@ -3200,6 +3234,9 @@ components:
       - DRIVER
       - LIEN_HOLDER
       - PROVIDER
+      - WARRANTY_PROVIDER
+      - INSURANCE_PROVIDER
+      - SUBLET_PROVIDER
       - ACCOUNTABLE
       - RESPONSIBLE
       - CONSULT
@@ -3219,6 +3256,7 @@ components:
       - BUSINESS_DEVELOPMENT
       - SPECIALIST
       - ADVISOR
+      - PRIMARY_TECHNICIAN
       - SERVICE_TECH
       - CONCIERGE_STAFF
       - VALET
@@ -3541,6 +3579,20 @@ components:
           type: string
           description: Nationality of the person.
           example: Canadian
+        person_label:
+          maxLength: 150
+          minLength: 1
+          type: string
+          description: The human-readable display label or business name representing
+            the party entity within the bounded context.
+          example: Apex Automotive Group
+        person_description:
+          maxLength: 500
+          type: string
+          description: Detailed contextual narrative or organizational notes describing
+            the referenced party entity.
+          example: Primary regional dealership franchise operating across southeast
+            service territories.
       description: a Name for a person
     Position:
       type: object
@@ -3670,7 +3722,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         geographic_boundaries:
           $ref: "#/components/schemas/GeographicBoundaryReferences"
         captured_financial_split:
@@ -3867,6 +3919,8 @@ components:
           type: boolean
           description: Indicates if this macro policy rule is actively being enforced.
           example: false
+        effective_period:
+          $ref: "#/components/schemas/EffectivePeriod"
       description: PrivacyPolicyRule
     PrivacyPolicyRules:
       type: array
@@ -3978,6 +4032,121 @@ components:
       - PHASED_OUT
       - PRELIMINARY_SUPERSESSION
       - FINAL_SUPERSESSION
+    RepairEffortSummary:
+      type: object
+      properties:
+        repair_effort_summary_key:
+          maxLength: 60
+          minLength: 1
+          type: string
+          description: The immutable canonical key representing the repair effort
+            profile.
+          example: EFF-PROF-993011
+        repair_effort_summary_id:
+          maxLength: 60
+          minLength: 1
+          type: string
+          description: The immutable canonical key representing the repair effort
+            profile.
+          example: EFF-PROF-993011
+        unit_of_time_code:
+          maxLength: 10
+          minLength: 1
+          type: string
+          description: "The unit of measure for time values across effort metrics\
+            \ (e.g., HUR for hours, MIN for minutes)."
+          example: HUR
+        estimated_labor_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        estimated_sublet_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        estimated_total_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        authorized_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        actual_clocked_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        actual_billed_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        actual_sublet_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        actual_total_hours:
+          $ref: "#/components/schemas/TimeMeasure"
+        efficiency_ratio:
+          type: number
+          description: The calculated shop performance ratio comparing billed hours
+            against actual clocked hours.
+          format: double
+          example: 1.15
+        effort_split_references:
+          $ref: "#/components/schemas/EffortSplitReferences"
+        technician_time_references:
+          $ref: "#/components/schemas/TechnicianTimeReferences"
+      description: External system identifier
+    RepairFinancialSummary:
+      type: object
+      properties:
+        repair_financial_profile_key:
+          maxLength: 60
+          minLength: 1
+          type: string
+          description: The immutable canonical key representing the repair financial
+            profile.
+          example: FIN-PROF-884410
+        repair_financial_profile_id:
+          maxLength: 80
+          minLength: 1
+          type: string
+          description: The external or DMS-generated financial profile or ledger identifier.
+          example: FIN-ID-2026-99
+        currency_code:
+          maxLength: 3
+          minLength: 3
+          type: string
+          description: "The ISO 4217 three-letter currency code applicable to all\
+            \ monetary amounts (e.g., USD, CAD)."
+          example: USD
+        estimated_labor_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        estimated_parts_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        estimated_sublet_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        estimated_misc_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        estimated_tax_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        estimated_grand_total_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        authorized_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        actual_labor_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        actual_parts_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        actual_sublet_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        actual_misc_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        actual_tax_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        actual_grand_total_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        paid_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        outstanding_amount:
+          $ref: "#/components/schemas/GeneralAmount"
+        financial_split_references:
+          $ref: "#/components/schemas/FinancialSplitReferences"
+        invoice_references:
+          $ref: "#/components/schemas/InvoiceReferences"
+        actual_total_labor_amount:
+          $ref: "#/components/schemas/Price"
+        actual_total_parts_amount:
+          $ref: "#/components/schemas/Price"
+        actual_total_misc_amount:
+          $ref: "#/components/schemas/Price"
+      description: External system identifier
     RepairStageTypes:
       type: string
       description: types of repair stages.
@@ -4022,7 +4191,7 @@ components:
           type: string
           description: The date and time when the event occurred.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         comments:
           type: string
           description: Any additional comments related to the event.
@@ -4056,6 +4225,13 @@ components:
       - PAYMENT_HOLD
       - FINANCE_HOLD
       - CUSTOMER_HOLD
+      - OPEN
+      - ESTIMATE
+      - WARRANTY_HOLD
+      - READY_TO_BILL
+      - CLOSED
+      - VOIDED
+      - OTHER
     ResourceGroup:
       type: object
       properties:
@@ -4230,7 +4406,7 @@ components:
           type: string
           description: The date and time when the service activity occurred.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         activity_direction:
           type: string
           description: "The direction of the activity (e.g., inbound or outbound)."
@@ -4385,6 +4561,10 @@ components:
           $ref: "#/components/schemas/Narratives"
         service_labors:
           $ref: "#/components/schemas/ServiceLabors"
+        labor_operations:
+          $ref: "#/components/schemas/LaborOperations"
+        inspections:
+          $ref: "#/components/schemas/Inspections"
         sublets:
           $ref: "#/components/schemas/Sublets"
         service_activities:
@@ -4493,17 +4673,6 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/ServiceLabor"
-    ServiceLevelTypes:
-      type: string
-      description: types of service levels.
-      enum:
-      - GROUND
-      - TWO_DAY_AIR
-      - OVERNIGHT
-      - SAME_DAY
-      - LOCAL_DELIVERY
-      - FREIGHT
-      - PICKUP
     ServiceLineItem:
       type: object
       properties:
@@ -4783,147 +4952,6 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Service"
-    ShipmentEvent:
-      type: object
-      properties:
-        shipment_event_key:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The immutable identifier representing a shipment lifecycle
-            event.
-          example: SHEVT-882211
-        shipment_event_id:
-          maxLength: 80
-          minLength: 1
-          type: string
-          description: "The external carrier, provider, or platform-generated shipment\
-            \ event identifier."
-          example: CARRIER-EVT-2026-001
-        shipment_event_type:
-          maxLength: 80
-          minLength: 1
-          type: string
-          description: The business or operational type of shipment event.
-          example: PICKED_UP
-        shipment_state_type:
-          $ref: "#/components/schemas/ShipmentStateTypes"
-        previous_shipment_state_type:
-          $ref: "#/components/schemas/ShipmentStateTypes"
-        location:
-          $ref: "#/components/schemas/Position"
-        occurrence_date_time:
-          type: string
-          description: The timestamp when the shipment event physically occurred.
-          format: date-time
-          example: 2026-07-22T17:25:38Z
-        recorded_date_time:
-          type: string
-          description: The timestamp when the shipment event was recorded by the platform.
-          format: date-time
-          example: 2026-07-22T17:25:38Z
-        effective_date_time:
-          type: string
-          description: The timestamp when the shipment event state becomes effective.
-          format: date-time
-          example: 2026-07-22T17:25:38Z
-        event_source:
-          maxLength: 120
-          minLength: 1
-          type: string
-          description: "The carrier, logistics provider, platform, user, or system\
-            \ that generated the shipment event."
-          example: UPS
-        description:
-          maxLength: 2000
-          minLength: 1
-          type: string
-          description: The human-readable description of the shipment event.
-          example: Shipment picked up by carrier.
-        actor:
-          $ref: "#/components/schemas/ActorReference"
-        business_context:
-          $ref: "#/components/schemas/BusinessContext"
-        financial_event_snapshot:
-          $ref: "#/components/schemas/FinancialEventSnapshot"
-      description: nullable
-    ShipmentEvents:
-      type: array
-      items:
-        $ref: "#/components/schemas/ShipmentEvent"
-    ShipmentReference:
-      type: object
-      properties:
-        shipment_reference_id:
-          type: string
-          description: Internal unique identifier for the shipment reference record.
-          example: shp-ref-55092
-        shipment_reference_key:
-          type: string
-          description: Natural business key for the shipment reference.
-          example: LOGISTICS_ESTIMATE_2026_001
-        shipment_key:
-          type: string
-          description: Key for the shipment
-          example: OEM_LOGISTICS
-        tracking_number:
-          $ref: "#/components/schemas/ShipmentTrackingNumber"
-        context:
-          type: string
-          description: "The domain or carrier context of the shipment (e.g., 'FEDEX',\
-            \ 'CASSENS', 'OEM_LOGISTICS')."
-          example: OEM_LOGISTICS
-        system_codes:
-          $ref: "#/components/schemas/Codes"
-        carrier_party:
-          $ref: "#/components/schemas/CarrierParty"
-        occurrence_date_time:
-          type: string
-          description: The timestamp when the shipment was initiated or the record
-            was created.
-          format: date-time
-          example: 2026-07-22T17:25:38Z
-        unit_of_measures:
-          $ref: "#/components/schemas/UnitOfMeasures"
-        estimated_delivery_period:
-          $ref: "#/components/schemas/DeliveryWindow"
-        shipment_state_type:
-          $ref: "#/components/schemas/ShipmentStateTypes"
-        carrier_name:
-          maxLength: 120
-          minLength: 1
-          type: string
-          description: The display name of the carrier associated with the shipment
-            reference.
-          example: UPS
-        carrier_tracking_url:
-          maxLength: 2000
-          minLength: 1
-          type: string
-          description: The carrier-provided URL used to track the shipment.
-          example: https://carrier.example.com/track/TRK123456789
-        ship_from_party:
-          $ref: "#/components/schemas/PartyReference"
-        ship_to_party:
-          $ref: "#/components/schemas/PartyReference"
-        service_level_type:
-          $ref: "#/components/schemas/ServiceLevelTypes"
-      description: Reference details for the logistics and shipment of a vehicle during
-        the RDR process.
-    ShipmentStateTypes:
-      type: string
-      description: types of shipment states.
-      enum:
-      - OPEN
-      - ACTIVE
-      - TRACKED
-      - DELIVERED
-      - RETURNED_TO_WAREHOUSE
-      - LOST_IN_TRANSIT
-    ShipmentTrackingNumber:
-      type: string
-      description: The external tracking number.
-      example: TRK123456789
     SkillCategoryTypes:
       type: string
       description: types of skill categorys.
@@ -4963,7 +4991,7 @@ components:
           type: string
           description: The date and time the staff member was assigned.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         role_types:
           maxItems: 255
           minItems: 1
@@ -5184,7 +5212,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
       description: External system identifier
     Sublet:
       type: object
@@ -5270,6 +5298,44 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/SuperSession"
+    TechnicianTimeReference:
+      type: object
+      properties:
+        time_punch_key:
+          type: string
+          description: The immutable canonical key representing the specific timecard
+            punch session.
+          example: PUNCH-99201
+        technician_time_reference_key:
+          type: string
+          description: The external DMS or payroll identifier for the technician.
+          example: EMP-8821
+        technician_time_reference_id:
+          type: string
+          description: The external DMS or payroll identifier for the technician.
+          example: EMP-8821
+        start_date_time:
+          type: string
+          description: The timestamp when the technician clocked onto the operation.
+          format: date-time
+          example: 2026-07-24T01:35:12Z
+        end_date_time:
+          type: string
+          description: The timestamp when the technician clocked off the operation.
+          format: date-time
+          example: 2026-07-24T01:35:12Z
+        duration:
+          $ref: "#/components/schemas/TimeMeasure"
+        punch_type_code:
+          type: string
+          description: "The type of labor punch session (e.g., DIRECT_LABOR, DIAGNOSTIC,\
+            \ IDLE, OVERTIME)."
+          example: DIRECT_LABOR
+      description: technician.time.reference.desc
+    TechnicianTimeReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/TechnicianTimeReference"
     TextualDetail:
       type: object
       properties:
@@ -5323,6 +5389,24 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/TextualDetail"
+    TimeMeasure:
+      type: object
+      properties:
+        time_measure_id:
+          type: string
+          description: The numeric duration or quantity of time.
+          example: "3.50"
+        time_measure_key:
+          type: string
+          description: The numeric duration or quantity of time.
+          example: "3.50"
+        value:
+          type: string
+          description: The numeric duration or quantity of time.
+          example: "3.50"
+        uom_time_type:
+          $ref: "#/components/schemas/UomTimeTypes"
+      description: time.measure.desc
     TimeSlot:
       type: object
       properties:
@@ -5421,23 +5505,6 @@ components:
           description: The descriptive name of the transmission configuration.
           example: 6-Speed Automatic
       description: A lightweight summary of the vehicle's transmission configuration.
-    UnitOfMeasure:
-      type: object
-      properties:
-        unit_of_measure_key:
-          type: string
-          description: Unit of Measure Value
-        unit_name:
-          type: string
-          description: Unit of Measure
-        uom_value:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Unit of Measure Value
-        uom_quantity_category_type:
-          $ref: "#/components/schemas/UomQuantityCategoryTypes"
-      description: value price with unit of measure
     UnitOfMeasureTypes:
       type: string
       description: types of unit of measures.
@@ -5502,180 +5569,42 @@ components:
       - NA
       - OTHER
       - UNKNOWN
-    UnitOfMeasures:
-      type: array
-      items:
-        $ref: "#/components/schemas/UnitOfMeasure"
-    UomQuantityCategoryTypes:
+    UomTimeTypes:
       type: string
-      description: types of uom quantity categorys.
+      description: types of uom times.
       enum:
-      - COUNT
-      - WEIGHT
-      - VOLUME
-      - TIME
-      - NET_WEIGHT
-      - NET_VOLUME
-      - PACKAGE_QUANTITY
-      - MIN_ORDER_QUANTITY
-      - GROSS_WEIGHT
-      - GROSS_VOLUME
-      - SHIPPING_WEIGHT
-      - DIMENSIONAL_WEIGHT
-      - MATERIAL
-      - ELECTRICAL_RATING
-      - DEFAULT_LEAD_TIME
-      - MAX_LEAD_TIME
-      - DIMENSION_UNIT
-      - MIN_LENGTH
-      - MAX_LENGTH
-      - MIN_WIDTH
-      - MAX_WIDTH
-      - MIN_HEIGHT
-      - MAX_HEIGHT
-      - MIN_WEIGHT
-      - MAX_WEIGHT
-      - MAX_ORDER_QUANTITY
-      - MIN_ORDER_AVAILABLE
-      - DIMENSIONS
-      - SHIPPING_DIM_LENGTH
-      - SHIPPING_DIM_WIDTH
-      - SHIPPING_DIM_HEIGHT
-      - SHIPPING_DIM_GROSS_WEIGHT
-      - SHIPPING_DIM_NET_WEIGHT
-      - SHELF_LIFE_HOURS
-      - EXPIRATION_DATE
-      - MIN_PAYMENT_PERCENT
-      - MIN_PAYMENT_AMOUNT
-    VehicleBuildProfile:
-      type: object
-      properties:
-        vehicle_build_profile_key:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The persistent key representing the vehicle build profile.
-          example: VBP-2026-000001
-        vehicle_build_profile_id:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The externally visible identifier representing the vehicle
-            build profile.
-          example: VBP-ID-884512
-        vehicle_order_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The dealer or customer-facing vehicle order number associated
-            with the vehicle order lifecycle.
-          example: ORD-2026-001245
-        factory_order_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The manufacturer-assigned factory order number used to track
-            production and fulfillment activities.
-          example: FO-884512
-        reservation_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The reservation number assigned to a vehicle reservation prior
-            to order placement or production scheduling.
-          example: RSV-2026-004512
-        allocation_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: "The allocation number representing the manufacturer's inventory\
-            \ allocation assignment to a dealer, distributor, or fleet organization."
-          example: ALLOC-2026-00987
-        allocation_pool_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: "The allocation pool number identifying the manufacturer allocation\
-            \ program, distribution pool, or inventory assignment group associated\
-            \ with the vehicle."
-          example: POOL-SE-2026-015
-        build_batch_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The manufacturing batch number grouping vehicles scheduled
-            for assembly during the same production cycle.
-          example: BATCH-2026-0821
-        build_sequence_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The manufacturing build sequence number assigned during vehicle
-            assembly scheduling.
-          example: SEQ-10542
-        production_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The production tracking number assigned by the manufacturer
-            for vehicle assembly and plant operations.
-          example: PROD-778921
-        production_plant_code:
-          maxLength: 30
-          minLength: 1
-          type: string
-          description: The manufacturer-assigned production plant code identifying
-            the assembly facility where the vehicle was produced.
-          example: TMMK
-        build_status_type:
-          $ref: "#/components/schemas/VehicleBuildStatusTypes"
-        build_period:
-          $ref: "#/components/schemas/EffectivePeriod"
-        configuration_codes:
-          $ref: "#/components/schemas/Codes"
-        vehicle_options:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            $ref: "#/components/schemas/VehicleOption"
-        identifiers:
-          $ref: "#/components/schemas/Identifiers"
-        tags:
-          $ref: "#/components/schemas/Codes"
-        source_system_code:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The source system code identifying the system of record or
-            integration source for the vehicle build profile.
-          example: OEM_ORDER_BANK
-        occurrence_date_time:
-          type: string
-          description: "The date and time when the vehicle build profile information\
-            \ was observed, created, received, or became effective."
-          format: date-time
-          example: 2026-07-22T17:25:38Z
-      description: "Comprehensive vehicle details including identifiers, configuration,\
-        \ and status."
-    VehicleBuildStatusTypes:
-      type: string
-      description: types of vehicle build status.
-      enum:
-      - PENDING
-      - RESERVED
-      - ALLOCATED
-      - SCHEDULED
-      - IN_PRODUCTION
-      - BUILT
-      - QUALITY_INSPECTION
-      - RELEASED
-      - IN_TRANSIT
-      - DELIVERED
-      - ON_HOLD
-      - REWORK
-      - CANCELLED
+      - NANOSECOND
+      - MICROSECOND
+      - MILLISECOND
+      - SECOND
+      - MINUTE
+      - HOUR
+      - DAY
+      - WEEK
+      - MONTH
+      - YEAR
+      - DECADE
+      - CENTURY
+      - MILLENNIUM
+      - PERCENTAGE_OF_HOUR
+      - DURATION
+      - MINUTES
+      - HOURS
+      - DAYS
+      - WEEKS
+      - DAY_OF_MONTH
+      - BI_WEEKS
+      - SEMI_MONTHS
+      - MONTHS
+      - QUARTERS
+      - SEMI_YEARS
+      - YEARS
+      - MULTI_YEARS
+      - OCCURRENCE
+      - UNLIMITED
+      - NONE
+      - CUSTOM
+      - OTHER
     VehicleIdentifier:
       type: object
       properties:
@@ -5781,232 +5710,6 @@ components:
           type: string
           description: A unique identifier for the vehicle license record.
       description: License for vehicle
-    VehicleLogisticsProfile:
-      type: object
-      properties:
-        vehicle_logistics_profile_key:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The persistent key representing the vehicle logistics profile.
-          example: VLP-2026-000001
-        vehicle_logistics_profile_id:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The externally visible identifier representing the vehicle
-            logistics profile.
-          example: VLP-ID-884512
-        railcar_number:
-          maxLength: 40
-          minLength: 1
-          type: string
-          description: The railcar number used to transport the vehicle through the
-            rail distribution network during fulfillment.
-          example: TTGX982145
-        vessel_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The vessel number identifying the ocean-going vessel responsible
-            for transporting the vehicle during maritime shipment.
-          example: VESSEL-ATLANTIC-001
-        voyage_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The voyage number assigned by the shipping carrier to identify
-            a specific maritime journey.
-          example: VOY-2026-0421
-        port_processing_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: "The port processing number used to track vehicle inspection,\
-            \ preparation, and accessory installation activities performed at the\
-            \ port facility."
-          example: PORT-PP-884512
-        carrier_reference_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The carrier-assigned reference number used to track transportation
-            activities across shipping and logistics providers.
-          example: CARR-REF-992311
-        transport_load_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: "The transportation load number identifying the shipment load,\
-            \ convoy, rail consist, or carrier movement containing the vehicle."
-          example: LOAD-2026-10842
-        distribution_center_code:
-          maxLength: 30
-          minLength: 1
-          type: string
-          description: "The code identifying the distribution center, processing center,\
-            \ or logistics hub responsible for handling the vehicle."
-          example: ATL-DC01
-        ramp_code:
-          maxLength: 30
-          minLength: 1
-          type: string
-          description: The rail ramp or vehicle processing ramp code identifying the
-            transfer location used during vehicle distribution.
-          example: ATL-RAMP-07
-        convoy_number:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The convoy number identifying a grouped transportation movement
-            of vehicles managed as a single logistics unit.
-          example: CONVOY-2026-015
-        logistics_identifiers:
-          $ref: "#/components/schemas/Identifiers"
-        shipment_references:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            $ref: "#/components/schemas/ShipmentReference"
-        logistics_status_type:
-          $ref: "#/components/schemas/VehicleLogisticsStatusTypes"
-        logistics_period:
-          $ref: "#/components/schemas/EffectivePeriod"
-        source_system_code:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The source system code identifying the system of record or
-            integration source for the vehicle logistics profile.
-          example: OEM_LOGISTICS
-        occurrence_date_time:
-          type: string
-          description: "The date and time when the vehicle logistics profile information\
-            \ was observed, created, received, or became effective."
-          format: date-time
-          example: 2026-07-22T17:25:38Z
-        shipment_events:
-          $ref: "#/components/schemas/ShipmentEvents"
-        rail_position:
-          maxLength: 80
-          minLength: 1
-          type: string
-          description: The assigned position of the vehicle on the railcar.
-          example: A12
-        truck_position:
-          maxLength: 80
-          minLength: 1
-          type: string
-          description: The assigned position of the vehicle on the transport truck.
-          example: UPPER_FRONT
-        deck:
-          maxLength: 80
-          minLength: 1
-          type: string
-          description: "The vessel, rail, or transport deck where the vehicle is positioned."
-          example: DECK-3
-        container_number:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: "The container number associated with the vehicle movement,\
-            \ when applicable."
-          example: CONT-77821
-        chock_position:
-          maxLength: 120
-          minLength: 1
-          type: string
-          description: The chock position used to secure the vehicle during transportation.
-          example: FRONT_LEFT_REAR_RIGHT
-        tie_down_information:
-          maxLength: 1000
-          minLength: 1
-          type: string
-          description: "Tie-down, restraint, or securement information used during\
-            \ vehicle transportation."
-        load_sequence:
-          maxLength: 40
-          minLength: 1
-          type: string
-          description: The loading sequence assigned to the vehicle during transportation.
-          example: "004"
-      description: "Comprehensive vehicle details including identifiers, configuration,\
-        \ and status."
-    VehicleLogisticsStatusTypes:
-      type: string
-      description: types of vehicle logistics status.
-      enum:
-      - PENDING
-      - PORT_PROCESSING
-      - RAIL_ASSIGNED
-      - CARRIER_ASSIGNED
-      - IN_TRANSIT
-      - AT_RAMP
-      - AT_DISTRIBUTION_CENTER
-      - DELAYED
-      - ON_HOLD
-      - DELIVERED
-      - CANCELLED
-      - LOST
-      - DAMAGED
-    VehicleOption:
-      type: object
-      properties:
-        vehicle_option_key:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: The business or integration key that uniquely identifies the
-            vehicle option.
-        manufacturer_name:
-          maxLength: 120
-          minLength: 1
-          type: string
-          description: "The manufacturer, brand, or source responsible for producing\
-            \ or supplying the vehicle option."
-        option_category:
-          $ref: "#/components/schemas/Codes"
-        option_code:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: "The manufacturer, OEM, or source system code assigned to the\
-            \ vehicle option."
-        option_descriptions:
-          $ref: "#/components/schemas/OptionDescriptions"
-        option_groups:
-          $ref: "#/components/schemas/Codes"
-        option_installation_types:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            $ref: "#/components/schemas/OptionInstallationTypes"
-        option_name:
-          maxLength: 120
-          minLength: 1
-          type: string
-          description: The display name or business name of the vehicle option.
-        option_types:
-          maxItems: 255
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            $ref: "#/components/schemas/OptionTypes"
-        quantity:
-          $ref: "#/components/schemas/MetricValue"
-        prices:
-          $ref: "#/components/schemas/Prices"
-        short_description:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: A concise display description of the vehicle option.
-      description: options and options of a vehicle
     VehicleReference:
       type: object
       properties:
@@ -6096,10 +5799,6 @@ components:
           $ref: "#/components/schemas/Identifiers"
         tags:
           $ref: "#/components/schemas/Codes"
-        vehicle_build_profile:
-          $ref: "#/components/schemas/VehicleBuildProfile"
-        vehicle_logistics_profile:
-          $ref: "#/components/schemas/VehicleLogisticsProfile"
       description: Vehicle Detail Create Information
     VehicleSummary:
       type: object
@@ -6139,6 +5838,12 @@ components:
           $ref: "#/components/schemas/ColorSummaries"
         fuel_summary:
           $ref: "#/components/schemas/FuelSummary"
+        body_style:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The baseline layout style design of the chassis structure shell.
+          example: Crew Cab Pickup
         vehicle_description:
           $ref: "#/components/schemas/Memo"
         vehicle_notes:
@@ -6214,18 +5919,18 @@ components:
           type: string
           description: The date and time when the warranty claim was submitted.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         adjudicated_date_time:
           type: string
           description: The date and time when the warranty claim was adjudicated.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         paid_date_time:
           type: string
           description: The date and time when the approved warranty claim amount was
             paid.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         claim_codes:
           $ref: "#/components/schemas/Codes"
         media:
@@ -6249,12 +5954,12 @@ components:
           description: The date and time when the warranty claim record was created
             or first observed.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         last_updated_date_time:
           type: string
           description: The date and time when the warranty claim was last updated.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
         narratives:
           $ref: "#/components/schemas/Narratives"
       description: "Represents a warranty claim submitted for coverage, authorization,\
@@ -6324,7 +6029,7 @@ components:
           description: The date and time when the warranty reference was created or
             became effective.
           format: date-time
-          example: 2026-07-22T17:25:38Z
+          example: 2026-07-24T01:35:12Z
       description: Lightweight reference to a Warranty aggregate.
     WarrantyReferences:
       type: array
