@@ -2484,8 +2484,8 @@ components:
           type: array
           description: Content of the event message.
           example:
-          - "875810252606406670"
-          - "875810252606406671"
+          - "879813125719719953"
+          - "879813125719719954"
           items:
             type: string
         event_date_time:
@@ -3475,8 +3475,8 @@ components:
           type: array
           description: Economy classification or measurement for the vehicle.
           example:
-          - "875810252606406680"
-          - "875810252606406681"
+          - "879813125719719963"
+          - "879813125719719964"
           items:
             type: string
         efficiency:
@@ -3490,7 +3490,7 @@ components:
           type: array
           description: fuel_types list
           example:
-          - DIESEL
+          - BIO_DIESEL
           items:
             $ref: "#/components/schemas/FuelTypes"
         range:
@@ -3710,8 +3710,8 @@ components:
           type: array
           description: Compartments within the vehicle.
           example:
-          - "875810252606406676"
-          - "875810252606406677"
+          - "879813125719719959"
+          - "879813125719719960"
           items:
             type: string
         compartment_door_desc:
@@ -3753,7 +3753,7 @@ components:
           type: array
           description: engine_types list
           example:
-          - HYBRID
+          - THERMAL_INTERNAL
           items:
             $ref: "#/components/schemas/EngineTypes"
         exterior_color:
@@ -3777,7 +3777,7 @@ components:
           type: array
           description: fuel_types list
           example:
-          - METHANOL
+          - PROPANE
           items:
             $ref: "#/components/schemas/FuelTypes"
         gross_vehicle_weight:
@@ -3887,7 +3887,7 @@ components:
           type: array
           description: vehicle_body_style_types list
           example:
-          - MINI_VAN
+          - CONTRACTOR_BODY
           items:
             $ref: "#/components/schemas/VehicleBodyStyleTypes"
         vehicle_category_types:
@@ -3897,7 +3897,7 @@ components:
           type: array
           description: vehicle_category_types list
           example:
-          - HEAVY_DUTY_TRUCK
+          - CROSSOVER
           items:
             $ref: "#/components/schemas/VehicleCategoryTypes"
         vehicle_class:
@@ -3929,7 +3929,7 @@ components:
           type: array
           description: vehicle_types list
           example:
-          - CHASSIS
+          - UPFIT
           items:
             $ref: "#/components/schemas/VehicleConstructionTypes"
         wheel_base:

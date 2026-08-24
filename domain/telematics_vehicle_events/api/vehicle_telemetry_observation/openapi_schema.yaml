@@ -157,13 +157,13 @@ components:
           type: string
           description: The inclusive start point of the period in ISO 8601 format.
           format: date-time
-          example: 2026-07-27T23:44:04Z
+          example: 2026-08-24T19:44:05Z
         complete_date_time:
           type: string
           description: The exclusive end point of the period (completion) in ISO 8601
             format.
           format: date-time
-          example: 2026-07-27T23:44:04Z
+          example: 2026-08-24T19:44:05Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -320,6 +320,8 @@ components:
       - STAGED_FOR_PICKUP
       - CHECK_OUT
       - RELEASE
+      - INFORMATIONAL
+      - MILESTONE
       - UNKNOWN
     VehicleTelemetryMetricTypes:
       type: string
@@ -414,7 +416,7 @@ components:
           description: Date and time at which the measured condition or telemetry
             observation occurred at the source.
           format: date-time
-          example: 2026-07-27T23:44:04Z
+          example: 2026-08-24T19:44:05Z
         sequence_number:
           minimum: 0
           type: integer
@@ -457,7 +459,7 @@ components:
           type: string
           description: Exact timestamp when the telemetry reading was captured.
           format: date-time
-          example: 2026-07-27T23:44:04Z
+          example: 2026-08-24T19:44:05Z
         source:
           type: string
           description: "Origin of the telemetry data (e.g., MANUAL_ADVISOR_INPUT,\

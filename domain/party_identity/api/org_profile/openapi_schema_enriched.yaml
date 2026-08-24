@@ -278,7 +278,7 @@ components:
           type: string
           description: Timestamp of the last update to this authorization
           format: date-time
-          example: 2026-07-30T19:20:40Z
+          example: 2026-08-24T19:35:51Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -472,7 +472,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-30T19:20:40Z
+          example: 2026-08-24T19:35:51Z
         subsidiary_ledger_type:
           $ref: "#/components/schemas/SubsidiaryLedgerTypes"
       description: "Journal entry for general ledger, capturing control account details\
@@ -506,7 +506,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-30T19:20:40Z
+          example: 2026-08-24T19:35:51Z
       description: External system identifier
     ControlAccountReferences:
       type: array
@@ -614,9 +614,13 @@ components:
           description: The specific UTC timestamp when this exchange rate was captured
             or finalized.
           format: date-time
-          example: 2026-07-30T19:20:40Z
+          example: 2026-08-24T19:35:51Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
+    CurrencyExchanges:
+      type: array
+      items:
+        $ref: "#/components/schemas/CurrencyExchange"
     DailyHour:
       type: object
       properties:
@@ -989,13 +993,13 @@ components:
           type: string
           description: The inclusive start point of the period in ISO 8601 format.
           format: date-time
-          example: 2026-07-30T19:20:40Z
+          example: 2026-08-24T19:35:51Z
         complete_date_time:
           type: string
           description: The exclusive end point of the period (completion) in ISO 8601
             format.
           format: date-time
-          example: 2026-07-30T19:20:40Z
+          example: 2026-08-24T19:35:51Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -1187,13 +1191,13 @@ components:
             \ synchronized from the source governance, legal, policy, or compliance\
             \ system."
           format: date-time
-          example: 2026-07-30T19:20:40Z
+          example: 2026-08-24T19:35:51Z
         occurrence_date_time:
           type: string
           description: "The date and time when the jurisdiction profile was observed,\
             \ created, received, updated, or became effective."
           format: date-time
-          example: 2026-07-30T19:20:40Z
+          example: 2026-08-24T19:35:51Z
       description: nullable
     Link:
       type: object
@@ -1369,10 +1373,6 @@ components:
           description: Formatted monetary string including symbol and separators based
             on locale.
           example: "$1,234.56"
-        locale:
-          type: string
-          description: Language and region identifier (BCP 47 format).
-          example: en-US
         amount:
           $ref: "#/components/schemas/GeneralAmount"
         currency_exchange:
@@ -1508,6 +1508,7 @@ components:
       - LEASE
       - CUSTOM_ORDER
       - STANDARD
+      - SPECIAL
       - OTHER
     OrgName:
       type: object
@@ -1871,6 +1872,7 @@ components:
       - RESALE
       - SHIP_TO
       - SOLD_TO
+      - SHIP_THROUGH
     PayTypes:
       type: string
       description: types of pays.
@@ -1914,7 +1916,7 @@ components:
           description: The date and time the paymentMethod was associated with the
             order.
           format: date-time
-          example: 2026-07-30T19:20:40Z
+          example: 2026-08-24T19:35:51Z
       description: Reference to a PaymentMethod (Party) Aggregate Root for financing
         details.
     PaymentMethodReferences:
@@ -1976,7 +1978,7 @@ components:
           type: string
           description: The date and time the terms were applied to the order.
           format: date-time
-          example: 2026-07-30T19:20:40Z
+          example: 2026-08-24T19:35:51Z
       description: "Reference to a Payment Term Aggregate Root (e.g., Net 30)."
     PaymentTermReferences:
       type: array
@@ -2260,19 +2262,19 @@ components:
           description: "Human-readable display value for the price, including currency\
             \ symbol and proper decimal formatting."
         amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         tax_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         taxable_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         non_taxable_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         total_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         total_cost_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         unit_cost_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         price_description:
           type: string
           description: "A descriptive title for the price (e.g., 'MSRP', 'Sale Price')."
@@ -2293,8 +2295,30 @@ components:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
           $ref: "#/components/schemas/PayTypes"
+        price_category_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/PriceCategoryTypes"
+        currency_exchanges:
+          $ref: "#/components/schemas/CurrencyExchanges"
       description: "Price that includes display value, currency, locale, and value,\
         \ along with tax and cost components."
+    PriceCategoryTypes:
+      type: string
+      description: types of price categorys.
+      enum:
+      - ADJUSTMENT
+      - FEE
+      - HOLD_BACK
+      - LINE_ITEM
+      - OPTION
+      - OTHER
+      - PLAN_PRICING
+      - TAX
+      - TOTAL
     PriceTypes:
       type: string
       description: types of prices.
@@ -2402,6 +2426,12 @@ components:
       - OEM_INCENTIVE_AMOUNT
       - DEALER_NET_AMOUNT
       - LANDED_COST_AMOUNT
+      - BASE_HOLDBACK_AMOUNT
+      - OPTIONS_HOLDBACK_AMOUNT
+      - TOTAL_HOLDBACK_AMOUNT
+      - INVOICE_AMOUNT
+      - MISC_TOTAL
+      - PROTECTED_INVOICE_AMOUNT
       - OTHER
     PrivacyAdapterTypes:
       type: string

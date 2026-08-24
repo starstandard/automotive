@@ -290,12 +290,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -355,12 +355,12 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -427,12 +427,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -1237,14 +1237,14 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -1281,7 +1281,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:20:01Z
+          example: 2026-08-24T19:35:13Z
       description: External system identifier
     ActorTypes:
       type: string
@@ -1328,7 +1328,7 @@ components:
         correlation_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "873575162685947904"
+          example: "879813131121983488"
         previous_balance:
           $ref: "#/components/schemas/GeneralAmount"
         resulting_balance:
@@ -1376,19 +1376,19 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "873575162685947905"
+          example: "879813131121983489"
         control_account_reference_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "873575162685947906"
+          example: "879813131121983490"
         control_account_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "873575162685947907"
+          example: "879813131121983491"
         context:
           type: string
           description: Context or domain of the identifier
@@ -1402,7 +1402,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:20:01Z
+          example: 2026-08-24T19:35:13Z
       description: External system identifier
     ControlAccountReferences:
       type: array
@@ -1445,9 +1445,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:20:01Z
+          example: 2026-08-24T19:35:13Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
+    CurrencyExchanges:
+      type: array
+      items:
+        $ref: "#/components/schemas/CurrencyExchange"
     DurationUomTypes:
       type: string
       description: types of duration uoms.
@@ -1492,13 +1496,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:20:01Z
+          example: 2026-08-24T19:35:13Z
         complete_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:20:01Z
+          example: 2026-08-24T19:35:13Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -1636,7 +1640,7 @@ components:
         financial_event_snapshot_key:
           type: string
           description: Unique global internal or external business key.
-          example: "873575162685947908"
+          example: "879813131121983492"
         financial_category_type:
           $ref: "#/components/schemas/FinancialCategoryTypes"
         general_ledger_reference:
@@ -1776,19 +1780,19 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "873575162685947909"
+          example: "879813131121983493"
         general_ledger_reference_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "873575162685947910"
+          example: "879813131121983494"
         general_ledger_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "873575162685947911"
+          example: "879813131121983495"
         context:
           type: string
           description: Context or domain of the reference
@@ -1802,7 +1806,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:20:01Z
+          example: 2026-08-24T19:35:13Z
       description: External system reference
     HealthStatus:
       type: object
@@ -1824,13 +1828,13 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "873575162685947912"
+          example: "879813131121983496"
         identifier_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "873575162685947913"
+          example: "879813131121983497"
         context:
           type: string
           description: Context or domain of the identifier
@@ -1900,36 +1904,6 @@ components:
       - NULLIFY
       - GENERAL_ANONYMIZE
       - NONE
-    Money:
-      type: object
-      properties:
-        money_key:
-          type: string
-          description: Unique global internal or external business key.
-          example: MON-2026-EXP-001
-        money_id:
-          type: string
-          description: Unique system-specific internal identifier.
-          example: mny-5521-z99
-        currency_code:
-          type: string
-          description: Three-letter ISO-4217 currency code.
-          example: USD
-        display_value:
-          type: string
-          description: Formatted monetary string including symbol and separators based
-            on locale.
-          example: "$1,234.56"
-        locale:
-          type: string
-          description: Language and region identifier (BCP 47 format).
-          example: en-US
-        amount:
-          $ref: "#/components/schemas/GeneralAmount"
-        currency_exchange:
-          $ref: "#/components/schemas/CurrencyExchange"
-      description: "Represents a monetary value, including its currency, locale, and\
-        \ display format."
     PartIdentifierReference:
       type: object
       properties:
@@ -2041,21 +2015,21 @@ components:
         part_master_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "873575162690142208"
+          example: "879813131121983498"
         part_inventory_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "873575162690142209"
+          example: "879813131121983499"
         part_inventory_key:
           type: string
           description: Unique global internal or external business key.
-          example: "873575162690142210"
+          example: "879813131121983500"
         last_inventory_date:
           type: string
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-13
+          example: 2026-08-17
         inventory_status_type:
           $ref: "#/components/schemas/InventoryStatusTypes"
         prices:
@@ -2126,13 +2100,13 @@ components:
         part_inventory_event_key:
           type: string
           description: Unique global internal or external business key.
-          example: "873575162690142211"
+          example: "879813131126177792"
         occurrence_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:20:01Z
+          example: 2026-08-24T19:35:13Z
         actor:
           $ref: "#/components/schemas/ActorReference"
         business_context:
@@ -2159,8 +2133,8 @@ components:
           description: Key-value pairs representing event-specific data such as quantity
             changes or status updates.
           example:
-          - "875810252606406692"
-          - "875810252606406693"
+          - "879813125719719975"
+          - "879813125719719976"
           items:
             type: string
         part_inventory_action_type:
@@ -2236,7 +2210,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:20:01Z
+          example: 2026-08-24T19:35:13Z
       description: Value price with unit of measure for inventory metrics.
     PartInventoryMetrics:
       type: array
@@ -2250,7 +2224,7 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-09
+          example: 2026-07-31
         warehouse_reference:
           $ref: "#/components/schemas/WarehouseReference"
         inventory_status_type:
@@ -2286,11 +2260,11 @@ components:
         part_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "873575162694336512"
+          example: "879813131126177793"
         part_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "873575162694336513"
+          example: "879813131126177794"
         name:
           type: string
           description: Product Name.
@@ -2300,11 +2274,11 @@ components:
         part_key:
           type: string
           description: Unique global internal or external business key.
-          example: "873575162694336514"
+          example: "879813131126177795"
         part_master_key:
           type: string
           description: Unique global internal or external business key.
-          example: "873575162694336515"
+          example: "879813131126177796"
         manufacturer:
           type: string
           description: Context or domain of the identifier
@@ -2320,7 +2294,7 @@ components:
           type: array
           description: product_types list
           example:
-          - ACCESSORY
+          - SOFTWARE
           items:
             $ref: "#/components/schemas/ProductTypes"
         system_codes:
@@ -2330,7 +2304,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:20:01Z
+          example: 2026-08-24T19:35:13Z
         unit_of_measure:
           $ref: "#/components/schemas/UnitOfMeasure"
       description: External system identifier
@@ -2355,30 +2329,30 @@ components:
         price_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "873575162694336516"
+          example: "879813131126177797"
         price_key:
           type: string
           description: Unique global internal or external business key.
-          example: "873575162694336517"
+          example: "879813131126177798"
         display_amount:
           type: string
           description: "Human-readable display value for the price, including currency\
             \ symbol and proper decimal formatting."
-          example: $126.97
+          example: $268.41
         amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         tax_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         taxable_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         non_taxable_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         total_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         total_cost_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         unit_cost_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         price_description:
           type: string
           description: "A descriptive title for the price (e.g., 'MSRP', 'Sale Price')."
@@ -2398,13 +2372,39 @@ components:
           type: array
           description: price_types list
           example:
-          - RETAIL
+          - TOTAL_COST
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
           $ref: "#/components/schemas/PayTypes"
+        price_category_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: price_category_types list
+          example:
+          - TAX
+          items:
+            $ref: "#/components/schemas/PriceCategoryTypes"
+        currency_exchanges:
+          $ref: "#/components/schemas/CurrencyExchanges"
       description: "Price that includes display value, currency, locale, and value,\
         \ along with tax and cost components."
+    PriceCategoryTypes:
+      type: string
+      description: types of price categorys.
+      example: ADJUSTMENT
+      enum:
+      - ADJUSTMENT
+      - FEE
+      - HOLD_BACK
+      - LINE_ITEM
+      - OPTION
+      - OTHER
+      - PLAN_PRICING
+      - TAX
+      - TOTAL
     PriceTypes:
       type: string
       description: types of prices.
@@ -2513,6 +2513,12 @@ components:
       - OEM_INCENTIVE_AMOUNT
       - DEALER_NET_AMOUNT
       - LANDED_COST_AMOUNT
+      - BASE_HOLDBACK_AMOUNT
+      - OPTIONS_HOLDBACK_AMOUNT
+      - TOTAL_HOLDBACK_AMOUNT
+      - INVOICE_AMOUNT
+      - MISC_TOTAL
+      - PROTECTED_INVOICE_AMOUNT
       - OTHER
     Prices:
       type: array
@@ -2547,11 +2553,11 @@ components:
         privacy_policy_rule_key:
           type: string
           description: Unique global internal or external business key.
-          example: "873575162694336518"
+          example: "879813131126177799"
         privacy_policy_rule_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "873575162694336519"
+          example: "879813131126177800"
         target_persona_type:
           $ref: "#/components/schemas/PrivacyPersonaTypes"
         target_data_category_type:
@@ -2717,7 +2723,7 @@ components:
         unit_of_measure_key:
           type: string
           description: Unique global internal or external business key.
-          example: "873575162694336520"
+          example: "879813131126177801"
         unit_name:
           type: string
           description: Unit of Measure
@@ -2825,15 +2831,15 @@ components:
         location_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "873575162694336521"
+          example: "879813131126177802"
         location_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "873575162694336522"
+          example: "879813131126177803"
         warehouse_key:
           type: string
           description: Unique global internal or external business key.
-          example: "873575162694336523"
+          example: "879813131126177804"
         context:
           type: string
           description: "Context or type of the location (e.g., 'WAREHOUSE', 'DEALERSHIP_BIN',\
@@ -2846,7 +2852,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:20:01Z
+          example: 2026-08-24T19:35:13Z
       description: Reference to a Warehouse or Inventory Location Aggregate Root.
     WarehouseReferences:
       type: array
@@ -3849,7 +3855,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747582702288896"
+        example: "879811104211992577"
     SourceSystemHeader:
       name: Source-System
       in: header
@@ -3889,7 +3895,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747582698094593"
+        example: "879811104211992576"
     FilterQuery:
       name: filter
       in: query
@@ -3988,7 +3994,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747582702288899"
+        example: "879811104211992580"
     AgentHeader:
       name: Agent
       in: header
@@ -4035,7 +4041,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747582702288898"
+        example: "879811104211992579"
     PartInventoryMetricKey:
       name: part-inventory-metric-key
       in: path
@@ -4045,7 +4051,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747582702288897"
+        example: "879811104211992578"
     OffsetQuery:
       name: offset
       in: query
@@ -4108,7 +4114,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747582702288901"
+        example: "879811104211992582"
     TransactionIDHeader:
       name: Transaction-ID
       in: header
@@ -4182,7 +4188,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747582702288900"
+        example: "879811104211992581"
   headers:
     CacheControlHeader:
       description: Tells the client and intermediary caches how to store the response.
@@ -4229,7 +4235,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/870747582702288902
+        example: /labor-operations/879811104211992583
     ContentLocationHeader:
       description: The URI of the specific representation returned in the payload.
         Used to disambiguate the 'Resource Identifier' from the 'Data Artifact' in
@@ -4240,7 +4246,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/870747582702288903
+        example: /labor-operations/879811104211992584
     TransactionIDHeader:
       description: Echoes the unique identifier for the specific atomic unit of work
         processed by the server.

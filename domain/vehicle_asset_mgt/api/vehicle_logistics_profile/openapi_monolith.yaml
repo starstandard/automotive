@@ -1445,7 +1445,7 @@ components:
           type: array
           description: address_types list
           example:
-          - CURRENT
+          - OTHER
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -2255,7 +2255,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - OWNER
+          - SERVICE_TECHNICIAN
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -2598,8 +2598,8 @@ components:
           type: array
           description: Position codes associated with the entity.
           example:
-          - Pos-875810252606406672
-          - Pos-875810252606406673
+          - Pos-879813125719719955
+          - Pos-879813125719719956
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -2969,7 +2969,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - RESTRICTED
+          - BETWEEN
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
@@ -3178,8 +3178,8 @@ components:
           type: array
           description: Shipment References
           example:
-          - 9a9a6294
-          - TAG-fda530b6
+          - 139ee4e8
+          - TAG-4663ad9d
           items:
             $ref: "#/components/schemas/ShipmentReference"
         logistics_status_type:
@@ -3284,8 +3284,8 @@ components:
           type: array
           description: Shipment References
           example:
-          - 9a9a6294
-          - TAG-fda530b6
+          - 139ee4e8
+          - TAG-4663ad9d
           items:
             $ref: "#/components/schemas/ShipmentReference"
         deck:

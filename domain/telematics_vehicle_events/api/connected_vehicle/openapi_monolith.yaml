@@ -37,8 +37,6 @@ tags:
   description: Tag Description Health
 - name: JurisdictionProfiles
   description: Tag Description JurisdictionProfiles
-- name: Medias
-  description: Tag Description Medias
 - name: MediaVisibilities
   description: Tag Description MediaVisibilities
 - name: Narratives
@@ -47,8 +45,6 @@ tags:
   description: Tag Description Positions
 - name: PrivacyPolicyRules
   description: Tag Description PrivacyPolicyRules
-- name: ResourceGroups
-  description: Tag Description ResourceGroups
 - name: VehicleAlerts
   description: Tag Description VehicleAlerts
 - name: VehicleSignalStates
@@ -309,12 +305,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -374,12 +370,12 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -446,12 +442,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -834,6 +830,12 @@ paths:
         - standard:read
       - ApiKeyHeader: []
       - AuthorizationHeader: []
+    parameters:
+    - $ref: "#/components/parameters/ConnectedVehicleKey"
+  /connected-vehicles/{connected-vehicle-key}/dealer-references:
+    parameters:
+    - $ref: "#/components/parameters/ConnectedVehicleKey"
+  /connected-vehicles/{connected-vehicle-key}/dealer-references/{dealer-reference-key}:
     parameters:
     - $ref: "#/components/parameters/ConnectedVehicleKey"
   /connected-vehicles/{connected-vehicle-key}/address-locales:
@@ -1452,6 +1454,12 @@ paths:
       - AuthorizationHeader: []
     parameters:
     - $ref: "#/components/parameters/ConnectedVehicleKey"
+  /connected-vehicles/{connected-vehicle-key}/media-references:
+    parameters:
+    - $ref: "#/components/parameters/ConnectedVehicleKey"
+  /connected-vehicles/{connected-vehicle-key}/media-references/{media-reference-key}:
+    parameters:
+    - $ref: "#/components/parameters/ConnectedVehicleKey"
   /connected-vehicles/{connected-vehicle-key}/vehicle-telemetry-observations:
     get:
       tags:
@@ -1576,128 +1584,6 @@ paths:
       - AuthorizationHeader: []
     parameters:
     - $ref: "#/components/parameters/ConnectedVehicleKey"
-  /connected-vehicles/{connected-vehicle-key}/resource-groups:
-    get:
-      tags:
-      - ResourceGroups
-      summary: Returns a paginated list of resource group
-      description: a list of ResourceGroup
-      operationId: listResourceGroupsByConnectedVehicleKey
-      parameters:
-      - $ref: "#/components/parameters/FilterQuery"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/ResourceGroupCollectionResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
-    parameters:
-    - $ref: "#/components/parameters/ConnectedVehicleKey"
-  /connected-vehicles/{connected-vehicle-key}/resource-groups/{resource-group-key}:
-    get:
-      tags:
-      - ResourceGroups
-      summary: Retrieve a single item scoped by a key ResourceGroup entities.
-      description: Retrieve a single item scoped by a key ResourceGroup entities.
-      operationId: getResourceGroupByKey
-      parameters:
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/ResourceGroupKey"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/ResourceGroupSingleResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
-    parameters:
-    - $ref: "#/components/parameters/ConnectedVehicleKey"
   /connected-vehicles/{connected-vehicle-key}/positions:
     get:
       tags:
@@ -1794,128 +1680,6 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/PositionSingleResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
-    parameters:
-    - $ref: "#/components/parameters/ConnectedVehicleKey"
-  /connected-vehicles/{connected-vehicle-key}/medias:
-    get:
-      tags:
-      - Medias
-      summary: Returns a paginated list of media
-      description: a list of Media
-      operationId: listMediasByConnectedVehicleKey
-      parameters:
-      - $ref: "#/components/parameters/FilterQuery"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/MediaCollectionResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
-    parameters:
-    - $ref: "#/components/parameters/ConnectedVehicleKey"
-  /connected-vehicles/{connected-vehicle-key}/medias/{media-key}:
-    get:
-      tags:
-      - Medias
-      summary: Retrieve a single item scoped by a key Media entities.
-      description: Retrieve a single item scoped by a key Media entities.
-      operationId: getMediaByKey
-      parameters:
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/MediaKey"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/MediaSingleResponse"
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -2356,14 +2120,14 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -2400,7 +2164,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
       description: External system identifier
     ActorTypes:
       type: string
@@ -2453,13 +2217,13 @@ components:
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122688"
+          example: "879813289737977856"
         address_id:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "870747928619122689"
+          example: "879813289737977857"
         address_input:
           maxLength: 255
           minLength: 1
@@ -2499,7 +2263,7 @@ components:
           type: array
           description: address_types list
           example:
-          - BUSINESS
+          - PRODUCT
           items:
             $ref: "#/components/schemas/AddressTypes"
         authorization_levels:
@@ -2577,11 +2341,11 @@ components:
         address_locale_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122690"
+          example: "879813289737977858"
         address_locale_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870747928619122691"
+          example: "879813289737977859"
         region_code:
           type: string
           description: Code representing the region for the locale.
@@ -2605,11 +2369,11 @@ components:
         address_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122692"
+          example: "879813289737977860"
         address_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870747928619122693"
+          example: "879813289737977861"
         address_types:
           maxItems: 255
           minItems: 1
@@ -2617,7 +2381,7 @@ components:
           type: array
           description: address_types list
           example:
-          - PO_BOX
+          - CONVOY
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -2796,7 +2560,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -2805,7 +2569,7 @@ components:
         authorization_level_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122694"
+          example: "879813289737977862"
         auth_codes:
           $ref: "#/components/schemas/Codes"
         privacy_policy_rules:
@@ -2854,11 +2618,11 @@ components:
         communication_channel_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122695"
+          example: "879813289737977863"
         communication_channel_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870747928619122696"
+          example: "879813289737977864"
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
         context:
@@ -2988,7 +2752,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         current_odometer:
           $ref: "#/components/schemas/MetricValue"
         current_position:
@@ -3039,7 +2803,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         connected_notes:
           maxLength: 4000
           minLength: 1
@@ -3102,7 +2866,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         fuel_level:
           $ref: "#/components/schemas/MetricValue"
         connected_notes:
@@ -3126,7 +2890,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         ignition_status_type:
           $ref: "#/components/schemas/IgnitionStatusTypes"
         data_sharing_consent_indicator:
@@ -3174,16 +2938,48 @@ components:
       - THURS
       - FRI
       - SAT
-    DeviceTypes:
-      type: string
-      description: types of devices.
-      example: MOBILE
-      enum:
-      - MOBILE
-      - TABLET
-      - DESKTOP
-      - SMART_TV
-      - OTHER
+    DealerReference:
+      type: object
+      properties:
+        dealer_reference_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "879813289737977865"
+        dealer_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "879813289737977866"
+        dealer_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "879813289737977867"
+        dealer_name:
+          type: string
+          description: The name of the dealership captured at transaction time.
+          example: Thomas Auto
+        dealer_bac:
+          type: string
+          description: The dealer's Business Associate Code (BAC) for OEM correlation.
+          example: BHA
+        franchise_code:
+          type: string
+          description: A business classification code for the dealership.
+          example: FRANCHISE-879813256040939555
+        business_code:
+          type: string
+          description: A business classification code for the dealership.
+          example: DKRBHA
+        country_code:
+          type: string
+          description: "The ISO country code for the dealership, used in geographic\
+            \ privacy lookups."
+          example: US
+        organization_path:
+          type: string
+          description: "The hierarchical organizational locator path representing\
+            \ the brand, dealer, store, and department (e.g., 'ford.appointment.dealer.store34.dept45')."
+          example: ford.appointment.dealer.store34.dept45
+      description: A lightweight reference representation of a Dealership.
     DurationIntervalTypes:
       type: string
       description: types of duration intervals.
@@ -3249,13 +3045,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         complete_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -3376,13 +3172,13 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "870747928619122697"
+          example: "879813289737977868"
         identifier_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122698"
+          example: "879813289737977869"
         context:
           type: string
           description: Context or domain of the identifier
@@ -3492,13 +3288,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         occurrence_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
       description: nullable
     Locale:
       type: object
@@ -3506,7 +3302,7 @@ components:
         locale_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122699"
+          example: "879813289737977870"
         locale_name:
           type: string
           description: The full IETF BCP 47 language tag or Java-style locale string
@@ -3590,183 +3386,6 @@ components:
       - NULLIFY
       - GENERAL_ANONYMIZE
       - NONE
-    Media:
-      type: object
-      properties:
-        media_key:
-          type: string
-          description: Unique global internal or external business key.
-          example: "870747928619122700"
-        media_id:
-          type: string
-          description: Unique system-specific internal identifier.
-          example: "870747928619122701"
-        authors:
-          $ref: "#/components/schemas/PartyReferences"
-        occurrence_date_time:
-          type: string
-          description: "Date and time when the event or value occurred, represented\
-            \ in ISO-8601 date-time format."
-          format: date-time
-          example: 2026-07-30T19:21:23Z
-        name:
-          type: string
-          description: A hyperlink to the media's content.
-          example: Vehicle Image Side View
-        media_format_type:
-          $ref: "#/components/schemas/MediaFormatTypes"
-        media_href:
-          type: string
-          description: A hyperlink to the media resource.
-          format: href
-          example: https://api.example.com/resources/10409
-        media_type:
-          $ref: "#/components/schemas/MediaTypes"
-        media_status_type:
-          $ref: "#/components/schemas/MediaStatusTypes"
-        media_delivery_method_type:
-          $ref: "#/components/schemas/MediaDeliveryMethodTypes"
-        media_usage_type:
-          $ref: "#/components/schemas/MediaUsageTypes"
-        media_visibility:
-          $ref: "#/components/schemas/MediaVisibility"
-        media_version:
-          type: string
-          description: The version of the media.
-          example: v2
-        quality:
-          type: string
-          description: A numeric value representing the quality of the media.
-          example: MEDIUM
-        resource_group:
-          $ref: "#/components/schemas/ResourceGroup"
-        signature:
-          type: string
-          description: A unique signature or hash of the media content.
-          example: SIG-001-870747138223505413
-        textual_details:
-          $ref: "#/components/schemas/TextualDetails"
-        raw_content:
-          type: string
-          description: "A collection of textual details, such as titles and descriptions,\
-            \ for the media."
-          example: CFG-001-870747138223505414
-        media_source:
-          type: string
-          description: The source of the media.
-          example: DEALER
-        media_description:
-          type: string
-          description: The source of the media.
-          example: Updated image with corrected lighting.
-        categories:
-          $ref: "#/components/schemas/Codes"
-        dpi:
-          type: string
-          description: "The dots per inch (DPI) for the media, if applicable."
-          example: "150"
-        w_pixel:
-          type: string
-          description: The width of the media in pixels.
-          example: "1280"
-        h_pixel:
-          type: string
-          description: The height of the media in pixels.
-          example: "720"
-        media_resolution:
-          type: string
-          description: "The display resolution of the media (e.g., 480p, 720p, 1080p)."
-          example: 1280x720
-        media_duration_seconds:
-          type: string
-          description: The total duration of the media file in seconds.
-          example: "25"
-        media_sent_date_time:
-          type: string
-          description: "Date and time when the event or value occurred, represented\
-            \ in ISO-8601 date-time format."
-          format: date-time
-          example: 2026-07-30T19:21:23Z
-        media_keys:
-          $ref: "#/components/schemas/Codes"
-        media_access_metrics:
-          $ref: "#/components/schemas/MediaAccessMetrics"
-      description: "Media item including video, images, and sound."
-    MediaAccessMetric:
-      type: object
-      properties:
-        media_access_id:
-          type: string
-          description: Unique system-specific internal identifier.
-          example: "870747928619122702"
-        media_access_key:
-          type: string
-          description: Unique global internal or external business key.
-          example: "870747928619122703"
-        media_key:
-          type: string
-          description: Unique global internal or external business key.
-          example: "870747928619122704"
-        first_viewed_at:
-          type: string
-          description: "Date and time when the event or value occurred, represented\
-            \ in ISO-8601 date-time format."
-          example: 2026-07-12T17:45:46.897522Z
-        completed_at:
-          type: string
-          description: "Date and time when the event or value occurred, represented\
-            \ in ISO-8601 date-time format."
-          example: 2026-07-03T04:55:37.897534Z
-        view_count:
-          type: string
-          description: Total number of engagement events.
-          example: "13"
-        watch_time_seconds:
-          type: string
-          description: The cumulative time in seconds the user spent viewing the media.
-          example: "110"
-        completion_percentage:
-          type: string
-          description: The furthest point reached in the media as a percentage (0-100).
-          example: "95"
-        last_viewed_date_time:
-          type: string
-          description: "Date and time when the event or value occurred, represented\
-            \ in ISO-8601 date-time format."
-          format: date-time
-          example: 2026-07-15T08:31:58.897545Z
-        device_type:
-          $ref: "#/components/schemas/DeviceTypes"
-        user_agent:
-          type: string
-          description: The browser user agent string from the most recent view.
-          example: Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)
-        buffer_count:
-          type: string
-          description: The number of times the media playback was interrupted by buffering.
-          example: "30"
-        load_time_ms:
-          type: string
-          description: The time in milliseconds it took for the media to begin playback
-            after the request.
-          example: "320"
-      description: "Represents a media stream, such as a video or audio file."
-    MediaAccessMetrics:
-      type: array
-      items:
-        $ref: "#/components/schemas/MediaAccessMetric"
-    MediaDeliveryMethodTypes:
-      type: string
-      description: types of media delivery methods.
-      example: MMS
-      enum:
-      - MMS
-      - SMS
-      - EMAIL
-      - PUSH_NOTIFICATION
-      - WHATSAPP
-      - IN_APP
-      - WEB_PORTAL
     MediaFormatTypes:
       type: string
       description: types of media formats.
@@ -3822,20 +3441,49 @@ components:
       - UNLISTED
       - ARCHIVED
       - DRAFT
-    MediaStatusTypes:
-      type: string
-      description: types of media status.
-      example: PENDING
-      enum:
-      - PENDING
-      - READY
-      - SENT
-      - DELIVERED
-      - FAILED
-      - UNREAD
-      - READ
-      - VIEWED
-      - EXPIRED
+    MediaReference:
+      type: object
+      properties:
+        media_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "879813289737977871"
+        media_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "879813289737977872"
+        name:
+          type: string
+          description: The descriptive name or filename of the media item.
+          example: Vehicle Image Side View
+        media_type:
+          $ref: "#/components/schemas/MediaTypes"
+        media_format_type:
+          $ref: "#/components/schemas/MediaFormatTypes"
+        media_visibility:
+          $ref: "#/components/schemas/MediaVisibility"
+        signature:
+          type: string
+          description: The unique checksum hash validating the raw media file's structural
+            integrity.
+          example: SIG-001-879813256040939557
+        media_href:
+          type: string
+          description: The direct hypermedia link pointing to the downstream physical
+            binary or target REST resource.
+          format: href
+          example: https://api.example.com/resources/77116
+        capture_stage_type:
+          type: string
+          description: "The operational service phase or workflow event during which\
+            \ the media was captured (e.g., VEHICLE_ARRIVAL, INITIAL_INSPECTION, TECHNICIAN_INSPECTION,\
+            \ SERVICE_COMPLETED, FINAL_INSPECTION, POLICE_INCIDENT, OTHER)."
+          example: INITIAL_INSPECTION
+      description: media.reference.desc
+    MediaReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/MediaReference"
     MediaTypes:
       type: string
       description: types of medias.
@@ -3869,34 +3517,17 @@ components:
       - MODEL
       - FONT
       - FILE
-    MediaUsageTypes:
-      type: string
-      description: types of media usages.
-      example: THUMBNAIL
-      enum:
-      - THUMBNAIL
-      - PREVIEW
-      - STANDARD
-      - HIGH_QUALITY
-      - LOW_QUALITY
-      - ORIGINAL
-      - HERO
-      - BANNER
-      - AVATAR
-      - GALLERY
-      - READ
-      - OTHER
     MediaVisibility:
       type: object
       properties:
         media_visibility_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122705"
+          example: "879813289737977873"
         visibility_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122706"
+          example: "879813289737977874"
         media_privacy_type:
           $ref: "#/components/schemas/MediaPrivacyTypes"
         externally_hosted_indicator:
@@ -3905,10 +3536,6 @@ components:
           example: false
       description: "Represents the visibility and hosting details for media, such\
         \ as privacy settings and scheduling."
-    Medias:
-      type: array
-      items:
-        $ref: "#/components/schemas/Media"
     Memo:
       type: array
       items:
@@ -3919,11 +3546,11 @@ components:
         metric_name_value_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122707"
+          example: "879813289737977875"
         metric_name_value_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870747928619122708"
+          example: "879813289737977876"
         header_sequence:
           type: string
           description: The header sequence for the metric value.
@@ -3980,11 +3607,15 @@ components:
         narrative_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122709"
+          example: "879813289737977877"
         narrative_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870747928619122710"
+          example: "879813289737977878"
+        correlation_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "879813289737977879"
         actor:
           $ref: "#/components/schemas/ActorReference"
         event_actor_role_type:
@@ -3996,7 +3627,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         narrative_group:
           type: string
           description: The group to which the narrative belongs.
@@ -4094,6 +3725,9 @@ components:
       - BUSINESS_RULE
       - INTENT
       - CAPABILITY
+      - CUSTOM_ORDER
+      - SPECIAL
+      - DISCLAIMER
     NarrativeUomTypes:
       type: string
       description: types of narrative uoms.
@@ -4272,7 +3906,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - APPLICANT
+          - PROFESSIONAL_CONTACT
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -4286,17 +3920,15 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         org_indicator:
           type: boolean
           description: Indicates if the party is an organization (true) or an individual
             (false).
           example: true
+        identifiers:
+          $ref: "#/components/schemas/Identifiers"
       description: External system identifier
-    PartyReferences:
-      type: array
-      items:
-        $ref: "#/components/schemas/PartyReference"
     PartyRelationshipTypes:
       type: string
       description: types of party relationships.
@@ -4402,7 +4034,10 @@ components:
       - REFERENCE_PROFESSIONAL
       - PRIMARY_CUSTOMER
       - PRIMARY_DRIVER
+      - SECONDARY_DRIVER
       - PRIMARY_OWNER
+      - SECONDARY_OWNER
+      - CO_OWNER
       - VEHICLE_OWNER
       - APPLICANT
       - CO_APPLICANT
@@ -4467,6 +4102,7 @@ components:
       - RESALE
       - SHIP_TO
       - SOLD_TO
+      - SHIP_THROUGH
     PersonName:
       type: object
       properties:
@@ -4619,8 +4255,8 @@ components:
           type: array
           description: Position codes associated with the entity.
           example:
-          - Pos-870747138219311124
-          - Pos-870747138219311125
+          - Pos-879813256040939524
+          - Pos-879813256040939525
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -4664,11 +4300,11 @@ components:
         privacy_policy_rule_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122711"
+          example: "879813289737977880"
         privacy_policy_rule_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870747928619122712"
+          example: "879813289737977881"
         target_persona_type:
           $ref: "#/components/schemas/PrivacyPersonaTypes"
         target_data_category_type:
@@ -4818,81 +4454,6 @@ components:
       - CANCELLED
       - UNKNOWN
       - OTHER
-    ResourceGroup:
-      type: object
-      properties:
-        resource_group_key:
-          type: string
-          description: Unique global internal or external business key.
-          example: "870747928619122713"
-        resource_group_id:
-          type: string
-          description: Unique system-specific internal identifier.
-          example: "870747928619122714"
-        resource_group_name:
-          type: string
-          description: The name of the resource group.
-          example: RESOURCE-GRP-870747138223505415
-        resource_type:
-          $ref: "#/components/schemas/ResourceTypes"
-        resource_ids:
-          $ref: "#/components/schemas/Codes"
-        resource_group_keys:
-          $ref: "#/components/schemas/Codes"
-      description: "Represents a grouping identifier for media resources, including\
-        \ unique keys, names, and associated resource types."
-    ResourceTypes:
-      type: string
-      description: types of resources.
-      example: SYSTEM
-      enum:
-      - SYSTEM
-      - WORKFLOW
-      - ACTIVITY
-      - FUNCTION
-      - PROCESS
-      - INCIDENT
-      - PARTY
-      - CUSTOMER
-      - APPLICANT
-      - VENDOR
-      - DEALER_STAFF
-      - DRIVER
-      - ADDRESS
-      - BILL_ADDRESS
-      - BILL_CONTACT
-      - COMM_CHANNEL
-      - ACCOUNT
-      - VEHICLE
-      - TRADE_IN
-      - PRODUCT
-      - MANUFACTURER
-      - LEAD
-      - OPPORTUNITY
-      - DEAL
-      - FINANCE
-      - INVOICE
-      - LINEITEM
-      - EXPENSE
-      - DISCOUNT
-      - TAX
-      - FEE
-      - INCENTIVE
-      - DEALERSHIP
-      - PART
-      - ACCESSORIES
-      - PURCHASE_ORDER
-      - VEHICLE_OPTION
-      - RENTAL
-      - SUBSCRIPTION
-      - INSURANCE
-      - WARRANTY
-      - SERVICE
-      - VEHICLE_INVOICE
-      - PART_INVOICE
-      - SERVICE_INVOICE
-      - APPOINTMENT
-      - OTHER
     SensorStatusTypes:
       type: string
       description: types of sensor status.
@@ -4930,6 +4491,8 @@ components:
       - STAGED_FOR_PICKUP
       - CHECK_OUT
       - RELEASE
+      - INFORMATIONAL
+      - MILESTONE
       - UNKNOWN
     SeverityTypes:
       type: string
@@ -4985,7 +4548,7 @@ components:
         subscription_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870747928619122715"
+          example: "879813289737977882"
         subscription_display_name:
           maxLength: 150
           minLength: 1
@@ -5017,11 +4580,11 @@ components:
         subscription_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122716"
+          example: "879813289737977883"
         subscription_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870747928619122717"
+          example: "879813289737977884"
         locale:
           $ref: "#/components/schemas/Locale"
         subscription_code:
@@ -5043,7 +4606,7 @@ components:
         account_number:
           type: string
           description: Account Number
-          example: "50"
+          example: "84"
         system_codes:
           $ref: "#/components/schemas/Codes"
         identifiers:
@@ -5053,7 +4616,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         sequence_total:
           type: string
           description: Unique Sequencing Order for this entity in a list
@@ -5129,70 +4692,6 @@ components:
       - QUALITY_CONTROL_APPROVED
       - READY_FOR_PICKUP_STAGED
       - CUSTOMER_PICKUP_DEPARTED
-    TextualDetail:
-      type: object
-      properties:
-        textual_detail_key:
-          type: string
-          description: Unique global internal or external business key.
-          example: "870747928619122718"
-        textual_detail_id:
-          type: string
-          description: Unique system-specific internal identifier.
-          example: "870747928619122719"
-        comments:
-          $ref: "#/components/schemas/Memo"
-        locale_codes:
-          $ref: "#/components/schemas/Codes"
-        notes:
-          $ref: "#/components/schemas/Memo"
-        short_description:
-          type: string
-          description: textual.detail.short.description.desc
-          example: Factory installed sunroof
-        text_key:
-          type: string
-          description: Unique global internal or external business key.
-          example: "870747928619122720"
-        name:
-          type: string
-          description: textual.detail.name.desc
-          example: Vehicle Image Side View
-        value:
-          type: string
-          description: textual.detail.value.desc
-          example: user@example.com
-        identifiers:
-          $ref: "#/components/schemas/Identifiers"
-        groups:
-          $ref: "#/components/schemas/Codes"
-        label:
-          type: string
-          description: textual.detail.label.desc
-          example: Work Email
-        alt_text:
-          type: string
-          description: textual.detail.alt.text.desc
-          example: Image showing front brake pad wear.
-        textual_detail_code:
-          type: string
-          description: textual.detail.textual.detail.code.desc
-          example: DETAIL-001
-        tags:
-          $ref: "#/components/schemas/Codes"
-        uom_display:
-          type: string
-          description: textual.detail.uom.display.desc
-          example: Millimeters
-        uom_code:
-          type: string
-          description: textual.detail.uom.code.desc
-          example: MM
-      description: nullable
-    TextualDetails:
-      type: array
-      items:
-        $ref: "#/components/schemas/TextualDetail"
     TimeSlot:
       type: object
       properties:
@@ -5235,7 +4734,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - AFTER
+          - RESTRICTED
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
@@ -5299,86 +4798,120 @@ components:
           type: string
           description: Unique global internal or external business key.
           example: ALERT-882211
-        alert_id:
-          maxLength: 80
+        vehicle_alert_id:
+          maxLength: 60
           minLength: 1
           type: string
           description: Unique system-specific internal identifier.
-          example: FORDPASS-ALERT-9982
-        telemetry_event_reference:
-          $ref: "#/components/schemas/VehicleTelemetryEventReference"
-        vehicle_reference:
-          $ref: "#/components/schemas/VehicleReference"
-        source_system_code:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: "The source system that created, supplied, or last synchronized\
-            \ the vehicle ledger."
-          example: VEHICLE_HISTORY_PROVIDER
-        source_alert_code:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: "The source system that created, supplied, or last synchronized\
-            \ the vehicle ledger."
-          example: VEHICLE_HISTORY_PROVIDER
-        source_record_key:
+          example: ALERT-882211
+        alert_group_key:
           maxLength: 100
           minLength: 1
           type: string
           description: Unique global internal or external business key.
-          example: OEM-EVT-77821
-        vehicle_event_category_type:
-          $ref: "#/components/schemas/VehicleEventCategoryTypes"
-        alert_severity:
-          $ref: "#/components/schemas/SeverityTypes"
+          example: OEM-ALERT-9982
+        vehicle_reference:
+          $ref: "#/components/schemas/VehicleReference"
+        dealer_reference:
+          $ref: "#/components/schemas/DealerReference"
+        customer_reference:
+          $ref: "#/components/schemas/PartyReference"
+        telemetry_event_reference:
+          $ref: "#/components/schemas/VehicleTelemetryEventReference"
+        alert_type:
+          $ref: "#/components/schemas/VehicleAlertTypes"
         alert_status_type:
           $ref: "#/components/schemas/AlertStatusTypes"
-        alert_message:
-          maxLength: 2000
+        alert_severity:
+          $ref: "#/components/schemas/SeverityTypes"
+        alert_priority_type:
+          $ref: "#/components/schemas/PriorityTypes"
+        alert_title:
+          maxLength: 255
           minLength: 1
           type: string
-          description: The human-readable connected vehicle alert description.
-          example: Front left tire pressure below threshold.
+          description: The short human-readable title identifying the vehicle alert.
+          example: Engine Cooling System Requires Attention
+        alert_narratives:
+          $ref: "#/components/schemas/Narratives"
+        alert_category_codes:
+          $ref: "#/components/schemas/Codes"
+        warning_indicator_codes:
+          $ref: "#/components/schemas/Codes"
+        diagnostic_trouble_codes:
+          $ref: "#/components/schemas/Codes"
+        failure_type_codes:
+          $ref: "#/components/schemas/Codes"
+        customer_actions:
+          $ref: "#/components/schemas/Narratives"
+        service_action_program_codes:
+          $ref: "#/components/schemas/Codes"
+        local_service_action_codes:
+          $ref: "#/components/schemas/Codes"
+        prognostic_message_codes:
+          $ref: "#/components/schemas/Codes"
+        created_date_time:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-08-24T19:43:54Z
+        effective_date_time:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-08-24T19:43:54Z
+        updated_date_time:
+          type: string
+          description: "Date and time when the event or value occurred, represented\
+            \ in ISO-8601 date-time format."
+          format: date-time
+          example: 2026-08-24T19:43:54Z
         occurrence_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         position:
           $ref: "#/components/schemas/Position"
         odometer:
           $ref: "#/components/schemas/MetricValue"
-        resolved_indicator:
-          type: boolean
-          description: Indicates whether the connected vehicle alert has been resolved.
-          example: true
         vehicle_snapshots:
           $ref: "#/components/schemas/VehicleSnapshots"
+        source_system_code:
+          $ref: "#/components/schemas/Codes"
+        source_alert_code:
+          $ref: "#/components/schemas/Codes"
+        source_record_key:
+          maxLength: 120
+          minLength: 1
+          type: string
+          description: Unique global internal or external business key.
+          example: OEM-VHA-20260806-18427
+        vehicle_event_category_type:
+          $ref: "#/components/schemas/VehicleEventCategoryTypes"
+        resolved_indicator:
+          type: boolean
+          description: Indicates whether the vehicle alert has been resolved.
+          example: false
         resolved_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         resolution_description:
           $ref: "#/components/schemas/Narrative"
-        resolution_code:
-          $ref: "#/components/schemas/Code"
+        resolution_codes:
+          $ref: "#/components/schemas/Codes"
         expiration_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
-        alert_priority_type:
-          $ref: "#/components/schemas/PriorityTypes"
-        governance_codes:
-          $ref: "#/components/schemas/Codes"
-        privacy_codes:
-          $ref: "#/components/schemas/Codes"
+          example: 2026-08-24T19:43:54Z
         correlation_id:
           maxLength: 120
           minLength: 1
@@ -5389,19 +4922,54 @@ components:
           maxLength: 20
           minLength: 1
           type: string
-          description: The confidence score assigned by the originating system indicating
-            the likelihood that the alert accurately represents the reported condition.
+          description: "The confidence score assigned to the alert by the originating,\
+            \ diagnostic, predictive, or analytical system."
           example: "0.997"
         event_hash:
           maxLength: 256
           minLength: 1
           type: string
-          description: The immutable hash used to verify the integrity and authenticity
-            of the connected vehicle alert.
+          description: The immutable hash used to verify the integrity of the vehicle
+            alert representation.
           example: SHA256:7f3d4c8a9b1e...
         effective_period:
           $ref: "#/components/schemas/EffectivePeriod"
+        governance_codes:
+          $ref: "#/components/schemas/Codes"
+        privacy_codes:
+          $ref: "#/components/schemas/Codes"
       description: Connected Vehicle Alert
+    VehicleAlertTypes:
+      type: string
+      description: types of vehicle alerts.
+      example: VEHICLE_HEALTH
+      enum:
+      - VEHICLE_HEALTH
+      - FIELD_SERVICE_ACTION
+      - RECALL
+      - PREDICTIVE
+      - DIAGNOSTIC
+      - MAINTENANCE
+      - SAFETY
+      - WARNING_INDICATOR
+      - SYSTEM_FAULT
+      - PERFORMANCE
+      - BATTERY_HEALTH
+      - CHARGING
+      - RANGE
+      - TIRE
+      - FLUID
+      - EMISSIONS
+      - CONNECTIVITY
+      - SOFTWARE
+      - SECURITY
+      - SERVICE_DUE
+      - SERVICE_RECOMMENDATION
+      - WARRANTY
+      - COMPLIANCE
+      - INFORMATIONAL
+      - OTHER
+      - UNKNOWN
     VehicleEventCategoryTypes:
       type: string
       description: types of vehicle event categorys.
@@ -5531,6 +5099,14 @@ components:
           type: string
           description: The baseline layout style design of the chassis structure shell.
           example: Crew Cab Pickup
+        trim_codes:
+          $ref: "#/components/schemas/Codes"
+        trim_dd_codes:
+          $ref: "#/components/schemas/Codes"
+        final_assembly_point:
+          $ref: "#/components/schemas/Codes"
+        fleet_codes:
+          $ref: "#/components/schemas/Codes"
       description: Vehicle Detail Create Information
     VehicleResourceTypes:
       type: string
@@ -5675,13 +5251,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         last_updated_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
       description: "Represents the latest VSS-aligned signal state for a connected\
         \ vehicle component, sensor, or logical vehicle data node."
     VehicleSignalStates:
@@ -5727,7 +5303,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         vehicle_state_position:
           $ref: "#/components/schemas/VehicleStatePosition"
         vehicle_states:
@@ -5738,8 +5314,8 @@ components:
           type: string
           description: The descriptive memo associated with the vehicle snapshot.
           example: Vehicle engine component.
-        medias:
-          $ref: "#/components/schemas/Medias"
+        media_references:
+          $ref: "#/components/schemas/MediaReferences"
         snapshot_codes:
           $ref: "#/components/schemas/Codes"
         service_milestone_types:
@@ -5777,6 +5353,8 @@ components:
           description: The raw or normalized value captured for the vehicle state
             reading.
           example: "82"
+        uom:
+          $ref: "#/components/schemas/NarrativeUomTypes"
         vehicle_system_type:
           $ref: "#/components/schemas/VehicleSystemTypes"
         vehicle_resource_type:
@@ -5792,13 +5370,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         recorded_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         vehicle_state_position:
           $ref: "#/components/schemas/VehicleStatePosition"
         narratives:
@@ -5863,13 +5441,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         recorded_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         mask_indicator:
           type: boolean
           description: "Indicates whether the vehicle position was intentionally masked,\
@@ -6065,7 +5643,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         position:
           $ref: "#/components/schemas/Position"
         event_sequence_num:
@@ -6194,7 +5772,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         sequence_number:
           minimum: 0
           type: integer
@@ -6237,7 +5815,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         source:
           type: string
           description: "Origin of the telemetry data (e.g., MANUAL_ADVISOR_INPUT,\
@@ -6332,871 +5910,6 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/PrivacyPolicyRule"
-    ConnectedVehicleSingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ConnectedVehicle"
-    ConnectedVehicleCollectionResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Link:
-          $ref: "#/components/headers/LinkHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                description: The list of ConnectedVehicles entities.
-                items:
-                  $ref: "#/components/schemas/ConnectedVehicle"
-              has_more:
-                type: boolean
-                description: Indicates if more results are available.
-              total_count:
-                maximum: 2147483647
-                minimum: 0
-                type: integer
-                description: The number of total entities.
-                format: int32
-                example: 2550
-    UnauthorizedError:
-      description: "Authentication failed. The access token is missing, expired, or\
-        \ invalid."
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorDetail"
-    MediaVisibilitySingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/MediaVisibility"
-    JurisdictionProfileCollectionResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Link:
-          $ref: "#/components/headers/LinkHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                description: The list of JurisdictionProfiles entities.
-                items:
-                  $ref: "#/components/schemas/JurisdictionProfile"
-              has_more:
-                type: boolean
-                description: Indicates if more results are available.
-              total_count:
-                maximum: 2147483647
-                minimum: 0
-                type: integer
-                description: The number of total entities.
-                format: int32
-                example: 2550
-    UnsupportedMediaTypeError:
-      description: The request could not be completed because of missing or invalid
-        content type
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorDetail"
-    PreconditionFailedError:
-      description: The request was not processed because the 'If-Match' header provided
-        does not match the current ETag.
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorDetail"
-    VehicleAlertSingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/VehicleAlert"
-    NarrativeCollectionResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Link:
-          $ref: "#/components/headers/LinkHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                description: The list of Narratives entities.
-                items:
-                  $ref: "#/components/schemas/Narrative"
-              has_more:
-                type: boolean
-                description: Indicates if more results are available.
-              total_count:
-                maximum: 2147483647
-                minimum: 0
-                type: integer
-                description: The number of total entities.
-                format: int32
-                example: 2550
-    VehicleTelemetryObservationSingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/VehicleTelemetryObservation"
-    ResourceGroupSingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ResourceGroup"
-    MediaVisibilityCollectionResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Link:
-          $ref: "#/components/headers/LinkHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                description: The list of MediaVisibilities entities.
-                items:
-                  $ref: "#/components/schemas/MediaVisibility"
-              has_more:
-                type: boolean
-                description: Indicates if more results are available.
-              total_count:
-                maximum: 2147483647
-                minimum: 0
-                type: integer
-                description: The number of total entities.
-                format: int32
-                example: 2550
-    PrivacyPolicyRuleCollectionResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Link:
-          $ref: "#/components/headers/LinkHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                description: The list of PrivacyPolicyRules entities.
-                items:
-                  $ref: "#/components/schemas/PrivacyPolicyRule"
-              has_more:
-                type: boolean
-                description: Indicates if more results are available.
-              total_count:
-                maximum: 2147483647
-                minimum: 0
-                type: integer
-                description: The number of total entities.
-                format: int32
-                example: 2550
-    VehicleStatePositionCollectionResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Link:
-          $ref: "#/components/headers/LinkHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                description: The list of VehicleStatePositions entities.
-                items:
-                  $ref: "#/components/schemas/VehicleStatePosition"
-              has_more:
-                type: boolean
-                description: Indicates if more results are available.
-              total_count:
-                maximum: 2147483647
-                minimum: 0
-                type: integer
-                description: The number of total entities.
-                format: int32
-                example: 2550
-    MediaSingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Media"
-    ConflictError:
-      description: The request could not be completed because it conflicts with the
-        current state of the resource.
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorDetail"
-    ServerError:
-      description: An unexpected error occurred on the server while processing the
-        request.
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorDetail"
-    AddressSingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Address"
-    AddressLocaleSingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/AddressLocale"
-    ConnectedVehicleCreatedResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Content-Location:
-          $ref: "#/components/headers/ContentLocationHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ConnectedVehicle"
-    NoContentSuccess:
-      description: "No Content: The resource was successfully updated."
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-    VehicleSignalStateSingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/VehicleSignalState"
-    NarrativeSingleResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Narrative"
-    ConnectedVehicleUpdatedResponse:
-      description: Success
-      headers:
-        Standards-Version:
-          $ref: "#/components/headers/StandardsVersionHeader"
-        Correlation-ID:
-          $ref: "#/components/headers/CorrelationIDHeader"
-        Agent:
-          $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
-        Content-Location:
-          $ref: "#/components/headers/ContentLocationHeader"
-        Transaction-ID:
-          $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Org-Version:
-          $ref: "#/components/headers/OrgVersionHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ConnectedVehicle"
     VehicleSnapshotSingleResponse:
       description: Success
       headers:
@@ -7234,6 +5947,43 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/VehicleSnapshot"
+    ConnectedVehicleSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ConnectedVehicle"
     VehicleStatePositionSingleResponse:
       description: Success
       headers:
@@ -7326,6 +6076,79 @@ components:
                 description: The number of total entities.
                 format: int32
                 example: 2550
+    ConnectedVehicleCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of ConnectedVehicles entities.
+                items:
+                  $ref: "#/components/schemas/ConnectedVehicle"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
+    UnauthorizedError:
+      description: "Authentication failed. The access token is missing, expired, or\
+        \ invalid."
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
     TooManyRequestsError:
       description: Rate Limit Error. Too Many Requests
       headers:
@@ -7339,6 +6162,98 @@ components:
           $ref: "#/components/headers/TransactionIDHeader"
         Org-Version:
           $ref: "#/components/headers/OrgVersionHeader"
+    MediaVisibilitySingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/MediaVisibility"
+    JurisdictionProfileCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of JurisdictionProfiles entities.
+                items:
+                  $ref: "#/components/schemas/JurisdictionProfile"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
     GatewayTimeout:
       description: Timeout serving request
       headers:
@@ -7352,8 +6267,44 @@ components:
           $ref: "#/components/headers/TransactionIDHeader"
         Org-Version:
           $ref: "#/components/headers/OrgVersionHeader"
+    UnsupportedMediaTypeError:
+      description: The request could not be completed because of missing or invalid
+        content type
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
     ForbiddenError:
       description: The authenticated user does not have the necessary permissions.
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    PreconditionFailedError:
+      description: The request was not processed because the 'If-Match' header provided
+        does not match the current ETag.
       headers:
         Standards-Version:
           $ref: "#/components/headers/StandardsVersionHeader"
@@ -7461,6 +6412,98 @@ components:
                 description: The number of total entities.
                 format: int32
                 example: 2550
+    VehicleAlertSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/VehicleAlert"
+    NarrativeCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of Narratives entities.
+                items:
+                  $ref: "#/components/schemas/Narrative"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
     VehicleTelemetryObservationCollectionResponse:
       description: Success
       headers:
@@ -7506,6 +6549,98 @@ components:
                 description: The list of VehicleTelemetryObservations entities.
                 items:
                   $ref: "#/components/schemas/VehicleTelemetryObservation"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
+    VehicleTelemetryObservationSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/VehicleTelemetryObservation"
+    MediaVisibilityCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of MediaVisibilities entities.
+                items:
+                  $ref: "#/components/schemas/MediaVisibility"
               has_more:
                 type: boolean
                 description: Indicates if more results are available.
@@ -7626,7 +6761,44 @@ components:
                 description: The number of total entities.
                 format: int32
                 example: 2550
-    ResourceGroupCollectionResponse:
+    VehicleStateSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/VehicleState"
+    PrivacyPolicyRuleCollectionResponse:
       description: Success
       headers:
         Standards-Version:
@@ -7668,9 +6840,9 @@ components:
             properties:
               data:
                 type: array
-                description: The list of ResourceGroups entities.
+                description: The list of PrivacyPolicyRules entities.
                 items:
-                  $ref: "#/components/schemas/ResourceGroup"
+                  $ref: "#/components/schemas/PrivacyPolicyRule"
               has_more:
                 type: boolean
                 description: Indicates if more results are available.
@@ -7681,7 +6853,98 @@ components:
                 description: The number of total entities.
                 format: int32
                 example: 2550
-    VehicleStateSingleResponse:
+    VehicleStatePositionCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of VehicleStatePositions entities.
+                items:
+                  $ref: "#/components/schemas/VehicleStatePosition"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
+    ConflictError:
+      description: The request could not be completed because it conflicts with the
+        current state of the resource.
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    ServerError:
+      description: An unexpected error occurred on the server while processing the
+        request.
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    AddressSingleResponse:
       description: Success
       headers:
         Standards-Version:
@@ -7717,7 +6980,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/VehicleState"
+            $ref: "#/components/schemas/Address"
     AddressCollectionResponse:
       description: Success
       headers:
@@ -7773,6 +7036,43 @@ components:
                 description: The number of total entities.
                 format: int32
                 example: 2550
+    AddressLocaleSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AddressLocale"
     NotFoundError:
       description: The requested resource was not found.
       headers:
@@ -7882,6 +7182,35 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/HealthStatus"
+    ConnectedVehicleCreatedResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Content-Location:
+          $ref: "#/components/headers/ContentLocationHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ConnectedVehicle"
     NotAcceptableError:
       description: The client requested a format (via Accept header) the server can't
         provide
@@ -7909,8 +7238,8 @@ components:
           $ref: "#/components/headers/TransactionIDHeader"
         Org-Version:
           $ref: "#/components/headers/OrgVersionHeader"
-    MediaCollectionResponse:
-      description: Success
+    NoContentSuccess:
+      description: "No Content: The resource was successfully updated."
       headers:
         Standards-Version:
           $ref: "#/components/headers/StandardsVersionHeader"
@@ -7918,52 +7247,10 @@ components:
           $ref: "#/components/headers/CorrelationIDHeader"
         Agent:
           $ref: "#/components/headers/AgentHeader"
-        RateLimit-Reset:
-          $ref: "#/components/headers/RateLimitResetHeader"
-        RateLimit-Policy:
-          $ref: "#/components/headers/RateLimitPolicyHeader"
         Transaction-ID:
           $ref: "#/components/headers/TransactionIDHeader"
-        Last-Modified:
-          $ref: "#/components/headers/LastModifiedHeader"
-        RateLimit-Limit:
-          $ref: "#/components/headers/RateLimitLimitHeader"
-        RateLimit-Remaining:
-          $ref: "#/components/headers/RateLimitRemainingHeader"
-        Cache-Control:
-          $ref: "#/components/headers/CacheControlHeader"
-        ETag:
-          $ref: "#/components/headers/ETagHeader"
-        Vary:
-          $ref: "#/components/headers/VaryHeader"
-        Expires:
-          $ref: "#/components/headers/ExpiresHeader"
         Org-Version:
           $ref: "#/components/headers/OrgVersionHeader"
-        Link:
-          $ref: "#/components/headers/LinkHeader"
-        Location:
-          $ref: "#/components/headers/LocationHeader"
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                description: The list of Medias entities.
-                items:
-                  $ref: "#/components/schemas/Media"
-              has_more:
-                type: boolean
-                description: Indicates if more results are available.
-              total_count:
-                maximum: 2147483647
-                minimum: 0
-                type: integer
-                description: The number of total entities.
-                format: int32
-                example: 2550
     JurisdictionProfileSingleResponse:
       description: Success
       headers:
@@ -8018,6 +7305,113 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ProblemDetail"
+    VehicleSignalStateSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/VehicleSignalState"
+    NarrativeSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Narrative"
+    ConnectedVehicleUpdatedResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Content-Location:
+          $ref: "#/components/headers/ContentLocationHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ConnectedVehicle"
     PositionCollectionResponse:
       description: Success
       headers:
@@ -8083,7 +7477,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928489099276"
+        example: "879813289507291141"
     ReasonQuery:
       name: reason
       in: query
@@ -8119,7 +7513,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928489099277"
+        example: "879813289507291142"
     CacheControlHeader:
       name: Cache-Control
       in: header
@@ -8169,7 +7563,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928489099278"
+        example: "879813289507291143"
     FilterQuery:
       name: filter
       in: query
@@ -8246,7 +7640,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928489099266"
+        example: "879813289503096836"
     VehicleAlertKey:
       name: vehicle-alert-key
       in: path
@@ -8256,17 +7650,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928489099268"
-    MediaKey:
-      name: media-key
-      in: path
-      description: The unique identifier for an Media entity.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-        example: "870747928489099275"
+        example: "879813289503096838"
     ConnectedVehicleKey:
       name: connected-vehicle-key
       in: path
@@ -8276,7 +7660,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928484904961"
+        example: "879813289503096833"
     CountryCodeHeader:
       name: Country-Code
       in: header
@@ -8308,7 +7692,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928489099270"
+        example: "879813289507291137"
     AgentHeader:
       name: Agent
       in: header
@@ -8331,7 +7715,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928489099269"
+        example: "879813289507291136"
     VehicleStateKey:
       name: vehicle-state-key
       in: path
@@ -8341,17 +7725,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928489099264"
-    ResourceGroupKey:
-      name: resource-group-key
-      in: path
-      description: The unique identifier for an ResourceGroup entity.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-        example: "870747928489099273"
+        example: "879813289503096834"
     SortQuery:
       name: sort
       in: query
@@ -8385,7 +7759,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928489099267"
+        example: "879813289503096837"
     OffsetQuery:
       name: offset
       in: query
@@ -8408,7 +7782,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928489099272"
+        example: "879813289507291139"
     LimitQuery:
       name: limit
       in: query
@@ -8444,7 +7818,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928489099265"
+        example: "879813289503096835"
     StandardsVersionHeader:
       name: Standards-Version
       in: header
@@ -8468,7 +7842,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928489099271"
+        example: "879813289507291138"
     PositionKey:
       name: position-key
       in: path
@@ -8478,7 +7852,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870747928489099274"
+        example: "879813289507291140"
     TransactionIDHeader:
       name: Transaction-ID
       in: header
@@ -8589,7 +7963,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/870747928489099279
+        example: /labor-operations/879813289511485440
     ContentLocationHeader:
       description: The URI of the specific representation returned in the payload.
         Used to disambiguate the 'Resource Identifier' from the 'Data Artifact' in
@@ -8600,7 +7974,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/870747928489099280
+        example: /labor-operations/879813289511485441
     TransactionIDHeader:
       description: Echoes the unique identifier for the specific atomic unit of work
         processed by the server.
