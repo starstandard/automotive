@@ -2953,7 +2953,7 @@ components:
           type: array
           description: address_types list
           example:
-          - RECIPIENT
+          - GARAGE
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -4491,7 +4491,7 @@ components:
           type: array
           description: product_types list
           example:
-          - F_N_I_PRODUCT
+          - SERVICE_PACKAGE
           items:
             $ref: "#/components/schemas/ProductTypes"
         system_codes:
@@ -4578,7 +4578,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - NON_PROFIT
+          - HEIR
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -4925,8 +4925,8 @@ components:
           type: array
           description: Position codes associated with the entity.
           example:
-          - Pos-875810252606406672
-          - Pos-875810252606406673
+          - Pos-879813125719719955
+          - Pos-879813125719719956
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -5311,7 +5311,7 @@ components:
           type: array
           description: appointment_types list
           example:
-          - EXTENDED_SERVICE
+          - DECOMMISSIONING
           items:
             $ref: "#/components/schemas/AppointmentTypes"
         narratives:
@@ -5370,7 +5370,7 @@ components:
           type: array
           description: appointment_types list
           example:
-          - CAMPAIGN
+          - VEHICLE_PICKUP
           items:
             $ref: "#/components/schemas/AppointmentTypes"
         narratives:
@@ -5496,7 +5496,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - BETWEEN
+          - BLOCK
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:

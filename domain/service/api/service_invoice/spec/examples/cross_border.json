@@ -1,0 +1,107 @@
+{
+  "vehicle_invoice": {
+    "vehicle_invoice_id": "VI-2026-2002",
+    "invoice_number": "INV-2026-CA-0802",
+    "currency_code": "CAD",
+    "invoice_type": "VEHICLE_INVOICE",
+    "price_summary": {
+      "price_summary_id": "PS-2026-002",
+      "source_type": "VEHICLE_INVOICE",
+      "prices": [
+        {
+          "price_id": "P-BASE-CAD-01",
+          "price_types": [
+            "BASE_INVOICE_AMOUNT"
+          ],
+          "price_description": "Base Vehicle Invoice Amount (CAD Conversion)",
+          "currency_code": "CAD",
+          "amount": {
+            "currency_code": "CAD",
+            "amount": "61667.10"
+          },
+          "tax_amount": {
+            "currency_code": "CAD",
+            "amount": "8016.72"
+          },
+          "total_amount": {
+            "currency_code": "CAD",
+            "amount": "69683.82"
+          },
+          "currency_exchanges": [
+            {
+              "currency_exchange_id": "FX-USD-CAD-20260825",
+              "currency_exchange_key": "FXK-001",
+              "source_currency": "USD",
+              "target_currency": "CAD",
+              "exchange_rate": "1.37038",
+              "rate_date_time": "2026-08-25T10:00:00Z",
+              "currency_exchange_desc": "Bank of Canada daily spot rate USD to CAD"
+            }
+          ]
+        },
+        {
+          "price_id": "P-DEST-CAD-01",
+          "price_types": [
+            "DESTINATION_CHARGE"
+          ],
+          "price_description": "Cross-Border Logistics & Destination Charge",
+          "currency_code": "CAD",
+          "amount": {
+            "currency_code": "CAD",
+            "amount": "2185.76"
+          },
+          "tax_amount": {
+            "currency_code": "CAD",
+            "amount": "284.15"
+          },
+          "total_amount": {
+            "currency_code": "CAD",
+            "amount": "2469.91"
+          },
+          "currency_exchanges": [
+            {
+              "currency_exchange_id": "FX-USD-CAD-20260825",
+              "currency_exchange_key": "FXK-001",
+              "source_currency": "USD",
+              "target_currency": "CAD",
+              "exchange_rate": "1.37038",
+              "rate_date_time": "2026-08-25T10:00:00Z",
+              "currency_exchange_desc": "Bank of Canada daily spot rate USD to CAD"
+            }
+          ]
+        },
+        {
+          "price_id": "P-TOTAL-CAD-01",
+          "price_types": [
+            "INVOICE_AMOUNT"
+          ],
+          "price_description": "Total Final Invoice Amount (CAD)",
+          "currency_code": "CAD",
+          "amount": {
+            "currency_code": "CAD",
+            "amount": "63852.86"
+          },
+          "tax_amount": {
+            "currency_code": "CAD",
+            "amount": "8300.87"
+          },
+          "total_amount": {
+            "currency_code": "CAD",
+            "amount": "72153.73"
+          },
+          "currency_exchanges": [
+            {
+              "currency_exchange_id": "FX-USD-CAD-20260825",
+              "currency_exchange_key": "FXK-001",
+              "source_currency": "USD",
+              "target_currency": "CAD",
+              "exchange_rate": "1.37038",
+              "rate_date_time": "2026-08-25T10:00:00Z",
+              "currency_exchange_desc": "Bank of Canada daily spot rate USD to CAD"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

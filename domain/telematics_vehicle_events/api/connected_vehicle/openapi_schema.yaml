@@ -53,7 +53,7 @@ components:
           type: string
           description: Timestamp indicating when this specific reference was established.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
       description: External system identifier
     ActorTypes:
       type: string
@@ -402,7 +402,7 @@ components:
           type: string
           description: Timestamp of the last update to this authorization
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -590,7 +590,7 @@ components:
           description: The timestamp documenting the most recent successful communication
             received from the connected vehicle.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         current_odometer:
           $ref: "#/components/schemas/MetricValue"
         current_position:
@@ -641,7 +641,7 @@ components:
           description: The date and time when the connected vehicle digital twin was
             last updated.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         connected_notes:
           maxLength: 4000
           minLength: 1
@@ -687,15 +687,41 @@ components:
       - THURS
       - FRI
       - SAT
-    DeviceTypes:
-      type: string
-      description: types of devices.
-      enum:
-      - MOBILE
-      - TABLET
-      - DESKTOP
-      - SMART_TV
-      - OTHER
+    DealerReference:
+      type: object
+      properties:
+        dealer_reference_key:
+          type: string
+          description: Unique transactional key identifying this specific reference
+            instance.
+        dealer_key:
+          type: string
+          description: A unique key referencing the parent dealer record.
+        dealer_id:
+          type: string
+          description: The unique business ID for the referenced dealer.
+        dealer_name:
+          type: string
+          description: The name of the dealership captured at transaction time.
+        dealer_bac:
+          type: string
+          description: The dealer's Business Associate Code (BAC) for OEM correlation.
+        franchise_code:
+          type: string
+          description: A business classification code for the dealership.
+        business_code:
+          type: string
+          description: A business classification code for the dealership.
+        country_code:
+          type: string
+          description: "The ISO country code for the dealership, used in geographic\
+            \ privacy lookups."
+        organization_path:
+          type: string
+          description: "The hierarchical organizational locator path representing\
+            \ the brand, dealer, store, and department (e.g., 'ford.appointment.dealer.store34.dept45')."
+          example: ford.appointment.dealer.store34.dept45
+      description: A lightweight reference representation of a Dealership.
     DurationIntervalTypes:
       type: string
       description: types of duration intervals.
@@ -759,13 +785,13 @@ components:
           type: string
           description: The inclusive start point of the period in ISO 8601 format.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         complete_date_time:
           type: string
           description: The exclusive end point of the period (completion) in ISO 8601
             format.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -911,18 +937,18 @@ components:
             \ synchronized from the source governance, legal, policy, or compliance\
             \ system."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         occurrence_date_time:
           type: string
           description: "The date and time when the jurisdiction profile was observed,\
             \ created, received, updated, or became effective."
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
       description: nullable
     List:
       type: array
       items:
-        $ref: "#/components/schemas/PartyRelationshipTypes"
+        type: string
     Locale:
       type: object
       properties:
@@ -1004,151 +1030,6 @@ components:
       - NULLIFY
       - GENERAL_ANONYMIZE
       - NONE
-    Media:
-      type: object
-      properties:
-        media_key:
-          type: string
-          description: A unique key for the media item.
-        media_id:
-          type: string
-          description: The unique ID for the media item.
-        authors:
-          $ref: "#/components/schemas/PartyReferences"
-        occurrence_date_time:
-          type: string
-          description: The date and time the media was created or captured.
-          format: date-time
-          example: 2026-07-30T19:21:23Z
-        name:
-          type: string
-          description: A hyperlink to the media's content.
-        media_format_type:
-          $ref: "#/components/schemas/MediaFormatTypes"
-        media_href:
-          type: string
-          description: A hyperlink to the media resource.
-          format: href
-        media_type:
-          $ref: "#/components/schemas/MediaTypes"
-        media_status_type:
-          $ref: "#/components/schemas/MediaStatusTypes"
-        media_delivery_method_type:
-          $ref: "#/components/schemas/MediaDeliveryMethodTypes"
-        media_usage_type:
-          $ref: "#/components/schemas/MediaUsageTypes"
-        media_visibility:
-          $ref: "#/components/schemas/MediaVisibility"
-        media_version:
-          type: string
-          description: The version of the media.
-        quality:
-          type: string
-          description: A numeric value representing the quality of the media.
-        resource_group:
-          $ref: "#/components/schemas/ResourceGroup"
-        signature:
-          type: string
-          description: A unique signature or hash of the media content.
-        textual_details:
-          $ref: "#/components/schemas/TextualDetails"
-        raw_content:
-          type: string
-          description: "A collection of textual details, such as titles and descriptions,\
-            \ for the media."
-        media_source:
-          type: string
-          description: The source of the media.
-        media_description:
-          type: string
-          description: The source of the media.
-        categories:
-          $ref: "#/components/schemas/Codes"
-        dpi:
-          type: string
-          description: "The dots per inch (DPI) for the media, if applicable."
-        w_pixel:
-          type: string
-          description: The width of the media in pixels.
-        h_pixel:
-          type: string
-          description: The height of the media in pixels.
-        media_resolution:
-          type: string
-          description: "The display resolution of the media (e.g., 480p, 720p, 1080p)."
-        media_duration_seconds:
-          type: string
-          description: The total duration of the media file in seconds.
-        media_sent_date_time:
-          type: string
-          description: The ISO 8601 date and time when the media was dispatched to
-            the recipient.
-          format: date-time
-          example: 2026-07-30T19:21:23Z
-        media_keys:
-          $ref: "#/components/schemas/Codes"
-        media_access_metrics:
-          $ref: "#/components/schemas/MediaAccessMetrics"
-      description: "Media item including video, images, and sound."
-    MediaAccessMetric:
-      type: object
-      properties:
-        media_access_id:
-          type: string
-          description: The unique ID for the media stream.
-        media_access_key:
-          type: string
-          description: The unique key for the media stream record.
-        media_key:
-          type: string
-          description: The unique ID for the parent media asset.
-        first_viewed_at:
-          type: string
-          description: ISO 8601 timestamp of the first access.
-        completed_at:
-          type: string
-          description: ISO 8601 timestamp when the user finished the media.
-        view_count:
-          type: string
-          description: Total number of engagement events.
-        watch_time_seconds:
-          type: string
-          description: The cumulative time in seconds the user spent viewing the media.
-        completion_percentage:
-          type: string
-          description: The furthest point reached in the media as a percentage (0-100).
-        last_viewed_date_time:
-          type: string
-          description: The ISO 8601 date and time of the most recent access.
-          format: date-time
-        device_type:
-          $ref: "#/components/schemas/DeviceTypes"
-        user_agent:
-          type: string
-          description: The browser user agent string from the most recent view.
-        buffer_count:
-          type: string
-          description: The number of times the media playback was interrupted by buffering.
-        load_time_ms:
-          type: string
-          description: The time in milliseconds it took for the media to begin playback
-            after the request.
-      description: "Represents a media stream, such as a video or audio file."
-    MediaAccessMetrics:
-      type: array
-      items:
-        $ref: "#/components/schemas/MediaAccessMetric"
-    MediaDeliveryMethodTypes:
-      type: string
-      description: types of media delivery methods.
-      enum:
-      - MMS
-      - SMS
-      - EMAIL
-      - PUSH_NOTIFICATION
-      - WHATSAPP
-      - IN_APP
-      - WEB_PORTAL
     MediaFormatTypes:
       type: string
       description: types of media formats.
@@ -1202,19 +1083,44 @@ components:
       - UNLISTED
       - ARCHIVED
       - DRAFT
-    MediaStatusTypes:
-      type: string
-      description: types of media status.
-      enum:
-      - PENDING
-      - READY
-      - SENT
-      - DELIVERED
-      - FAILED
-      - UNREAD
-      - READ
-      - VIEWED
-      - EXPIRED
+    MediaReference:
+      type: object
+      properties:
+        media_key:
+          type: string
+          description: The unique persistent key identifier for the media item.
+        media_id:
+          type: string
+          description: The logical business identifier assigned to the media item.
+        name:
+          type: string
+          description: The descriptive name or filename of the media item.
+        media_type:
+          $ref: "#/components/schemas/MediaTypes"
+        media_format_type:
+          $ref: "#/components/schemas/MediaFormatTypes"
+        media_visibility:
+          $ref: "#/components/schemas/MediaVisibility"
+        signature:
+          type: string
+          description: The unique checksum hash validating the raw media file's structural
+            integrity.
+        media_href:
+          type: string
+          description: The direct hypermedia link pointing to the downstream physical
+            binary or target REST resource.
+          format: href
+        capture_stage_type:
+          type: string
+          description: "The operational service phase or workflow event during which\
+            \ the media was captured (e.g., VEHICLE_ARRIVAL, INITIAL_INSPECTION, TECHNICIAN_INSPECTION,\
+            \ SERVICE_COMPLETED, FINAL_INSPECTION, POLICE_INCIDENT, OTHER)."
+          example: INITIAL_INSPECTION
+      description: media.reference.desc
+    MediaReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/MediaReference"
     MediaTypes:
       type: string
       description: types of medias.
@@ -1247,22 +1153,6 @@ components:
       - MODEL
       - FONT
       - FILE
-    MediaUsageTypes:
-      type: string
-      description: types of media usages.
-      enum:
-      - THUMBNAIL
-      - PREVIEW
-      - STANDARD
-      - HIGH_QUALITY
-      - LOW_QUALITY
-      - ORIGINAL
-      - HERO
-      - BANNER
-      - AVATAR
-      - GALLERY
-      - READ
-      - OTHER
     MediaVisibility:
       type: object
       properties:
@@ -1280,10 +1170,6 @@ components:
           example: false
       description: "Represents the visibility and hosting details for media, such\
         \ as privacy settings and scheduling."
-    Medias:
-      type: array
-      items:
-        $ref: "#/components/schemas/Media"
     Memo:
       type: array
       items:
@@ -1351,6 +1237,10 @@ components:
         narrative_id:
           type: string
           description: The unique ID for the narrative.
+        correlation_id:
+          type: string
+          description: The correlation ID tracking back to the specific Monte Carlo
+            recommendation instance.
         actor:
           $ref: "#/components/schemas/ActorReference"
         event_actor_role_type:
@@ -1361,7 +1251,7 @@ components:
           type: string
           description: The date and time of the event.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         narrative_group:
           type: string
           description: The group to which the narrative belongs.
@@ -1453,6 +1343,9 @@ components:
       - BUSINESS_RULE
       - INTENT
       - CAPABILITY
+      - CUSTOM_ORDER
+      - SPECIAL
+      - DISCLAIMER
     NarrativeUomTypes:
       type: string
       description: types of narrative uoms.
@@ -1641,17 +1534,15 @@ components:
           type: string
           description: Timestamp indicating when this specific reference was established.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         org_indicator:
           type: boolean
           description: Indicates if the party is an organization (true) or an individual
             (false).
           example: true
+        identifiers:
+          $ref: "#/components/schemas/Identifiers"
       description: External system identifier
-    PartyReferences:
-      type: array
-      items:
-        $ref: "#/components/schemas/PartyReference"
     PartyRelationshipTypes:
       type: string
       description: types of party relationships.
@@ -1756,7 +1647,10 @@ components:
       - REFERENCE_PROFESSIONAL
       - PRIMARY_CUSTOMER
       - PRIMARY_DRIVER
+      - SECONDARY_DRIVER
       - PRIMARY_OWNER
+      - SECONDARY_OWNER
+      - CO_OWNER
       - VEHICLE_OWNER
       - APPLICANT
       - CO_APPLICANT
@@ -1820,6 +1714,7 @@ components:
       - RESALE
       - SHIP_TO
       - SOLD_TO
+      - SHIP_THROUGH
     PersonName:
       type: object
       properties:
@@ -2100,77 +1995,6 @@ components:
       - CANCELLED
       - UNKNOWN
       - OTHER
-    ResourceGroup:
-      type: object
-      properties:
-        resource_group_key:
-          type: string
-          description: The unique key for the resource group.
-        resource_group_id:
-          type: string
-          description: The unique ID for the resource group.
-        resource_group_name:
-          type: string
-          description: The name of the resource group.
-        resource_type:
-          $ref: "#/components/schemas/ResourceTypes"
-        resource_ids:
-          $ref: "#/components/schemas/Codes"
-        resource_group_keys:
-          $ref: "#/components/schemas/Codes"
-      description: "Represents a grouping identifier for media resources, including\
-        \ unique keys, names, and associated resource types."
-    ResourceTypes:
-      type: string
-      description: types of resources.
-      enum:
-      - SYSTEM
-      - WORKFLOW
-      - ACTIVITY
-      - FUNCTION
-      - PROCESS
-      - INCIDENT
-      - PARTY
-      - CUSTOMER
-      - APPLICANT
-      - VENDOR
-      - DEALER_STAFF
-      - DRIVER
-      - ADDRESS
-      - BILL_ADDRESS
-      - BILL_CONTACT
-      - COMM_CHANNEL
-      - ACCOUNT
-      - VEHICLE
-      - TRADE_IN
-      - PRODUCT
-      - MANUFACTURER
-      - LEAD
-      - OPPORTUNITY
-      - DEAL
-      - FINANCE
-      - INVOICE
-      - LINEITEM
-      - EXPENSE
-      - DISCOUNT
-      - TAX
-      - FEE
-      - INCENTIVE
-      - DEALERSHIP
-      - PART
-      - ACCESSORIES
-      - PURCHASE_ORDER
-      - VEHICLE_OPTION
-      - RENTAL
-      - SUBSCRIPTION
-      - INSURANCE
-      - WARRANTY
-      - SERVICE
-      - VEHICLE_INVOICE
-      - PART_INVOICE
-      - SERVICE_INVOICE
-      - APPOINTMENT
-      - OTHER
     SensorStatusTypes:
       type: string
       description: types of sensor status.
@@ -2206,6 +2030,8 @@ components:
       - STAGED_FOR_PICKUP
       - CHECK_OUT
       - RELEASE
+      - INFORMATIONAL
+      - MILESTONE
       - UNKNOWN
     SeverityTypes:
       type: string
@@ -2319,7 +2145,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         sequence_total:
           type: string
           description: Unique Sequencing Order for this entity in a list
@@ -2394,59 +2220,6 @@ components:
       - QUALITY_CONTROL_APPROVED
       - READY_FOR_PICKUP_STAGED
       - CUSTOMER_PICKUP_DEPARTED
-    TextualDetail:
-      type: object
-      properties:
-        textual_detail_key:
-          type: string
-          description: textual.detail.textual.detail.key.desc
-        textual_detail_id:
-          type: string
-          description: textual.detail.textual.detail.id.desc
-        comments:
-          $ref: "#/components/schemas/Memo"
-        locale_codes:
-          $ref: "#/components/schemas/Codes"
-        notes:
-          $ref: "#/components/schemas/Memo"
-        short_description:
-          type: string
-          description: textual.detail.short.description.desc
-        text_key:
-          type: string
-          description: textual.detail.text.key.desc
-        name:
-          type: string
-          description: textual.detail.name.desc
-        value:
-          type: string
-          description: textual.detail.value.desc
-        identifiers:
-          $ref: "#/components/schemas/Identifiers"
-        groups:
-          $ref: "#/components/schemas/Codes"
-        label:
-          type: string
-          description: textual.detail.label.desc
-        alt_text:
-          type: string
-          description: textual.detail.alt.text.desc
-        textual_detail_code:
-          type: string
-          description: textual.detail.textual.detail.code.desc
-        tags:
-          $ref: "#/components/schemas/Codes"
-        uom_display:
-          type: string
-          description: textual.detail.uom.display.desc
-        uom_code:
-          type: string
-          description: textual.detail.uom.code.desc
-      description: nullable
-    TextualDetails:
-      type: array
-      items:
-        $ref: "#/components/schemas/TextualDetail"
     TimeSlot:
       type: object
       properties:
@@ -2540,112 +2313,181 @@ components:
           maxLength: 60
           minLength: 1
           type: string
-          description: The unique identifier representing the connected vehicle alert
-            event.
+          description: The unique contextual key identifying the vehicle alert within
+            the containing system or transaction.
           example: ALERT-882211
-        alert_id:
-          maxLength: 80
-          minLength: 1
-          type: string
-          description: The external or provider-generated alert identifier.
-          example: FORDPASS-ALERT-9982
-        telemetry_event_reference:
-          $ref: "#/components/schemas/VehicleTelemetryEventReference"
-        vehicle_reference:
-          $ref: "#/components/schemas/VehicleReference"
-        source_system_code:
+        vehicle_alert_id:
           maxLength: 60
           minLength: 1
           type: string
-          description: "The source system that created, supplied, or last synchronized\
-            \ the vehicle ledger."
-          example: VEHICLE_HISTORY_PROVIDER
-        source_alert_code:
-          maxLength: 60
-          minLength: 1
-          type: string
-          description: "The source system that created, supplied, or last synchronized\
-            \ the vehicle ledger."
-          example: VEHICLE_HISTORY_PROVIDER
-        source_record_key:
+          description: The unique contextual key identifying the vehicle alert within
+            the containing system or transaction.
+          example: ALERT-882211
+        alert_group_key:
           maxLength: 100
           minLength: 1
           type: string
-          description: The source-system record key or event key used to trace the
-            logistics event back to its origin.
-          example: OEM-EVT-77821
-        vehicle_event_category_type:
-          $ref: "#/components/schemas/VehicleEventCategoryTypes"
-        alert_severity:
-          $ref: "#/components/schemas/SeverityTypes"
+          description: The persistent or externally assigned identifier for the alert.
+          example: OEM-ALERT-9982
+        vehicle_reference:
+          $ref: "#/components/schemas/VehicleReference"
+        dealer_reference:
+          $ref: "#/components/schemas/DealerReference"
+        customer_reference:
+          $ref: "#/components/schemas/PartyReference"
+        telemetry_event_reference:
+          $ref: "#/components/schemas/VehicleTelemetryEventReference"
+        alert_type:
+          $ref: "#/components/schemas/VehicleAlertTypes"
         alert_status_type:
           $ref: "#/components/schemas/AlertStatusTypes"
-        alert_message:
-          maxLength: 2000
+        alert_severity:
+          $ref: "#/components/schemas/SeverityTypes"
+        alert_priority_type:
+          $ref: "#/components/schemas/PriorityTypes"
+        alert_title:
+          maxLength: 255
           minLength: 1
           type: string
-          description: The human-readable connected vehicle alert description.
-          example: Front left tire pressure below threshold.
+          description: The short human-readable title identifying the vehicle alert.
+          example: Engine Cooling System Requires Attention
+        alert_narratives:
+          $ref: "#/components/schemas/Narratives"
+        alert_category_codes:
+          $ref: "#/components/schemas/Codes"
+        warning_indicator_codes:
+          $ref: "#/components/schemas/Codes"
+        diagnostic_trouble_codes:
+          $ref: "#/components/schemas/Codes"
+        failure_type_codes:
+          $ref: "#/components/schemas/Codes"
+        customer_actions:
+          $ref: "#/components/schemas/Narratives"
+        service_action_program_codes:
+          $ref: "#/components/schemas/Codes"
+        local_service_action_codes:
+          $ref: "#/components/schemas/Codes"
+        prognostic_message_codes:
+          $ref: "#/components/schemas/Codes"
+        created_date_time:
+          type: string
+          description: The date and time when the alert record was created by the
+            originating or authoritative system.
+          format: date-time
+          example: 2026-08-24T19:43:54Z
+        effective_date_time:
+          type: string
+          description: The date and time when the alert became active or applicable.
+          format: date-time
+          example: 2026-08-24T19:43:54Z
+        updated_date_time:
+          type: string
+          description: The date and time when the alert record was most recently updated.
+          format: date-time
+          example: 2026-08-24T19:43:54Z
         occurrence_date_time:
           type: string
-          description: vehicle.alert.occurrence.date.time.desc
+          description: The date and time when the underlying vehicle condition or
+            event represented by the alert occurred.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         position:
           $ref: "#/components/schemas/Position"
         odometer:
           $ref: "#/components/schemas/MetricValue"
-        resolved_indicator:
-          type: boolean
-          description: Indicates whether the connected vehicle alert has been resolved.
-          example: true
         vehicle_snapshots:
           $ref: "#/components/schemas/VehicleSnapshots"
+        source_system_code:
+          $ref: "#/components/schemas/Codes"
+        source_alert_code:
+          $ref: "#/components/schemas/Codes"
+        source_record_key:
+          maxLength: 120
+          minLength: 1
+          type: string
+          description: The source-system record key used to trace the alert back to
+            the originating record.
+          example: OEM-VHA-20260806-18427
+        vehicle_event_category_type:
+          $ref: "#/components/schemas/VehicleEventCategoryTypes"
+        resolved_indicator:
+          type: boolean
+          description: Indicates whether the vehicle alert has been resolved.
+          example: false
         resolved_date_time:
           type: string
-          description: The date and time when the connected vehicle alert was resolved.
+          description: The date and time when the vehicle alert was resolved.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         resolution_description:
           $ref: "#/components/schemas/Narrative"
-        resolution_code:
-          $ref: "#/components/schemas/Code"
+        resolution_codes:
+          $ref: "#/components/schemas/Codes"
         expiration_date_time:
           type: string
-          description: The date and time when the connected vehicle alert automatically
-            expires if no longer applicable.
+          description: The date and time when the vehicle alert expires or is no longer
+            considered applicable.
           format: date-time
-          example: 2026-07-30T19:21:23Z
-        alert_priority_type:
-          $ref: "#/components/schemas/PriorityTypes"
-        governance_codes:
-          $ref: "#/components/schemas/Codes"
-        privacy_codes:
-          $ref: "#/components/schemas/Codes"
+          example: 2026-08-24T19:43:54Z
         correlation_id:
           maxLength: 120
           minLength: 1
           type: string
-          description: "The correlation identifier used to associate related alerts,\
-            \ telemetry events, and business processes."
+          description: "The correlation identifier used to associate the alert with\
+            \ telemetry, diagnostics, service activity, campaigns, and related business\
+            \ processes."
           example: CORR-882211
         confidence_score:
           maxLength: 20
           minLength: 1
           type: string
-          description: The confidence score assigned by the originating system indicating
-            the likelihood that the alert accurately represents the reported condition.
+          description: "The confidence score assigned to the alert by the originating,\
+            \ diagnostic, predictive, or analytical system."
           example: "0.997"
         event_hash:
           maxLength: 256
           minLength: 1
           type: string
-          description: The immutable hash used to verify the integrity and authenticity
-            of the connected vehicle alert.
+          description: The immutable hash used to verify the integrity of the vehicle
+            alert representation.
           example: SHA256:7f3d4c8a9b1e...
         effective_period:
           $ref: "#/components/schemas/EffectivePeriod"
+        governance_codes:
+          $ref: "#/components/schemas/Codes"
+        privacy_codes:
+          $ref: "#/components/schemas/Codes"
       description: Connected Vehicle Alert
+    VehicleAlertTypes:
+      type: string
+      description: types of vehicle alerts.
+      enum:
+      - VEHICLE_HEALTH
+      - FIELD_SERVICE_ACTION
+      - RECALL
+      - PREDICTIVE
+      - DIAGNOSTIC
+      - MAINTENANCE
+      - SAFETY
+      - WARNING_INDICATOR
+      - SYSTEM_FAULT
+      - PERFORMANCE
+      - BATTERY_HEALTH
+      - CHARGING
+      - RANGE
+      - TIRE
+      - FLUID
+      - EMISSIONS
+      - CONNECTIVITY
+      - SOFTWARE
+      - SECURITY
+      - SERVICE_DUE
+      - SERVICE_RECOMMENDATION
+      - WARRANTY
+      - COMPLIANCE
+      - INFORMATIONAL
+      - OTHER
+      - UNKNOWN
     VehicleEventCategoryTypes:
       type: string
       description: types of vehicle event categorys.
@@ -2777,6 +2619,14 @@ components:
           type: string
           description: The baseline layout style design of the chassis structure shell.
           example: Crew Cab Pickup
+        trim_codes:
+          $ref: "#/components/schemas/Codes"
+        trim_dd_codes:
+          $ref: "#/components/schemas/Codes"
+        final_assembly_point:
+          $ref: "#/components/schemas/Codes"
+        fleet_codes:
+          $ref: "#/components/schemas/Codes"
       description: Vehicle Detail Create Information
     VehicleResourceTypes:
       type: string
@@ -2922,13 +2772,13 @@ components:
           description: The date and time when the signal state was observed by the
             vehicle or connected device.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         last_updated_date_time:
           type: string
           description: The date and time when the connected vehicle signal state was
             last updated.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
       description: "Represents the latest VSS-aligned signal state for a connected\
         \ vehicle component, sensor, or logical vehicle data node."
     VehicleSignalStates:
@@ -2976,7 +2826,7 @@ components:
           type: string
           description: The timestamp documenting when the vehicle snapshot was captured.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         vehicle_state_position:
           $ref: "#/components/schemas/VehicleStatePosition"
         vehicle_states:
@@ -2986,8 +2836,8 @@ components:
         description:
           type: string
           description: The descriptive memo associated with the vehicle snapshot.
-        medias:
-          $ref: "#/components/schemas/Medias"
+        media_references:
+          $ref: "#/components/schemas/MediaReferences"
         snapshot_codes:
           $ref: "#/components/schemas/Codes"
         service_milestone_types:
@@ -3027,6 +2877,8 @@ components:
           description: The raw or normalized value captured for the vehicle state
             reading.
           example: "82"
+        uom:
+          $ref: "#/components/schemas/NarrativeUomTypes"
         vehicle_system_type:
           $ref: "#/components/schemas/VehicleSystemTypes"
         vehicle_resource_type:
@@ -3042,13 +2894,13 @@ components:
           description: The timestamp documenting when the vehicle state reading was
             observed.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         recorded_date_time:
           type: string
           description: The timestamp documenting when the vehicle state reading was
             recorded by the platform.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         vehicle_state_position:
           $ref: "#/components/schemas/VehicleStatePosition"
         narratives:
@@ -3113,13 +2965,13 @@ components:
           description: The timestamp documenting when the vehicle position reading
             was observed.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         recorded_date_time:
           type: string
           description: The timestamp documenting when the vehicle position reading
             was recorded by the platform.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         mask_indicator:
           type: boolean
           description: "Indicates whether the vehicle position was intentionally masked,\
@@ -3314,7 +3166,7 @@ components:
           type: string
           description: The timestamp when the telemetry event occurred.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         position:
           $ref: "#/components/schemas/Position"
         event_sequence_num:
@@ -3447,7 +3299,7 @@ components:
           description: Date and time at which the measured condition or telemetry
             observation occurred at the source.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         sequence_number:
           minimum: 0
           type: integer
@@ -3490,7 +3342,7 @@ components:
           type: string
           description: Exact timestamp when the telemetry reading was captured.
           format: date-time
-          example: 2026-07-30T19:21:23Z
+          example: 2026-08-24T19:43:54Z
         source:
           type: string
           description: "Origin of the telemetry data (e.g., MANUAL_ADVISOR_INPUT,\

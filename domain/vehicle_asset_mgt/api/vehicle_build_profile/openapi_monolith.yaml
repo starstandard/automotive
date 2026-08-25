@@ -1417,7 +1417,7 @@ components:
           type: array
           description: price_types list
           example:
-          - INTERNET
+          - DEALER_CASH_AMOUNT
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
@@ -1694,8 +1694,8 @@ components:
           type: array
           description: Vehicle Options
           example:
-          - VEH-875810252602212352
-          - VEH-875810252602212353
+          - VEH-879813125715525632
+          - VEH-879813125719719936
           items:
             $ref: "#/components/schemas/VehicleOption"
         identifiers:
@@ -1770,8 +1770,8 @@ components:
           type: array
           description: Vehicle Options
           example:
-          - VEH-875810252602212352
-          - VEH-875810252602212353
+          - VEH-879813125715525632
+          - VEH-879813125719719936
           items:
             $ref: "#/components/schemas/VehicleOption"
         production_number:
@@ -1880,7 +1880,7 @@ components:
           type: array
           description: option_installation_types list
           example:
-          - OWNER_INSTALLED
+          - SOFTWARE_UPDATE
           items:
             $ref: "#/components/schemas/OptionInstallationTypes"
         option_name:
@@ -1896,7 +1896,7 @@ components:
           type: array
           description: option_types list
           example:
-          - COLOR
+          - OTHER
           items:
             $ref: "#/components/schemas/OptionTypes"
         quantity:

@@ -1,0 +1,74 @@
+{
+  "vehicle_invoice": {
+    "vehicle_invoice_id": "VI-2026-1001",
+    "invoice_number": "INV-2026-0801",
+    "currency_code": "USD",
+    "invoice_type": "VEHICLE_INVOICE",
+    "price_summary": {
+      "price_summary_id": "PS-2026-001",
+      "source_type": "VEHICLE_INVOICE",
+      "prices": [
+        {
+          "price_id": "P-BASE-01",
+          "price_types": [
+            "BASE_INVOICE_AMOUNT"
+          ],
+          "price_description": "Base Vehicle Invoice Amount",
+          "currency_code": "USD",
+          "amount": {
+            "currency_code": "USD",
+            "amount": "45000.00"
+          },
+          "tax_amount": {
+            "currency_code": "USD",
+            "amount": "3150.00"
+          },
+          "total_amount": {
+            "currency_code": "USD",
+            "amount": "48150.00"
+          }
+        },
+        {
+          "price_id": "P-DEST-01",
+          "price_types": [
+            "DESTINATION_CHARGE"
+          ],
+          "price_description": "Destination & Delivery Charge",
+          "currency_code": "USD",
+          "amount": {
+            "currency_code": "USD",
+            "amount": "1595.00"
+          },
+          "tax_amount": {
+            "currency_code": "USD",
+            "amount": "111.65"
+          },
+          "total_amount": {
+            "currency_code": "USD",
+            "amount": "1706.65"
+          }
+        },
+        {
+          "price_id": "P-TOTAL-01",
+          "price_types": [
+            "INVOICE_AMOUNT"
+          ],
+          "price_description": "Total Final Invoice Amount",
+          "currency_code": "USD",
+          "amount": {
+            "currency_code": "USD",
+            "amount": "46595.00"
+          },
+          "tax_amount": {
+            "currency_code": "USD",
+            "amount": "3261.65"
+          },
+          "total_amount": {
+            "currency_code": "USD",
+            "amount": "49856.65"
+          }
+        }
+      ]
+    }
+  }
+}

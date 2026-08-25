@@ -7800,7 +7800,7 @@ components:
           type: array
           description: address_types list
           example:
-          - EMERGENCY
+          - MAILING
           items:
             $ref: "#/components/schemas/AddressTypes"
         authorization_levels:
@@ -7918,7 +7918,7 @@ components:
           type: array
           description: address_types list
           example:
-          - SERVICE
+          - LEGAL
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -8854,7 +8854,7 @@ components:
           type: array
           description: department_types list
           example:
-          - ADAS_CALIBRATION
+          - QUICK_LUBE
           items:
             $ref: "#/components/schemas/DepartmentTypes"
         control_accounts:
@@ -10808,7 +10808,7 @@ components:
           type: array
           description: part_status_types list
           example:
-          - CROSS_DOCK
+          - SUPERSEDE
           items:
             $ref: "#/components/schemas/PartStatusTypes"
         part_events:
@@ -10854,8 +10854,8 @@ components:
           description: "Key-value pairs representing event-specific data such as quantity\
             \ updates, status changes, or location adjustments."
           example:
-          - "875810252606406692"
-          - "875810252606406693"
+          - "879813125719719975"
+          - "879813125719719976"
           items:
             type: string
         warehouse_keys:
@@ -10865,8 +10865,8 @@ components:
           type: array
           description: List of warehouse identifiers associated with the event.
           example:
-          - Ware-875810252606406694
-          - Ware-875810252606406695
+          - Ware-879813125719719977
+          - Ware-879813125719719978
           items:
             type: string
         part_identifier:
@@ -11121,7 +11121,7 @@ components:
           type: array
           description: part_status_types list
           example:
-          - DEFECTIVE_REMOVAL
+          - CROSS_DOCK
           items:
             $ref: "#/components/schemas/PartStatusTypes"
         super_sessions:
@@ -11372,7 +11372,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - RECIPIENT
+          - PRIMARY_TECHNICIAN
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -11689,7 +11689,7 @@ components:
           type: array
           description: party_types list
           example:
-          - EMPLOYEE
+          - RESALE
           items:
             $ref: "#/components/schemas/PartyTypes"
         person_attributes:
@@ -11864,8 +11864,8 @@ components:
           type: array
           description: Position codes associated with the entity.
           example:
-          - Pos-875810252606406672
-          - Pos-875810252606406673
+          - Pos-879813125719719955
+          - Pos-879813125719719956
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -11930,7 +11930,7 @@ components:
           type: array
           description: price_types list
           example:
-          - UNIT
+          - USAGE
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
@@ -12851,7 +12851,7 @@ components:
           type: array
           description: service_activity_types list
           example:
-          - PHONE_CALL_FROM_CUSTOMER
+          - APPOINTMENT_SCHEDULED
           items:
             $ref: "#/components/schemas/CustomerInteractionTypes"
         service_activity_resource_types:
@@ -12861,7 +12861,7 @@ components:
           type: array
           description: service_activity_resource_types list
           example:
-          - GAS_OIL_GREASE
+          - PAINT_MATERIALS
           items:
             $ref: "#/components/schemas/ServiceActivityResourceTypes"
         service_activity_codes:
@@ -12969,7 +12969,7 @@ components:
           type: array
           description: service_job_types list
           example:
-          - BODY_SHOP
+          - REPAIR_ORDER
           items:
             $ref: "#/components/schemas/ServiceJobTypes"
         warranty_references:
@@ -13454,7 +13454,7 @@ components:
           type: array
           description: role_types list
           example:
-          - SALES_ASSOC
+          - FI_MGR
           items:
             $ref: "#/components/schemas/RoleTypes"
         timeslots:
@@ -13536,7 +13536,7 @@ components:
           type: array
           description: role_types list
           example:
-          - VALET
+          - PRIMARY_TECHNICIAN
           items:
             $ref: "#/components/schemas/RoleTypes"
         staff_member_id:
@@ -13801,7 +13801,7 @@ components:
           type: array
           description: part_status_types list
           example:
-          - INSPECT_INBOUND
+          - CORE_PENDING
           items:
             $ref: "#/components/schemas/PartStatusTypes"
       description: "Represents a part supersession event, detailing the transition\
@@ -14035,7 +14035,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - ANYTIME
+          - BETWEEN
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:

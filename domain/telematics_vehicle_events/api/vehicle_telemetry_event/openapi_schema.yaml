@@ -53,7 +53,7 @@ components:
           type: string
           description: Timestamp indicating when this specific reference was established.
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
       description: External system identifier
     ActorTypes:
       type: string
@@ -329,7 +329,7 @@ components:
           type: string
           description: Timestamp of the last update to this authorization
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -423,13 +423,13 @@ components:
           type: string
           description: The inclusive start point of the period in ISO 8601 format.
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
         complete_date_time:
           type: string
           description: The exclusive end point of the period (completion) in ISO 8601
             format.
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -613,6 +613,10 @@ components:
         narrative_id:
           type: string
           description: The unique ID for the narrative.
+        correlation_id:
+          type: string
+          description: The correlation ID tracking back to the specific Monte Carlo
+            recommendation instance.
         actor:
           $ref: "#/components/schemas/ActorReference"
         event_actor_role_type:
@@ -623,7 +627,7 @@ components:
           type: string
           description: The date and time of the event.
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
         narrative_group:
           type: string
           description: The group to which the narrative belongs.
@@ -715,6 +719,9 @@ components:
       - BUSINESS_RULE
       - INTENT
       - CAPABILITY
+      - CUSTOM_ORDER
+      - SPECIAL
+      - DISCLAIMER
     NarrativeUomTypes:
       type: string
       description: types of narrative uoms.
@@ -976,6 +983,8 @@ components:
       - STAGED_FOR_PICKUP
       - CHECK_OUT
       - RELEASE
+      - INFORMATIONAL
+      - MILESTONE
       - UNKNOWN
     StaffRoleTypes:
       type: string
@@ -1166,6 +1175,14 @@ components:
           type: string
           description: The baseline layout style design of the chassis structure shell.
           example: Crew Cab Pickup
+        trim_codes:
+          $ref: "#/components/schemas/Codes"
+        trim_dd_codes:
+          $ref: "#/components/schemas/Codes"
+        final_assembly_point:
+          $ref: "#/components/schemas/Codes"
+        fleet_codes:
+          $ref: "#/components/schemas/Codes"
       description: Vehicle Detail Create Information
     VehicleResourceTypes:
       type: string
@@ -1249,6 +1266,8 @@ components:
           description: The raw or normalized value captured for the vehicle state
             reading.
           example: "82"
+        uom:
+          $ref: "#/components/schemas/NarrativeUomTypes"
         vehicle_system_type:
           $ref: "#/components/schemas/VehicleSystemTypes"
         vehicle_resource_type:
@@ -1264,13 +1283,13 @@ components:
           description: The timestamp documenting when the vehicle state reading was
             observed.
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
         recorded_date_time:
           type: string
           description: The timestamp documenting when the vehicle state reading was
             recorded by the platform.
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
         vehicle_state_position:
           $ref: "#/components/schemas/VehicleStatePosition"
         narratives:
@@ -1335,13 +1354,13 @@ components:
           description: The timestamp documenting when the vehicle position reading
             was observed.
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
         recorded_date_time:
           type: string
           description: The timestamp documenting when the vehicle position reading
             was recorded by the platform.
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
         mask_indicator:
           type: boolean
           description: "Indicates whether the vehicle position was intentionally masked,\
@@ -1523,13 +1542,13 @@ components:
           description: The timestamp when the telemetry event was observed by the
             vehicle or connected device.
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
         recorded_date_time:
           type: string
           description: The timestamp when the telemetry event was recorded or persisted
             by the platform.
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
         position:
           $ref: "#/components/schemas/Position"
         vehicle_telemetry_observations:
@@ -1541,7 +1560,9 @@ components:
         telemetry_codes:
           $ref: "#/components/schemas/Codes"
         payload:
-          $ref: "#/components/schemas/Object"
+          type: string
+          description: The provider-specific raw or normalized telemetry payload for
+            extensible telemetry attributes.
         vehicle_reference:
           $ref: "#/components/schemas/VehicleReference"
         vehicle_identifier_key:
@@ -1563,7 +1584,7 @@ components:
           description: The date and time when the telemetry event was ingested into
             the platform.
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
         event_sequence_num:
           maxLength: 40
           minLength: 1
@@ -1832,7 +1853,7 @@ components:
           description: Date and time at which the measured condition or telemetry
             observation occurred at the source.
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
         sequence_number:
           minimum: 0
           type: integer
@@ -1875,7 +1896,7 @@ components:
           type: string
           description: Exact timestamp when the telemetry reading was captured.
           format: date-time
-          example: 2026-07-30T19:21:31Z
+          example: 2026-08-24T19:44:01Z
         source:
           type: string
           description: "Origin of the telemetry data (e.g., MANUAL_ADVISOR_INPUT,\

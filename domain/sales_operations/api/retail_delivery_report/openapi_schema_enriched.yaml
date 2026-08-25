@@ -53,7 +53,7 @@ components:
           type: string
           description: Timestamp indicating when this specific reference was established.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
       description: External system identifier
     ActorTypes:
       type: string
@@ -381,7 +381,7 @@ components:
           type: string
           description: Timestamp of the last update to this authorization
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -663,7 +663,7 @@ components:
           description: The date and time the financialForecast was associated with
             the order.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         credit_application_name:
           type: string
           description: The name of the credit application.
@@ -728,9 +728,13 @@ components:
           description: The specific UTC timestamp when this exchange rate was captured
             or finalized.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
+    CurrencyExchanges:
+      type: array
+      items:
+        $ref: "#/components/schemas/CurrencyExchange"
     DayOfWeekTypes:
       type: string
       description: types of day of weeks.
@@ -775,7 +779,7 @@ components:
           type: string
           description: The date and time that the event being documented occurred.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         document_identification_context:
           type: string
           description: Context or group of identifications that uniquely identifies
@@ -879,13 +883,13 @@ components:
           type: string
           description: The inclusive start point of the period in ISO 8601 format.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         complete_date_time:
           type: string
           description: The exclusive end point of the period (completion) in ISO 8601
             format.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -968,7 +972,7 @@ components:
           type: string
           description: The date and time of the event.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         event_message_group:
           type: string
           description: The group to which the eventMessage belongs.
@@ -1131,7 +1135,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
       description: External system reference
     Identifier:
       type: object
@@ -1342,13 +1346,13 @@ components:
             \ synchronized from the source governance, legal, policy, or compliance\
             \ system."
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         occurrence_date_time:
           type: string
           description: "The date and time when the jurisdiction profile was observed,\
             \ created, received, updated, or became effective."
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
       description: nullable
     LeaseTerm:
       type: object
@@ -1494,7 +1498,7 @@ components:
           description: The high-precision timestamp when the event actually occurred
             in the source system.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         actor:
           $ref: "#/components/schemas/ActorReference"
         execution_id:
@@ -1688,7 +1692,7 @@ components:
           type: string
           description: The date and time the media was created or captured.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         name:
           type: string
           description: A hyperlink to the media's content.
@@ -1753,7 +1757,7 @@ components:
           description: The ISO 8601 date and time when the media was dispatched to
             the recipient.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         media_keys:
           $ref: "#/components/schemas/Codes"
         media_access_metrics:
@@ -1871,6 +1875,44 @@ components:
       - UNLISTED
       - ARCHIVED
       - DRAFT
+    MediaReference:
+      type: object
+      properties:
+        media_key:
+          type: string
+          description: The unique persistent key identifier for the media item.
+        media_id:
+          type: string
+          description: The logical business identifier assigned to the media item.
+        name:
+          type: string
+          description: The descriptive name or filename of the media item.
+        media_type:
+          $ref: "#/components/schemas/MediaTypes"
+        media_format_type:
+          $ref: "#/components/schemas/MediaFormatTypes"
+        media_visibility:
+          $ref: "#/components/schemas/MediaVisibility"
+        signature:
+          type: string
+          description: The unique checksum hash validating the raw media file's structural
+            integrity.
+        media_href:
+          type: string
+          description: The direct hypermedia link pointing to the downstream physical
+            binary or target REST resource.
+          format: href
+        capture_stage_type:
+          type: string
+          description: "The operational service phase or workflow event during which\
+            \ the media was captured (e.g., VEHICLE_ARRIVAL, INITIAL_INSPECTION, TECHNICIAN_INSPECTION,\
+            \ SERVICE_COMPLETED, FINAL_INSPECTION, POLICE_INCIDENT, OTHER)."
+          example: INITIAL_INSPECTION
+      description: media.reference.desc
+    MediaReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/MediaReference"
     MediaStatusTypes:
       type: string
       description: types of media status.
@@ -2013,37 +2055,6 @@ components:
         \ and classification codes."
     MileageAllowance:
       $ref: "#/components/schemas/UomLengthTypes"
-    Money:
-      type: object
-      properties:
-        money_key:
-          type: string
-          description: "Unique business key for the monetary entry, used for deterministic\
-            \ lookups."
-          example: MON-2026-EXP-001
-        money_id:
-          type: string
-          description: System-generated unique identifier for the money record.
-          example: mny-5521-z99
-        currency_code:
-          type: string
-          description: Three-letter ISO-4217 currency code.
-          example: USD
-        display_value:
-          type: string
-          description: Formatted monetary string including symbol and separators based
-            on locale.
-          example: "$1,234.56"
-        locale:
-          type: string
-          description: Language and region identifier (BCP 47 format).
-          example: en-US
-        amount:
-          $ref: "#/components/schemas/GeneralAmount"
-        currency_exchange:
-          $ref: "#/components/schemas/CurrencyExchange"
-      description: "Represents a monetary value, including its currency, locale, and\
-        \ display format."
     MoneyFactor:
       pattern: "^0\\.[0-9]{5,8}$"
       type: string
@@ -2058,6 +2069,10 @@ components:
         narrative_id:
           type: string
           description: The unique ID for the narrative.
+        correlation_id:
+          type: string
+          description: The correlation ID tracking back to the specific Monte Carlo
+            recommendation instance.
         actor:
           $ref: "#/components/schemas/ActorReference"
         event_actor_role_type:
@@ -2068,7 +2083,7 @@ components:
           type: string
           description: The date and time of the event.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         narrative_group:
           type: string
           description: The group to which the narrative belongs.
@@ -2160,6 +2175,9 @@ components:
       - BUSINESS_RULE
       - INTENT
       - CAPABILITY
+      - CUSTOM_ORDER
+      - SPECIAL
+      - DISCLAIMER
     NarrativeUomTypes:
       type: string
       description: types of narrative uoms.
@@ -2361,6 +2379,7 @@ components:
       - LEASE
       - CUSTOM_ORDER
       - STANDARD
+      - SPECIAL
       - OTHER
     OrgReference:
       type: object
@@ -2485,12 +2504,14 @@ components:
           type: string
           description: Timestamp indicating when this specific reference was established.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         org_indicator:
           type: boolean
           description: Indicates if the party is an organization (true) or an individual
             (false).
           example: true
+        identifiers:
+          $ref: "#/components/schemas/Identifiers"
       description: External system identifier
     PartyReferences:
       type: array
@@ -2600,7 +2621,10 @@ components:
       - REFERENCE_PROFESSIONAL
       - PRIMARY_CUSTOMER
       - PRIMARY_DRIVER
+      - SECONDARY_DRIVER
       - PRIMARY_OWNER
+      - SECONDARY_OWNER
+      - CO_OWNER
       - VEHICLE_OWNER
       - APPLICANT
       - CO_APPLICANT
@@ -2664,6 +2688,7 @@ components:
       - RESALE
       - SHIP_TO
       - SOLD_TO
+      - SHIP_THROUGH
     PayTypes:
       type: string
       description: types of pays.
@@ -2703,7 +2728,7 @@ components:
           type: string
           description: The date and time the schedule was associated with the order.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         payment_frequency:
           $ref: "#/components/schemas/DurationIntervalTypes"
         payment_amount:
@@ -2911,19 +2936,19 @@ components:
           description: "Human-readable display value for the price, including currency\
             \ symbol and proper decimal formatting."
         amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         tax_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         taxable_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         non_taxable_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         total_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         total_cost_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         unit_cost_amount:
-          $ref: "#/components/schemas/Money"
+          $ref: "#/components/schemas/GeneralAmount"
         price_description:
           type: string
           description: "A descriptive title for the price (e.g., 'MSRP', 'Sale Price')."
@@ -2944,8 +2969,30 @@ components:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
           $ref: "#/components/schemas/PayTypes"
+        price_category_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/PriceCategoryTypes"
+        currency_exchanges:
+          $ref: "#/components/schemas/CurrencyExchanges"
       description: "Price that includes display value, currency, locale, and value,\
         \ along with tax and cost components."
+    PriceCategoryTypes:
+      type: string
+      description: types of price categorys.
+      enum:
+      - ADJUSTMENT
+      - FEE
+      - HOLD_BACK
+      - LINE_ITEM
+      - OPTION
+      - OTHER
+      - PLAN_PRICING
+      - TAX
+      - TOTAL
     PriceSummary:
       type: object
       properties:
@@ -3075,6 +3122,12 @@ components:
       - OEM_INCENTIVE_AMOUNT
       - DEALER_NET_AMOUNT
       - LANDED_COST_AMOUNT
+      - BASE_HOLDBACK_AMOUNT
+      - OPTIONS_HOLDBACK_AMOUNT
+      - TOTAL_HOLDBACK_AMOUNT
+      - INVOICE_AMOUNT
+      - MISC_TOTAL
+      - PROTECTED_INVOICE_AMOUNT
       - OTHER
     Prices:
       type: array
@@ -3376,6 +3429,14 @@ components:
       - VEHICLE_INVOICE
       - PART_INVOICE
       - SERVICE_INVOICE
+      - REPAIR_ORDER
+      - SERVICE_APPOINTMENT
+      - SERVICE_PUBLICATION
+      - PAYMENT
+      - CONTRACT
+      - QUOTE
+      - COMMUNICATION
+      - DOCUMENT
       - APPOINTMENT
       - OTHER
     RetailDeliveryReport:
@@ -3406,7 +3467,7 @@ components:
           description: The exact date and time the delivery event was recorded in
             the system.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         dealer_comments:
           $ref: "#/components/schemas/Comments"
         customer_comments:
@@ -3534,7 +3595,7 @@ components:
           description: The exact date and time the delivery event was recorded in
             the system.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         product_contracts:
           $ref: "#/components/schemas/ProtectionProducts"
         customer_comments:
@@ -3683,6 +3744,8 @@ components:
       - STAGED_FOR_PICKUP
       - CHECK_OUT
       - RELEASE
+      - INFORMATIONAL
+      - MILESTONE
       - UNKNOWN
     ShipmentReference:
       type: object
@@ -3715,7 +3778,7 @@ components:
           description: The timestamp when the shipment was initiated or the record
             was created.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         unit_of_measures:
           $ref: "#/components/schemas/UnitOfMeasures"
         estimated_delivery_period:
@@ -4093,7 +4156,7 @@ components:
           description: Timestamp when the vehicle was formally checked in or handed
             over to the buyer/dealer.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         delivery_method:
           maxItems: 255
           minItems: 1
@@ -4133,7 +4196,7 @@ components:
           description: The exact date and time when the entity officially entered
             dealership inventory accounting logs.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         stock_number:
           maxLength: 50
           minLength: 1
@@ -4790,13 +4853,13 @@ components:
           description: The timestamp documenting when the lifecycle event actually
             occurred.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         recorded_date_time:
           type: string
           description: The timestamp documenting when the lifecycle event was persisted
             into the enterprise event ledger.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         event_duration:
           $ref: "#/components/schemas/EffectivePeriod"
         event_detail:
@@ -5145,6 +5208,14 @@ components:
           type: string
           description: The baseline layout style design of the chassis structure shell.
           example: Crew Cab Pickup
+        trim_codes:
+          $ref: "#/components/schemas/Codes"
+        trim_dd_codes:
+          $ref: "#/components/schemas/Codes"
+        final_assembly_point:
+          $ref: "#/components/schemas/Codes"
+        fleet_codes:
+          $ref: "#/components/schemas/Codes"
       description: Vehicle Detail Create Information
     VehicleResourceTypes:
       type: string
@@ -5239,7 +5310,7 @@ components:
           type: string
           description: The timestamp documenting when the vehicle snapshot was captured.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         vehicle_state_position:
           $ref: "#/components/schemas/VehicleStatePosition"
         vehicle_states:
@@ -5249,8 +5320,8 @@ components:
         description:
           type: string
           description: The descriptive memo associated with the vehicle snapshot.
-        medias:
-          $ref: "#/components/schemas/Medias"
+        media_references:
+          $ref: "#/components/schemas/MediaReferences"
         snapshot_codes:
           $ref: "#/components/schemas/Codes"
         service_milestone_types:
@@ -5514,6 +5585,8 @@ components:
           description: The raw or normalized value captured for the vehicle state
             reading.
           example: "82"
+        uom:
+          $ref: "#/components/schemas/NarrativeUomTypes"
         vehicle_system_type:
           $ref: "#/components/schemas/VehicleSystemTypes"
         vehicle_resource_type:
@@ -5529,13 +5602,13 @@ components:
           description: The timestamp documenting when the vehicle state reading was
             observed.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         recorded_date_time:
           type: string
           description: The timestamp documenting when the vehicle state reading was
             recorded by the platform.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         vehicle_state_position:
           $ref: "#/components/schemas/VehicleStatePosition"
         narratives:
@@ -5600,13 +5673,13 @@ components:
           description: The timestamp documenting when the vehicle position reading
             was observed.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         recorded_date_time:
           type: string
           description: The timestamp documenting when the vehicle position reading
             was recorded by the platform.
           format: date-time
-          example: 2026-07-30T19:20:59Z
+          example: 2026-08-24T19:36:10Z
         mask_indicator:
           type: boolean
           description: "Indicates whether the vehicle position was intentionally masked,\

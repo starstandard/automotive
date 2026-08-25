@@ -132,7 +132,7 @@ components:
           type: string
           description: Timestamp of the last update to this authorization
           format: date-time
-          example: 2026-07-30T19:19:02Z
+          example: 2026-08-24T19:34:15Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -295,7 +295,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-30T19:19:02Z
+          example: 2026-08-24T19:34:15Z
       description: External system identifier
     ControlAccountReferences:
       type: array
@@ -339,7 +339,7 @@ components:
           description: The specific UTC timestamp when this exchange rate was captured
             or finalized.
           format: date-time
-          example: 2026-07-30T19:19:02Z
+          example: 2026-08-24T19:34:15Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
     DayOfWeekTypes:
@@ -396,13 +396,13 @@ components:
           type: string
           description: The inclusive start point of the period in ISO 8601 format.
           format: date-time
-          example: 2026-07-30T19:19:02Z
+          example: 2026-08-24T19:34:15Z
         complete_date_time:
           type: string
           description: The exclusive end point of the period (completion) in ISO 8601
             format.
           format: date-time
-          example: 2026-07-30T19:19:02Z
+          example: 2026-08-24T19:34:15Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -486,7 +486,7 @@ components:
           type: string
           description: The date and time of the event.
           format: date-time
-          example: 2026-07-30T19:19:02Z
+          example: 2026-08-24T19:34:15Z
         event_message_group:
           type: string
           description: The group to which the eventMessage belongs.
@@ -610,7 +610,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-30T19:19:02Z
+          example: 2026-08-24T19:34:15Z
       description: External system reference
     GeneralLedgerReferences:
       type: array
@@ -704,7 +704,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-07-30T19:19:02Z
+          example: 2026-08-24T19:34:15Z
         source_key:
           maxLength: 50
           minLength: 5
@@ -858,13 +858,13 @@ components:
             \ synchronized from the source governance, legal, policy, or compliance\
             \ system."
           format: date-time
-          example: 2026-07-30T19:19:02Z
+          example: 2026-08-24T19:34:15Z
         occurrence_date_time:
           type: string
           description: "The date and time when the jurisdiction profile was observed,\
             \ created, received, updated, or became effective."
           format: date-time
-          example: 2026-07-30T19:19:02Z
+          example: 2026-08-24T19:34:15Z
       description: nullable
     List:
       type: array
@@ -950,10 +950,6 @@ components:
           description: Formatted monetary string including symbol and separators based
             on locale.
           example: "$1,234.56"
-        locale:
-          type: string
-          description: Language and region identifier (BCP 47 format).
-          example: en-US
         amount:
           $ref: "#/components/schemas/GeneralAmount"
         currency_exchange:
@@ -1041,12 +1037,14 @@ components:
           type: string
           description: Timestamp indicating when this specific reference was established.
           format: date-time
-          example: 2026-07-30T19:19:02Z
+          example: 2026-08-24T19:34:15Z
         org_indicator:
           type: boolean
           description: Indicates if the party is an organization (true) or an individual
             (false).
           example: true
+        identifiers:
+          $ref: "#/components/schemas/Identifiers"
       description: External system identifier
     PartyReferences:
       type: array
@@ -1156,7 +1154,10 @@ components:
       - REFERENCE_PROFESSIONAL
       - PRIMARY_CUSTOMER
       - PRIMARY_DRIVER
+      - SECONDARY_DRIVER
       - PRIMARY_OWNER
+      - SECONDARY_OWNER
+      - CO_OWNER
       - VEHICLE_OWNER
       - APPLICANT
       - CO_APPLICANT
@@ -1220,6 +1221,7 @@ components:
       - RESALE
       - SHIP_TO
       - SOLD_TO
+      - SHIP_THROUGH
     PersonName:
       type: object
       properties:
@@ -1493,7 +1495,7 @@ components:
           description: The date and time the Journal Entry referencing this transaction
             was created.
           format: date-time
-          example: 2026-07-30T19:19:02Z
+          example: 2026-08-24T19:34:15Z
       description: Immutable reference from a Journal Entry back to its source Subsidiary
         Ledger Transaction.
     TimeSlot:
