@@ -1,0 +1,20 @@
+{
+  "price_id": "P-BASE-01",
+  "price_description": "Base Vehicle Price",
+  "currency_code": "USD",
+  "price_types": [
+    "BASE_INVOICE_AMOUNT"
+  ],
+  "amount": {
+    "amount": "35000.00",
+    "currency_code": "USD"
+  },
+  "tax_amount": {
+    "amount": "2450.00",
+    "currency_code": "USD"
+  },
+  "total_amount": {
+    "amount": "37450.00",
+    "currency_code": "USD"
+  }
+}
