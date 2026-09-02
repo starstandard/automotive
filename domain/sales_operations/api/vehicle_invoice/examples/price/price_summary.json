@@ -1,0 +1,151 @@
+{
+  "price_summary": {
+    "price_summary_key": "PS-2026-000184",
+    "price_summary_id": "OEM-INVOICE-884219-PRICE-SUMMARY",
+    "source_key": "VIN-1FTFW1E50RFA12345",
+    "source_type": "VEHICLE_INVOICE",
+
+    "locale": {
+      "locale_key": "en-US",
+      "locale_name": "English - United States",
+      "description": "United States English locale",
+      "language_code": "en",
+      "country_code": "US",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "timezone": "America/New_York",
+      "number_format": "#,##0.00"
+    },
+
+    "prices": [
+      {
+        "price_id": "PRICE-MSRP-001",
+        "price_key": "MSRP",
+        "display_amount": "$52,845.00",
+        "amount": "52845.00",
+        "total_amount": "52845.00",
+        "price_description": "Manufacturer Suggested Retail Price",
+        "tax_included_indicator": false,
+        "currency_code": "USD",
+        "price_types": [
+          "MSRP"
+        ],
+        "price_category_types": [
+          "RETAIL"
+        ]
+      },
+      {
+        "price_id": "PRICE-INVOICE-001",
+        "price_key": "DEALER_INVOICE",
+        "display_amount": "$49,125.00",
+        "amount": "49125.00",
+        "total_amount": "49125.00",
+        "price_description": "Dealer invoice price",
+        "tax_included_indicator": false,
+        "currency_code": "USD",
+        "price_types": [
+          "INVOICE"
+        ],
+        "price_category_types": [
+          "WHOLESALE"
+        ]
+      },
+      {
+        "price_id": "PRICE-BASE-001",
+        "price_key": "BASE_INVOICE",
+        "display_amount": "$46,750.00",
+        "amount": "46750.00",
+        "total_amount": "46750.00",
+        "price_description": "Base vehicle invoice amount before options and destination charges",
+        "tax_included_indicator": false,
+        "currency_code": "USD",
+        "price_types": [
+          "BASE_INVOICE_AMOUNT"
+        ],
+        "price_category_types": [
+          "WHOLESALE"
+        ]
+      },
+      {
+        "price_id": "PRICE-DEST-001",
+        "price_key": "DESTINATION_CHARGE",
+        "display_amount": "$1,995.00",
+        "amount": "1995.00",
+        "total_amount": "1995.00",
+        "price_description": "Manufacturer destination and delivery charge",
+        "tax_included_indicator": false,
+        "currency_code": "USD",
+        "price_types": [
+          "DESTINATION_CHARGE"
+        ],
+        "price_category_types": [
+          "FEE"
+        ]
+      },
+      {
+        "price_id": "PRICE-OPTIONS-001",
+        "price_key": "FACTORY_OPTIONS",
+        "display_amount": "$2,375.00",
+        "amount": "2375.00",
+        "total_amount": "2375.00",
+        "price_description": "Total manufacturer installed option amount",
+        "tax_included_indicator": false,
+        "currency_code": "USD",
+        "price_types": [
+          "FACTORY_OPTION_AMOUNT"
+        ],
+        "price_category_types": [
+          "WHOLESALE"
+        ]
+      },
+      {
+        "price_id": "PRICE-HOLDBACK-001",
+        "price_key": "HOLDBACK",
+        "display_amount": "$1,420.00",
+        "amount": "1420.00",
+        "total_amount": "1420.00",
+        "price_description": "Manufacturer dealer holdback amount",
+        "tax_included_indicator": false,
+        "currency_code": "USD",
+        "price_types": [
+          "HOLDBACK_AMOUNT"
+        ],
+        "price_category_types": [
+          "DEALER"
+        ]
+      },
+      {
+        "price_id": "PRICE-ADVERTISING-001",
+        "price_key": "ADVERTISING_ASSESSMENT",
+        "display_amount": "$425.00",
+        "amount": "425.00",
+        "total_amount": "425.00",
+        "price_description": "Regional advertising assessment",
+        "tax_included_indicator": false,
+        "currency_code": "USD",
+        "price_types": [
+          "ADVERTISING_ASSESSMENT"
+        ],
+        "price_category_types": [
+          "ASSESSMENT"
+        ]
+      },
+      {
+        "price_id": "PRICE-DEALER-CASH-001",
+        "price_key": "DEALER_CASH",
+        "display_amount": "$750.00",
+        "amount": "750.00",
+        "total_amount": "750.00",
+        "price_description": "Manufacturer dealer cash incentive",
+        "tax_included_indicator": false,
+        "currency_code": "USD",
+        "price_types": [
+          "DEALER_CASH_AMOUNT"
+        ],
+        "price_category_types": [
+          "INCENTIVE"
+        ]
+      }
+    ]
+  }
+}

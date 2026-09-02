@@ -1,0 +1,29 @@
+[
+  {
+    "amount": "52845.00",
+    "price_types": [
+      "MSRP"
+    ],
+    "price_category_types": [
+      "RETAIL"
+    ]
+  },
+  {
+    "amount": "49125.00",
+    "price_types": [
+      "INVOICE"
+    ],
+    "price_category_types": [
+      "WHOLESALE"
+    ]
+  },
+  {
+    "amount": "750.00",
+    "price_types": [
+      "DEALER_CASH_AMOUNT"
+    ],
+    "price_category_types": [
+      "INCENTIVE"
+    ]
+  }
+]
