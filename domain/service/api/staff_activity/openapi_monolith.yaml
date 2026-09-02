@@ -833,7 +833,7 @@ components:
           type: array
           description: staff_activity_types list
           example:
-          - APPROVED
+          - AUDITED
           items:
             $ref: "#/components/schemas/StaffActivityTypes"
         activity_status:
@@ -972,7 +972,7 @@ components:
           type: array
           description: staff_activity_types list
           example:
-          - PRIORITIZED
+          - UPDATED
           items:
             $ref: "#/components/schemas/StaffActivityTypes"
         activity_status:

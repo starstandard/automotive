@@ -53,7 +53,7 @@ components:
           type: string
           description: Timestamp indicating when this specific reference was established.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
       description: External system identifier
     ActorTypes:
       type: string
@@ -191,7 +191,7 @@ components:
           type: string
           description: Timestamp of the last update to this authorization
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -395,7 +395,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
       description: External system identifier
     CreditReference:
       type: object
@@ -420,7 +420,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         sequence_id:
           type: string
           description: Unique Sequencing Order for this entity in a list
@@ -472,7 +472,7 @@ components:
           description: The specific UTC timestamp when this exchange rate was captured
             or finalized.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
     CurrencyExchanges:
@@ -787,7 +787,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         sequence_id:
           type: string
           description: Unique Sequencing Order for this entity in a list
@@ -880,13 +880,13 @@ components:
           type: string
           description: The inclusive start point of the period in ISO 8601 format.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         complete_date_time:
           type: string
           description: The exclusive end point of the period (completion) in ISO 8601
             format.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -959,7 +959,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         sequence_id:
           type: string
           description: Unique Sequencing Order for this entity in a list
@@ -997,7 +997,7 @@ components:
           type: string
           description: The date and time the financial category was assigned or referenced.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
       description: "Reference to a Financial Category Aggregate Root (e.g., Revenue,\
         \ Expense, Asset)."
     FinancialCategoryReferences:
@@ -1067,7 +1067,7 @@ components:
           type: string
           description: The date and time when the financial event occurred.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         post_date:
           type: string
           description: The posting date of the financial transaction.
@@ -1296,7 +1296,7 @@ components:
           description: The date and time the financialSplit was associated with the
             order.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
       description: Reference to a Payment FinancialSplit Aggregate Root.
     FinancialSplits:
       type: array
@@ -1323,7 +1323,7 @@ components:
           type: string
           description: Timestamp of the last update for this tracking record.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         actor_id:
           type: string
           description: Identifier of the actor who updated or is responsible for this
@@ -1582,7 +1582,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
       description: External system reference
     GeographicBoundaryReference:
       type: object
@@ -1606,7 +1606,7 @@ components:
           type: string
           description: The date and time the schedule was associated with the order.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
       description: Reference to a Payment Schedule Aggregate Root.
     GeographicBoundaryReferences:
       type: array
@@ -1678,7 +1678,7 @@ components:
           description: The date and time the invoice was created or linked to this
             record.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         invoice_type:
           $ref: "#/components/schemas/InvoiceTypes"
       description: "Reference to an Invoice Aggregate Root, representing a financial\
@@ -1806,13 +1806,13 @@ components:
             \ synchronized from the source governance, legal, policy, or compliance\
             \ system."
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         occurrence_date_time:
           type: string
           description: "The date and time when the jurisdiction profile was observed,\
             \ created, received, updated, or became effective."
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
       description: nullable
     LedgerActionTypes:
       type: string
@@ -1966,7 +1966,7 @@ components:
           type: string
           description: The date and time of the event.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         narrative_group:
           type: string
           description: The group to which the narrative belongs.
@@ -2496,7 +2496,7 @@ components:
           type: string
           description: Timestamp indicating when this specific reference was established.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         org_indicator:
           type: boolean
           description: Indicates if the party is an organization (true) or an individual
@@ -2963,19 +2963,26 @@ components:
           description: "Human-readable display value for the price, including currency\
             \ symbol and proper decimal formatting."
         amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The numeric value of the price (before tax/cost breakdowns).
         tax_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The calculated amount of tax applied to the price.
         taxable_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The portion of the price subject to tax.
         non_taxable_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The portion of the price not subject to tax.
         total_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The total final price including all components and tax.
         total_cost_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The total cost to the provider/seller.
         unit_cost_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The unit cost to the provider/seller.
         price_description:
           type: string
           description: "A descriptive title for the price (e.g., 'MSRP', 'Sale Price')."
@@ -3045,7 +3052,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         geographic_boundaries:
           $ref: "#/components/schemas/GeographicBoundaryReferences"
         captured_financial_split:
@@ -3397,7 +3404,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         sequence_id:
           type: string
           description: Unique Sequencing Order for this entity in a list
@@ -3524,7 +3531,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         sequence_id:
           type: string
           description: Unique Sequencing Order for this entity in a list
@@ -3582,17 +3589,17 @@ components:
           type: string
           description: The timestamp when the shipment event physically occurred.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         recorded_date_time:
           type: string
           description: The timestamp when the shipment event was recorded by the platform.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         effective_date_time:
           type: string
           description: The timestamp when the shipment event state becomes effective.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         event_source:
           maxLength: 120
           minLength: 1
@@ -3652,7 +3659,7 @@ components:
           description: The date and time this package item allocation event occurred
             at the packing station.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         quantity_shipped:
           maxLength: 40
           minLength: 1
@@ -3857,7 +3864,7 @@ components:
           description: The timestamp when the shipment was initiated or the record
             was created.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         unit_of_measures:
           $ref: "#/components/schemas/UnitOfMeasures"
         estimated_delivery_period:
@@ -4030,7 +4037,7 @@ components:
           type: string
           description: Date and time when the transition occurred.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         correlation_id:
           type: string
           description: Correlation identifier used for distributed tracing.
@@ -4268,7 +4275,7 @@ components:
           type: string
           description: Date and time when this specific tracking update was recorded.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         shipment_state_type:
           $ref: "#/components/schemas/ShipmentStateTypes"
         status_description:
@@ -4300,18 +4307,18 @@ components:
           description: The estimated delivery timestamp provided by the carrier or
             logistics provider.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         actual_delivery_date_time:
           type: string
           description: The actual delivery timestamp confirmed by the carrier or recipient.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         last_updated_date_time:
           type: string
           description: The timestamp documenting the most recent tracking update received
             from the carrier or logistics platform.
           format: date-time
-          example: 2026-08-24T19:36:20Z
+          example: 2026-09-02T13:47:51Z
         delivery_exception_indicator:
           type: boolean
           description: "Indicates whether the shipment encountered a delivery exception,\

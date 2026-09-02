@@ -2953,7 +2953,7 @@ components:
           type: array
           description: address_types list
           example:
-          - GARAGE
+          - REBATE
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -4491,7 +4491,7 @@ components:
           type: array
           description: product_types list
           example:
-          - SERVICE_PACKAGE
+          - OTHER
           items:
             $ref: "#/components/schemas/ProductTypes"
         system_codes:
@@ -4578,7 +4578,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - HEIR
+          - DEPENDENT
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -4925,8 +4925,8 @@ components:
           type: array
           description: Position codes associated with the entity.
           example:
-          - Pos-879813125719719955
-          - Pos-879813125719719956
+          - Pos-882983845698207764
+          - Pos-882983845698207765
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -5311,7 +5311,7 @@ components:
           type: array
           description: appointment_types list
           example:
-          - DECOMMISSIONING
+          - CUSTOMER
           items:
             $ref: "#/components/schemas/AppointmentTypes"
         narratives:
@@ -5370,7 +5370,7 @@ components:
           type: array
           description: appointment_types list
           example:
-          - VEHICLE_PICKUP
+          - F_AND_I
           items:
             $ref: "#/components/schemas/AppointmentTypes"
         narratives:
@@ -5496,7 +5496,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - BLOCK
+          - ANYTIME
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:

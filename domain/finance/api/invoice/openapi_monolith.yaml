@@ -1442,7 +1442,7 @@ components:
           type: array
           description: address_types list
           example:
-          - RAIL
+          - OTHER
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -1961,7 +1961,7 @@ components:
           type: array
           description: purchase_types list
           example:
-          - SUBSCRIPTION
+          - STANDARD
           items:
             $ref: "#/components/schemas/OrderCategoryTypes"
         product_state_types:
@@ -1971,7 +1971,7 @@ components:
           type: array
           description: product_state_types list
           example:
-          - CUSTOMER_OWNED
+          - RENTAL
           items:
             $ref: "#/components/schemas/ProductStateTypes"
         location_codes:
@@ -2322,7 +2322,7 @@ components:
           type: array
           description: previous_event_types list
           example:
-          - OVERRIDE
+          - EXPIRED
           items:
             $ref: "#/components/schemas/PaymentTransactionStatusTypes"
         provider_transaction_id:
@@ -2859,7 +2859,7 @@ components:
           type: array
           description: invoice_status_types list
           example:
-          - ADJUSTED
+          - ACKNOWLEDGED
           items:
             $ref: "#/components/schemas/InvoiceStatusTypes"
         payment_status_type:
@@ -2995,7 +2995,7 @@ components:
           type: array
           description: invoice_item_status_types list
           example:
-          - CANCELLED
+          - PROCESSING_FULFILLMENT
           items:
             $ref: "#/components/schemas/InvoiceItemStatusTypes"
         financial_tracks:
@@ -3155,7 +3155,7 @@ components:
           type: array
           description: invoice_status_types list
           example:
-          - ACKNOWLEDGED
+          - OTHER
           items:
             $ref: "#/components/schemas/InvoiceStatusTypes"
         identifiers:
@@ -3468,7 +3468,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - PROXY
+          - SUPPLIER
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -4119,7 +4119,7 @@ components:
           type: array
           description: price_types list
           example:
-          - DEALER_NET_AMOUNT
+          - DISABILITY_PREMIUM_TOTAL
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
@@ -4131,7 +4131,7 @@ components:
           type: array
           description: price_category_types list
           example:
-          - OTHER
+          - OPTION
           items:
             $ref: "#/components/schemas/PriceCategoryTypes"
         currency_exchanges:
@@ -4997,7 +4997,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - PREFERRED
+          - OTHER
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:

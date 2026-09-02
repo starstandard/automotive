@@ -2484,8 +2484,8 @@ components:
           type: array
           description: Content of the event message.
           example:
-          - "879813125719719953"
-          - "879813125719719954"
+          - "882983845698207762"
+          - "882983845698207763"
           items:
             type: string
         event_date_time:
@@ -2651,7 +2651,7 @@ components:
           type: array
           description: lifecycle_pulse_types list
           example:
-          - ACKNOWLEDGED
+          - REJECTED
           items:
             $ref: "#/components/schemas/LifecyclePulseTypes"
         occurred_at:
@@ -3475,8 +3475,8 @@ components:
           type: array
           description: Economy classification or measurement for the vehicle.
           example:
-          - "879813125719719963"
-          - "879813125719719964"
+          - "882983845698207772"
+          - "882983845698207773"
           items:
             type: string
         efficiency:
@@ -3490,7 +3490,7 @@ components:
           type: array
           description: fuel_types list
           example:
-          - BIO_DIESEL
+          - ELECTRIC
           items:
             $ref: "#/components/schemas/FuelTypes"
         range:
@@ -3710,8 +3710,8 @@ components:
           type: array
           description: Compartments within the vehicle.
           example:
-          - "879813125719719959"
-          - "879813125719719960"
+          - "882983845698207768"
+          - "882983845698207769"
           items:
             type: string
         compartment_door_desc:
@@ -3753,7 +3753,7 @@ components:
           type: array
           description: engine_types list
           example:
-          - THERMAL_INTERNAL
+          - THERMAL_REACTION
           items:
             $ref: "#/components/schemas/EngineTypes"
         exterior_color:
@@ -3777,7 +3777,7 @@ components:
           type: array
           description: fuel_types list
           example:
-          - PROPANE
+          - GASOLINE
           items:
             $ref: "#/components/schemas/FuelTypes"
         gross_vehicle_weight:
@@ -3887,7 +3887,7 @@ components:
           type: array
           description: vehicle_body_style_types list
           example:
-          - CONTRACTOR_BODY
+          - BIKE
           items:
             $ref: "#/components/schemas/VehicleBodyStyleTypes"
         vehicle_category_types:
@@ -3897,7 +3897,7 @@ components:
           type: array
           description: vehicle_category_types list
           example:
-          - CROSSOVER
+          - MINIVAN
           items:
             $ref: "#/components/schemas/VehicleCategoryTypes"
         vehicle_class:

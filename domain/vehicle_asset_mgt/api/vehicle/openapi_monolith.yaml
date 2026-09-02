@@ -334,12 +334,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -399,12 +399,12 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
         "400":
           $ref: "#/components/responses/BadRequestError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -471,12 +471,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -2935,6 +2935,12 @@ paths:
       - AuthorizationHeader: []
     parameters:
     - $ref: "#/components/parameters/VehicleKey"
+  /vehicles/{vehicle-key}/media-references:
+    parameters:
+    - $ref: "#/components/parameters/VehicleKey"
+  /vehicles/{vehicle-key}/media-references/{media-reference-key}:
+    parameters:
+    - $ref: "#/components/parameters/VehicleKey"
   /vehicles/{vehicle-key}/resource-groups:
     get:
       tags:
@@ -3965,14 +3971,14 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
         "429":
           $ref: "#/components/responses/TooManyRequestsError"
         "400":
           $ref: "#/components/responses/BadRequestError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -4009,7 +4015,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
       description: External system identifier
     ActorTypes:
       type: string
@@ -4062,13 +4068,13 @@ components:
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "870343266145402880"
+          example: "882984630955802624"
         address_id:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266145402881"
+          example: "882984630955802625"
         address_input:
           maxLength: 255
           minLength: 1
@@ -4108,7 +4114,7 @@ components:
           type: array
           description: address_types list
           example:
-          - ARCHIVE
+          - SHIPPING
           items:
             $ref: "#/components/schemas/AddressTypes"
         authorization_levels:
@@ -4186,11 +4192,11 @@ components:
         address_locale_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597184"
+          example: "882984630955802626"
         address_locale_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266149597185"
+          example: "882984630955802627"
         region_code:
           type: string
           description: Code representing the region for the locale.
@@ -4214,11 +4220,11 @@ components:
         address_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597186"
+          example: "882984630955802628"
         address_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266149597187"
+          example: "882984630955802629"
         address_types:
           maxItems: 255
           minItems: 1
@@ -4226,7 +4232,7 @@ components:
           type: array
           description: address_types list
           example:
-          - HUB
+          - AR_ADDRESS
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -4334,7 +4340,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -4343,7 +4349,7 @@ components:
         authorization_level_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597188"
+          example: "882984630955802630"
         auth_codes:
           $ref: "#/components/schemas/Codes"
         privacy_policy_rules:
@@ -4369,7 +4375,7 @@ components:
         correlation_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266149597189"
+          example: "882984630955802631"
         previous_balance:
           $ref: "#/components/schemas/GeneralAmount"
         resulting_balance:
@@ -4424,11 +4430,11 @@ components:
         color_summary_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266149597190"
+          example: "882984630955802632"
         color_summary_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597191"
+          example: "882984630955802633"
         dealer_color:
           type: string
           description: The color as designated by the dealer.
@@ -4460,11 +4466,11 @@ components:
         communication_channel_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597192"
+          example: "882984630955802634"
         communication_channel_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266149597193"
+          example: "882984630955802635"
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
         context:
@@ -4620,9 +4626,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
+    CurrencyExchanges:
+      type: array
+      items:
+        $ref: "#/components/schemas/CurrencyExchange"
     DayOfWeekTypes:
       type: string
       description: types of day of weeks.
@@ -4689,13 +4699,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         complete_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -4728,11 +4738,11 @@ components:
         efficiency_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266149597194"
+          example: "882984630955802636"
         efficiency_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597195"
+          example: "882984630955802637"
         city_efficiency:
           type: string
           description: The vehicle's fuel efficiency in a city driving environment.
@@ -4866,7 +4876,7 @@ components:
         financial_event_snapshot_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597196"
+          example: "882984630955802638"
         financial_category_type:
           $ref: "#/components/schemas/FinancialCategoryTypes"
         general_ledger_reference:
@@ -4924,19 +4934,19 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266149597197"
+          example: "882984630955802639"
         general_ledger_reference_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597198"
+          example: "882984630955802640"
         general_ledger_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597199"
+          example: "882984630955802641"
         context:
           type: string
           description: Context or domain of the reference
@@ -4950,7 +4960,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
       description: External system reference
     HealthStatus:
       type: object
@@ -4972,13 +4982,13 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266149597200"
+          example: "882984630955802642"
         identifier_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597201"
+          example: "882984630955802643"
         context:
           type: string
           description: Context or domain of the identifier
@@ -5179,13 +5189,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         occurrence_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
       description: nullable
     Locale:
       type: object
@@ -5193,7 +5203,7 @@ components:
         locale_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597202"
+          example: "882984630955802644"
         locale_name:
           type: string
           description: The full IETF BCP 47 language tag or Java-style locale string
@@ -5283,11 +5293,11 @@ components:
         media_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597203"
+          example: "882984630955802645"
         media_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266149597204"
+          example: "882984630955802646"
         authors:
           $ref: "#/components/schemas/PartyReferences"
         occurrence_date_time:
@@ -5295,7 +5305,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         name:
           type: string
           description: A hyperlink to the media's content.
@@ -5306,7 +5316,7 @@ components:
           type: string
           description: A hyperlink to the media resource.
           format: href
-          example: https://api.example.com/resources/17507
+          example: https://api.example.com/resources/75325
         media_type:
           $ref: "#/components/schemas/MediaTypes"
         media_status_type:
@@ -5330,14 +5340,14 @@ components:
         signature:
           type: string
           description: A unique signature or hash of the media content.
-          example: SIG-001-870343246985822243
+          example: SIG-001-882984046269825026
         textual_details:
           $ref: "#/components/schemas/TextualDetails"
         raw_content:
           type: string
           description: "A collection of textual details, such as titles and descriptions,\
             \ for the media."
-          example: CFG-001-870343246985822244
+          example: CFG-001-882984046269825027
         media_source:
           type: string
           description: The source of the media.
@@ -5373,7 +5383,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         media_keys:
           $ref: "#/components/schemas/Codes"
         media_access_metrics:
@@ -5385,29 +5395,29 @@ components:
         media_access_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266149597205"
+          example: "882984630959996928"
         media_access_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597206"
+          example: "882984630959996929"
         media_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597207"
+          example: "882984630959996930"
         first_viewed_at:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
-          example: 2026-07-07T18:41:43.846631Z
+          example: 2026-08-12T05:23:23.082065Z
         completed_at:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
-          example: 2026-07-29T02:02:30.846658Z
+          example: 2026-08-21T12:20:36.082119Z
         view_count:
           type: string
           description: Total number of engagement events.
-          example: "7"
+          example: "36"
         watch_time_seconds:
           type: string
           description: The cumulative time in seconds the user spent viewing the media.
@@ -5421,7 +5431,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-06-30T03:07:07.846681Z
+          example: 2026-08-24T09:10:12.08214Z
         device_type:
           $ref: "#/components/schemas/DeviceTypes"
         user_agent:
@@ -5431,7 +5441,7 @@ components:
         buffer_count:
           type: string
           description: The number of times the media playback was interrupted by buffering.
-          example: "36"
+          example: "16"
         load_time_ms:
           type: string
           description: The time in milliseconds it took for the media to begin playback
@@ -5509,6 +5519,49 @@ components:
       - UNLISTED
       - ARCHIVED
       - DRAFT
+    MediaReference:
+      type: object
+      properties:
+        media_key:
+          type: string
+          description: Unique global internal or external business key.
+          example: "882984630959996931"
+        media_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "882984630959996932"
+        name:
+          type: string
+          description: The descriptive name or filename of the media item.
+          example: Vehicle Image Side View
+        media_type:
+          $ref: "#/components/schemas/MediaTypes"
+        media_format_type:
+          $ref: "#/components/schemas/MediaFormatTypes"
+        media_visibility:
+          $ref: "#/components/schemas/MediaVisibility"
+        signature:
+          type: string
+          description: The unique checksum hash validating the raw media file's structural
+            integrity.
+          example: SIG-001-882984046269825026
+        media_href:
+          type: string
+          description: The direct hypermedia link pointing to the downstream physical
+            binary or target REST resource.
+          format: href
+          example: https://api.example.com/resources/70042
+        capture_stage_type:
+          type: string
+          description: "The operational service phase or workflow event during which\
+            \ the media was captured (e.g., VEHICLE_ARRIVAL, INITIAL_INSPECTION, TECHNICIAN_INSPECTION,\
+            \ SERVICE_COMPLETED, FINAL_INSPECTION, POLICE_INCIDENT, OTHER)."
+          example: INITIAL_INSPECTION
+      description: media.reference.desc
+    MediaReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/MediaReference"
     MediaStatusTypes:
       type: string
       description: types of media status.
@@ -5579,11 +5632,11 @@ components:
         media_visibility_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597208"
+          example: "882984630959996933"
         visibility_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597209"
+          example: "882984630959996934"
         media_privacy_type:
           $ref: "#/components/schemas/MediaPrivacyTypes"
         externally_hosted_indicator:
@@ -5606,11 +5659,11 @@ components:
         metric_name_value_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597210"
+          example: "882984630959996935"
         metric_name_value_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266149597211"
+          example: "882984630959996936"
         header_sequence:
           type: string
           description: The header sequence for the metric value.
@@ -5661,47 +5714,21 @@ components:
           $ref: "#/components/schemas/Codes"
       description: "Represents a quantitative measurement including its unit, value,\
         \ and classification codes."
-    Money:
-      type: object
-      properties:
-        money_key:
-          type: string
-          description: Unique global internal or external business key.
-          example: MON-2026-EXP-001
-        money_id:
-          type: string
-          description: Unique system-specific internal identifier.
-          example: mny-5521-z99
-        currency_code:
-          type: string
-          description: Three-letter ISO-4217 currency code.
-          example: USD
-        display_value:
-          type: string
-          description: Formatted monetary string including symbol and separators based
-            on locale.
-          example: "$1,234.56"
-        locale:
-          type: string
-          description: Language and region identifier (BCP 47 format).
-          example: en-US
-        amount:
-          $ref: "#/components/schemas/GeneralAmount"
-        currency_exchange:
-          $ref: "#/components/schemas/CurrencyExchange"
-      description: "Represents a monetary value, including its currency, locale, and\
-        \ display format."
     Narrative:
       type: object
       properties:
         narrative_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597212"
+          example: "882984630959996937"
         narrative_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266149597213"
+          example: "882984630959996938"
+        correlation_id:
+          type: string
+          description: Unique system-specific internal identifier.
+          example: "882984630959996939"
         actor:
           $ref: "#/components/schemas/ActorReference"
         event_actor_role_type:
@@ -5713,7 +5740,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         narrative_group:
           type: string
           description: The group to which the narrative belongs.
@@ -5811,6 +5838,9 @@ components:
       - BUSINESS_RULE
       - INTENT
       - CAPABILITY
+      - CUSTOM_ORDER
+      - SPECIAL
+      - DISCLAIMER
     NarrativeUomTypes:
       type: string
       description: types of narrative uoms.
@@ -5908,11 +5938,11 @@ components:
         option_description_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266149597214"
+          example: "882984630959996940"
         option_description_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266149597215"
+          example: "882984630959996941"
         option_description_group:
           type: string
           description: The group or category this option belongs to.
@@ -6034,7 +6064,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - TRUSTEE_PERSON
+          - FLEET_MANAGER
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -6048,12 +6078,14 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         org_indicator:
           type: boolean
           description: Indicates if the party is an organization (true) or an individual
             (false).
           example: true
+        identifiers:
+          $ref: "#/components/schemas/Identifiers"
       description: External system identifier
     PartyReferences:
       type: array
@@ -6164,7 +6196,10 @@ components:
       - REFERENCE_PROFESSIONAL
       - PRIMARY_CUSTOMER
       - PRIMARY_DRIVER
+      - SECONDARY_DRIVER
       - PRIMARY_OWNER
+      - SECONDARY_OWNER
+      - CO_OWNER
       - VEHICLE_OWNER
       - APPLICANT
       - CO_APPLICANT
@@ -6229,6 +6264,7 @@ components:
       - RESALE
       - SHIP_TO
       - SOLD_TO
+      - SHIP_THROUGH
     PayTypes:
       type: string
       description: types of pays.
@@ -6410,8 +6446,8 @@ components:
           type: array
           description: Position codes associated with the entity.
           example:
-          - Pos-879813125719719955
-          - Pos-879813125719719956
+          - Pos-882984046265630740
+          - Pos-882984046265630741
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -6433,30 +6469,44 @@ components:
         price_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266153791488"
+          example: "882984630959996942"
         price_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266153791489"
+          example: "882984630959996943"
         display_amount:
           type: string
           description: "Human-readable display value for the price, including currency\
             \ symbol and proper decimal formatting."
-          example: $522.88
+          example: $603.24
         amount:
-          $ref: "#/components/schemas/Money"
+          type: string
+          description: The numeric value of the price (before tax/cost breakdowns).
+          example: "{total_amount=27000}"
         tax_amount:
-          $ref: "#/components/schemas/Money"
+          type: string
+          description: The calculated amount of tax applied to the price.
+          example: $498.76
         taxable_amount:
-          $ref: "#/components/schemas/Money"
+          type: string
+          description: The portion of the price subject to tax.
+          example: $202.45
         non_taxable_amount:
-          $ref: "#/components/schemas/Money"
+          type: string
+          description: The portion of the price not subject to tax.
+          example: $604.57
         total_amount:
-          $ref: "#/components/schemas/Money"
+          type: string
+          description: The total final price including all components and tax.
+          example: $100.96
         total_cost_amount:
-          $ref: "#/components/schemas/Money"
+          type: string
+          description: The total cost to the provider/seller.
+          example: $291.82
         unit_cost_amount:
-          $ref: "#/components/schemas/Money"
+          type: string
+          description: The unit cost to the provider/seller.
+          example: $886.93
         price_description:
           type: string
           description: "A descriptive title for the price (e.g., 'MSRP', 'Sale Price')."
@@ -6476,13 +6526,39 @@ components:
           type: array
           description: price_types list
           example:
-          - FLAT
+          - REGION
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
           $ref: "#/components/schemas/PayTypes"
+        price_category_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          description: price_category_types list
+          example:
+          - TOTAL
+          items:
+            $ref: "#/components/schemas/PriceCategoryTypes"
+        currency_exchanges:
+          $ref: "#/components/schemas/CurrencyExchanges"
       description: "Price that includes display value, currency, locale, and value,\
         \ along with tax and cost components."
+    PriceCategoryTypes:
+      type: string
+      description: types of price categorys.
+      example: ADJUSTMENT
+      enum:
+      - ADJUSTMENT
+      - FEE
+      - HOLD_BACK
+      - LINE_ITEM
+      - OPTION
+      - OTHER
+      - PLAN_PRICING
+      - TAX
+      - TOTAL
     PriceTypes:
       type: string
       description: types of prices.
@@ -6591,6 +6667,12 @@ components:
       - OEM_INCENTIVE_AMOUNT
       - DEALER_NET_AMOUNT
       - LANDED_COST_AMOUNT
+      - BASE_HOLDBACK_AMOUNT
+      - OPTIONS_HOLDBACK_AMOUNT
+      - TOTAL_HOLDBACK_AMOUNT
+      - INVOICE_AMOUNT
+      - MISC_TOTAL
+      - PROTECTED_INVOICE_AMOUNT
       - OTHER
     Prices:
       type: array
@@ -6625,11 +6707,11 @@ components:
         privacy_policy_rule_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266153791490"
+          example: "882984630959996944"
         privacy_policy_rule_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266153791491"
+          example: "882984630959996945"
         target_persona_type:
           $ref: "#/components/schemas/PrivacyPersonaTypes"
         target_data_category_type:
@@ -6819,15 +6901,15 @@ components:
         resource_group_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266153791492"
+          example: "882984630959996946"
         resource_group_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266153791493"
+          example: "882984630959996947"
         resource_group_name:
           type: string
           description: The name of the resource group.
-          example: RESOURCE-GRP-870343246985822245
+          example: RESOURCE-GRP-882984046269825028
         resource_type:
           $ref: "#/components/schemas/ResourceTypes"
         resource_ids:
@@ -6886,6 +6968,14 @@ components:
       - VEHICLE_INVOICE
       - PART_INVOICE
       - SERVICE_INVOICE
+      - REPAIR_ORDER
+      - SERVICE_APPOINTMENT
+      - SERVICE_PUBLICATION
+      - PAYMENT
+      - CONTRACT
+      - QUOTE
+      - COMMUNICATION
+      - DOCUMENT
       - APPOINTMENT
       - OTHER
     SafetyRating:
@@ -6896,13 +6986,13 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266153791494"
+          example: "882984630959996948"
         safety_rating_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "870343266153791495"
+          example: "882984630959996949"
         rating_agency:
           $ref: "#/components/schemas/RatingAgencyTypes"
         assessment_year:
@@ -6951,7 +7041,7 @@ components:
           type: string
           description: "The safety testing program or protocol under which the rating\
             \ was assessed (e.g., US_NCAP, EURO_NCAP, IIHS)."
-          example: "870343246985822240"
+          example: "882984046265630769"
         assessment_protocol_version:
           type: string
           description: "The protocol version, ruleset, or model year specification\
@@ -6965,7 +7055,7 @@ components:
         source_record_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266153791496"
+          example: "882984630959996950"
         source_url:
           type: string
           description: The authoritative URL or publication location where the safety
@@ -6976,13 +7066,13 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-06
+          example: 2026-08-20
         source_last_verified_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-01T21:32:32.847301Z
+          example: 2026-08-07T14:52:21.082639Z
       description: External system safetyRating
     SafetyRatingTypes:
       type: string
@@ -7027,6 +7117,8 @@ components:
       - STAGED_FOR_PICKUP
       - CHECK_OUT
       - RELEASE
+      - INFORMATIONAL
+      - MILESTONE
       - UNKNOWN
     StaffRoleTypes:
       type: string
@@ -7068,11 +7160,11 @@ components:
         textual_detail_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266153791497"
+          example: "882984630959996951"
         textual_detail_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266153791498"
+          example: "882984630959996952"
         comments:
           $ref: "#/components/schemas/Memo"
         locale_codes:
@@ -7086,7 +7178,7 @@ components:
         text_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266153791499"
+          example: "882984630959996953"
         name:
           type: string
           description: textual.detail.name.desc
@@ -7168,7 +7260,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - AFTER
+          - REQUIRED
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
@@ -7284,7 +7376,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         delivery_method:
           maxItems: 255
           minItems: 1
@@ -7308,7 +7400,7 @@ components:
           type: array
           description: inventory_status_types list
           example:
-          - DISPOSAL
+          - ON_DEALER_LOT
           items:
             $ref: "#/components/schemas/InventoryStatusTypes"
         license:
@@ -7322,7 +7414,7 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-01
+          example: 2026-08-17
         search_category:
           maxItems: 255
           minItems: 1
@@ -7330,8 +7422,8 @@ components:
           type: array
           description: Search categorization for the vehicle.
           example:
-          - Parts-879813125719719961
-          - Service-879813125719719962
+          - Parts-882984046265630746
+          - Service-882984046265630747
           items:
             type: string
         stock_date_time:
@@ -7339,7 +7431,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         stock_number:
           maxLength: 50
           minLength: 1
@@ -7386,19 +7478,19 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-07
+          example: 2026-08-24
         original_sold_date:
           type: string
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-04
+          example: 2026-09-02
         odometer_capture_date:
           type: string
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-09
+          example: 2026-08-06
         vehicle_events:
           $ref: "#/components/schemas/VehicleEvents"
         vehicle_notes:
@@ -7500,8 +7592,8 @@ components:
           type: array
           description: Compartments within the vehicle.
           example:
-          - "879813125719719959"
-          - "879813125719719960"
+          - "882984046265630744"
+          - "882984046265630745"
           items:
             type: string
         crane_indicator:
@@ -7551,7 +7643,7 @@ components:
           type: array
           description: engine_types list
           example:
-          - ICE
+          - OTHER
           items:
             $ref: "#/components/schemas/EngineTypes"
         exterior_color:
@@ -7582,7 +7674,7 @@ components:
           type: array
           description: fuel_types list
           example:
-          - METHANOL
+          - PROPANE
           items:
             $ref: "#/components/schemas/FuelTypes"
         gross_vehicle_weight:
@@ -7778,7 +7870,7 @@ components:
           type: array
           description: vehicle_body_style_types list
           example:
-          - CROSSOVER
+          - CONVERTIBLE
           items:
             $ref: "#/components/schemas/VehicleBodyStyleTypes"
         vehicle_category_types:
@@ -7788,7 +7880,7 @@ components:
           type: array
           description: vehicle_category_types list
           example:
-          - CONVERTIBLE
+          - WORK_TRUCK
           items:
             $ref: "#/components/schemas/VehicleCategoryTypes"
         vehicle_class:
@@ -7834,7 +7926,7 @@ components:
           type: array
           description: vehicle_types list
           example:
-          - TRAILER
+          - CUTAWAY
           items:
             $ref: "#/components/schemas/VehicleConstructionTypes"
         wheel_base:
@@ -7936,7 +8028,7 @@ components:
         vehicle_economy_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266153791500"
+          example: "882984630964191232"
         economy:
           maxItems: 255
           minItems: 1
@@ -7944,8 +8036,8 @@ components:
           type: array
           description: Economy classification or measurement for the vehicle.
           example:
-          - "879813125719719963"
-          - "879813125719719964"
+          - "882984046265630748"
+          - "882984046265630749"
           items:
             type: string
         efficiency:
@@ -7959,7 +8051,7 @@ components:
           type: array
           description: fuel_types list
           example:
-          - AVIATION_TURBINE_AVTUR
+          - AVIATION_GASOLINE_AVGAS
           items:
             $ref: "#/components/schemas/FuelTypes"
         range:
@@ -8031,13 +8123,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         recorded_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         event_duration:
           $ref: "#/components/schemas/EffectivePeriod"
         event_detail:
@@ -8162,11 +8254,11 @@ components:
         plate_number:
           type: string
           description: The license plate number.
-          example: "69"
+          example: "70"
         vehicle_license_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266153791501"
+          example: "882984630964191233"
       description: License for vehicle
     VehicleMedia:
       type: object
@@ -8174,16 +8266,16 @@ components:
         vehicle_media_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266153791502"
+          example: "882984630964191234"
         media_href:
           type: string
           description: A reference link to the media.
           format: href
-          example: https://api.example.com/resources/79241
+          example: https://api.example.com/resources/26358
         media_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266153791503"
+          example: "882984630964191235"
         media_name:
           type: string
           description: The name of the media.
@@ -8201,7 +8293,7 @@ components:
           minLength: 1
           type: string
           description: Unique global internal or external business key.
-          example: "870343266153791504"
+          example: "882984630964191236"
         manufacturer_name:
           maxLength: 120
           minLength: 1
@@ -8245,7 +8337,7 @@ components:
           type: array
           description: option_types list
           example:
-          - COLOR
+          - ACCESSORY
           items:
             $ref: "#/components/schemas/OptionTypes"
         quantity:
@@ -8273,7 +8365,7 @@ components:
         vehicle_price_summary_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266157985792"
+          example: "882984630964191237"
         capitalized_indicator:
           type: boolean
           description: An indicator that determines if the price is capitalized.
@@ -8293,8 +8385,8 @@ components:
           type: array
           description: Descriptions associated with the vehicle price summary.
           example:
-          - "879813125719719965"
-          - "879813125719719966"
+          - "882984046265630750"
+          - "882984046265630751"
           items:
             type: string
         purchase_type:
@@ -8318,7 +8410,7 @@ components:
         vehicle_price_summary_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266157985793"
+          example: "882984630964191238"
       description: vehicle price
     VehicleReference:
       type: object
@@ -8412,6 +8504,14 @@ components:
           type: string
           description: The baseline layout style design of the chassis structure shell.
           example: Crew Cab Pickup
+        trim_codes:
+          $ref: "#/components/schemas/Codes"
+        trim_dd_codes:
+          $ref: "#/components/schemas/Codes"
+        final_assembly_point:
+          $ref: "#/components/schemas/Codes"
+        fleet_codes:
+          $ref: "#/components/schemas/Codes"
       description: Vehicle Detail Create Information
     VehicleResourceTypes:
       type: string
@@ -8505,7 +8605,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         vehicle_state_position:
           $ref: "#/components/schemas/VehicleStatePosition"
         vehicle_states:
@@ -8516,8 +8616,8 @@ components:
           type: string
           description: The descriptive memo associated with the vehicle snapshot.
           example: Vehicle engine component.
-        medias:
-          $ref: "#/components/schemas/Medias"
+        media_references:
+          $ref: "#/components/schemas/MediaReferences"
         snapshot_codes:
           $ref: "#/components/schemas/Codes"
         service_milestone_types:
@@ -8533,15 +8633,15 @@ components:
         vehicle_specification_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266157985794"
+          example: "882984630964191239"
         vehicle_specification_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266157985795"
+          example: "882984630964191240"
         axle_count:
           type: string
           description: The number of axles on the vehicle.
-          example: "6"
+          example: "43"
         backup_camera_indicator:
           type: boolean
           description: Indicates whether a backup camera is installed.
@@ -8583,8 +8683,8 @@ components:
           type: array
           description: Compartments within the vehicle.
           example:
-          - "879813125719719959"
-          - "879813125719719960"
+          - "882984046265630744"
+          - "882984046265630745"
           items:
             type: string
         compartment_door_desc:
@@ -8602,11 +8702,11 @@ components:
         cylinder_count:
           type: string
           description: The engine cylinder configuration count.
-          example: "27"
+          example: "43"
         doors_count:
           type: string
           description: The total count of vehicle doors.
-          example: "9"
+          example: "57"
         drive_train:
           type: string
           description: The structural configuration of the drivetrain.
@@ -8626,7 +8726,7 @@ components:
           type: array
           description: engine_types list
           example:
-          - ICE
+          - THERMAL_REACTION
           items:
             $ref: "#/components/schemas/EngineTypes"
         exterior_color:
@@ -8650,7 +8750,7 @@ components:
           type: array
           description: fuel_types list
           example:
-          - KEROSENE
+          - PROPANE
           items:
             $ref: "#/components/schemas/FuelTypes"
         gross_vehicle_weight:
@@ -8760,7 +8860,7 @@ components:
           type: array
           description: vehicle_body_style_types list
           example:
-          - SERVICE_BODY
+          - CONTRACTOR_BODY
           items:
             $ref: "#/components/schemas/VehicleBodyStyleTypes"
         vehicle_category_types:
@@ -8770,7 +8870,7 @@ components:
           type: array
           description: vehicle_category_types list
           example:
-          - CROSSOVER
+          - CONVERTIBLE
           items:
             $ref: "#/components/schemas/VehicleCategoryTypes"
         vehicle_class:
@@ -8802,7 +8902,7 @@ components:
           type: array
           description: vehicle_types list
           example:
-          - GLIDER
+          - CHASSIS
           items:
             $ref: "#/components/schemas/VehicleConstructionTypes"
         wheel_base:
@@ -8841,6 +8941,8 @@ components:
           description: The raw or normalized value captured for the vehicle state
             reading.
           example: "82"
+        uom:
+          $ref: "#/components/schemas/NarrativeUomTypes"
         vehicle_system_type:
           $ref: "#/components/schemas/VehicleSystemTypes"
         vehicle_resource_type:
@@ -8856,13 +8958,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         recorded_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         vehicle_state_position:
           $ref: "#/components/schemas/VehicleStatePosition"
         narratives:
@@ -8927,13 +9029,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         recorded_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         mask_indicator:
           type: boolean
           description: "Indicates whether the vehicle position was intentionally masked,\
@@ -9128,7 +9230,7 @@ components:
           type: array
           description: vehicle_types list
           example:
-          - CUTAWAY
+          - GLIDER
           items:
             $ref: "#/components/schemas/VehicleConstructionTypes"
         vehicle_configuration_codes:
@@ -9151,7 +9253,7 @@ components:
           type: array
           description: inventory_status_types list
           example:
-          - WHOLESALE
+          - UNKNOWN
           items:
             $ref: "#/components/schemas/InventoryStatusTypes"
         hitch_indicator:
@@ -9188,8 +9290,8 @@ components:
           type: array
           description: Search categorization for the vehicle.
           example:
-          - Parts-879813125719719961
-          - Service-879813125719719962
+          - Parts-882984046265630746
+          - Service-882984046265630747
           items:
             type: string
         vehicle_class:
@@ -9231,13 +9333,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         production_date:
           type: string
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-02
+          example: 2026-08-17
         torque:
           maxLength: 30
           minLength: 1
@@ -9330,8 +9432,8 @@ components:
           type: array
           description: Compartments within the vehicle.
           example:
-          - "879813125719719959"
-          - "879813125719719960"
+          - "882984046265630744"
+          - "882984046265630745"
           items:
             type: string
         floor_desc:
@@ -9375,7 +9477,7 @@ components:
           type: array
           description: engine_types list
           example:
-          - THERMAL_EXTERNAL
+          - PHYSICAL
           items:
             $ref: "#/components/schemas/EngineTypes"
         inside_body_width:
@@ -9430,7 +9532,7 @@ components:
           type: array
           description: fuel_types list
           example:
-          - P_SERIES
+          - DIESEL
           items:
             $ref: "#/components/schemas/FuelTypes"
         snowplow_indicator:
@@ -9493,13 +9595,13 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-20
+          example: 2026-08-17
         delivered_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-07-29T16:33:24Z
+          example: 2026-09-02T13:45:41Z
         vehicle_medias:
           $ref: "#/components/schemas/VehicleMedias"
         license:
@@ -9511,7 +9613,7 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-25
+          example: 2026-08-30
         condition:
           maxLength: 50
           minLength: 1
@@ -9544,7 +9646,7 @@ components:
           type: array
           description: vehicle_category_types list
           example:
-          - HEAVY_DUTY_TRUCK
+          - BUS
           items:
             $ref: "#/components/schemas/VehicleCategoryTypes"
         engine_type_description:
@@ -9575,7 +9677,7 @@ components:
           type: array
           description: vehicle_body_style_types list
           example:
-          - COMMERCIAL_VAN
+          - OTHER
           items:
             $ref: "#/components/schemas/VehicleBodyStyleTypes"
         floor_desc_detail:
@@ -9666,7 +9768,7 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-11
+          example: 2026-08-28
       description: Vehicle Update for Patch and Put
     Violation:
       type: object
@@ -9724,11 +9826,11 @@ components:
         warranty_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266187345920"
+          example: "882984630993551360"
         warranty_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266187345921"
+          example: "882984630993551361"
         delayed_inspection_codes:
           $ref: "#/components/schemas/Codes"
         receipt_identifiers:
@@ -9738,7 +9840,7 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-22
+          example: 2026-08-05
         actual_odometer_end:
           $ref: "#/components/schemas/MetricValue"
         actual_odometer_start:
@@ -9770,8 +9872,8 @@ components:
           type: array
           description: Blueprint code for the warranty coverage.
           example:
-          - "879813125719719967"
-          - "879813125719719968"
+          - "882984046265630752"
+          - "882984046265630753"
           items:
             type: string
         coverage_code:
@@ -9781,8 +9883,8 @@ components:
           type: array
           description: Coverage code identifier.
           example:
-          - Coverage-879813125719719969
-          - Coverage-879813125719719970
+          - Coverage-882984046265630754
+          - Coverage-882984046265630755
           items:
             type: string
         coverage_description:
@@ -9804,7 +9906,7 @@ components:
         warranty_coverage_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266187345922"
+          example: "882984630993551362"
         warranty_coverage_interval:
           type: string
           description: The interval of the warranty coverage.
@@ -9814,7 +9916,7 @@ components:
         warranty_coverage_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266187345923"
+          example: "882984630993551363"
       description: Warranty Coverage Information
     WarrantyCoverages:
       type: array
@@ -9835,7 +9937,7 @@ components:
         warranty_term_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "870343266187345924"
+          example: "882984630993551364"
         end_mileage:
           type: string
           description: The mileage at which the warranty ends.
@@ -9851,7 +9953,7 @@ components:
           type: array
           description: warranty_option_types list
           example:
-          - OTHER
+          - ROADSIDE_ASSIST
           items:
             $ref: "#/components/schemas/WarrantyOptionTypes"
         warranty_status_code:
@@ -9869,7 +9971,7 @@ components:
         warranty_term_key:
           type: string
           description: Unique global internal or external business key.
-          example: "870343266187345925"
+          example: "882984630993551365"
         warranty_period:
           $ref: "#/components/schemas/EffectivePeriod"
         warranty_expiration_date:
@@ -9877,7 +9979,7 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-07-21
+          example: 2026-08-06
       description: Warranty Information
     WarrantyTermTypes:
       type: string
@@ -12902,7 +13004,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265788887042"
+        example: "882984630775447564"
     VehicleStatePositionKey:
       name: vehicle-state-position-key
       in: path
@@ -12912,7 +13014,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265793081349"
+        example: "882984630775447577"
     WarrantyTermKey:
       name: warranty-term-key
       in: path
@@ -12922,7 +13024,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265784692740"
+        example: "882984630775447557"
     VehicleSpecificationKey:
       name: vehicle-specification-key
       in: path
@@ -12932,7 +13034,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265788887048"
+        example: "882984630775447570"
     SourceSystemHeader:
       name: Source-System
       in: header
@@ -12972,7 +13074,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265793081350"
+        example: "882984630775447578"
     FilterQuery:
       name: filter
       in: query
@@ -13028,7 +13130,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265788887045"
+        example: "882984630775447567"
     WarrantyCoverageKey:
       name: warranty-coverage-key
       in: path
@@ -13038,7 +13140,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265788887046"
+        example: "882984630775447568"
     VehicleKey:
       name: vehicle-key
       in: path
@@ -13048,7 +13150,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265780498433"
+        example: "882984630771253249"
     FinancialEventSnapshotKey:
       name: financial-event-snapshot-key
       in: path
@@ -13058,7 +13160,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265788887040"
+        example: "882984630775447562"
     AgentHeader:
       name: Agent
       in: header
@@ -13081,7 +13183,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265793081344"
+        example: "882984630775447572"
     VehicleStateKey:
       name: vehicle-state-key
       in: path
@@ -13091,7 +13193,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265788887043"
+        example: "882984630775447565"
     ResourceGroupKey:
       name: resource-group-key
       in: path
@@ -13101,7 +13203,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265788887049"
+        example: "882984630775447571"
     IdempotencyKeyHeader:
       name: Idempotency-Key
       in: header
@@ -13123,7 +13225,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265784692736"
+        example: "882984630775447553"
     LimitQuery:
       name: limit
       in: query
@@ -13159,7 +13261,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265780498434"
+        example: "882984630771253250"
     PrivacyPolicyRuleKey:
       name: privacy-policy-rule-key
       in: path
@@ -13169,7 +13271,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265788887047"
+        example: "882984630775447569"
     BrandHeader:
       name: Brand
       in: header
@@ -13213,7 +13315,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265793081348"
+        example: "882984630775447576"
     JurisdictionProfileKey:
       name: jurisdiction-profile-key
       in: path
@@ -13223,7 +13325,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265784692744"
+        example: "882984630775447561"
     ReasonQuery:
       name: reason
       in: query
@@ -13245,7 +13347,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265793081346"
+        example: "882984630775447574"
     CacheControlHeader:
       name: Cache-Control
       in: header
@@ -13265,7 +13367,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265784692737"
+        example: "882984630775447554"
     PreferHeader:
       name: Prefer
       in: header
@@ -13296,7 +13398,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265784692743"
+        example: "882984630775447560"
     CountryCodeHeader:
       name: Country-Code
       in: header
@@ -13328,7 +13430,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265784692739"
+        example: "882984630775447556"
     SortQuery:
       name: sort
       in: query
@@ -13350,7 +13452,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265784692738"
+        example: "882984630775447555"
     VehiclePriceSummaryKey:
       name: vehicle-price-summary-key
       in: path
@@ -13360,7 +13462,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265788887044"
+        example: "882984630775447566"
     OffsetQuery:
       name: offset
       in: query
@@ -13383,7 +13485,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265793081345"
+        example: "882984630775447573"
     VehicleEconomyKey:
       name: vehicle-economy-key
       in: path
@@ -13393,7 +13495,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265780498435"
+        example: "882984630775447552"
     StandardsVersionHeader:
       name: Standards-Version
       in: header
@@ -13417,7 +13519,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265784692742"
+        example: "882984630775447559"
     TransactionIDHeader:
       name: Transaction-ID
       in: header
@@ -13457,7 +13559,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265793081347"
+        example: "882984630775447575"
     WarrantyKey:
       name: warranty-key
       in: path
@@ -13467,7 +13569,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265784692741"
+        example: "882984630775447558"
     VehicleOptionKey:
       name: vehicle-option-key
       in: path
@@ -13477,7 +13579,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "870343265788887041"
+        example: "882984630775447563"
   headers:
     CacheControlHeader:
       description: Tells the client and intermediary caches how to store the response.
@@ -13524,7 +13626,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/870343265793081351
+        example: /labor-operations/882984630775447579
     ContentLocationHeader:
       description: The URI of the specific representation returned in the payload.
         Used to disambiguate the 'Resource Identifier' from the 'Data Artifact' in
@@ -13535,7 +13637,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/870343265793081352
+        example: /labor-operations/882984630775447580
     TransactionIDHeader:
       description: Echoes the unique identifier for the specific atomic unit of work
         processed by the server.

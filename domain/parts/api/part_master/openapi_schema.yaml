@@ -132,7 +132,7 @@ components:
           type: string
           description: Timestamp of the last update to this authorization
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -173,7 +173,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         captured_financial_split:
           $ref: "#/components/schemas/FinancialSplitReference"
         part_identifier_reference:
@@ -363,7 +363,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
       description: External system identifier
     CreditReference:
       type: object
@@ -388,7 +388,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         sequence_id:
           type: string
           description: Unique Sequencing Order for this entity in a list
@@ -440,7 +440,7 @@ components:
           description: The specific UTC timestamp when this exchange rate was captured
             or finalized.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
     CurrencyExchanges:
@@ -504,7 +504,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         sequence_id:
           type: string
           description: Unique Sequencing Order for this entity in a list
@@ -597,13 +597,13 @@ components:
           type: string
           description: The inclusive start point of the period in ISO 8601 format.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         complete_date_time:
           type: string
           description: The exclusive end point of the period (completion) in ISO 8601
             format.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -656,7 +656,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         sequence_id:
           type: string
           description: Unique Sequencing Order for this entity in a list
@@ -694,7 +694,7 @@ components:
           type: string
           description: The date and time the financial category was assigned or referenced.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
       description: "Reference to a Financial Category Aggregate Root (e.g., Revenue,\
         \ Expense, Asset)."
     FinancialCategoryReferences:
@@ -782,7 +782,7 @@ components:
           description: The date and time the financialSplit was associated with the
             order.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
       description: Reference to a Payment FinancialSplit Aggregate Root.
     FinancialSplits:
       type: array
@@ -876,7 +876,7 @@ components:
           type: string
           description: The date and time the schedule was associated with the order.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
       description: Reference to a Payment Schedule Aggregate Root.
     GeographicBoundaryReferences:
       type: array
@@ -1013,13 +1013,13 @@ components:
             \ synchronized from the source governance, legal, policy, or compliance\
             \ system."
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         occurrence_date_time:
           type: string
           description: "The date and time when the jurisdiction profile was observed,\
             \ created, received, updated, or became effective."
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
       description: nullable
     LeadTime:
       type: object
@@ -1200,7 +1200,7 @@ components:
           description: Timestamp representing the occurrence of this part category
             event.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         root_indicator:
           type: boolean
           description: Indicates if this is the root category in a hierarchy.
@@ -1380,7 +1380,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         part_locations:
           $ref: "#/components/schemas/PartLocations"
       description: External system identifier
@@ -1916,7 +1916,7 @@ components:
           type: string
           description: Timestamp indicating when this specific reference was established.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         org_indicator:
           type: boolean
           description: Indicates if the party is an organization (true) or an individual
@@ -2251,19 +2251,26 @@ components:
           description: "Human-readable display value for the price, including currency\
             \ symbol and proper decimal formatting."
         amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The numeric value of the price (before tax/cost breakdowns).
         tax_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The calculated amount of tax applied to the price.
         taxable_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The portion of the price subject to tax.
         non_taxable_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The portion of the price not subject to tax.
         total_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The total final price including all components and tax.
         total_cost_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The total cost to the provider/seller.
         unit_cost_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The unit cost to the provider/seller.
         price_description:
           type: string
           description: "A descriptive title for the price (e.g., 'MSRP', 'Sale Price')."
@@ -2333,7 +2340,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         geographic_boundaries:
           $ref: "#/components/schemas/GeographicBoundaryReferences"
         captured_financial_split:
@@ -2713,7 +2720,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         sequence_id:
           type: string
           description: Unique Sequencing Order for this entity in a list
@@ -2781,7 +2788,7 @@ components:
           type: string
           description: The date and time the event occurred.
           format: date-time
-          example: 2026-08-24T19:35:28Z
+          example: 2026-09-02T13:44:13Z
         sequence_id:
           type: string
           description: Unique Sequencing Order for this entity in a list

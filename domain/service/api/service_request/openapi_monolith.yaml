@@ -1325,7 +1325,7 @@ components:
           type: array
           description: address_types list
           example:
-          - SERVICE
+          - BUSINESS
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -2430,7 +2430,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - SELF
+          - FLEET_MANAGER
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:

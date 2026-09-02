@@ -7296,7 +7296,7 @@ components:
           type: array
           description: address_types list
           example:
-          - ORIGINAL
+          - DESTINATION
           items:
             $ref: "#/components/schemas/AddressTypes"
         authorization_levels:
@@ -7414,7 +7414,7 @@ components:
           type: array
           description: address_types list
           example:
-          - ARCHIVE
+          - TEMPORARY
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -8273,7 +8273,7 @@ components:
           type: array
           description: department_types list
           example:
-          - ADAS_CALIBRATION
+          - FLEET_OPS
           items:
             $ref: "#/components/schemas/DepartmentTypes"
         control_accounts:
@@ -10226,8 +10226,8 @@ components:
           description: "Key-value pairs representing event-specific data such as quantity\
             \ updates, status changes, or location adjustments."
           example:
-          - "879813125719719975"
-          - "879813125719719976"
+          - "882983845698207784"
+          - "882983845698207785"
           items:
             type: string
         warehouse_keys:
@@ -10237,8 +10237,8 @@ components:
           type: array
           description: List of warehouse identifiers associated with the event.
           example:
-          - Ware-879813125719719977
-          - Ware-879813125719719978
+          - Ware-882983845698207786
+          - Ware-882983845698207787
           items:
             type: string
         part_identifier:
@@ -10550,7 +10550,7 @@ components:
           type: array
           description: product_types list
           example:
-          - VEHICLE
+          - SERVICE_PACKAGE
           items:
             $ref: "#/components/schemas/ProductTypes"
         system_codes:
@@ -10674,7 +10674,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - FI_MGR
+          - RESPONSIBLE
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -11166,8 +11166,8 @@ components:
           type: array
           description: Position codes associated with the entity.
           example:
-          - Pos-879813125719719955
-          - Pos-879813125719719956
+          - Pos-882983845698207764
+          - Pos-882983845698207765
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -11232,7 +11232,7 @@ components:
           type: array
           description: price_types list
           example:
-          - PER_UNIT
+          - FUEL_CHARGE_AMOUNT
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
@@ -11244,7 +11244,7 @@ components:
           type: array
           description: price_category_types list
           example:
-          - TOTAL
+          - FEE
           items:
             $ref: "#/components/schemas/PriceCategoryTypes"
       description: "Price that includes display value, currency, locale, and value,\
@@ -12124,7 +12124,7 @@ components:
           type: array
           description: service_activity_types list
           example:
-          - APPOINTMENT_SCHEDULED
+          - LEAD_QUALIFIED
           items:
             $ref: "#/components/schemas/CustomerInteractionTypes"
         service_activity_resource_types:
@@ -12242,7 +12242,7 @@ components:
           type: array
           description: service_job_types list
           example:
-          - TECHNICAL_SERVICE_BULLETIN
+          - LABOR
           items:
             $ref: "#/components/schemas/ServiceJobTypes"
         warranty_references:
@@ -12865,7 +12865,7 @@ components:
           type: array
           description: role_types list
           example:
-          - VALET_OPERATOR
+          - AUTONOMOUS_SYSTEM
           items:
             $ref: "#/components/schemas/RoleTypes"
         staff_member_id:
@@ -13309,7 +13309,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - FLEXIBLE
+          - ANYTIME
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:

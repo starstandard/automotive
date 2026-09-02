@@ -300,12 +300,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -365,12 +365,12 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
         "400":
           $ref: "#/components/responses/BadRequestError"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -437,12 +437,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -1559,128 +1559,6 @@ paths:
       - AuthorizationHeader: []
     parameters:
     - $ref: "#/components/parameters/PartKey"
-  /parts/{part-key}/general-amounts:
-    get:
-      tags:
-      - GeneralAmounts
-      summary: Returns a paginated list of general amount
-      description: a list of GeneralAmount
-      operationId: listGeneralAmountsByPartKey
-      parameters:
-      - $ref: "#/components/parameters/FilterQuery"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/GeneralAmountCollectionResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
-    parameters:
-    - $ref: "#/components/parameters/PartKey"
-  /parts/{part-key}/general-amounts/{general-amount-key}:
-    get:
-      tags:
-      - GeneralAmounts
-      summary: Retrieve a single item scoped by a key GeneralAmount entities.
-      description: Retrieve a single item scoped by a key GeneralAmount entities.
-      operationId: getGeneralAmountByKey
-      parameters:
-      - $ref: "#/components/parameters/TransactionIDHeader"
-      - $ref: "#/components/parameters/StandardsVersionHeader"
-      - $ref: "#/components/parameters/CountryCodeHeader"
-      - $ref: "#/components/parameters/LocaleHeader"
-      - $ref: "#/components/parameters/AgentHeader"
-      - $ref: "#/components/parameters/CacheControlHeader"
-      - $ref: "#/components/parameters/CorrelationIDHeader"
-      - $ref: "#/components/parameters/GeneralAmountKey"
-      - $ref: "#/components/parameters/IfNoneMatchHeader"
-      - $ref: "#/components/parameters/OrgVersionHeader"
-      - $ref: "#/components/parameters/PreferHeader"
-      - $ref: "#/components/parameters/PreferenceAppliedHeader"
-      - $ref: "#/components/parameters/ResourceDomainHeader"
-      - $ref: "#/components/parameters/StoreIDHeader"
-      - $ref: "#/components/parameters/TotalCountHeader"
-      - $ref: "#/components/parameters/LimitQuery"
-      - $ref: "#/components/parameters/OffsetQuery"
-      - $ref: "#/components/parameters/SortQuery"
-      - $ref: "#/components/parameters/BrandHeader"
-      - $ref: "#/components/parameters/CreatorCodeHeader"
-      - $ref: "#/components/parameters/DealerIdHeader"
-      - $ref: "#/components/parameters/RegionHeader"
-      - $ref: "#/components/parameters/SourceSystemHeader"
-      - $ref: "#/components/parameters/SubscriberCodeHeader"
-      responses:
-        "200":
-          $ref: "#/components/responses/GeneralAmountSingleResponse"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/ForbiddenError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "500":
-          $ref: "#/components/responses/ServerError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
-      security:
-      - member-api-key: []
-      - industry-oauth:
-        - standard:read
-      - ApiKeyHeader: []
-      - AuthorizationHeader: []
-    parameters:
-    - $ref: "#/components/parameters/PartKey"
   /parts/{part-key}/financial-event-snapshots:
     get:
       tags:
@@ -1803,6 +1681,128 @@ paths:
       - AuthorizationHeader: []
     parameters:
     - $ref: "#/components/parameters/PartKey"
+  /parts/{part-key}/general-amounts:
+    get:
+      tags:
+      - GeneralAmounts
+      summary: Returns a paginated list of general amount
+      description: a list of GeneralAmount
+      operationId: listGeneralAmountsByPartKey
+      parameters:
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      - $ref: "#/components/parameters/BrandHeader"
+      - $ref: "#/components/parameters/CreatorCodeHeader"
+      - $ref: "#/components/parameters/DealerIdHeader"
+      - $ref: "#/components/parameters/RegionHeader"
+      - $ref: "#/components/parameters/SourceSystemHeader"
+      - $ref: "#/components/parameters/SubscriberCodeHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/GeneralAmountCollectionResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+      - ApiKeyHeader: []
+      - AuthorizationHeader: []
+    parameters:
+    - $ref: "#/components/parameters/PartKey"
+  /parts/{part-key}/general-amounts/{general-amount-key}:
+    get:
+      tags:
+      - GeneralAmounts
+      summary: Retrieve a single item scoped by a key GeneralAmount entities.
+      description: Retrieve a single item scoped by a key GeneralAmount entities.
+      operationId: getGeneralAmountByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/GeneralAmountKey"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/BrandHeader"
+      - $ref: "#/components/parameters/CreatorCodeHeader"
+      - $ref: "#/components/parameters/DealerIdHeader"
+      - $ref: "#/components/parameters/RegionHeader"
+      - $ref: "#/components/parameters/SourceSystemHeader"
+      - $ref: "#/components/parameters/SubscriberCodeHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/GeneralAmountSingleResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+      - ApiKeyHeader: []
+      - AuthorizationHeader: []
+    parameters:
+    - $ref: "#/components/parameters/PartKey"
   /part/health:
     get:
       tags:
@@ -1845,14 +1845,14 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
         "429":
           $ref: "#/components/responses/TooManyRequestsError"
         "400":
           $ref: "#/components/responses/BadRequestError"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -1889,7 +1889,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:09Z
+          example: 2026-09-02T13:43:54Z
       description: External system identifier
     ActorTypes:
       type: string
@@ -1926,11 +1926,11 @@ components:
         address_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811089288658944"
+          example: "882984185755598848"
         address_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811089288658945"
+          example: "882984185755598849"
         address_types:
           maxItems: 255
           minItems: 1
@@ -1938,7 +1938,7 @@ components:
           type: array
           description: address_types list
           example:
-          - GARAGE
+          - BILLING
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -2046,7 +2046,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:09Z
+          example: 2026-09-02T13:43:54Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -2055,7 +2055,7 @@ components:
         authorization_level_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811089288658946"
+          example: "882984185755598850"
         auth_codes:
           $ref: "#/components/schemas/Codes"
         privacy_policy_rules:
@@ -2081,7 +2081,7 @@ components:
         correlation_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811089288658947"
+          example: "882984185755598851"
         previous_balance:
           $ref: "#/components/schemas/GeneralAmount"
         resulting_balance:
@@ -2127,11 +2127,11 @@ components:
         communication_channel_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811089288658948"
+          example: "882984185755598852"
         communication_channel_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811089288658949"
+          example: "882984185755598853"
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
         context:
@@ -2257,19 +2257,19 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811089292853248"
+          example: "882984185755598854"
         control_account_reference_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811089292853249"
+          example: "882984185755598855"
         control_account_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811089292853250"
+          example: "882984185755598856"
         context:
           type: string
           description: Context or domain of the identifier
@@ -2283,7 +2283,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:09Z
+          example: 2026-09-02T13:43:54Z
       description: External system identifier
     ControlAccountReferences:
       type: array
@@ -2326,7 +2326,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:09Z
+          example: 2026-09-02T13:43:54Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
     CurrencyExchanges:
@@ -2389,13 +2389,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:09Z
+          example: 2026-09-02T13:43:54Z
         complete_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:09Z
+          example: 2026-09-02T13:43:54Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -2533,7 +2533,7 @@ components:
         financial_event_snapshot_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811089292853251"
+          example: "882984185755598857"
         financial_category_type:
           $ref: "#/components/schemas/FinancialCategoryTypes"
         general_ledger_reference:
@@ -2570,19 +2570,19 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811089292853252"
+          example: "882984185755598858"
         general_ledger_reference_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811089292853253"
+          example: "882984185755598859"
         general_ledger_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811089292853254"
+          example: "882984185755598860"
         context:
           type: string
           description: Context or domain of the reference
@@ -2596,7 +2596,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:09Z
+          example: 2026-09-02T13:43:54Z
       description: External system reference
     HealthStatus:
       type: object
@@ -2618,13 +2618,13 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811089292853255"
+          example: "882984185755598861"
         identifier_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811089292853256"
+          example: "882984185755598862"
         context:
           type: string
           description: Context or domain of the identifier
@@ -2722,13 +2722,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:09Z
+          example: 2026-09-02T13:43:54Z
         occurrence_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:09Z
+          example: 2026-09-02T13:43:54Z
       description: nullable
     Locale:
       type: object
@@ -2736,7 +2736,7 @@ components:
         locale_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811089292853257"
+          example: "882984185755598863"
         locale_name:
           type: string
           description: The full IETF BCP 47 language tag or Java-style locale string
@@ -2813,7 +2813,7 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-08-15
+          example: 2026-08-28
         prices:
           $ref: "#/components/schemas/Prices"
         part_lifecycles:
@@ -2831,7 +2831,7 @@ components:
           type: array
           description: part_status_types list
           example:
-          - ALLOCATE_TO_JOB
+          - RETURN_TO_BIN
           items:
             $ref: "#/components/schemas/PartStatusTypes"
         part_events:
@@ -2853,17 +2853,17 @@ components:
         part_event_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811089292853258"
+          example: "882984185755598864"
         part_event_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811089292853259"
+          example: "882984185755598865"
         occurrence_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:09Z
+          example: 2026-09-02T13:43:54Z
         actor:
           $ref: "#/components/schemas/ActorReference"
         event_category:
@@ -2884,8 +2884,8 @@ components:
           description: "Key-value pairs representing event-specific data such as quantity\
             \ updates, status changes, or location adjustments."
           example:
-          - "879813125719719975"
-          - "879813125719719976"
+          - "882984046265630760"
+          - "882984046265630761"
           items:
             type: string
         warehouse_keys:
@@ -2895,8 +2895,8 @@ components:
           type: array
           description: List of warehouse identifiers associated with the event.
           example:
-          - Ware-879813125719719977
-          - Ware-879813125719719978
+          - Ware-882984046265630762
+          - Ware-882984046265630763
           items:
             type: string
         part_identifier:
@@ -2915,7 +2915,7 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-08-07
+          example: 2026-08-28
         business_context:
           $ref: "#/components/schemas/BusinessContext"
         financial_event_snapshot:
@@ -2932,11 +2932,11 @@ components:
         part_identifier_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811089292853260"
+          example: "882984185759793152"
         part_identifier_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811089292853261"
+          example: "882984185759793153"
         part_source:
           type: string
           description: Unique identifier ID for the source of the part
@@ -3043,13 +3043,13 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811089292853262"
+          example: "882984185759793154"
         part_lifecycle_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811089292853263"
+          example: "882984185759793155"
         is_superseded:
           type: boolean
           description: Indicator whether the part has been superseded
@@ -3059,7 +3059,7 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-08-19
+          example: 2026-08-15
         reason:
           maxLength: 255
           type: string
@@ -3139,11 +3139,11 @@ components:
         part_name_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811089292853264"
+          example: "882984185759793156"
         part_name_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811089292853265"
+          example: "882984185759793157"
         part_prefix:
           $ref: "#/components/schemas/Codes"
         part_suffix:
@@ -3258,7 +3258,7 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-08-21
+          example: 2026-08-11
         control_account_references:
           $ref: "#/components/schemas/ControlAccountReferences"
         part_status_types:
@@ -3268,7 +3268,7 @@ components:
           type: array
           description: part_status_types list
           example:
-          - SUPERSEDED
+          - RETURN_RECEIVE
           items:
             $ref: "#/components/schemas/PartStatusTypes"
         part_condition_grade_type:
@@ -3357,7 +3357,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - SPOUSE
+          - POLITICAL_AFFILIATE
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -3371,7 +3371,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:09Z
+          example: 2026-09-02T13:43:54Z
         org_indicator:
           type: boolean
           description: Indicates if the party is an organization (true) or an individual
@@ -3684,30 +3684,44 @@ components:
         price_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811089301241856"
+          example: "882984185763987456"
         price_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811089301241857"
+          example: "882984185763987457"
         display_amount:
           type: string
           description: "Human-readable display value for the price, including currency\
             \ symbol and proper decimal formatting."
-          example: $700.25
+          example: $461.62
         amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The numeric value of the price (before tax/cost breakdowns).
+          example: "{total_amount=27000}"
         tax_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The calculated amount of tax applied to the price.
+          example: $642.58
         taxable_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The portion of the price subject to tax.
+          example: $300.77
         non_taxable_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The portion of the price not subject to tax.
+          example: $392.56
         total_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The total final price including all components and tax.
+          example: $414.75
         total_cost_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The total cost to the provider/seller.
+          example: $344.48
         unit_cost_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The unit cost to the provider/seller.
+          example: $627.10
         price_description:
           type: string
           description: "A descriptive title for the price (e.g., 'MSRP', 'Sale Price')."
@@ -3727,7 +3741,7 @@ components:
           type: array
           description: price_types list
           example:
-          - TRADE_IN_EQUITY_TOTAL
+          - BASE
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
@@ -3739,7 +3753,7 @@ components:
           type: array
           description: price_category_types list
           example:
-          - OTHER
+          - TAX
           items:
             $ref: "#/components/schemas/PriceCategoryTypes"
         currency_exchanges:
@@ -3908,11 +3922,11 @@ components:
         privacy_policy_rule_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811089301241858"
+          example: "882984185763987458"
         privacy_policy_rule_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811089301241859"
+          example: "882984185763987459"
         target_persona_type:
           $ref: "#/components/schemas/PrivacyPersonaTypes"
         target_data_category_type:
@@ -4109,19 +4123,19 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811089301241860"
+          example: "882984185763987460"
         super_session_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811089301241861"
+          example: "882984185763987461"
         event_date:
           type: string
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-08-12
+          example: 2026-08-07
         prev_part_names:
           $ref: "#/components/schemas/PartNames"
         new_part_names:
@@ -4147,7 +4161,7 @@ components:
           type: array
           description: part_status_types list
           example:
-          - PICK
+          - INSPECT_INBOUND
           items:
             $ref: "#/components/schemas/PartStatusTypes"
       description: "Represents a part supersession event, detailing the transition\
@@ -4198,7 +4212,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - EXACT
+          - PREFERRED
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
@@ -5720,7 +5734,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811089179607049"
+        example: "882984185629769731"
     ReasonQuery:
       name: reason
       in: query
@@ -5766,7 +5780,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811089179607048"
+        example: "882984185629769730"
     SourceSystemHeader:
       name: Source-System
       in: header
@@ -5806,7 +5820,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811089179607044"
+        example: "882984185625575428"
     FilterQuery:
       name: filter
       in: query
@@ -5870,7 +5884,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811089179607047"
+        example: "882984185629769729"
     IfNoneMatchHeader:
       name: If-None-Match
       in: header
@@ -5902,7 +5916,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811089179607046"
+        example: "882984185629769728"
     PartEventKey:
       name: part-event-key
       in: path
@@ -5912,7 +5926,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811089179607050"
+        example: "882984185629769732"
     CorrelationIDHeader:
       name: Correlation-ID
       in: header
@@ -5935,7 +5949,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811089179607052"
+        example: "882984185629769733"
     AgentHeader:
       name: Agent
       in: header
@@ -5982,7 +5996,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811089179607043"
+        example: "882984185625575427"
     OffsetQuery:
       name: offset
       in: query
@@ -6031,7 +6045,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811089179607042"
+        example: "882984185625575426"
     StandardsVersionHeader:
       name: Standards-Version
       in: header
@@ -6055,7 +6069,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811089179607045"
+        example: "882984185625575429"
     TransactionIDHeader:
       name: Transaction-ID
       in: header
@@ -6097,7 +6111,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811089179607041"
+        example: "882984185625575425"
     DealerIdHeader:
       name: Dealer-Id
       in: header
@@ -6139,7 +6153,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811089179607051"
+        example: "882984185629769734"
   headers:
     CacheControlHeader:
       description: Tells the client and intermediary caches how to store the response.
@@ -6186,7 +6200,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/879811089179607053
+        example: /labor-operations/882984185629769735
     ContentLocationHeader:
       description: The URI of the specific representation returned in the payload.
         Used to disambiguate the 'Resource Identifier' from the 'Data Artifact' in
@@ -6197,7 +6211,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/879811089179607054
+        example: /labor-operations/882984185629769736
     TransactionIDHeader:
       description: Echoes the unique identifier for the specific atomic unit of work
         processed by the server.

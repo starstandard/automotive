@@ -286,12 +286,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -350,12 +350,12 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -422,12 +422,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
-        "503":
-          $ref: "#/components/responses/ServiceUnavailableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -476,14 +476,14 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
-        "429":
-          $ref: "#/components/responses/TooManyRequestsError"
-        "400":
-          $ref: "#/components/responses/BadRequestError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -633,13 +633,13 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-08-15
+          example: 2026-08-07
         end_date:
           type: string
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-08-07
+          example: 2026-08-10
         accounting_period_status_type:
           $ref: "#/components/schemas/AccountingPeriodStatusTypes"
         fiscal_year:
@@ -667,11 +667,11 @@ components:
         budget_variance_line_item_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879810755942154240"
+          example: "882981009698586624"
         budget_variance_line_item_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879810755942154241"
+          example: "882981009698586625"
         general_ledger_account:
           $ref: "#/components/schemas/GeneralLedgerReference"
         control_account:
@@ -692,11 +692,11 @@ components:
         budget_variance_report_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879810755942154242"
+          example: "882981009698586626"
         budget_variance_report_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879810755942154243"
+          example: "882981009698586627"
         budget_variance_report_criteria:
           $ref: "#/components/schemas/BudgetVarianceReportCriteria"
         report_date:
@@ -704,7 +704,7 @@ components:
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-08-15
+          example: 2026-08-24
         accounting_period:
           $ref: "#/components/schemas/AccountingPeriod"
         line_items:
@@ -728,15 +728,15 @@ components:
         budget_variance_report_criteria_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879810755942154244"
+          example: "882981009698586628"
         budget_variance_report_criteria_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879810755942154245"
+          example: "882981009698586629"
         accounting_period_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879810755942154246"
+          example: "882981009698586630"
         gl_account_keys:
           maxItems: 255
           minItems: 1
@@ -745,8 +745,8 @@ components:
           description: List of general ledger account identifiers used to filter the
             variance report.
           example:
-          - "879813125719719945"
-          - "879813125719719946"
+          - "882983845698207754"
+          - "882983845698207755"
           items:
             type: string
         control_account_keys:
@@ -757,8 +757,8 @@ components:
           description: List of control account identifiers used to filter the variance
             report.
           example:
-          - "879813125719719947"
-          - "879813125719719948"
+          - "882983845698207756"
+          - "882983845698207757"
           items:
             type: string
         financial_categories:
@@ -781,8 +781,8 @@ components:
           type: array
           description: Unique system-specific internal identifier.
           example:
-          - Org-879813125719719949
-          - Org-879813125719719950
+          - Org-882983845698207758
+          - Org-882983845698207759
           items:
             type: string
         min_variance_percentage:
@@ -833,19 +833,19 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "879810755942154247"
+          example: "882981009698586631"
         control_account_reference_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879810755942154248"
+          example: "882981009698586632"
         control_account_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879810755942154249"
+          example: "882981009698586633"
         context:
           type: string
           description: Context or domain of the identifier
@@ -859,7 +859,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:33:50Z
+          example: 2026-09-02T13:31:17Z
       description: External system identifier
     CurrencyCode:
       type: string
@@ -899,7 +899,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:33:50Z
+          example: 2026-09-02T13:31:17Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
     ErrorDetail:
@@ -1031,19 +1031,19 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "879810755942154250"
+          example: "882981009698586634"
         general_ledger_reference_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879810755942154251"
+          example: "882981009698586635"
         general_ledger_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879810755942154252"
+          example: "882981009698586636"
         context:
           type: string
           description: Context or domain of the reference
@@ -1057,7 +1057,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:33:50Z
+          example: 2026-09-02T13:31:17Z
       description: External system reference
     HealthStatus:
       type: object
@@ -1079,13 +1079,13 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "879810755942154253"
+          example: "882981009698586637"
         identifier_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879810755942154254"
+          example: "882981009698586638"
         context:
           type: string
           description: Context or domain of the identifier
@@ -1971,7 +1971,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879810755828908033"
+        example: "882981009606311936"
     CorrelationIDHeader:
       name: Correlation-ID
       in: header
@@ -2208,7 +2208,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/879810755837296640
+        example: /labor-operations/882981009606311937
     ContentLocationHeader:
       description: The URI of the specific representation returned in the payload.
         Used to disambiguate the 'Resource Identifier' from the 'Data Artifact' in
@@ -2219,7 +2219,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/879810755837296641
+        example: /labor-operations/882981009606311938
     TransactionIDHeader:
       description: Echoes the unique identifier for the specific atomic unit of work
         processed by the server.
