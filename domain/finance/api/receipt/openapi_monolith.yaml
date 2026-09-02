@@ -1714,7 +1714,7 @@ components:
           type: array
           description: address_types list
           example:
-          - VACATION
+          - PORT
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -2227,8 +2227,8 @@ components:
           type: array
           description: Content of the event message.
           example:
-          - "879813125719719953"
-          - "879813125719719954"
+          - "882983845698207762"
+          - "882983845698207763"
           items:
             type: string
         event_date_time:
@@ -2876,7 +2876,7 @@ components:
           type: array
           description: product_types list
           example:
-          - SERVICE
+          - F_N_I_PRODUCT
           items:
             $ref: "#/components/schemas/ProductTypes"
         system_codes:
@@ -2963,7 +2963,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - STORE
+          - EMPLOYEE
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -3327,8 +3327,8 @@ components:
           type: array
           description: Position codes associated with the entity.
           example:
-          - Pos-879813125719719955
-          - Pos-879813125719719956
+          - Pos-882983845698207764
+          - Pos-882983845698207765
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -3381,7 +3381,7 @@ components:
           type: array
           description: price_types list
           example:
-          - DISCOUNT
+          - PROMOTIONAL
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
@@ -3393,7 +3393,7 @@ components:
           type: array
           description: price_category_types list
           example:
-          - FEE
+          - OTHER
           items:
             $ref: "#/components/schemas/PriceCategoryTypes"
         currency_exchanges:
@@ -3889,8 +3889,8 @@ components:
           description: "List of events associated with the receipt line item, such\
             \ as posting, validation, or settlement actions."
           example:
-          - "879813125719719943"
-          - "879813125719719944"
+          - "882983845698207752"
+          - "882983845698207753"
           items:
             $ref: "#/components/schemas/ShipmentEvent"
         party_references:
@@ -3902,7 +3902,7 @@ components:
           type: array
           description: order_types list
           example:
-          - SAMPLE
+          - MAINTENANCE
           items:
             $ref: "#/components/schemas/OrderTypes"
         journal_entry_key:
@@ -4335,7 +4335,7 @@ components:
           type: array
           description: role_types list
           example:
-          - INSPECTOR
+          - HELPER_TECHNICIAN
           items:
             $ref: "#/components/schemas/RoleTypes"
         timeslots:
@@ -4459,7 +4459,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - REQUIRED
+          - RESTRICTED
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:

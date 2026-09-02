@@ -1,0 +1,178 @@
+@startuml
+class Code {
+codeId:String
+codeKey:String
+code:String
+description:String
+}
+class EffectivePeriod {
+effectivePeriodKey:String
+activeIndicator:Boolean
+exclusiveIndicator:Boolean
+startDateTime:Date
+completeDateTime:Date
+durationUomType:DurationUomTypes
+durationValue:String
+recurUomType:DurationUomTypes
+recurCount:String
+recurValues:List<Code>
+recurCriteria:String
+recurIndicator:Boolean
+}
+class GeographicContext {
+jurisdictionCodes:List<Code>
+geographicHierarchyKey:String
+consentGiven:Boolean
+effectivePeriod:EffectivePeriod
+dataResidencyRequirement:List<Code>
+contextName:String
+privacyPolicyRules:List<PrivacyPolicyRule>
+}
+class PrivacyContext {
+privacyContextKey:String
+privacyContextId:String
+correlationId:String
+adapterType:PrivacyAdapterTypes
+targetDestinationName:String
+rawInboundPayload:String
+sanitizedOutboundPayload:String
+targetResponseRaw:String
+targetResponseFinal:String
+enforcedPolicyCodes:List<Code>
+privacyItems:List<PrivacyItem>
+geographicContext:GeographicContext
+}
+class PrivacyItem {
+privacyId:String
+privacyKey:String
+privacyType:PrivacyTypes
+}
+class PrivacyPolicyRule {
+privacyPolicyRuleKey:String
+privacyPolicyRuleId:String
+targetPersonaType:PrivacyPersonaTypes
+targetDataCategoryType:PrivacyTypes
+adapterType:PrivacyAdapterTypes
+defaultStrategyType:MaskingStrategyTypes
+activeIndicator:Boolean
+effectivePeriod:EffectivePeriod
+}
+class DurationUomTypes #FAFF91 {
+BI_WEEKS
+CUSTOM
+DAYS
+DAY_OF_MONTH
+HOURS
+MINUTES
+MONTHS
+MULTI_YEARS
+NONE
+OCCURRENCE
+OTHER
+QUARTERS
+SEMI_MONTHS
+SEMI_YEARS
+UNLIMITED
+WEEKS
+YEARS
+}
+class MaskingStrategyTypes #FAFF91 {
+BLOCK
+GENERALIZE
+GENERAL_ANONYMIZE
+HASH
+NONE
+NULLIFY
+PARTIAL_MASK
+PERTURB
+PSEUDONYMIZE
+REDACT
+TOKENIZE
+TRUNCATE
+}
+class PrivacyAdapterTypes #FAFF91 {
+AI_AGENT
+ALL
+DATABASE
+EXTERNAL_API
+INTERNAL_API
+LLM
+MESSAGE_BROKER
+}
+class PrivacyPersonaTypes #FAFF91 {
+CONSUMER
+DEALER
+MANUFACTURER
+REGULATOR
+THIRD_PARTY
+UNKNOWN
+}
+class PrivacyTypes #FAFF91 {
+ACCOUNT_CREDENTIALS
+ALL_DATA
+BANK_ACCOUNT_NUMBER
+CREDIT_CARD_NUMBER
+CRIMINAL_RECORD_HISTORY
+CRYPTO_WALLET_ADDRESS
+CUSTOM
+DATE_OF_BIRTH
+DEVICE_ID
+DRIVER_LICENSE_NUMBER
+EMAIL_ADDRESS
+EMOTION_RECOGNITION_DATA
+FACE_SCAN
+FINGERPRINT
+GENERAL_BIO
+GENERAL_BUSINESS
+GENERAL_CONTACT
+GENERAL_DATA
+GENERAL_FINANCIAL
+GENERAL_MEDICAL
+GENERAL_OPERATIONAL
+GENERAL_PERSONAL
+GENERAL_SOCIAL
+GENETIC_DATA
+GEOLOCATION_DATA
+HEALTH_INSURANCE_ID
+HOME_ADDRESS
+IP_ADDRESS
+MEDICAL_RECORD_NUMBER
+MOTHER_MAIDEN_NAME
+NATIONALITY_CITIZENSHIP
+ONLINE_BEHAVIORAL_DATA
+PASSPORT_NUMBER
+PAYPAL_ACCOUNT
+PHONE_NUMBER
+POLITICAL_AFFILIATION
+PRESCRIPTION_DETAILS
+RACIAL_ETHNIC_ORIGIN
+RELIGIOUS_PHILOSOPHICAL_BELIEF
+ROUTING_NUMBER
+SEXUAL_ORIENTATION
+SEX_LIFE_HEALTH
+SOCIAL_MEDIA_HANDLE
+SOCIAL_MEDIA_PROFILE
+SOCIAL_SECURITY_NUMBER
+TAX_ID_NUMBER
+THIRD_PARTY_BUSINESS_DATA
+THIRD_PARTY_CUSTOMER_DATA
+TRADE_UNION_MEMBERSHIP
+UNION_GOVERNMENT_ID
+UNKNOWN
+VOICE_PRINT
+}
+DurationUomTypes -- EffectivePeriod
+EffectivePeriod -- GeographicContext
+EffectivePeriod -- PrivacyPolicyRule
+GeographicContext -- PrivacyContext
+MaskingStrategyTypes -- PrivacyItem
+MaskingStrategyTypes -- PrivacyPolicyRule
+PrivacyAdapterTypes -- PrivacyContext
+PrivacyAdapterTypes -- PrivacyPolicyRule
+PrivacyItem *-- PrivacyContext
+PrivacyPersonaTypes -- PrivacyItem
+PrivacyPersonaTypes -- PrivacyPolicyRule
+PrivacyPolicyRule *-- GeographicContext
+PrivacyTypes -- PrivacyItem
+PrivacyTypes -- PrivacyPolicyRule
+@enduml

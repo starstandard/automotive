@@ -1,0 +1,27 @@
+Updates Made
+Date-Only Fields: Added invoice_date and process_date directly on vehicle_invoice formatted as ISO dates (YYYY-MM-DD), omitting timestamps and offsets.
+SHIP_THROUGH Party Type: Utilized "party_type": "SHIP_THROUGH" inside PartyReference to represent secondary upfitter and drop-ship locations.
+
+{
+  "vehicle_invoice": {
+    "vehicle_invoice_id": "VI-2026-9001",
+    "invoice_number": "INV-889102",
+    "currency_code": "USD",
+    "invoice_date": "2026-08-25",
+    "process_date": "2026-08-25",
+    "party_references": [
+      {
+        "party_reference_id": "PR-DEALER-01",
+        "party_name": "Main Street Ford Dealership",
+        "party_type": "DEALER",
+        "account_number": "DLR-90812"
+      },
+      {
+        "party_reference_id": "PR-SHIPTHRU-01",
+        "party_name": "Auto Truck Group Upfitter Center",
+        "party_type": "SHIP_THROUGH",
+        "account_number": "ST-31A"
+      }
+    ]
+  }
+}

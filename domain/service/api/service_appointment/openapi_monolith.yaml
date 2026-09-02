@@ -8294,7 +8294,7 @@ components:
           type: array
           description: address_types list
           example:
-          - RECIPIENT
+          - HUB
           items:
             $ref: "#/components/schemas/AddressTypes"
         authorization_levels:
@@ -8412,7 +8412,7 @@ components:
           type: array
           description: address_types list
           example:
-          - INSURANCE
+          - PO_BOX
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -9456,7 +9456,7 @@ components:
           type: array
           description: department_types list
           example:
-          - SUBLET
+          - FLEET
           items:
             $ref: "#/components/schemas/DepartmentTypes"
         control_accounts:
@@ -11856,7 +11856,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - AUDITOR
+          - CONCIERGE_MGR
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -12171,7 +12171,7 @@ components:
           type: array
           description: party_types list
           example:
-          - CUSTOMER
+          - DEALER
           items:
             $ref: "#/components/schemas/PartyTypes"
         person_attributes:
@@ -12346,8 +12346,8 @@ components:
           type: array
           description: Position codes associated with the entity.
           example:
-          - Pos-879813125719719955
-          - Pos-879813125719719956
+          - Pos-882983845698207764
+          - Pos-882983845698207765
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -12412,7 +12412,7 @@ components:
           type: array
           description: price_types list
           example:
-          - TAX
+          - LANDED
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
@@ -13075,7 +13075,7 @@ components:
           type: array
           description: repair_order_initiation_types list
           example:
-          - SUPERSEDES
+          - WARRANTY
           items:
             $ref: "#/components/schemas/RepairOrderInitiationTypes"
       description: repair.order.reference.desc
@@ -13450,7 +13450,7 @@ components:
           type: array
           description: service_activity_types list
           example:
-          - LEAD_DUPLICATED
+          - LEAD_QUALIFIED
           items:
             $ref: "#/components/schemas/CustomerInteractionTypes"
         service_activity_resource_types:
@@ -13460,7 +13460,7 @@ components:
           type: array
           description: service_activity_resource_types list
           example:
-          - GAS_OIL_GREASE
+          - PAINT_MATERIALS
           items:
             $ref: "#/components/schemas/ServiceActivityResourceTypes"
         service_activity_codes:
@@ -13524,7 +13524,7 @@ components:
           type: array
           description: appointment_types list
           example:
-          - DIAGNOSTIC_ESTIMATE
+          - BODY_SHOP
           items:
             $ref: "#/components/schemas/AppointmentTypes"
         narratives:
@@ -13583,7 +13583,7 @@ components:
           type: array
           description: appointment_types list
           example:
-          - INTERNAL
+          - BODY_SHOP
           items:
             $ref: "#/components/schemas/AppointmentTypes"
         geographic_context:
@@ -13819,7 +13819,7 @@ components:
           type: array
           description: service_job_types list
           example:
-          - F_AND_I
+          - MOBILE
           items:
             $ref: "#/components/schemas/ServiceJobTypes"
         warranty_references:
@@ -14387,7 +14387,7 @@ components:
           type: array
           description: staff_activity_types list
           example:
-          - APPROVED
+          - AUTHORIZED
           items:
             $ref: "#/components/schemas/StaffActivityTypes"
         activity_status:
@@ -14508,7 +14508,7 @@ components:
           type: array
           description: role_types list
           example:
-          - SPECIALIST
+          - CONCIERGE_STAFF
           items:
             $ref: "#/components/schemas/RoleTypes"
         timeslots:
@@ -14590,7 +14590,7 @@ components:
           type: array
           description: role_types list
           example:
-          - STAFF
+          - DISPATCHER
           items:
             $ref: "#/components/schemas/RoleTypes"
         staff_member_id:
@@ -15034,7 +15034,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - AFTER
+          - EXACT
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:

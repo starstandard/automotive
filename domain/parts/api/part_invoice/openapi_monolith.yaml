@@ -312,12 +312,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -377,12 +377,12 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
         "400":
           $ref: "#/components/responses/BadRequestError"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -449,12 +449,12 @@ paths:
           $ref: "#/components/responses/TooManyRequestsError"
         "500":
           $ref: "#/components/responses/ServerError"
-        "406":
-          $ref: "#/components/responses/NotAcceptableError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
         "504":
           $ref: "#/components/responses/GatewayTimeout"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -2631,14 +2631,14 @@ paths:
           $ref: "#/components/responses/ServerError"
         "503":
           $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
         "429":
           $ref: "#/components/responses/TooManyRequestsError"
         "400":
           $ref: "#/components/responses/BadRequestError"
         "406":
           $ref: "#/components/responses/NotAcceptableError"
-        "504":
-          $ref: "#/components/responses/GatewayTimeout"
       security:
       - member-api-key: []
       - industry-oauth:
@@ -2675,7 +2675,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
       description: External system identifier
     ActorTypes:
       type: string
@@ -2712,11 +2712,11 @@ components:
         address_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126089482240"
+          example: "882984222468341760"
         address_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126089482241"
+          example: "882984222468341761"
         address_types:
           maxItems: 255
           minItems: 1
@@ -2724,7 +2724,7 @@ components:
           type: array
           description: address_types list
           example:
-          - DESTINATION
+          - REBATE
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -2832,7 +2832,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         authorized_indicator:
           type: boolean
           description: Indicates whether the authorization is currently active or
@@ -2841,7 +2841,7 @@ components:
         authorization_level_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126089482242"
+          example: "882984222468341762"
         auth_codes:
           $ref: "#/components/schemas/Codes"
         privacy_policy_rules:
@@ -2867,7 +2867,7 @@ components:
         correlation_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676544"
+          example: "882984222468341763"
         previous_balance:
           $ref: "#/components/schemas/GeneralAmount"
         resulting_balance:
@@ -2913,11 +2913,11 @@ components:
         communication_channel_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676545"
+          example: "882984222468341764"
         communication_channel_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676546"
+          example: "882984222468341765"
         communication_channel_type:
           $ref: "#/components/schemas/CommunicationChannelTypes"
         context:
@@ -3043,19 +3043,19 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676547"
+          example: "882984222468341766"
         control_account_reference_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676548"
+          example: "882984222468341767"
         control_account_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676549"
+          example: "882984222468341768"
         context:
           type: string
           description: Context or domain of the identifier
@@ -3069,7 +3069,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
       description: External system identifier
     CreditReference:
       type: object
@@ -3077,15 +3077,15 @@ components:
         credit_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676550"
+          example: "882984222468341769"
         credit_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676551"
+          example: "882984222468341770"
         credit_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676552"
+          example: "882984222468341771"
         context:
           type: string
           description: Context or domain of the identifier
@@ -3099,7 +3099,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         sequence_id:
           type: string
           description: Unique system-specific internal identifier.
@@ -3150,7 +3150,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
       description: "CurrencyExchange that includes display value, currency, locale,\
         \ and value, along with tax and cost components."
     CurrencyExchanges:
@@ -3224,7 +3224,7 @@ components:
           type: array
           description: delivery_method_types list
           example:
-          - FREE_SHIPPING
+          - GROUND
           items:
             $ref: "#/components/schemas/ShippingMethodTypes"
         delivery_priority_type:
@@ -3344,19 +3344,19 @@ components:
         discount_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676553"
+          example: "882984222468341772"
         discount_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676554"
+          example: "882984222468341773"
         discount_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676555"
+          example: "882984222468341774"
         unit_count:
           type: string
           description: Unique identifier value
-          example: "59"
+          example: "52"
         context:
           type: string
           description: Context or domain of the identifier
@@ -3370,7 +3370,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         sequence_id:
           type: string
           description: Unique system-specific internal identifier.
@@ -3406,7 +3406,7 @@ components:
           type: array
           description: purchase_types list
           example:
-          - WHOLESALE
+          - CUSTOM_ORDER
           items:
             $ref: "#/components/schemas/OrderCategoryTypes"
         product_state_types:
@@ -3416,7 +3416,7 @@ components:
           type: array
           description: product_state_types list
           example:
-          - COMPANY_OWNED
+          - NEW
           items:
             $ref: "#/components/schemas/ProductStateTypes"
         location_codes:
@@ -3491,13 +3491,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         complete_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         duration_uom_type:
           $ref: "#/components/schemas/DurationUomTypes"
         duration_value:
@@ -3625,19 +3625,19 @@ components:
         fee_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676556"
+          example: "882984222468341775"
         fee_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676557"
+          example: "882984222468341776"
         fee_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676558"
+          example: "882984222468341777"
         unit_count:
           type: string
           description: Unique identifier value
-          example: "32"
+          example: "89"
         context:
           type: string
           description: Context or domain of the identifier
@@ -3651,7 +3651,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         sequence_id:
           type: string
           description: Unique system-specific internal identifier.
@@ -3683,15 +3683,15 @@ components:
         category_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676559"
+          example: "882984222468341778"
         category_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676560"
+          example: "882984222468341779"
         category_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676561"
+          example: "882984222468341780"
         context:
           type: string
           description: "Context or domain of the financial category (e.g., 'INCOME',\
@@ -3704,7 +3704,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
       description: "Reference to a Financial Category Aggregate Root (e.g., Revenue,\
         \ Expense, Asset)."
     FinancialCategoryReferences:
@@ -3776,19 +3776,19 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         post_date:
           type: string
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-08-07
+          example: 2026-08-28
         transaction_date:
           type: string
           description: "Calendar date associated with this value, represented in ISO-8601\
             \ date format."
           format: date
-          example: 2026-08-18
+          example: 2026-08-25
         batch_number:
           type: string
           description: The batch number associated with this transaction.
@@ -3800,7 +3800,7 @@ components:
           type: array
           description: previous_event_types list
           example:
-          - HOLD_ON_DATE
+          - CANCEL
           items:
             $ref: "#/components/schemas/PaymentTransactionStatusTypes"
         provider_transaction_id:
@@ -3824,11 +3824,11 @@ components:
         correlation_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676562"
+          example: "882984222472536064"
         causation_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676563"
+          example: "882984222472536065"
         tracking_ref:
           type: string
           description: Tracking reference for the transaction.
@@ -3873,7 +3873,7 @@ components:
         financial_event_snapshot_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676564"
+          example: "882984222472536066"
         financial_category_type:
           $ref: "#/components/schemas/FinancialCategoryTypes"
         general_ledger_reference:
@@ -4000,17 +4000,17 @@ components:
         financial_split_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676565"
+          example: "882984222472536067"
         financial_split_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676566"
+          example: "882984222472536068"
         financial_split_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676567"
+          example: "882984222472536069"
         context:
           type: string
           description: Context or domain of the payment financialSplit.
@@ -4026,7 +4026,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
       description: Reference to a Payment FinancialSplit Aggregate Root.
     FinancialSplits:
       type: array
@@ -4054,7 +4054,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         actor_id:
           type: string
           description: Unique system-specific internal identifier.
@@ -4170,7 +4170,7 @@ components:
           type: array
           description: fleet_types list
           example:
-          - FLEET
+          - TAX
           items:
             $ref: "#/components/schemas/PartyTypes"
         display_name:
@@ -4198,11 +4198,11 @@ components:
         fulfillment_profile_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676568"
+          example: "882984222472536070"
         fulfillment_profile_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676569"
+          example: "882984222472536071"
         fulfillment_method_type:
           $ref: "#/components/schemas/FulfillmentMethodTypes"
         order_types:
@@ -4212,7 +4212,7 @@ components:
           type: array
           description: order_types list
           example:
-          - INTERNAL_TRANSFER
+          - STANDARD
           items:
             $ref: "#/components/schemas/OrderTypes"
         fulfillment_status_type:
@@ -4298,19 +4298,19 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676570"
+          example: "882984222472536072"
         general_ledger_reference_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676571"
+          example: "882984222472536073"
         general_ledger_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676572"
+          example: "882984222472536074"
         context:
           type: string
           description: Context or domain of the reference
@@ -4324,7 +4324,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
       description: External system reference
     GeographicBoundaryReference:
       type: object
@@ -4332,15 +4332,15 @@ components:
         geographic_boundary_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676573"
+          example: "882984222472536075"
         geographic_boundary_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676574"
+          example: "882984222472536076"
         geographic_boundary_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676575"
+          example: "882984222472536077"
         context:
           type: string
           description: Context or domain of the payment schedule.
@@ -4352,7 +4352,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
       description: Reference to a Payment Schedule Aggregate Root.
     GeographicBoundaryReferences:
       type: array
@@ -4378,13 +4378,13 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676576"
+          example: "882984222472536078"
         identifier_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676577"
+          example: "882984222472536079"
         context:
           type: string
           description: Context or domain of the identifier
@@ -4457,15 +4457,15 @@ components:
         invoice_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126093676578"
+          example: "882984222472536080"
         invoice_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676579"
+          example: "882984222472536081"
         invoice_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676580"
+          example: "882984222472536082"
         context:
           type: string
           description: "Context or domain of the invoice (e.g., 'ACCOUNTS_PAYABLE',\
@@ -4478,7 +4478,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         invoice_type:
           $ref: "#/components/schemas/InvoiceTypes"
       description: "Reference to an Invoice Aggregate Root, representing a financial\
@@ -4606,13 +4606,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         occurrence_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
       description: nullable
     LedgerActionTypes:
       type: string
@@ -4633,7 +4633,7 @@ components:
         locale_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126093676581"
+          example: "882984222472536083"
         locale_name:
           type: string
           description: The full IETF BCP 47 language tag or Java-style locale string
@@ -4875,11 +4875,11 @@ components:
         part_identifier_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126097870848"
+          example: "882984222472536084"
         part_identifier_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126097870849"
+          example: "882984222472536085"
         part_source:
           type: string
           description: Unique identifier ID for the source of the part
@@ -5012,15 +5012,15 @@ components:
         part_inventory_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126097870850"
+          example: "882984222472536086"
         part_inventory_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126097870851"
+          example: "882984222472536087"
         part_inventory_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126097870852"
+          example: "882984222472536088"
         context:
           type: string
           description: Context or domain of the identifier
@@ -5034,7 +5034,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         part_locations:
           $ref: "#/components/schemas/PartLocations"
       description: External system identifier
@@ -5092,25 +5092,25 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         due_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         post_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         create_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         invoice_status_types:
           maxItems: 255
           minItems: 1
@@ -5179,7 +5179,7 @@ components:
           type: array
           description: part_invoice_types list
           example:
-          - SPECIAL_ORDER
+          - EXCHANGE
           items:
             $ref: "#/components/schemas/PartInvoiceTypes"
         part_invoice_items:
@@ -5293,7 +5293,7 @@ components:
           type: array
           description: invoice_item_status_types list
           example:
-          - SHIPPED
+          - ADJUSTED
           items:
             $ref: "#/components/schemas/InvoiceItemStatusTypes"
         financial_tracks:
@@ -5402,13 +5402,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         create_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         shipped_quantity:
           maxLength: 40
           minLength: 1
@@ -5448,7 +5448,7 @@ components:
           type: array
           description: invoice_status_types list
           example:
-          - CLOSED
+          - PENDING_APPROVAL
           items:
             $ref: "#/components/schemas/InvoiceStatusTypes"
         shipment_references:
@@ -5476,7 +5476,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         version:
           maxLength: 50
           type: string
@@ -5498,7 +5498,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         payment_method_references:
           $ref: "#/components/schemas/PaymentMethodReferences"
         shipment_state_type:
@@ -5510,7 +5510,7 @@ components:
           type: array
           description: part_invoice_types list
           example:
-          - INTERNAL_SERVICE
+          - BACKORDER_FULFILLMENT
           items:
             $ref: "#/components/schemas/PartInvoiceTypes"
       description: PartInvoice Update for Patch and Put
@@ -5570,11 +5570,11 @@ components:
         part_name_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126106259456"
+          example: "882984222485118976"
         part_name_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126106259457"
+          example: "882984222485118977"
         part_prefix:
           $ref: "#/components/schemas/Codes"
         part_suffix:
@@ -5624,11 +5624,11 @@ components:
         part_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126106259458"
+          example: "882984222485118978"
         part_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126106259459"
+          example: "882984222485118979"
         name:
           type: string
           description: Product Name.
@@ -5638,11 +5638,11 @@ components:
         part_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126106259460"
+          example: "882984222485118980"
         part_master_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126106259461"
+          example: "882984222485118981"
         manufacturer:
           type: string
           description: Context or domain of the identifier
@@ -5658,7 +5658,7 @@ components:
           type: array
           description: product_types list
           example:
-          - PART
+          - PACKAGE_GOODS
           items:
             $ref: "#/components/schemas/ProductTypes"
         system_codes:
@@ -5668,7 +5668,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         unit_of_measure:
           $ref: "#/components/schemas/UnitOfMeasure"
       description: External system identifier
@@ -5734,13 +5734,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         actual_delivery_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         delivered_indicator:
           type: boolean
           description: Indicates whether the part shipment has been delivered.
@@ -5750,7 +5750,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
       description: Reference details for the logistics and shipment of a vehicle during
         the RDR process.
     PartShipmentReferences:
@@ -5878,7 +5878,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - COMPOSED_IN
+          - PROVIDER
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -5892,7 +5892,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         org_indicator:
           type: boolean
           description: Indicates if the party is an organization (true) or an individual
@@ -6096,11 +6096,11 @@ components:
         payment_authorization_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126106259462"
+          example: "882984222485118982"
         payment_authorization_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126106259463"
+          example: "882984222485118983"
         auth_reasons:
           $ref: "#/components/schemas/Codes"
         auth_amount:
@@ -6116,11 +6116,11 @@ components:
         transaction_number:
           type: string
           description: Context or domain of the reference.
-          example: "3"
+          example: "20"
         auth_number:
           type: string
           description: Context or domain of the reference.
-          example: "40"
+          example: "45"
         auth_code:
           type: string
           description: Context or domain of the reference.
@@ -6130,7 +6130,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
       description: Reference to a PaymentMethod (Party) Aggregate Root for financing
         details.
     PaymentAuthorizations:
@@ -6145,19 +6145,19 @@ components:
           minLength: 5
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126106259464"
+          example: "882984222485118984"
         payment_method_reference_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811126106259465"
+          example: "882984222485118985"
         payment_method_key:
           maxLength: 50
           minLength: 5
           type: string
           description: Unique global internal or external business key.
-          example: "879811126106259466"
+          example: "882984222485118986"
         context:
           type: string
           description: Context or domain of the reference.
@@ -6173,7 +6173,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
       description: Reference to a PaymentMethod (Party) Aggregate Root for financing
         details.
     PaymentMethodReferences:
@@ -6221,15 +6221,15 @@ components:
         payment_schedule_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126106259467"
+          example: "882984222485118987"
         payment_schedule_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126106259468"
+          example: "882984222485118988"
         payment_schedule_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126106259469"
+          example: "882984222485118989"
         payment_period:
           $ref: "#/components/schemas/EffectivePeriod"
         context:
@@ -6248,13 +6248,13 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         payment_frequency:
           $ref: "#/components/schemas/DurationIntervalTypes"
         payment_amount:
           type: string
           description: The price of all products and services before tax.
-          example: $30.78
+          example: $705.32
         annual_percentage_rate:
           type: string
           description: Context or domain of the payment schedule.
@@ -6289,15 +6289,15 @@ components:
         term_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126106259470"
+          example: "882984222485118990"
         term_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453760"
+          example: "882984222485118991"
         term_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453761"
+          example: "882984222485118992"
         context:
           type: string
           description: Context or domain of the payment term.
@@ -6309,7 +6309,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
       description: "Reference to a Payment Term Aggregate Root (e.g., Net 30)."
     PaymentTermReferences:
       type: array
@@ -6523,8 +6523,8 @@ components:
           type: array
           description: Position codes associated with the entity.
           example:
-          - Pos-879813125719719955
-          - Pos-879813125719719956
+          - Pos-882984046265630740
+          - Pos-882984046265630741
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -6534,30 +6534,44 @@ components:
         price_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126110453762"
+          example: "882984222485118993"
         price_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453763"
+          example: "882984222485118994"
         display_amount:
           type: string
           description: "Human-readable display value for the price, including currency\
             \ symbol and proper decimal formatting."
-          example: $630.75
+          example: $127.23
         amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The numeric value of the price (before tax/cost breakdowns).
+          example: "{total_amount=27000}"
         tax_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The calculated amount of tax applied to the price.
+          example: $492.77
         taxable_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The portion of the price subject to tax.
+          example: $67.59
         non_taxable_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The portion of the price not subject to tax.
+          example: $923.50
         total_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The total final price including all components and tax.
+          example: $546.42
         total_cost_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The total cost to the provider/seller.
+          example: $721.28
         unit_cost_amount:
-          $ref: "#/components/schemas/GeneralAmount"
+          type: string
+          description: The unit cost to the provider/seller.
+          example: $145.31
         price_description:
           type: string
           description: "A descriptive title for the price (e.g., 'MSRP', 'Sale Price')."
@@ -6577,7 +6591,7 @@ components:
           type: array
           description: price_types list
           example:
-          - FEE_TOTAL
+          - INVOICE_AMOUNT
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
@@ -6589,7 +6603,7 @@ components:
           type: array
           description: price_category_types list
           example:
-          - OTHER
+          - TAX
           items:
             $ref: "#/components/schemas/PriceCategoryTypes"
         currency_exchanges:
@@ -6616,15 +6630,15 @@ components:
         price_plan_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126110453764"
+          example: "882984222485118995"
         price_plan_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453765"
+          example: "882984222485118996"
         price_plan_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453766"
+          example: "882984222485118997"
         price_levels:
           $ref: "#/components/schemas/Codes"
         context:
@@ -6640,7 +6654,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         geographic_boundaries:
           $ref: "#/components/schemas/GeographicBoundaryReferences"
         captured_financial_split:
@@ -6825,11 +6839,11 @@ components:
         privacy_policy_rule_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453767"
+          example: "882984222485118998"
         privacy_policy_rule_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126110453768"
+          example: "882984222485118999"
         target_persona_type:
           $ref: "#/components/schemas/PrivacyPersonaTypes"
         target_data_category_type:
@@ -7057,15 +7071,15 @@ components:
         rebate_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126110453769"
+          example: "882984222485119000"
         rebate_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453770"
+          example: "882984222485119001"
         rebate_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453771"
+          example: "882984222485119002"
         context:
           type: string
           description: Context or domain of the identifier
@@ -7079,7 +7093,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         sequence_id:
           type: string
           description: Unique system-specific internal identifier.
@@ -7107,7 +7121,7 @@ components:
           type: array
           description: payment_types list
           example:
-          - CONSUMPTION_BASED
+          - PROGRESS_PAYMENT
           items:
             $ref: "#/components/schemas/PaymentTypes"
         product_state_type:
@@ -7124,7 +7138,7 @@ components:
           type: string
           description: Hyperlink to the full Rebate resource.
           format: href
-          example: https://api.example.com/resources/61052
+          example: https://api.example.com/resources/95811
       description: External system identifier
     RebateReferences:
       type: array
@@ -7196,15 +7210,15 @@ components:
         reward_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126110453772"
+          example: "882984222485119003"
         reward_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453773"
+          example: "882984222485119004"
         reward_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453774"
+          example: "882984222485119005"
         context:
           type: string
           description: Context or domain of the identifier
@@ -7218,7 +7232,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         sequence_id:
           type: string
           description: Unique system-specific internal identifier.
@@ -7276,19 +7290,19 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         recorded_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         effective_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         event_source:
           maxLength: 120
           minLength: 1
@@ -7346,7 +7360,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         quantity_shipped:
           maxLength: 40
           minLength: 1
@@ -7588,31 +7602,31 @@ components:
         status_transition_event_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126110453775"
+          example: "882984222485119006"
         status_transition_event_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453776"
+          example: "882984222485119007"
         aggregate_root_type:
           $ref: "#/components/schemas/ResourceTypes"
         aggregate_root_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453777"
+          example: "882984222485119008"
         aggregate_root_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126110453778"
+          example: "882984222485119009"
         entity_type:
           $ref: "#/components/schemas/ResourceTypes"
         entity_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453779"
+          example: "882984222485119010"
         entity_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126110453780"
+          example: "882984222485119011"
         state_machine_type:
           type: string
           description: State machine being executed.
@@ -7636,7 +7650,7 @@ components:
         capability_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453781"
+          example: "882984222485119012"
         intent_name:
           type: string
           description: Human readable intent associated with the transition.
@@ -7661,15 +7675,15 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         correlation_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126110453782"
+          example: "882984222485119013"
         causation_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126110453783"
+          example: "882984222485119014"
         identifiers:
           $ref: "#/components/schemas/Identifiers"
         actor:
@@ -7789,7 +7803,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - PREFERRED
+          - AFTER
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
@@ -7864,7 +7878,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         shipment_state_type:
           $ref: "#/components/schemas/ShipmentStateTypes"
         status_description:
@@ -7896,19 +7910,19 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         actual_delivery_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         last_updated_date_time:
           type: string
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
         delivery_exception_indicator:
           type: boolean
           description: "Indicates whether the shipment encountered a delivery exception,\
@@ -7969,7 +7983,7 @@ components:
         unit_of_measure_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453787"
+          example: "882984222485119018"
         unit_name:
           type: string
           description: Unit of Measure
@@ -8243,15 +8257,15 @@ components:
         location_reference_id:
           type: string
           description: Unique system-specific internal identifier.
-          example: "879811126110453788"
+          example: "882984222485119019"
         location_reference_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453789"
+          example: "882984222485119020"
         warehouse_key:
           type: string
           description: Unique global internal or external business key.
-          example: "879811126110453790"
+          example: "882984222485119021"
         context:
           type: string
           description: "Context or type of the location (e.g., 'WAREHOUSE', 'DEALERSHIP_BIN',\
@@ -8264,7 +8278,7 @@ components:
           description: "Date and time when the event or value occurred, represented\
             \ in ISO-8601 date-time format."
           format: date-time
-          example: 2026-08-24T19:35:18Z
+          example: 2026-09-02T13:44:03Z
       description: Reference to a Warehouse or Inventory Location Aggregate Root.
     WarehouseReferences:
       type: array
@@ -10243,7 +10257,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125921710085"
+        example: "882984222279598088"
     JurisdictionProfileKey:
       name: jurisdiction-profile-key
       in: path
@@ -10253,7 +10267,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125921710081"
+        example: "882984222279598084"
     ReasonQuery:
       name: reason
       in: query
@@ -10329,7 +10343,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125917515783"
+        example: "882984222279598081"
     FilterQuery:
       name: filter
       in: query
@@ -10373,7 +10387,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125917515779"
+        example: "882984222275403779"
     LocaleHeader:
       name: Locale
       in: header
@@ -10403,7 +10417,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125921710087"
+        example: "882984222279598090"
     IfNoneMatchHeader:
       name: If-None-Match
       in: header
@@ -10426,7 +10440,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125917515777"
+        example: "882984222275403777"
     StatusTransitionEventKey:
       name: status-transition-event-key
       in: path
@@ -10436,7 +10450,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125917515780"
+        example: "882984222275403780"
     FulfillmentProfileKey:
       name: fulfillment-profile-key
       in: path
@@ -10446,7 +10460,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125921710082"
+        example: "882984222279598085"
     CountryCodeHeader:
       name: Country-Code
       in: header
@@ -10478,7 +10492,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125921710083"
+        example: "882984222279598086"
     AgentHeader:
       name: Agent
       in: header
@@ -10525,7 +10539,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125917515782"
+        example: "882984222279598080"
     OffsetQuery:
       name: offset
       in: query
@@ -10548,7 +10562,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125921710084"
+        example: "882984222279598087"
     LimitQuery:
       name: limit
       in: query
@@ -10584,7 +10598,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125917515781"
+        example: "882984222275403781"
     ShipmentEventKey:
       name: shipment-event-key
       in: path
@@ -10594,7 +10608,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125921710088"
+        example: "882984222279598091"
     DeliveryProfileKey:
       name: delivery-profile-key
       in: path
@@ -10604,7 +10618,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125917515778"
+        example: "882984222275403778"
     StandardsVersionHeader:
       name: Standards-Version
       in: header
@@ -10628,7 +10642,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125917515784"
+        example: "882984222279598082"
     PrivacyPolicyRuleKey:
       name: privacy-policy-rule-key
       in: path
@@ -10638,7 +10652,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125921710086"
+        example: "882984222279598089"
     TransactionIDHeader:
       name: Transaction-ID
       in: header
@@ -10657,7 +10671,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125921710080"
+        example: "882984222279598083"
     BrandHeader:
       name: Brand
       in: header
@@ -10722,7 +10736,7 @@ components:
       explode: false
       schema:
         type: string
-        example: "879811125921710089"
+        example: "882984222279598092"
   headers:
     CacheControlHeader:
       description: Tells the client and intermediary caches how to store the response.
@@ -10769,7 +10783,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/879811125921710090
+        example: /labor-operations/882984222279598093
     ContentLocationHeader:
       description: The URI of the specific representation returned in the payload.
         Used to disambiguate the 'Resource Identifier' from the 'Data Artifact' in
@@ -10780,7 +10794,7 @@ components:
         pattern: ^/.+
         type: string
         format: uri-reference
-        example: /labor-operations/879811125921710091
+        example: /labor-operations/882984222279598094
     TransactionIDHeader:
       description: Echoes the unique identifier for the specific atomic unit of work
         processed by the server.

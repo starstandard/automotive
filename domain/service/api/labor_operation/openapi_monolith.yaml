@@ -6917,7 +6917,7 @@ components:
           type: array
           description: address_types list
           example:
-          - SERVICE
+          - DEALER
           items:
             $ref: "#/components/schemas/AddressTypes"
         authorization_levels:
@@ -7035,7 +7035,7 @@ components:
           type: array
           description: address_types list
           example:
-          - PORT
+          - PO_BOX
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -7839,7 +7839,7 @@ components:
           type: array
           description: department_types list
           example:
-          - F_I
+          - REGULAR_INSPECTION
           items:
             $ref: "#/components/schemas/DepartmentTypes"
         control_accounts:
@@ -10172,7 +10172,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - MENTOR
+          - CO_APPLICANT
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -10487,7 +10487,7 @@ components:
           type: array
           description: party_types list
           example:
-          - TAX
+          - PERSON
           items:
             $ref: "#/components/schemas/PartyTypes"
         person_attributes:
@@ -10662,8 +10662,8 @@ components:
           type: array
           description: Position codes associated with the entity.
           example:
-          - Pos-879813125719719955
-          - Pos-879813125719719956
+          - Pos-882983845698207764
+          - Pos-882983845698207765
           items:
             type: string
       description: "position meta-data that includes postal code, and lat/long"
@@ -10728,7 +10728,7 @@ components:
           type: array
           description: price_types list
           example:
-          - UNIT_COST
+          - PERCENT
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
@@ -11667,7 +11667,7 @@ components:
           type: array
           description: service_job_types list
           example:
-          - LABOR
+          - MAINTENANCE
           items:
             $ref: "#/components/schemas/ServiceJobTypes"
         warranty_references:
@@ -12075,7 +12075,7 @@ components:
           type: array
           description: role_types list
           example:
-          - BUSINESS_DEVELOPMENT
+          - SALES_MGR
           items:
             $ref: "#/components/schemas/RoleTypes"
         timeslots:
@@ -12157,7 +12157,7 @@ components:
           type: array
           description: role_types list
           example:
-          - MOBILE_DISPATCHER
+          - SALES_ASSOC
           items:
             $ref: "#/components/schemas/RoleTypes"
         staff_member_id:

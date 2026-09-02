@@ -2341,7 +2341,7 @@ components:
           type: array
           description: address_types list
           example:
-          - GARAGE
+          - OTHER
           items:
             $ref: "#/components/schemas/AddressTypes"
         address_line1:
@@ -2992,7 +2992,7 @@ components:
           type: array
           description: purchase_types list
           example:
-          - OTHER
+          - SPECIAL
           items:
             $ref: "#/components/schemas/OrderCategoryTypes"
         product_state_types:
@@ -3002,7 +3002,7 @@ components:
           type: array
           description: product_state_types list
           example:
-          - USED
+          - CERTIFIED
           items:
             $ref: "#/components/schemas/ProductStateTypes"
         location_codes:
@@ -3212,8 +3212,8 @@ components:
           type: array
           description: Content of the event message.
           example:
-          - "879813125719719953"
-          - "879813125719719954"
+          - "882983845698207762"
+          - "882983845698207763"
           items:
             type: string
         event_date_time:
@@ -3454,7 +3454,7 @@ components:
           type: array
           description: previous_event_types list
           example:
-          - TRIAL
+          - PAYMENT
           items:
             $ref: "#/components/schemas/PaymentTransactionStatusTypes"
         provider_transaction_id:
@@ -4117,7 +4117,7 @@ components:
           type: array
           description: lifecycle_pulse_types list
           example:
-          - REJECTED
+          - ARCHIVED
           items:
             $ref: "#/components/schemas/LifecyclePulseTypes"
         occurred_at:
@@ -4703,7 +4703,7 @@ components:
           type: array
           description: product_types list
           example:
-          - DURABLE_GOODS
+          - FINANCE
           items:
             $ref: "#/components/schemas/ProductTypes"
         system_codes:
@@ -4790,7 +4790,7 @@ components:
           type: array
           description: party_relationship_types list
           example:
-          - FRANCHISE
+          - UNDERWRITER
           items:
             $ref: "#/components/schemas/PartyRelationshipTypes"
         snapshot_detail:
@@ -5447,7 +5447,7 @@ components:
           type: array
           description: price_types list
           example:
-          - WHOLESALE
+          - GROSS_SALE
           items:
             $ref: "#/components/schemas/PriceTypes"
         pay_type:
@@ -5981,7 +5981,7 @@ components:
           type: array
           description: payment_types list
           example:
-          - SUBSCRIPTION
+          - LEASE
           items:
             $ref: "#/components/schemas/PaymentTypes"
         product_state_type:
@@ -6336,7 +6336,7 @@ components:
           type: array
           description: payment_types list
           example:
-          - BALLON
+          - CONSUMPTION_BASED
           items:
             $ref: "#/components/schemas/PaymentTypes"
         payment_status_type:
@@ -6451,7 +6451,7 @@ components:
           type: array
           description: order_types list
           example:
-          - CUSTOM_ORDER
+          - CONSIGNMENT
           items:
             $ref: "#/components/schemas/OrderTypes"
         part_invoice_status_types:
@@ -6461,7 +6461,7 @@ components:
           type: array
           description: part_invoice_status_types list
           example:
-          - PENDING_APPROVAL
+          - FINANCE_HOLD
           items:
             $ref: "#/components/schemas/InvoiceItemStatusTypes"
         financial_events:
@@ -6538,7 +6538,7 @@ components:
           type: array
           description: payment_types list
           example:
-          - PROGRESS_PAYMENT
+          - CUSTOM_AGREEMENT
           items:
             $ref: "#/components/schemas/PaymentTypes"
         locale:
@@ -6956,7 +6956,7 @@ components:
           type: array
           description: timeslot_directive_types list
           example:
-          - AFTER
+          - PREFERRED
           items:
             $ref: "#/components/schemas/TimeslotDirectiveTypes"
         time_slot_id:
