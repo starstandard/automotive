@@ -1,0 +1,441 @@
+name: STAR Platform Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_yaml_sync:
+        description: 'Skip YAML → S3 sync'
+        type: boolean
+        default: false
+      skip_ingest:
+        description: 'Skip domain ingest (embeddings)'
+        type: boolean
+        default: false
+      skip_examples:
+        description: 'Skip examples ingest'
+        type: boolean
+        default: false
+      skip_docker:
+        description: 'Skip Docker build & ECR push'
+        type: boolean
+        default: false
+      skip_frontend:
+        description: 'Skip React frontend build & deploy'
+        type: boolean
+        default: true
+      dry_run:
+        description: 'Dry run (no S3/ECS/Docker changes)'
+        type: boolean
+        default: false
+
+# Only one deploy can run at a time
+concurrency:
+  group: star-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Full Platform Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      # ── Checkout both repos ──────────────────────────────────────────────
+      - name: Checkout STAR-API-RAG
+        uses: actions/checkout@v4
+        with:
+          repository: starstandard/STAR-API-RAG
+          path: STAR-API-RAG
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Checkout automotive (domain YAMLs)
+        uses: actions/checkout@v4
+        with:
+          repository: starstandard/automotive
+          path: automotive
+          token: ${{ secrets.GH_PAT }}
+
+      # ── Python & dependencies ────────────────────────────────────────────
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        working-directory: STAR-API-RAG/openapi-rag
+        run: |
+          pip install --quiet pyyaml voyageai
+
+      # ── AWS credentials ──────────────────────────────────────────────────
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region:            us-east-2
+
+      # ── Docker (ECR) ─────────────────────────────────────────────────────
+      - name: Set up Docker Buildx
+        if: ${{ !inputs.skip_docker && !inputs.dry_run }}
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Amazon ECR
+        if: ${{ !inputs.skip_docker && !inputs.dry_run }}
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # ════════════════════════════════════════════════════════════════════
+      # Step 1 — Sync OpenAPI YAMLs → S3
+      # ════════════════════════════════════════════════════════════════════
+      - name: Step 1 — Sync YAMLs to S3
+        if: ${{ !inputs.skip_yaml_sync }}
+        run: |
+          DOMAIN_DIR="automotive/domain"
+          COUNT=$(find "$DOMAIN_DIR" -name "openapi_monolith.yaml" | wc -l)
+          echo "Found $COUNT openapi_monolith.yaml files"
+
+          DRYRUN_FLAG=""
+          [[ "${{ inputs.dry_run }}" == "true" ]] && DRYRUN_FLAG="--dryrun"
+
+          aws s3 sync \
+            "$DOMAIN_DIR/" \
+            "s3://star-standard-content/yamls/main/" \
+            --exclude "*" \
+            --include "*/api/*/openapi_monolith.yaml" \
+            --include "*/api/*/openapi_schema.yaml" \
+            --include "*/api/*/openapi_schema_enriched.yaml" \
+            --region us-east-2 \
+            --no-progress \
+            $DRYRUN_FLAG
+          echo "✓ YAMLs synced → s3://star-standard-content/yamls/main/"
+
+      # ════════════════════════════════════════════════════════════════════
+      # Step 2 — Ingest domains into rag_main.db (with auto-retry)
+      # ════════════════════════════════════════════════════════════════════
+      - name: Download rag_main.db from S3
+        if: ${{ !inputs.skip_ingest }}
+        run: |
+          echo "Downloading rag_main.db from S3..."
+          aws s3 cp s3://star-standard-content/rag/rag_main.db \
+            STAR-API-RAG/openapi-rag/rag_main.db \
+            --region us-east-2 --no-progress
+          SIZE=$(du -h STAR-API-RAG/openapi-rag/rag_main.db | cut -f1)
+          echo "✓ Downloaded rag_main.db ($SIZE)"
+
+      - name: Step 2 — Ingest domains (with retry on HTTP 500)
+        if: ${{ !inputs.skip_ingest }}
+        env:
+          VOYAGE_API_KEY: ${{ secrets.VOYAGE_API_KEY }}
+        run: |
+          set +e  # Don't exit on failure — we collect and retry
+
+          INGEST="STAR-API-RAG/openapi-rag/ingest_yaml_incremental.py"
+          RAG_DB="STAR-API-RAG/openapi-rag/rag_main.db"
+          DOMAIN_DIR="automotive/domain"
+          DRY_RUN_FLAG=""
+          [[ "${{ inputs.dry_run }}" == "true" ]] && DRY_RUN_FLAG="--dry-run"
+
+          # Build list of (domain, yaml_path) pairs
+          mapfile -t YAML_FILES < <(find "$DOMAIN_DIR" \
+            -path "*/api/*/openapi_monolith.yaml" \
+            -not -path "*/legacy/*" | sort)
+
+          TOTAL=${#YAML_FILES[@]}
+          echo "Ingesting $TOTAL domains..."
+
+          FAILED=()
+
+          for yaml_file in "${YAML_FILES[@]}"; do
+            domain=$(basename "$(dirname "$yaml_file")")
+            echo -n "  Ingesting $domain... "
+
+            # First attempt
+            python3 "$INGEST" \
+              --yaml "$yaml_file" \
+              --db "$RAG_DB" \
+              --domain "$domain" \
+              --voyage-key "$VOYAGE_API_KEY" \
+              $DRY_RUN_FLAG 2>&1 | tail -1
+
+            if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
+              echo "  ⚠ First attempt failed for $domain — waiting 30s before retry..."
+              sleep 30
+              # Second attempt
+              python3 "$INGEST" \
+                --yaml "$yaml_file" \
+                --db "$RAG_DB" \
+                --domain "$domain" \
+                --voyage-key "$VOYAGE_API_KEY" \
+                $DRY_RUN_FLAG 2>&1 | tail -1
+
+              if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
+                echo "  ✗ FAILED (both attempts): $domain"
+                FAILED+=("$domain")
+              else
+                echo "  ✓ Retry succeeded: $domain"
+              fi
+            fi
+          done
+
+          # Retry failed domains one more time (Voyage AI HTTP 500 is transient)
+          if [[ ${#FAILED[@]} -gt 0 ]]; then
+            echo ""
+            echo "⚠ ${#FAILED[@]} domain(s) failed — final retry pass in 60s..."
+            sleep 60
+            STILL_FAILED=()
+
+            for domain in "${FAILED[@]}"; do
+              yaml_file=$(find "$DOMAIN_DIR" \
+                -path "*/api/$domain/openapi_monolith.yaml" \
+                -not -path "*/legacy/*" | head -1)
+              echo -n "  Final retry: $domain... "
+
+              python3 "$INGEST" \
+                --yaml "$yaml_file" \
+                --db "$RAG_DB" \
+                --domain "$domain" \
+                --voyage-key "$VOYAGE_API_KEY" \
+                $DRY_RUN_FLAG 2>&1 | tail -1
+
+              if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
+                echo "  ✗ STILL FAILED: $domain"
+                STILL_FAILED+=("$domain")
+              else
+                echo "  ✓ Final retry succeeded: $domain"
+              fi
+            done
+
+            if [[ ${#STILL_FAILED[@]} -gt 0 ]]; then
+              echo ""
+              echo "ERROR: The following domains failed all 3 ingest attempts:"
+              printf '  - %s\n' "${STILL_FAILED[@]}"
+              echo ""
+              echo "Re-run with SKIP_INGEST=false targeting only these domains,"
+              echo "or trigger this workflow again — Voyage AI 500s are transient."
+              exit 1
+            fi
+          fi
+
+          # Print chunk count
+          python3 -c "
+          import sqlite3
+          conn = sqlite3.connect('STAR-API-RAG/openapi-rag/rag_main.db')
+          count = conn.execute('SELECT COUNT(*) FROM chunks').fetchone()[0]
+          print(f'✓ rag_main.db total chunks: {count:,}')
+          conn.close()
+          "
+
+      # ════════════════════════════════════════════════════════════════════
+      # Step 3 — Ingest examples
+      # ════════════════════════════════════════════════════════════════════
+      - name: Step 3 — Ingest examples
+        if: ${{ !inputs.skip_examples }}
+        env:
+          VOYAGE_API_KEY: ${{ secrets.VOYAGE_API_KEY }}
+        run: |
+          EXAMPLES_SCRIPT="STAR-API-RAG/openapi-rag/ingest_examples.py"
+          if [[ ! -f "$EXAMPLES_SCRIPT" ]]; then
+            echo "⚠ ingest_examples.py not found — skipping examples"
+            exit 0
+          fi
+
+          DRY_RUN_FLAG=""
+          [[ "${{ inputs.dry_run }}" == "true" ]] && DRY_RUN_FLAG="--dry-run"
+
+          python3 "$EXAMPLES_SCRIPT" \
+            --repo "automotive/domain" \
+            --db "STAR-API-RAG/openapi-rag/rag_main.db" \
+            $DRY_RUN_FLAG || echo "⚠ Examples ingest failed — continuing"
+
+      # ════════════════════════════════════════════════════════════════════
+      # Step 4 — Upload rag_main.db to S3 → EFS copy → ECS restart
+      # ════════════════════════════════════════════════════════════════════
+      - name: Step 4 — Upload rag_main.db to S3
+        if: ${{ !inputs.skip_ingest && !inputs.dry_run }}
+        run: |
+          DB_SIZE=$(du -h STAR-API-RAG/openapi-rag/rag_main.db | cut -f1)
+          echo "Uploading rag_main.db ($DB_SIZE) to S3..."
+          aws s3 cp STAR-API-RAG/openapi-rag/rag_main.db \
+            s3://star-standard-content/rag/rag_main.db \
+            --region us-east-2 --no-progress
+          echo "✓ rag_main.db → s3://star-standard-content/rag/rag_main.db"
+
+      - name: Step 4b — Copy DB to EFS via Fargate task
+        if: ${{ !inputs.skip_ingest && !inputs.dry_run }}
+        run: |
+          echo "🚀 Launching ECS copy-to-EFS task..."
+          TASK_ARN=$(aws ecs run-task \
+            --cluster star-rag-cluster \
+            --task-definition star-rag-db-copy \
+            --launch-type FARGATE \
+            --region us-east-2 \
+            --query 'tasks[0].taskArn' \
+            --output text)
+          echo "  Task: $TASK_ARN"
+          echo "⏳ Waiting for copy task to complete..."
+
+          # Poll every 15s for up to 10 min
+          for i in $(seq 1 40); do
+            sleep 15
+            STATUS=$(aws ecs describe-tasks \
+              --cluster star-rag-cluster \
+              --tasks "$TASK_ARN" \
+              --region us-east-2 \
+              --query 'tasks[0].lastStatus' \
+              --output text)
+            echo "  Status: $STATUS"
+            if [[ "$STATUS" == "STOPPED" ]]; then
+              EXIT_CODE=$(aws ecs describe-tasks \
+                --cluster star-rag-cluster \
+                --tasks "$TASK_ARN" \
+                --region us-east-2 \
+                --query 'tasks[0].containers[0].exitCode' \
+                --output text)
+              echo "  Exit code: $EXIT_CODE"
+              [[ "$EXIT_CODE" == "0" ]] && echo "✓ EFS copy succeeded!" && break
+              echo "✗ EFS copy task failed (exit $EXIT_CODE)"
+              exit 1
+            fi
+          done
+
+      # ════════════════════════════════════════════════════════════════════
+      # Step 5 — Build Docker image & push to ECR
+      # ════════════════════════════════════════════════════════════════════
+      - name: Step 5 — Build & push Docker image
+        if: ${{ !inputs.skip_docker && !inputs.dry_run }}
+        run: |
+          GIT_HASH=$(git -C automotive rev-parse --short HEAD 2>/dev/null || echo "ci")
+          TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+          IMAGE_TAG="${TIMESTAMP}-${GIT_HASH}"
+          ECR_REPO="215235966788.dkr.ecr.us-east-2.amazonaws.com/star-rag"
+          FULL_IMAGE="$ECR_REPO:$IMAGE_TAG"
+          LATEST_IMAGE="$ECR_REPO:latest"
+
+          echo "IMAGE_TAG=$IMAGE_TAG"         >> "$GITHUB_ENV"
+          echo "FULL_IMAGE=$FULL_IMAGE"       >> "$GITHUB_ENV"
+          echo "LATEST_IMAGE=$LATEST_IMAGE"   >> "$GITHUB_ENV"
+
+          echo "Building $FULL_IMAGE..."
+          docker build \
+            --platform linux/amd64 \
+            -t "$FULL_IMAGE" \
+            -t "$LATEST_IMAGE" \
+            STAR-API-RAG/openapi-rag/
+
+          docker push "$FULL_IMAGE"
+          docker push "$LATEST_IMAGE"
+          echo "✓ Pushed $FULL_IMAGE"
+
+      # ════════════════════════════════════════════════════════════════════
+      # Step 6 — ECS task def registration + service deploy
+      # ════════════════════════════════════════════════════════════════════
+      - name: Step 6 — Deploy to ECS
+        if: ${{ !inputs.skip_docker && !inputs.dry_run }}
+        run: |
+          # Get current task def and update image
+          aws ecs describe-task-definition \
+            --task-definition star-rag-task \
+            --region us-east-2 \
+            --query 'taskDefinition' \
+            --output json \
+          | python3 -c "
+          import json, sys, os
+          td = json.load(sys.stdin)
+          td['containerDefinitions'][0]['image'] = os.environ['FULL_IMAGE']
+          for k in ['taskDefinitionArn','revision','status','requiresAttributes',
+                    'compatibilities','registeredAt','registeredBy']:
+              td.pop(k, None)
+          print(json.dumps(td))
+          " > /tmp/taskdef.json
+
+          NEW_ARN=$(aws ecs register-task-definition \
+            --region us-east-2 \
+            --cli-input-json file:///tmp/taskdef.json \
+            --query 'taskDefinition.taskDefinitionArn' \
+            --output text)
+          echo "✓ Registered: $NEW_ARN"
+
+          aws ecs update-service \
+            --cluster star-rag-cluster \
+            --service star-rag-service \
+            --task-definition "$NEW_ARN" \
+            --force-new-deployment \
+            --region us-east-2 \
+            --output json \
+          | python3 -c "
+          import json, sys
+          svc = json.load(sys.stdin)['service']
+          print(f'  status={svc[\"status\"]}  desired={svc[\"desiredCount\"]}  running={svc[\"runningCount\"]}')
+          "
+
+          echo "⏳ Waiting for ECS service to stabilise..."
+          aws ecs wait services-stable \
+            --cluster star-rag-cluster \
+            --services star-rag-service \
+            --region us-east-2
+          echo "✓ ECS service stable"
+
+      # ════════════════════════════════════════════════════════════════════
+      # Step 7 — React frontend build & S3 sync (skipped by default)
+      # ════════════════════════════════════════════════════════════════════
+      - name: Set up Node.js (frontend only)
+        if: ${{ !inputs.skip_frontend && !inputs.dry_run }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Checkout frontend repo
+        if: ${{ !inputs.skip_frontend && !inputs.dry_run }}
+        uses: actions/checkout@v4
+        with:
+          repository: starstandard/star-apibuilder
+          path: star-apibuilder
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Step 7 — Build & deploy React frontend
+        if: ${{ !inputs.skip_frontend && !inputs.dry_run }}
+        run: |
+          # Detect build dir (build/ or dist/)
+          FRONTEND_DIR="star-apibuilder"
+          cd "$FRONTEND_DIR"
+          npm ci --silent
+          npm run build
+          BUILD_DIR="build"
+          [[ -d "dist" && ! -d "build" ]] && BUILD_DIR="dist"
+          cd ..
+          aws s3 sync \
+            "$FRONTEND_DIR/$BUILD_DIR/" \
+            "s3://star-apibuilder-app/" \
+            --delete \
+            --region us-east-1 \
+            --no-progress
+          echo "✓ Frontend → s3://star-apibuilder-app/"
+
+      # ════════════════════════════════════════════════════════════════════
+      # Step 8 — CloudFront invalidation
+      # ════════════════════════════════════════════════════════════════════
+      - name: Step 8 — Invalidate CloudFront (frontend)
+        if: ${{ !inputs.dry_run }}
+        run: |
+          CF_INV=$(aws cloudfront create-invalidation \
+            --distribution-id d3a7ax1dm159mz \
+            --paths "/*" \
+            --query 'Invalidation.Id' \
+            --output text 2>/dev/null) \
+          && echo "✓ Frontend CloudFront invalidation: $CF_INV" \
+          || echo "⚠ CF invalidation failed — clear cache manually if needed"
+
+      # ── Summary ──────────────────────────────────────────────────────────
+      - name: Deploy summary
+        if: always()
+        run: |
+          echo ""
+          echo "════════════════════════════════════════════"
+          echo "  STAR Platform Deploy — Done"
+          echo "════════════════════════════════════════════"
+          echo ""
+          echo "  Frontend:  https://apibuilder.starstandard.org"
+          echo "  API:       https://d9gp4dwpjw4in.cloudfront.net"
+          echo ""
+          echo "  Verify:"
+          echo "    curl -s 'https://d9gp4dwpjw4in.cloudfront.net/yaml/list?version=main' \\"
+          echo "      -H 'Authorization: Bearer <token>' | python3 -m json.tool | grep '\"name\"'"
