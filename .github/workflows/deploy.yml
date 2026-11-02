@@ -41,11 +41,12 @@ jobs:
 
     steps:
       # ── Checkout both repos ──────────────────────────────────────────────
-      - name: Checkout STAR-domain-model
+      - name: Checkout STAR-API-RAG
         uses: actions/checkout@v4
         with:
-          repository: starstandard/STAR-domain-model
-          path: STAR-domain-model
+          repository: starstandard/STAR-API-RAG
+          path: STAR-API-RAG
+          ref: master
           token: ${{ secrets.GH_PAT }}
 
       - name: Checkout automotive (domain YAMLs)
@@ -62,7 +63,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install Python dependencies
-        working-directory: STAR-domain-model/openapi-rag
+        working-directory: STAR-API-RAG/openapi-rag
         run: |
           pip install --quiet pyyaml voyageai
 
@@ -116,9 +117,9 @@ jobs:
         run: |
           echo "Downloading rag_main.db from S3..."
           aws s3 cp s3://star-standard-content/rag/rag_main.db \
-            STAR-domain-model/openapi-rag/rag_main.db \
+            STAR-API-RAG/openapi-rag/rag_main.db \
             --region us-east-2 --no-progress
-          SIZE=$(du -h STAR-domain-model/openapi-rag/rag_main.db | cut -f1)
+          SIZE=$(du -h STAR-API-RAG/openapi-rag/rag_main.db | cut -f1)
           echo "✓ Downloaded rag_main.db ($SIZE)"
 
       - name: Step 2 — Ingest domains (with retry on HTTP 500)
@@ -128,8 +129,8 @@ jobs:
         run: |
           set +e  # Don't exit on failure — we collect and retry
 
-          INGEST="STAR-domain-model/openapi-rag/ingest_yaml_incremental.py"
-          RAG_DB="STAR-domain-model/openapi-rag/rag_main.db"
+          INGEST="STAR-API-RAG/openapi-rag/ingest_yaml_incremental.py"
+          RAG_DB="STAR-API-RAG/openapi-rag/rag_main.db"
           DOMAIN_DIR="automotive/domain"
           DRY_RUN_FLAG=""
           [[ "${{ inputs.dry_run }}" == "true" ]] && DRY_RUN_FLAG="--dry-run"
@@ -218,7 +219,7 @@ jobs:
           # Print chunk count
           python3 -c "
           import sqlite3
-          conn = sqlite3.connect('STAR-domain-model/openapi-rag/rag_main.db')
+          conn = sqlite3.connect('STAR-API-RAG/openapi-rag/rag_main.db')
           count = conn.execute('SELECT COUNT(*) FROM chunks').fetchone()[0]
           print(f'✓ rag_main.db total chunks: {count:,}')
           conn.close()
@@ -232,7 +233,7 @@ jobs:
         env:
           VOYAGE_API_KEY: ${{ secrets.VOYAGE_API_KEY }}
         run: |
-          EXAMPLES_SCRIPT="STAR-domain-model/openapi-rag/ingest_examples.py"
+          EXAMPLES_SCRIPT="STAR-API-RAG/openapi-rag/ingest_examples.py"
           if [[ ! -f "$EXAMPLES_SCRIPT" ]]; then
             echo "⚠ ingest_examples.py not found — skipping examples"
             exit 0
@@ -243,7 +244,7 @@ jobs:
 
           python3 "$EXAMPLES_SCRIPT" \
             --repo "automotive/domain" \
-            --db "STAR-domain-model/openapi-rag/rag_main.db" \
+            --db "STAR-API-RAG/openapi-rag/rag_main.db" \
             $DRY_RUN_FLAG || echo "⚠ Examples ingest failed — continuing"
 
       # ════════════════════════════════════════════════════════════════════
@@ -252,9 +253,9 @@ jobs:
       - name: Step 4 — Upload rag_main.db to S3
         if: ${{ !inputs.skip_ingest && !inputs.dry_run }}
         run: |
-          DB_SIZE=$(du -h STAR-domain-model/openapi-rag/rag_main.db | cut -f1)
+          DB_SIZE=$(du -h STAR-API-RAG/openapi-rag/rag_main.db | cut -f1)
           echo "Uploading rag_main.db ($DB_SIZE) to S3..."
-          aws s3 cp STAR-domain-model/openapi-rag/rag_main.db \
+          aws s3 cp STAR-API-RAG/openapi-rag/rag_main.db \
             s3://star-standard-content/rag/rag_main.db \
             --region us-east-2 --no-progress
           echo "✓ rag_main.db → s3://star-standard-content/rag/rag_main.db"
@@ -319,7 +320,7 @@ jobs:
             --platform linux/amd64 \
             -t "$FULL_IMAGE" \
             -t "$LATEST_IMAGE" \
-            STAR-domain-model/openapi-rag/
+            STAR-API-RAG/openapi-rag/
 
           docker push "$FULL_IMAGE"
           docker push "$LATEST_IMAGE"
