@@ -47,14 +47,14 @@ jobs:
           repository: starstandard/STAR-API-RAG
           path: STAR-API-RAG
           ref: master
-          token: ${{ secrets.GH_PATH }}
+          token: ${{ secrets.GH_PAT }}
 
       - name: Checkout automotive (domain YAMLs)
         uses: actions/checkout@v4
         with:
           repository: starstandard/automotive
           path: automotive
-          token: ${{ secrets.GH_PATH }}
+          token: ${{ secrets.GH_PAT }}
 
       # ── Python & dependencies ────────────────────────────────────────────
       - name: Set up Python 3.11
@@ -390,7 +390,7 @@ jobs:
         with:
           repository: starstandard/star-apibuilder
           path: star-apibuilder
-          token: ${{ secrets.GH_PATH }}
+          token: ${{ secrets.GH_PAT }}
 
       - name: Step 7 — Build & deploy React frontend
         if: ${{ !inputs.skip_frontend && !inputs.dry_run }}
