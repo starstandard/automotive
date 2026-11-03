@@ -37,7 +37,7 @@ jobs:
   deploy:
     name: Full Platform Deploy
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 360
 
     steps:
       # ── Checkout both repos ──────────────────────────────────────────────
