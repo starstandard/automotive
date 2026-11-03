@@ -268,6 +268,7 @@ jobs:
             --cluster star-rag-cluster \
             --task-definition star-rag-db-copy \
             --launch-type FARGATE \
+            --network-configuration "awsvpcConfiguration={subnets=[subnet-04ce379afe78ca600,subnet-0456b01bbb914997e,subnet-007370cdc6334c274],securityGroups=[sg-07d28dd2c151154e8],assignPublicIp=ENABLED}" \
             --region us-east-2 \
             --query 'tasks[0].taskArn' \
             --output text)
