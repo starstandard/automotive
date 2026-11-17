@@ -1,0 +1,3969 @@
+openapi: 3.0.1
+info:
+  title: Automotive Retail Systems API - PartInventory
+  description: "A standardized interface for Automotive Retail operations, built upon\
+    \ a formal Retail Ontology. It enables seamless integration \n\n**Key Capabilities:**\n\
+    * **Catalog Management:** Unified definitions for parts, assemblies, and BOMs.\n\
+    * **Inventory Orchestration:** Real-time visibility into warehouse and dealership\
+    \ stock.\n* **Financial Workflows:** Automated invoicing and batch processing\
+    \ for high-volume retail transactions.\n\nDesigned for high-reliability CI/CD\
+    \ environments and asynchronous batch processing."
+  contact:
+    name: STAR Standards Platform Architecture
+    url: https://www.starstandard.org
+    email: architecture@starstandard.org
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.starstandard.org/v1/v1_0_0
+  description: Production server
+- url: https://sandbox.starstandard.org/v1/v1_0_0
+  description: Sandbox for testing
+security:
+- industry-oauth:
+  - standard:read
+- member-api-key: []
+- {}
+paths:
+  /part-inventories:
+    get:
+      tags:
+      - PartInventories
+      summary: Returns a paginated list of part inventory
+      description: a list of PartInventory
+      operationId: listPartInventories
+      parameters:
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/PartInventoryCollectionResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    post:
+      tags:
+      - PartInventories
+      summary: create part inventory
+      description: create PartInventory
+      operationId: createPartInventory
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IdempotencyKeyHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PartInventoryCreate"
+        required: true
+      responses:
+        "201":
+          $ref: "#/components/responses/PartInventoryCreatedResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaTypeError"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+  /part-inventories/{part-inventory-key}:
+    get:
+      tags:
+      - PartInventories
+      summary: Retrieve a single item scoped by a key PartInventory entities.
+      operationId: getPartInventoryByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PartInventoryKey"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/PartInventorySingleResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    put:
+      tags:
+      - PartInventories
+      summary: Replace values in a single item scoped by a key PartInventory entities.
+      operationId: replacePartInventoryByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IdempotencyKeyHeader"
+      - $ref: "#/components/parameters/IfMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PartInventoryKey"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PartInventoryUpdate"
+        required: true
+      responses:
+        "200":
+          $ref: "#/components/responses/PartInventoryUpdatedResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "412":
+          $ref: "#/components/responses/PreconditionFailedError"
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaTypeError"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    delete:
+      tags:
+      - PartInventories
+      summary: Delete a single item scoped by a key PartInventory
+      description: delete a PartInventory
+      operationId: deletePartInventory
+      parameters:
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/ReasonQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PartInventoryKey"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/PartInventorySingleResponse"
+        "204":
+          $ref: "#/components/responses/NoContentSuccess"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "412":
+          $ref: "#/components/responses/PreconditionFailedError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    patch:
+      tags:
+      - PartInventories
+      summary: Update a single item scoped by a key PartInventory
+      description: update a single item
+      operationId: updatePartInventoryByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IdempotencyKeyHeader"
+      - $ref: "#/components/parameters/IfMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PartInventoryKey"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      requestBody:
+        content:
+          application/merge-patch+json:
+            schema:
+              $ref: "#/components/schemas/PartInventoryUpdate"
+        required: true
+      responses:
+        "200":
+          $ref: "#/components/responses/PartInventoryUpdatedResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "412":
+          $ref: "#/components/responses/PreconditionFailedError"
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaTypeError"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+  /part-inventories/{part-inventory-key}/general-ledger-references:
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/general-ledger-references/{general-ledger-reference-key}:
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/part-inventory-events:
+    get:
+      tags:
+      - PartInventoryEvents
+      summary: Returns a paginated list of part inventory event
+      description: a list of PartInventoryEvent
+      operationId: listPartInventoryEventsByPartInventoryKey
+      parameters:
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/PartInventoryEventCollectionResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/part-inventory-events/{part-inventory-event-key}:
+    get:
+      tags:
+      - PartInventoryEvents
+      summary: Retrieve a single item scoped by a key PartInventoryEvent entities.
+      operationId: getPartInventoryEventByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PartInventoryEventKey"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/PartInventoryEventSingleResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/part-inventory-metrics:
+    get:
+      tags:
+      - PartInventoryMetrics
+      summary: Returns a paginated list of part inventory metric
+      description: a list of PartInventoryMetric
+      operationId: listPartInventoryMetricsByPartInventoryKey
+      parameters:
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/PartInventoryMetricCollectionResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/part-inventory-metrics/{part-inventory-metric-key}:
+    get:
+      tags:
+      - PartInventoryMetrics
+      summary: Retrieve a single item scoped by a key PartInventoryMetric entities.
+      operationId: getPartInventoryMetricByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PartInventoryMetricKey"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/PartInventoryMetricSingleResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/actor-references:
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/actor-references/{actor-reference-key}:
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/business-contexts:
+    get:
+      tags:
+      - BusinessContexts
+      summary: Returns a paginated list of business context
+      description: a list of BusinessContext
+      operationId: listBusinessContextsByPartInventoryKey
+      parameters:
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/BusinessContextCollectionResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/business-contexts/{business-context-key}:
+    get:
+      tags:
+      - BusinessContexts
+      summary: Retrieve a single item scoped by a key BusinessContext entities.
+      operationId: getBusinessContextByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/BusinessContextKey"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/BusinessContextSingleResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/financial-event-snapshots:
+    get:
+      tags:
+      - FinancialEventSnapshots
+      summary: Returns a paginated list of financial event snapshot
+      description: a list of FinancialEventSnapshot
+      operationId: listFinancialEventSnapshotsByPartInventoryKey
+      parameters:
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/FinancialEventSnapshotCollectionResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/financial-event-snapshots/{financial-event-snapshot-key}:
+    get:
+      tags:
+      - FinancialEventSnapshots
+      summary: Retrieve a single item scoped by a key FinancialEventSnapshot entities.
+      operationId: getFinancialEventSnapshotByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/FinancialEventSnapshotKey"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/FinancialEventSnapshotSingleResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/general-amounts:
+    get:
+      tags:
+      - GeneralAmounts
+      summary: Returns a paginated list of general amount
+      description: a list of GeneralAmount
+      operationId: listGeneralAmountsByPartInventoryKey
+      parameters:
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/GeneralAmountCollectionResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/general-amounts/{general-amount-key}:
+    get:
+      tags:
+      - GeneralAmounts
+      summary: Retrieve a single item scoped by a key GeneralAmount entities.
+      operationId: getGeneralAmountByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/GeneralAmountKey"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/GeneralAmountSingleResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/privacy-policy-rules:
+    get:
+      tags:
+      - PrivacyPolicyRules
+      summary: Returns a paginated list of privacy policy rule
+      description: a list of PrivacyPolicyRule
+      operationId: listPrivacyPolicyRulesByPartInventoryKey
+      parameters:
+      - $ref: "#/components/parameters/FilterQuery"
+      - $ref: "#/components/parameters/LimitQuery"
+      - $ref: "#/components/parameters/OffsetQuery"
+      - $ref: "#/components/parameters/SortQuery"
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/PrivacyPolicyRuleCollectionResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/privacy-policy-rules/{privacy-policy-rule-key}:
+    get:
+      tags:
+      - PrivacyPolicyRules
+      summary: Retrieve a single item scoped by a key PrivacyPolicyRule entities.
+      operationId: getPrivacyPolicyRuleByKey
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CacheControlHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/IfNoneMatchHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/PreferHeader"
+      - $ref: "#/components/parameters/PreferenceAppliedHeader"
+      - $ref: "#/components/parameters/PrivacyPolicyRuleKey"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/PrivacyPolicyRuleSingleResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "406":
+          $ref: "#/components/responses/NotAcceptableError"
+        "429":
+          $ref: "#/components/responses/TooManyRequestsError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+        "504":
+          $ref: "#/components/responses/GatewayTimeout"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/warehouse-references:
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/warehouse-references/{warehouse-reference-key}:
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/part-identifier-references:
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventories/{part-inventory-key}/part-identifier-references/{part-identifier-reference-key}:
+    parameters:
+    - $ref: "#/components/parameters/PartInventoryKey"
+  /part-inventory/health:
+    get:
+      tags:
+      - Health
+      summary: Health Check
+      description: Returns the health status of the PartInventory root node.
+      operationId: healthPartInventory
+      parameters:
+      - $ref: "#/components/parameters/TransactionIDHeader"
+      - $ref: "#/components/parameters/CorrelationIDHeader"
+      - $ref: "#/components/parameters/StandardsVersionHeader"
+      - $ref: "#/components/parameters/OrgVersionHeader"
+      - $ref: "#/components/parameters/TotalCountHeader"
+      - $ref: "#/components/parameters/ResourceDomainHeader"
+      - $ref: "#/components/parameters/StoreIDHeader"
+      - $ref: "#/components/parameters/AgentHeader"
+      - $ref: "#/components/parameters/CountryCodeHeader"
+      - $ref: "#/components/parameters/LocaleHeader"
+      responses:
+        "200":
+          $ref: "#/components/responses/HealthStatusResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+      security:
+      - member-api-key: []
+      - industry-oauth:
+        - standard:read
+components:
+  schemas:
+    ActorReference:
+      type: object
+      properties:
+        actor_reference_id:
+          type: string
+          description: Unique system identifier for the reference record itself.
+          example: pr-8821-x01
+        actor_reference_key:
+          type: string
+          description: "Business-logical key for the reference, often combining the\
+            \ event and actor context."
+          example: REF-SALE-2026-CUST-99
+        actor_key:
+          type: string
+          description: The business key of the actual Actor (Person or Org) being
+            referenced.
+          example: CUST-DEALER-4412
+        actor_name:
+          type: string
+          description: The formal display name of the Actor at the time of reference.
+          example: Northside Chevrolet Service Center
+        actor_type:
+          $ref: "#/components/schemas/ActorTypes"
+        privacy_policy_rules:
+          $ref: "#/components/schemas/PrivacyPolicyRules"
+        occurrence_date_time:
+          type: string
+          description: Timestamp indicating when this specific reference was established.
+          format: date-time
+          example: 2026-11-15T21:08:11Z
+      description: External system identifier
+    ActorTypes:
+      type: string
+      description: types of actors.
+      enum:
+      - USER
+      - CUSTOMER
+      - EMPLOYEE
+      - DEALER
+      - VENDOR
+      - SUPPLIER
+      - ORGANIZATION
+      - SYSTEM
+      - SERVICE
+      - APPLICATION
+      - API
+      - AGENT
+      - AI_AGENT
+      - WORKFLOW
+      - RULE_ENGINE
+      - DEVICE
+      - SENSOR
+      - PARTNER
+      - CONTRACTOR
+      - GOVERNMENT
+      - PROCESS
+      - SCHEDULER
+      - EVENT_HANDLER
+      - UNKNOWN
+    BusinessContext:
+      type: object
+      properties:
+        intent_code:
+          type: string
+          description: "The unique identifier code for the strategic intent (e.g.,\
+            \ IMPROVE_NET_OPERATING_VALUE)."
+        business_action_code:
+          type: string
+          description: "The unique identifier code for the specific business action\
+            \ (e.g., MINIMIZE_HOLDING_COSTS)."
+        correlation_id:
+          type: string
+          description: The correlation ID tracking back to the specific Monte Carlo
+            recommendation instance.
+        previous_balance:
+          $ref: "#/components/schemas/GeneralAmount"
+        resulting_balance:
+          $ref: "#/components/schemas/GeneralAmount"
+      description: "Represents the strategic lineage, intention, and operational state\
+        \ accompanying an execution vector or streaming lifecycle event."
+    Code:
+      type: object
+      properties:
+        code_id:
+          maxLength: 50
+          minLength: 5
+          type: string
+          description: Internal system-generated unique identifier for the code record.
+          example: cd-9902-v1
+        code_key:
+          maxLength: 50
+          minLength: 5
+          type: string
+          description: Unique business reference key used to identify the code's context.
+          example: VEHICLE_STATUS_CODE
+        code_context:
+          maxLength: 50
+          minLength: 5
+          type: string
+          description: Unique business reference key used to identify the code's context.
+          example: VEHICLE_STATUS_CODE
+        code:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: The literal value or mnemonic represented by this record.
+          example: IN_TRANSIT
+        description:
+          maxLength: 255
+          minLength: 5
+          type: string
+          description: A human-readable explanation of what the code represents.
+          example: Indicates the vehicle has left the factory but not yet arrived
+            at the dealer.
+      description: not nullable
+    Codes:
+      type: array
+      items:
+        $ref: "#/components/schemas/Code"
+    ControlAccountReference:
+      type: object
+      properties:
+        control_account_reference_id:
+          maxLength: 50
+          minLength: 5
+          type: string
+          description: Unique identifier value
+        control_account_reference_key:
+          maxLength: 50
+          minLength: 5
+          type: string
+          description: Unique identifier value
+        control_account_key:
+          maxLength: 50
+          minLength: 5
+          type: string
+          description: Unique identifier value
+        context:
+          type: string
+          description: Context or domain of the identifier
+        system_codes:
+          $ref: "#/components/schemas/Codes"
+        control_account:
+          $ref: "#/components/schemas/Identifier"
+        occurrence_date_time:
+          type: string
+          description: The date and time the event occurred.
+          format: date-time
+          example: 2026-11-15T21:08:11Z
+      description: External system identifier
+    ControlAccountReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/ControlAccountReference"
+    CurrencyCode:
+      type: string
+      description: "ISO 4217 currency code, e.g., 'USD', 'EUR'."
+    CurrencyExchange:
+      type: object
+      properties:
+        currency_exchange_id:
+          type: string
+          description: Unique system identifier for the currency exchange record.
+          example: xch-8812-k5k
+        currency_exchange_key:
+          type: string
+          description: Business-logical key identifying the specific conversion event
+            or pair.
+          example: USD-TO-CAD-2026-04-09
+        source_currency:
+          type: string
+          description: The origin currency code for the conversion (Base Currency).
+          example: USD
+        target_currency:
+          type: string
+          description: The destination currency code for the conversion (Quote Currency).
+          example: CAD
+        currency_exchange_desc:
+          type: string
+          description: "Narrative title defining the rate's source (e.g., 'Reuters\
+            \ Mid-Market', 'Internal Corporate Rate')."
+          example: Mid-Market Daily Rate
+        exchange_rate:
+          type: string
+          description: "The multiplier used to convert source to target, stored as\
+            \ a high-precision string."
+          example: "1.3542"
+        rate_date_time:
+          type: string
+          description: The specific UTC timestamp when this exchange rate was captured
+            or finalized.
+          format: date-time
+          example: 2026-11-15T21:08:11Z
+      description: "CurrencyExchange that includes display value, currency, locale,\
+        \ and value, along with tax and cost components."
+    CurrencyExchanges:
+      type: array
+      items:
+        $ref: "#/components/schemas/CurrencyExchange"
+    DurationUomTypes:
+      type: string
+      description: types of duration uoms.
+      enum:
+      - MINUTES
+      - HOURS
+      - DAYS
+      - DAY_OF_MONTH
+      - WEEKS
+      - BI_WEEKS
+      - SEMI_MONTHS
+      - MONTHS
+      - QUARTERS
+      - SEMI_YEARS
+      - YEARS
+      - MULTI_YEARS
+      - CUSTOM
+      - OCCURRENCE
+      - UNLIMITED
+      - NONE
+      - OTHER
+    EffectivePeriod:
+      type: object
+      properties:
+        effective_period_key:
+          type: string
+          description: Unique natural business key identifying the effective period
+            record.
+          example: EP-2024-REG-001
+        active_indicator:
+          type: boolean
+          description: Indicates if this period is currently considered valid and
+            enforceable within the domain.
+          example: true
+        exclusive_indicator:
+          type: boolean
+          description: "If true, this period represents the only valid time window,\
+            \ overriding overlapping periods."
+          example: false
+        start_date_time:
+          type: string
+          description: The inclusive start point of the period in ISO 8601 format.
+          format: date-time
+          example: 2026-11-15T21:08:11Z
+        complete_date_time:
+          type: string
+          description: The exclusive end point of the period (completion) in ISO 8601
+            format.
+          format: date-time
+          example: 2026-11-15T21:08:11Z
+        duration_uom_type:
+          $ref: "#/components/schemas/DurationUomTypes"
+        duration_value:
+          pattern: ^P(?!$)((\d+Y)?(\d+M)?(\d+W)?(\d+D)?)(T(?=\d)(\d+H)?(\d+M)?(\d+S)?)?$
+          type: string
+          description: The length of the period expressed in ISO 8601 duration format.
+          example: P1Y2M10D
+        recur_uom_type:
+          $ref: "#/components/schemas/DurationUomTypes"
+        recur_count:
+          type: string
+          description: Number of times the period repeats. Use -1 for infinite.
+          example: "12"
+        recur_values:
+          $ref: "#/components/schemas/Codes"
+        recur_criteria:
+          type: string
+          description: Natural language or DSL expression of complex recurrence logic.
+          example: Every last Friday of the month
+        recur_indicator:
+          type: boolean
+          description: Flag indicating if this period repeats based on the defined
+            criteria.
+          example: true
+      description: "Defines a temporal range and recurrence logic for business validity,\
+        \ such as license expirations or service intervals."
+    ErrorDetail:
+      required:
+      - category
+      - code
+      - message
+      - timestamp
+      - trace_id
+      type: object
+      properties:
+        code:
+          type: string
+          description: "A machine-readable, unique system error code."
+          example: NOT_FOUND_PR
+        message:
+          type: string
+          description: A developer-friendly explanation of the error.
+          example: Personnel Record with ID PR-1234567 was not found.
+        category:
+          type: string
+          description: Classifies the error to help clients determine high-level retry
+            or handling logic.
+          example: DATA_INTEGRITY
+          enum:
+          - VALIDATION
+          - AUTHENTICATION
+          - AUTHORIZATION
+          - INFRASTRUCTURE
+          - BUSINESS_LOGIC
+          - DATA_INTEGRITY
+        timestamp:
+          type: string
+          description: The time the error occurred (ISO 8601).
+          format: date-time
+          example: 2025-11-10T10:30:00Z
+        trace_id:
+          type: string
+          description: A unique identifier for this specific request used for distributed
+            tracing logs.
+          example: 57c31110-859a-11ec-a8a3-0242ac120002
+        doc_url:
+          type: string
+          description: A URL leading to the documentation page for this specific error
+            code.
+          format: uri
+          example: https://api.docs.com/errors/NOT_FOUND_PR
+        details:
+          type: array
+          description: Field-level validation errors or granular diagnostic information.
+          example:
+          - field: payrollId
+            issue: must be unique
+            rejected_value: "12345"
+          items:
+            $ref: "#/components/schemas/ErrorDetailItem"
+      description: Standardized error response for the entire API ecosystem. Follows
+        RFC 7807 principles for problem details to ensure consistency across microservices.
+    ErrorDetailItem:
+      required:
+      - field
+      - issue
+      type: object
+      properties:
+        field:
+          type: string
+          description: The JSON path or field name that caused the error.
+          example: payrollId
+        issue:
+          type: string
+          description: The specific validation rule that failed.
+          example: must be unique
+        rejected_value:
+          type: string
+          description: The value that was sent and rejected (only if non-sensitive).
+          example: "12345"
+      description: Field-level validation error or granular diagnostic information.
+    FinancialCategoryTypes:
+      type: string
+      description: types of financial categorys.
+      enum:
+      - CAPEX
+      - OPEX
+      - HARDWARE
+      - SOFTWARE
+      - MAINTENANCE
+      - TRAVEL
+      - TRAINING
+      - UTILITIES
+      - RENT
+      - SALARY
+      - REVENUE
+      - TAX
+      - OTHER
+      - VEHICLE_INVOICE
+      - PARTS_INVOICE
+      - SERVICE_INVOICE
+      - PAYMENT
+      - DEPOSIT
+      - REFUND
+      - FEE
+      - CREDIT
+      - ADJUSTMENT
+      - WRITE_OFF
+      - CHARGEBACK
+      - JOURNAL_ENTRY
+      - FINANCE_CONTRACT
+    FinancialEventSnapshot:
+      type: object
+      properties:
+        financial_event_snapshot_key:
+          type: string
+          description: The unique ID for this generated snapshot instance.
+        financial_category_type:
+          $ref: "#/components/schemas/FinancialCategoryTypes"
+        general_ledger_reference:
+          $ref: "#/components/schemas/GeneralLedgerReference"
+        resulting_balance:
+          $ref: "#/components/schemas/GeneralAmount"
+        previous_balance:
+          $ref: "#/components/schemas/GeneralAmount"
+        unit_cost:
+          $ref: "#/components/schemas/GeneralAmount"
+      description: "A real-time aggregated financial report (P&L, Balance Sheet, or\
+        \ Trial Balance) generated as a view model for dashboards."
+    ForecastMetricTypes:
+      type: string
+      description: types of forecast metrics.
+      enum:
+      - QUANTITY_ON_HAND
+      - QUANTITY_ON_ORDER
+      - QUANTITY_ALLOCATED
+      - QUANTITY_RESERVED
+      - QUANTITY_AVAILABLE
+      - NET_AVAILABLE_INVENTORY
+      - QUANTITY_REORDER_POINT
+      - QUANTITY_DEALER_PART_STOCKING
+      - QUANTITY_USER_MIN
+      - QUANTITY_USER_MAX
+      - QUANTITY_BEST_STOCKING_LEVEL
+      - TARGET_STOCKING_LEVEL
+      - AVERAGE_DAILY_USAGE_QUANTITY
+      - AVERAGE_WEEKLY_USAGE_QUANTITY
+      - AVERAGE_MONTHLY_USAGE_QUANTITY
+      - QUANTITY_DAILY_USAGE
+      - QUANTITY_FORECAST
+      - FORECASTED_DEMAND_QUANTITY
+      - LEAD_TIME_DEMAND_QUANTITY
+      - RECOMMENDED_ORDER_QUANTITY
+      - QUANTITY_THREE_MONTH_SALES
+      - QUANTITY_SIX_MONTH_SALES
+      - QUANTITY_TWELVE_MONTH_SALES
+      - QUANTITY_TWELVE_MONTH_LOST_SALES
+      - LAST_SALE_DATE
+      - LAST_DEMAND_DATE
+      - LAST_LOST_SALE_DATE
+      - SUPERSEDING_QUANTITY
+      - SUPERSEDED_QUANTITY
+      - QUANTITY_AGED
+      - OBSOLETE_QUANTITY
+      - DEAD_STOCK_QUANTITY
+      - DAYS_OF_SUPPLY
+      - INVENTORY_TURNOVER_RATE
+      - INVENTORY_VALUE
+      - CARRYING_COST
+      - FILL_RATE
+      - LOST_SALE_RATE
+      - LOST_SALES_REVENUE
+      - BACKORDER_RATE
+      - STOCKOUT_RISK_SCORE
+      - INVENTORY_HEALTH_SCORE
+      - LEAD_TIME
+      - LEAD_TIME_VARIANCE
+      - SUPPLIER_RELIABILITY_SCORE
+      - SUPPLIER_ON_TIME_RATE
+      - FLOOR_PLAN_INTEREST_DRAG
+      - GROSS_MARGIN_OPPORTUNITY
+      - STOCKOUT_REVENUE_EXPOSURE
+      - EXCESS_INVENTORY_VALUE
+      - FORECAST_CONFIDENCE
+      - FORECAST_ERROR
+      - MEAN_ABSOLUTE_ERROR
+      - MEAN_ABSOLUTE_PERCENT_ERROR
+      - DEMAND_VARIANCE
+      - DEMAND_STD_DEVIATION
+      - COEFFICIENT_OF_VARIATION
+      - SEASONALITY_FACTOR
+      - TREND_FACTOR
+      - MOMENTUM_FACTOR
+      - PROMOTIONAL_DEMAND_SPIKE
+      - SAFETY_STOCK
+      - ECONOMIC_ORDER_QUANTITY
+      - SERVICE_LEVEL
+      - REPLENISHMENT_TRIGGER_SCORE
+      - REPLENISHMENT_URGENCY_SCORE
+      - CONSEQUENCE_RISK_SCORE
+      - STOCKOUT_CONSEQUENCE_COST
+      - OVERSTOCK_CONSEQUENCE_COST
+      - APPROVAL_THRESHOLD_SCORE
+      - AVERAGE_HOURLY_USAGE_QUANTITY
+      - AVERAGE_WEEKDAY_USAGE_QUANTITY
+      - AVERAGE_WEEKEND_USAGE_QUANTITY
+      - AVERAGE_QUARTERLY_USAGE_QUANTITY
+      - AVERAGE_YEARLY_USAGE_QUANTITY
+      - HOURLY_DEMAND_STD_DEVIATION
+      - DAILY_DEMAND_STD_DEVIATION
+      - WEEKDAY_DEMAND_STD_DEVIATION
+      - WEEKEND_DEMAND_STD_DEVIATION
+      - WEEKLY_DEMAND_STD_DEVIATION
+      - MONTHLY_DEMAND_STD_DEVIATION
+      - QUARTERLY_DEMAND_STD_DEVIATION
+      - YEARLY_DEMAND_STD_DEVIATION
+      - HOURLY_DEMAND_VARIANCE
+      - DAILY_DEMAND_VARIANCE
+      - WEEKDAY_DEMAND_VARIANCE
+      - WEEKEND_DEMAND_VARIANCE
+      - WEEKLY_DEMAND_VARIANCE
+      - MONTHLY_DEMAND_VARIANCE
+      - QUARTERLY_DEMAND_VARIANCE
+      - YEARLY_DEMAND_VARIANCE
+      - HOURLY_DEMAND_VELOCITY
+      - DAILY_DEMAND_VELOCITY
+      - WEEKLY_DEMAND_VELOCITY
+      - MONTHLY_DEMAND_VELOCITY
+      - DEMAND_GROWTH_RATE
+      - DEMAND_ACCELERATION
+      - OTHER
+    GeneralAmount:
+      type: object
+      properties:
+        general_amount_key:
+          type: string
+          description: "Unique business key for the monetary entry, used for deterministic\
+            \ lookups."
+          example: MON-2026-EXP-001
+        currency_code:
+          $ref: "#/components/schemas/CurrencyCode"
+        amount:
+          type: string
+          description: The raw decimal monetary amount stored as a string to prevent
+            floating-point errors.
+          example: "1234.56"
+      description: "Represents a monetary value, including its currency, locale, and\
+        \ display format."
+    GeneralLedgerReference:
+      type: object
+      properties:
+        general_ledger_reference_id:
+          maxLength: 50
+          minLength: 5
+          type: string
+          description: Unique reference value
+        general_ledger_reference_key:
+          maxLength: 50
+          minLength: 5
+          type: string
+          description: Unique reference value
+        general_ledger_key:
+          maxLength: 50
+          minLength: 5
+          type: string
+          description: Unique reference value
+        context:
+          type: string
+          description: Context or domain of the reference
+        system_codes:
+          $ref: "#/components/schemas/Codes"
+        general_ledger_identifier:
+          $ref: "#/components/schemas/Identifier"
+        occurrence_date_time:
+          type: string
+          description: The date and time the event occurred.
+          format: date-time
+          example: 2026-11-15T21:08:11Z
+      description: External system reference
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          example: UP
+        version:
+          type: string
+          example: 2.0.0
+      description: Standard health check response body
+    Identifier:
+      type: object
+      properties:
+        identifier_id:
+          maxLength: 50
+          minLength: 5
+          type: string
+          description: Unique identifier value
+        identifier_key:
+          maxLength: 50
+          minLength: 5
+          type: string
+          description: Business key for the identifier
+        context:
+          type: string
+          description: Context or domain of the identifier
+        value:
+          type: string
+          description: The value of the identifier.
+        detail:
+          type: string
+          description: The detail information for the identifier
+        identifier_type:
+          type: string
+          description: The identifier type
+        system_codes:
+          $ref: "#/components/schemas/Codes"
+        issuing_authority:
+          $ref: "#/components/schemas/Codes"
+        occurrence_date:
+          type: string
+          description: The date and time the event occurred.
+          format: date
+      description: External system identifier
+    Identifiers:
+      type: array
+      items:
+        $ref: "#/components/schemas/Identifier"
+    InventoryStatusTypes:
+      type: string
+      description: types of inventory status.
+      enum:
+      - ON_ORDER
+      - RECEIVED
+      - PREPARATION
+      - STOCKED_IN
+      - AVAILABLE
+      - RESERVED
+      - PRE_SOLD
+      - ON_HOLD
+      - SALES_HOLD
+      - SERVICE_HOLD
+      - RECALL_HOLD
+      - IN_TRANSIT
+      - ON_DEALER_LOT
+      - ON_CENTRAL_LOT
+      - ASSIGNED_BY_MANUFACTURER
+      - SOLD
+      - WHOLESALE
+      - DAMAGED
+      - UNAVAILABLE
+      - RETURNED
+      - DISPOSAL
+      - UNKNOWN
+    MaskingStrategyTypes:
+      type: string
+      description: types of masking strategys.
+      enum:
+      - REDACT
+      - TOKENIZE
+      - HASH
+      - PSEUDONYMIZE
+      - PARTIAL_MASK
+      - BLOCK
+      - GENERALIZE
+      - PERTURB
+      - TRUNCATE
+      - NULLIFY
+      - GENERAL_ANONYMIZE
+      - NONE
+    PartIdentifierReference:
+      type: object
+      properties:
+        part_identifier_reference_key:
+          maxLength: 60
+          minLength: 1
+          type: string
+          description: The immutable enterprise technical ledger surrogate key for
+            this snapshot instance.
+          example: PIRK-77119933
+        part_identifier_reference_id:
+          maxLength: 80
+          minLength: 1
+          type: string
+          description: The business or event payload instance identifier for this
+            reference metadata mapping.
+          example: PART-REF-01
+        part_number:
+          maxLength: 40
+          minLength: 1
+          type: string
+          description: The raw catalog part number text explicitly captured during
+            the fulfillment or scan transaction.
+          example: 68218055AB
+        manufacturer_brand_code:
+          maxLength: 40
+          minLength: 1
+          type: string
+          description: "The originating OEM, supplier, or aftermarket manufacturer\
+            \ brand shorthand code to ensure isolation."
+          example: MOPAR
+        description_snapshot:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: The point-in-time descriptive text captured from the master
+            part catalog for local physical document output mapping.
+          example: FENDER-FRONT RIGHT
+        item_classification_type:
+          $ref: "#/components/schemas/PartInvoiceItemTypes"
+        part_master_key:
+          maxLength: 60
+          minLength: 1
+          type: string
+          description: The target persistent master catalog surrogate key pointing
+            to the full Part aggregate root.
+          example: PART-KEY-992211A
+        part_identifier_type:
+          $ref: "#/components/schemas/PartIdentifierTypes"
+        unit_of_measure_code:
+          maxLength: 10
+          minLength: 1
+          type: string
+          description: "The standard unit of measure representation (e.g., EA, QT,\
+            \ GL) of the referenced catalog item."
+          example: EA
+        superseded_by_part_number:
+          maxLength: 40
+          minLength: 1
+          type: string
+          description: The replacement part number if the current reference part has
+            been superseded by a newer engineering revision.
+          example: 68218055AC
+        core_charge_indicator:
+          type: boolean
+          description: "Denotes if this part reference implies a physical core return\
+            \ obligation (e.g., batteries, engines, alternators)."
+          example: false
+      description: "An immutable, point-in-time reference snapshot of a physical part's\
+        \ identity captured during a fulfillment lifecycle phase."
+    PartIdentifierReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/PartIdentifierReference"
+    PartIdentifierTypes:
+      type: string
+      description: types of part identifiers.
+      enum:
+      - VIN
+      - SKU
+      - UPCA
+      - UPCE
+      - ISBN
+      - MPN
+      - CONFIG_CODE
+      - MFR_CODE
+      - ALT_CODE
+      - STOCK_NBR
+      - UNIV_CODE
+      - PRODUCT_CODE
+      - CATALOG_CODE
+      - NAME
+      - NUMBER
+      - PREFIX
+      - COUNTRY_OF_ORIGIN_CODE
+      - MODEL_CODE
+      - MAKE_CODE
+      - YEAR_CODE
+      - MARKET_DIVISION_CODE
+      - TRIM_CODE
+      - STYLE_CODE
+      - SUB_MODEL_CODE
+      - ENGINE_CODE
+      - TRANSMISSION_CODE
+      - DRAWING_NUMBER
+      - CAD_NUMBER
+      - OTHER
+    PartInventory:
+      type: object
+      properties:
+        part_master_id:
+          type: string
+          description: Unique identifier for the Part Master record.
+        part_inventory_id:
+          type: string
+          description: Unique identifier for the PartInventory record.
+        part_inventory_key:
+          type: string
+          description: Natural key or business-friendly key for the PartInventory
+            record.
+        last_inventory_date:
+          type: string
+          description: "The date of the most recent physical inventory count or cycle\
+            \ count for this specific part at this location, in YYYY-MM-DD format."
+          format: date
+        inventory_status_type:
+          $ref: "#/components/schemas/InventoryStatusTypes"
+        prices:
+          $ref: "#/components/schemas/Prices"
+        part_references:
+          $ref: "#/components/schemas/PartReferences"
+        identifiers:
+          $ref: "#/components/schemas/Identifiers"
+        part_inventory_events:
+          $ref: "#/components/schemas/PartInventoryEvents"
+        part_inventory_metrics:
+          $ref: "#/components/schemas/PartInventoryMetrics"
+        control_account_references:
+          $ref: "#/components/schemas/ControlAccountReferences"
+        warehouse_reference:
+          $ref: "#/components/schemas/WarehouseReference"
+      description: The aggregated quantity of a specific Part Master item at a particular
+        location
+    PartInventoryActionTypes:
+      type: string
+      description: types of part inventory actions.
+      enum:
+      - LOCATE
+      - RELOCATE
+      - CYCLE_COUNT
+      - STOCK_ROTATION
+      - ALLOCATE_RESERVE
+      - REPLENISH
+      - CONSOLIDATE_INVENTORY
+      - INBOUND
+      - RECEIVING
+      - STORAGE
+      - WAREHOUSE_MANAGEMENT
+      - ORDER_FULFILLMENT
+      - OUTBOUND
+      - REVERSE_LOGISTICS
+      - RETURNS_ACTIONS
+      - MAINTENANCE
+      - DISPOSITION
+      - INVENTORY_SNAPSHOT
+      - PRE_ORDER
+      - BACK_ORDERED
+      - PENDING
+      - PROCESSING
+      - SHIPPED
+      - DELIVERED
+      - CANCELLED
+      - RETURNED_ORDER
+      - NO_LONGER_AVAILABLE
+      - LOST_SALE
+      - DEPRECIATION_WRITE_OFF
+      - SCRAP
+      - DISCREPANCY
+      - AUDIT_MISMATCH
+      - STAGE
+      - KITTING_PREPARATION
+    PartInventoryCreate:
+      required:
+      - part_inventory_key
+      type: object
+      description: PartInventory Create for Post
+      allOf:
+      - $ref: "#/components/schemas/PartInventory"
+    PartInventoryEvent:
+      type: object
+      properties:
+        part_inventory_event_key:
+          type: string
+          description: The unique key for the part Inventory Event Key record.
+        occurrence_date_time:
+          type: string
+          description: The date and time of the event's occurrence.
+          format: date-time
+          example: 2026-11-15T21:08:11Z
+        actor:
+          $ref: "#/components/schemas/ActorReference"
+        business_context:
+          $ref: "#/components/schemas/BusinessContext"
+        financial_event_snapshot:
+          $ref: "#/components/schemas/FinancialEventSnapshot"
+        event_category:
+          type: string
+          description: The category of the event.
+        event_action:
+          type: string
+          description: The action performed in the event.
+        event_label:
+          type: string
+          description: A label for the event.
+        event_values:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        part_inventory_action_type:
+          $ref: "#/components/schemas/PartInventoryActionTypes"
+        part_identifier_references:
+          $ref: "#/components/schemas/PartIdentifierReferences"
+        warehouse_references:
+          $ref: "#/components/schemas/WarehouseReferences"
+        quantity:
+          $ref: "#/components/schemas/GeneralAmount"
+      description: "Represents a part event, typically related to inventory actions\
+        \ such as a state change or an action taken within a warehouse."
+    PartInventoryEvents:
+      type: array
+      items:
+        $ref: "#/components/schemas/PartInventoryEvent"
+    PartInventoryMetric:
+      type: object
+      properties:
+        part_inventory_metric_key:
+          type: string
+          description: Unique business key identifying the inventory metric record.
+          example: inventory_metric_forecast_confidence
+        effective_period:
+          $ref: "#/components/schemas/EffectivePeriod"
+        source_event_key:
+          type: string
+          description: Reference to the source inventory event that produced or influenced
+            this metric.
+          example: inventory_event_12345
+        calculation_method:
+          type: string
+          description: Name of the statistical or analytical method used to calculate
+            the metric.
+          example: LINEAR_REGRESSION
+        forecast_model_key:
+          type: string
+          description: "Reference to the forecasting model, ruleset, or algorithm\
+            \ used to generate the metric."
+          example: forecast_model_inventory_v1
+        confidence_score:
+          type: string
+          description: Confidence score associated with the calculated metric or forecast.
+          example: "0.92"
+        metric_description:
+          type: string
+          description: Human-readable explanation describing the metric value and
+            its significance.
+          example: Demand is trending upward over the previous six months.
+        metric_rank:
+          type: string
+          description: Relative ranking of the metric within a group of inventory
+            metrics.
+          example: "5"
+        consequence_score:
+          type: string
+          description: Risk or consequence score associated with the metric if no
+            action is taken.
+          example: "87.5"
+        uom_value:
+          type: string
+          description: Unit of Measure (UOM) code representing the measurement unit
+            for the metric value.
+        part_inventory_metric_type:
+          $ref: "#/components/schemas/ForecastMetricTypes"
+        metric_value:
+          type: string
+          description: The numerical value for the specified inventory metric type.
+        actor:
+          $ref: "#/components/schemas/ActorReference"
+        occurrence_date_time:
+          type: string
+          description: The date and time the event was submitted or created.
+          format: date-time
+          example: 2026-11-15T21:08:11Z
+      description: Value price with unit of measure for inventory metrics.
+    PartInventoryMetrics:
+      type: array
+      items:
+        $ref: "#/components/schemas/PartInventoryMetric"
+    PartInventoryUpdate:
+      type: object
+      properties:
+        last_inventory_date:
+          type: string
+          description: "The date of the most recent physical inventory count or cycle\
+            \ count for this specific part at this location, in YYYY-MM-DD format."
+          format: date
+        warehouse_reference:
+          $ref: "#/components/schemas/WarehouseReference"
+        inventory_status_type:
+          $ref: "#/components/schemas/InventoryStatusTypes"
+        part_inventory_metrics:
+          $ref: "#/components/schemas/PartInventoryMetrics"
+        control_account_references:
+          $ref: "#/components/schemas/ControlAccountReferences"
+        identifiers:
+          $ref: "#/components/schemas/Identifiers"
+        prices:
+          $ref: "#/components/schemas/Prices"
+        part_references:
+          $ref: "#/components/schemas/PartReferences"
+        part_inventory_events:
+          $ref: "#/components/schemas/PartInventoryEvents"
+      description: PartInventory Update for Patch and Put
+    PartInvoiceItemTypes:
+      type: string
+      description: types of part invoice items.
+      enum:
+      - STANDARD_CATALOG_PART
+      - KIT
+      - ASSEMBLY
+      - COMPONENT
+      - EXCHANGE_LINE
+      - RETURN_LINE
+      - OTHER
+    PartReference:
+      type: object
+      properties:
+        part_reference_id:
+          type: string
+          description: Unique identifier value
+        part_reference_key:
+          type: string
+          description: Unique identifier value
+        name:
+          type: string
+          description: Product Name.
+        identifiers:
+          $ref: "#/components/schemas/Identifiers"
+        part_key:
+          type: string
+          description: Unique identifier value
+        part_master_key:
+          type: string
+          description: Unique identifier value
+        manufacturer:
+          type: string
+          description: Context or domain of the identifier
+        context:
+          type: string
+          description: Context or domain of the identifier
+        product_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductTypes"
+        system_codes:
+          $ref: "#/components/schemas/Codes"
+        occurrence_date_time:
+          type: string
+          description: The date and time the event occurred.
+          format: date-time
+          example: 2026-11-15T21:08:11Z
+        unit_of_measure:
+          $ref: "#/components/schemas/UnitOfMeasure"
+      description: External system identifier
+    PartReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/PartReference"
+    PayTypes:
+      type: string
+      description: types of pays.
+      enum:
+      - CUSTOMER_PAY
+      - WARRANTY
+      - INTERNAL
+      - SUBLET
+      - MANUFACTURER
+      - DEALER
+    Price:
+      type: object
+      properties:
+        price_id:
+          type: string
+          description: Unique system identifier for the price record.
+        price_key:
+          type: string
+          description: Natural key or business identifier for the price entry.
+        display_amount:
+          type: string
+          description: "Human-readable display value for the price, including currency\
+            \ symbol and proper decimal formatting."
+        amount:
+          type: string
+          description: The numeric value of the price (before tax/cost breakdowns).
+        tax_amount:
+          type: string
+          description: The calculated amount of tax applied to the price.
+        taxable_amount:
+          type: string
+          description: The portion of the price subject to tax.
+        non_taxable_amount:
+          type: string
+          description: The portion of the price not subject to tax.
+        total_amount:
+          type: string
+          description: The total final price including all components and tax.
+        total_cost_amount:
+          type: string
+          description: The total cost to the provider/seller.
+        unit_cost_amount:
+          type: string
+          description: The unit cost to the provider/seller.
+        price_description:
+          type: string
+          description: "A descriptive title for the price (e.g., 'MSRP', 'Sale Price')."
+        tax_included_indicator:
+          type: boolean
+          description: Indicates whether tax is included in the base price (value).
+          example: false
+        currency_code:
+          $ref: "#/components/schemas/CurrencyCode"
+        duration:
+          $ref: "#/components/schemas/EffectivePeriod"
+        price_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/PriceTypes"
+        pay_type:
+          $ref: "#/components/schemas/PayTypes"
+        price_category_types:
+          maxItems: 255
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/PriceCategoryTypes"
+        currency_exchanges:
+          $ref: "#/components/schemas/CurrencyExchanges"
+      description: "Price that includes display value, currency, locale, and value,\
+        \ along with tax and cost components."
+    PriceCategoryTypes:
+      type: string
+      description: types of price categorys.
+      enum:
+      - ADJUSTMENT
+      - FEE
+      - HOLD_BACK
+      - LINE_ITEM
+      - OPTION
+      - OTHER
+      - PLAN_PRICING
+      - TAX
+      - TOTAL
+    PriceTypes:
+      type: string
+      description: types of prices.
+      enum:
+      - METERED
+      - SEAT
+      - FLAT
+      - ITEMIZED
+      - BUNDLE
+      - QUANTITY
+      - PER_UNIT
+      - PERCENT
+      - VOLUME
+      - USAGE
+      - STAIR_STEP
+      - SUBSCRIPTION
+      - CUSTOM
+      - STANDARD
+      - LICENSED
+      - TIER_VOLUME
+      - TIER_GRADUATED
+      - ACTUAL
+      - LIST
+      - RETAIL
+      - MSRP
+      - WHOLESALE
+      - DEALER_COST
+      - INVOICE
+      - TOTAL_DEALER_COST
+      - TOTAL_DEALER_OPTION_COST
+      - TOTAL_DEALER_OPTION_SELLING_PRICE
+      - RECONDITIONING_COST
+      - RESIDUAL_VALUE
+      - TDA
+      - FUEL
+      - TOTAL_HOLD_BACK
+      - PPO_HOLD_BACK
+      - WRF
+      - TRADE
+      - CORE
+      - LANDED
+      - FREIGHT_CHARGE
+      - MONEY
+      - INTERNET
+      - BALANCE
+      - BASE
+      - BASE_MSRP
+      - TOTAL_MSRP
+      - TOTAL_OPTION_MSRP
+      - PRODUCT_TOTAL
+      - FINANCE_TOTAL
+      - APPLIED_REWARD_TOTAL
+      - UPFRONT_PAYMENT_TOTAL
+      - REMOVED_EQUIPT_TOTAL
+      - ADJUSTED_MSRP
+      - GROSS_SALE
+      - NET_SALE
+      - NET_SALE_REDUCTION_PRICE
+      - DISCOUNT_TOTAL
+      - DISCOUNT_PACKAGES_TOTAL
+      - CREDIT_TOTAL
+      - FEE_TOTAL
+      - REBATE_TOTAL
+      - TAX_TOTAL
+      - TRADE_IN_TOTAL
+      - TRADE_IN_EQUITY_TOTAL
+      - TOTAL_ACCESSORY
+      - PROMOTIONAL
+      - DISCOUNT
+      - CONTRACT
+      - SALE
+      - PREMIUM_TOTAL
+      - DISABILITY_PREMIUM_TOTAL
+      - TAXABLE
+      - NONTAXABLE
+      - TOTAL
+      - UNIT
+      - TOTAL_COST
+      - UNIT_COST
+      - TAX
+      - ESTIMATED
+      - NET
+      - PURCHASE
+      - CUSTOMER
+      - AFFILIATE
+      - ONLINE
+      - STORE
+      - REGION
+      - LOCATION
+      - BASE_INVOICE_AMOUNT
+      - DESTINATION_CHARGE
+      - ADVERTISING_ASSESSMENT
+      - HOLDBACK_AMOUNT
+      - WDA_AMOUNT
+      - TDA_AMOUNT
+      - FLOORPLAN_ASSISTANCE_AMOUNT
+      - DEALER_CASH_AMOUNT
+      - REGIONAL_ADJUSTMENT_AMOUNT
+      - PORT_INSTALLED_OPTION_AMOUNT
+      - FACTORY_OPTION_AMOUNT
+      - DEALER_INSTALLED_OPTION_AMOUNT
+      - FREIGHT_CHARGE_AMOUNT
+      - FUEL_CHARGE_AMOUNT
+      - PACKAGING_OPTION_AMOUNT
+      - OEM_INCENTIVE_AMOUNT
+      - DEALER_NET_AMOUNT
+      - LANDED_COST_AMOUNT
+      - BASE_HOLDBACK_AMOUNT
+      - OPTIONS_HOLDBACK_AMOUNT
+      - TOTAL_HOLDBACK_AMOUNT
+      - INVOICE_AMOUNT
+      - MISC_TOTAL
+      - PROTECTED_INVOICE_AMOUNT
+      - OTHER
+    Prices:
+      type: array
+      items:
+        $ref: "#/components/schemas/Price"
+    PrivacyAdapterTypes:
+      type: string
+      description: types of privacy adapters.
+      enum:
+      - LLM
+      - AI_AGENT
+      - EXTERNAL_API
+      - DATABASE
+      - MESSAGE_BROKER
+      - INTERNAL_API
+      - ALL
+    PrivacyPersonaTypes:
+      type: string
+      description: types of privacy personas.
+      enum:
+      - DEALER
+      - THIRD_PARTY
+      - MANUFACTURER
+      - CONSUMER
+      - REGULATOR
+      - UNKNOWN
+    PrivacyPolicyRule:
+      type: object
+      properties:
+        privacy_policy_rule_key:
+          type: string
+          description: The data classification type this rule targets.
+        privacy_policy_rule_id:
+          type: string
+          description: The data classification type this rule targets.
+        target_persona_type:
+          $ref: "#/components/schemas/PrivacyPersonaTypes"
+        target_data_category_type:
+          $ref: "#/components/schemas/PrivacyTypes"
+        adapter_type:
+          $ref: "#/components/schemas/PrivacyAdapterTypes"
+        default_strategy_type:
+          $ref: "#/components/schemas/MaskingStrategyTypes"
+        active_indicator:
+          type: boolean
+          description: Indicates if this macro policy rule is actively being enforced.
+          example: false
+        effective_period:
+          $ref: "#/components/schemas/EffectivePeriod"
+      description: PrivacyPolicyRule
+    PrivacyPolicyRules:
+      type: array
+      items:
+        $ref: "#/components/schemas/PrivacyPolicyRule"
+    PrivacyTypes:
+      type: string
+      description: types of privacys.
+      enum:
+      - SOCIAL_SECURITY_NUMBER
+      - DATE_OF_BIRTH
+      - DRIVER_LICENSE_NUMBER
+      - PASSPORT_NUMBER
+      - PHONE_NUMBER
+      - EMAIL_ADDRESS
+      - HOME_ADDRESS
+      - MOTHER_MAIDEN_NAME
+      - TAX_ID_NUMBER
+      - UNION_GOVERNMENT_ID
+      - NATIONALITY_CITIZENSHIP
+      - ACCOUNT_CREDENTIALS
+      - GENERAL_PERSONAL
+      - CREDIT_CARD_NUMBER
+      - BANK_ACCOUNT_NUMBER
+      - ROUTING_NUMBER
+      - PAYPAL_ACCOUNT
+      - CRYPTO_WALLET_ADDRESS
+      - GENERAL_FINANCIAL
+      - HEALTH_INSURANCE_ID
+      - MEDICAL_RECORD_NUMBER
+      - PRESCRIPTION_DETAILS
+      - GENETIC_DATA
+      - SEX_LIFE_HEALTH
+      - GENERAL_MEDICAL
+      - FINGERPRINT
+      - FACE_SCAN
+      - VOICE_PRINT
+      - EMOTION_RECOGNITION_DATA
+      - GENERAL_BIO
+      - GENERAL_CONTACT
+      - SOCIAL_MEDIA_HANDLE
+      - SOCIAL_MEDIA_PROFILE
+      - IP_ADDRESS
+      - DEVICE_ID
+      - GEOLOCATION_DATA
+      - ONLINE_BEHAVIORAL_DATA
+      - GENERAL_SOCIAL
+      - POLITICAL_AFFILIATION
+      - RELIGIOUS_PHILOSOPHICAL_BELIEF
+      - SEXUAL_ORIENTATION
+      - RACIAL_ETHNIC_ORIGIN
+      - TRADE_UNION_MEMBERSHIP
+      - CRIMINAL_RECORD_HISTORY
+      - THIRD_PARTY_CUSTOMER_DATA
+      - THIRD_PARTY_BUSINESS_DATA
+      - GENERAL_BUSINESS
+      - GENERAL_OPERATIONAL
+      - GENERAL_DATA
+      - ALL_DATA
+      - CUSTOM
+      - UNKNOWN
+    ProblemDetail:
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URI reference that identifies the problem type. Provides
+            human-readable documentation for the error.
+          format: uri
+          example: https://api.yourdomain.com/errors/validation-failed
+        title:
+          type: string
+          description: "A short, human-readable summary of the problem type. It should\
+            \ not change from occurrence to occurrence."
+          example: Intent Validation Failed
+        status:
+          maximum: 599
+          minimum: 100
+          type: integer
+          description: The HTTP status code generated by the origin server for this
+            occurrence of the problem.
+          format: int32
+          example: 400
+        detail:
+          type: string
+          description: "A human-readable explanation specific to this occurrence of\
+            \ the problem, providing context on the failure."
+          example: The export request could not be processed due to business constraints.
+        instance:
+          type: string
+          description: A URI reference that identifies the specific occurrence of
+            the problem.
+          format: uri
+          example: https://api.yourdomain.com/money/exports
+        intent:
+          type: string
+          description: The specific agentic or business intent that was being processed
+            when the error occurred.
+          example: InitiateMoneyExport
+        error_code:
+          type: string
+          description: "A stable, machine-readable string code for the error."
+          example: INSUFFICIENT_FUNDS_FOR_EXPORT
+        violations:
+          type: array
+          description: "A collection of specific validation failures, including field\
+            \ paths and localized messages."
+          example:
+          - pointer: "#/vehicle_license/plate_number"
+            code: PATTERN_MISMATCH
+            message: The plate number must be alphanumeric and between 1 and 20 characters.
+            severity: ERROR
+            rule: INSUFFICIENT_FUNDS
+            path: date_range.start
+            metadata:
+              regex: "^[A-Z0-9]{1,20}$"
+          items:
+            $ref: "#/components/schemas/Violation"
+      description: "A standardized error response based on RFC 7807, extended with\
+        \ domain-specific intent and validation violations."
+    ProductTypes:
+      type: string
+      description: types of products.
+      enum:
+      - VEHICLE
+      - INFORMATION
+      - DURABLE_GOODS
+      - SOFTWARE
+      - APP
+      - INSURANCE
+      - FINANCE
+      - SERVICE
+      - PART
+      - ACCESSORY
+      - F_N_I_PRODUCT
+      - SERVICE_PACKAGE
+      - DEALER_PRODUCT
+      - EQUIPMENT
+      - PACKAGE_GOODS
+      - SERVICE_PLAN
+      - WARRANTY_PLAN
+      - SUBSCRIPTION
+      - OTHER
+    UnitOfMeasure:
+      type: object
+      properties:
+        unit_of_measure_key:
+          type: string
+          description: Unit of Measure Value
+        unit_name:
+          type: string
+          description: Unit of Measure
+        uom_value:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Unit of Measure Value
+        uom_quantity_category_type:
+          $ref: "#/components/schemas/UomQuantityCategoryTypes"
+      description: value price with unit of measure
+    UomQuantityCategoryTypes:
+      type: string
+      description: types of uom quantity categorys.
+      enum:
+      - COUNT
+      - WEIGHT
+      - VOLUME
+      - TIME
+      - NET_WEIGHT
+      - NET_VOLUME
+      - PACKAGE_QUANTITY
+      - MIN_ORDER_QUANTITY
+      - GROSS_WEIGHT
+      - GROSS_VOLUME
+      - SHIPPING_WEIGHT
+      - DIMENSIONAL_WEIGHT
+      - MATERIAL
+      - ELECTRICAL_RATING
+      - DEFAULT_LEAD_TIME
+      - MAX_LEAD_TIME
+      - DIMENSION_UNIT
+      - MIN_LENGTH
+      - MAX_LENGTH
+      - MIN_WIDTH
+      - MAX_WIDTH
+      - MIN_HEIGHT
+      - MAX_HEIGHT
+      - MIN_WEIGHT
+      - MAX_WEIGHT
+      - MAX_ORDER_QUANTITY
+      - MIN_ORDER_AVAILABLE
+      - DIMENSIONS
+      - SHIPPING_DIM_LENGTH
+      - SHIPPING_DIM_WIDTH
+      - SHIPPING_DIM_HEIGHT
+      - SHIPPING_DIM_GROSS_WEIGHT
+      - SHIPPING_DIM_NET_WEIGHT
+      - SHELF_LIFE_HOURS
+      - EXPIRATION_DATE
+      - MIN_PAYMENT_PERCENT
+      - MIN_PAYMENT_AMOUNT
+    Violation:
+      type: object
+      properties:
+        pointer:
+          type: string
+          description: A JSON Pointer (RFC 6901) referencing the specific field in
+            the request body that caused the violation.
+          example: "#/vehicle_license/plate_number"
+        code:
+          type: string
+          description: "A stable, machine-readable string identifying the specific\
+            \ validation rule that was breached."
+          example: PATTERN_MISMATCH
+        message:
+          type: string
+          description: "A localized, human-readable description of the validation\
+            \ error."
+          example: The plate number must be alphanumeric and between 1 and 20 characters.
+        severity:
+          type: string
+          description: The impact level of this violation. ERROR blocks execution;
+            WARNING is advisory.
+          example: ERROR
+          enum:
+          - ERROR
+          - WARNING
+          - INFO
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+            description: Metadata value
+          description: "Contextual key-value pairs to help resolve the error (e.g.,\
+            \ actual vs. expected limits)."
+          example:
+            regex: "^[A-Z0-9]{1,20}$"
+        rule:
+          type: string
+          description: The specific validation rule name.
+          example: INSUFFICIENT_FUNDS
+        path:
+          type: string
+          description: The property path notation for the error.
+          example: date_range.start
+      description: "An individual validation failure within a request, providing a\
+        \ direct map to the offending field."
+    WarehouseReference:
+      type: object
+      properties:
+        location_reference_id:
+          type: string
+          description: Unique identifier value for the location reference record.
+        location_reference_key:
+          type: string
+          description: Unique key value for the location reference record.
+        warehouse_key:
+          type: string
+          description: The unique key identifying the referenced Warehouse or Location
+            aggregate.
+        context:
+          type: string
+          description: "Context or type of the location (e.g., 'WAREHOUSE', 'DEALERSHIP_BIN',\
+            \ 'RECEIVING_DOCK')."
+        identifier:
+          $ref: "#/components/schemas/Identifier"
+        occurrence_date_time:
+          type: string
+          description: "The date and time the item was associated with this location\
+            \ (e.g., received at this location)."
+          format: date-time
+          example: 2026-11-15T21:08:11Z
+      description: Reference to a Warehouse or Inventory Location Aggregate Root.
+    WarehouseReferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/WarehouseReference"
+  responses:
+    PrivacyPolicyRuleSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PrivacyPolicyRule"
+    PartInventoryEventSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PartInventoryEvent"
+    PartInventoryUpdatedResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Content-Location:
+          $ref: "#/components/headers/ContentLocationHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PartInventory"
+    GeneralAmountSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GeneralAmount"
+    PartInventoryCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of PartInventories entities.
+                items:
+                  $ref: "#/components/schemas/PartInventory"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
+    BusinessContextCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of BusinessContexts entities.
+                items:
+                  $ref: "#/components/schemas/BusinessContext"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
+    UnauthorizedError:
+      description: "Authentication failed. The access token is missing, expired, or\
+        \ invalid."
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    TooManyRequestsError:
+      description: Rate Limit Error. Too Many Requests
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+    GatewayTimeout:
+      description: Timeout serving request
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+    UnsupportedMediaTypeError:
+      description: The request could not be completed because of missing or invalid
+        content type
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    ForbiddenError:
+      description: The authenticated user does not have the necessary permissions.
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    FinancialEventSnapshotSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/FinancialEventSnapshot"
+    PreconditionFailedError:
+      description: The request was not processed because the 'If-Match' header provided
+        does not match the current ETag.
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    PartInventorySingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PartInventory"
+    PartInventoryMetricSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PartInventoryMetric"
+    PartInventoryCreatedResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Content-Location:
+          $ref: "#/components/headers/ContentLocationHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PartInventory"
+    PrivacyPolicyRuleCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of PrivacyPolicyRules entities.
+                items:
+                  $ref: "#/components/schemas/PrivacyPolicyRule"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
+    ConflictError:
+      description: The request could not be completed because it conflicts with the
+        current state of the resource.
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    ServerError:
+      description: An unexpected error occurred on the server while processing the
+        request.
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    NotFoundError:
+      description: The requested resource was not found.
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    BadRequestError:
+      description: "The request was malformed, failed validation, or contained invalid\
+        \ parameters."
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetail"
+    HealthStatusResponse:
+      description: Service is Operational
+      headers:
+        Transaction-Id:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/HealthStatus"
+    BusinessContextSingleResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BusinessContext"
+    NotAcceptableError:
+      description: The client requested a format (via Accept header) the server can't
+        provide
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+    GeneralAmountCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of GeneralAmounts entities.
+                items:
+                  $ref: "#/components/schemas/GeneralAmount"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
+    ServiceUnavailableError:
+      description: Unable to serve request.  Service is unavailable
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+    FinancialEventSnapshotCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of FinancialEventSnapshots entities.
+                items:
+                  $ref: "#/components/schemas/FinancialEventSnapshot"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
+    NoContentSuccess:
+      description: "No Content: The resource was successfully updated."
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+    PartInventoryEventCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of PartInventoryEvents entities.
+                items:
+                  $ref: "#/components/schemas/PartInventoryEvent"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
+    UnprocessableEntity:
+      description: "Unprocessable Content: Semantic logic error."
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetail"
+    PartInventoryMetricCollectionResponse:
+      description: Success
+      headers:
+        Standards-Version:
+          $ref: "#/components/headers/StandardsVersionHeader"
+        Correlation-ID:
+          $ref: "#/components/headers/CorrelationIDHeader"
+        Agent:
+          $ref: "#/components/headers/AgentHeader"
+        RateLimit-Reset:
+          $ref: "#/components/headers/RateLimitResetHeader"
+        RateLimit-Policy:
+          $ref: "#/components/headers/RateLimitPolicyHeader"
+        Transaction-ID:
+          $ref: "#/components/headers/TransactionIDHeader"
+        Last-Modified:
+          $ref: "#/components/headers/LastModifiedHeader"
+        RateLimit-Limit:
+          $ref: "#/components/headers/RateLimitLimitHeader"
+        RateLimit-Remaining:
+          $ref: "#/components/headers/RateLimitRemainingHeader"
+        Cache-Control:
+          $ref: "#/components/headers/CacheControlHeader"
+        ETag:
+          $ref: "#/components/headers/ETagHeader"
+        Vary:
+          $ref: "#/components/headers/VaryHeader"
+        Expires:
+          $ref: "#/components/headers/ExpiresHeader"
+        Org-Version:
+          $ref: "#/components/headers/OrgVersionHeader"
+        Link:
+          $ref: "#/components/headers/LinkHeader"
+        Location:
+          $ref: "#/components/headers/LocationHeader"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: The list of PartInventoryMetrics entities.
+                items:
+                  $ref: "#/components/schemas/PartInventoryMetric"
+              has_more:
+                type: boolean
+                description: Indicates if more results are available.
+              total_count:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                description: The number of total entities.
+                format: int32
+                example: 2550
+  parameters:
+    ReasonQuery:
+      name: reason
+      in: query
+      description: Reason parameters
+      required: false
+      schema:
+        maxLength: 100
+        minLength: 0
+        type: string
+        example: "duplicate,soft_delete"
+    OrgVersionHeader:
+      name: Org-Version
+      in: header
+      description: "The version of the api for the organization that this request\
+        \ adheres to (e.g., 2026.01)."
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 1
+        pattern: "^[a-zA-Z0-9\\.\\-]+$"
+        type: string
+        example: "2026.01"
+    CacheControlHeader:
+      name: Cache-Control
+      in: header
+      description: Tells the client and intermediary caches how to store the response.
+      schema:
+        type: string
+        example: "max-age=300, private"
+    PartInventoryEventKey:
+      name: part-inventory-event-key
+      in: path
+      description: The unique identifier for an PartInventoryEvent entity.
+      required: true
+      schema:
+        type: string
+        example: "909912692691566594"
+    SourceSystemHeader:
+      name: Source-System
+      in: header
+      description: The system originating the transaction pulse.
+      required: true
+      schema:
+        maxLength: 25
+        minLength: 2
+        type: string
+        example: GM_GLOBAL_NVS
+    TotalCountHeader:
+      name: Total-Count
+      in: header
+      required: false
+      schema:
+        type: string
+        example: "1"
+    StoreIDHeader:
+      name: Store-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        example: Store-550
+    PartInventoryKey:
+      name: part-inventory-key
+      in: path
+      description: The unique identifier for an PartInventory entity.
+      required: true
+      schema:
+        type: string
+        example: "909912692691566593"
+    FilterQuery:
+      name: filter
+      in: query
+      description: Filter parameters
+      required: false
+      schema:
+        maxLength: 100
+        minLength: 0
+        type: string
+        example: "sdate:2026-02-09,edate:2026-02-09"
+    CreatorCodeHeader:
+      name: Creator-Code
+      in: header
+      description: "Source System Identifier (e.g., TY for Toyota, CDK for DMS)."
+      required: false
+      schema:
+        maxLength: 8
+        minLength: 2
+        type: string
+        example: CDK
+    PreferHeader:
+      name: Prefer
+      in: header
+      description: JSON context for field selection and error logging behavior.
+      required: false
+      schema:
+        type: string
+        example: "{'logsLabel': {context: 'NNA_API', value: 'RDR API'}}"
+    LocaleHeader:
+      name: Locale
+      in: header
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: en-US
+    IfMatchHeader:
+      name: If-Match
+      in: header
+      description: Used for optimistic concurrency control. The request will fail
+        (412) if the current ETag does not match this value.
+      required: false
+      schema:
+        type: string
+        example: '"33a64df551425fcc55e4d42a148795d9f25f89d4"'
+    IfNoneMatchHeader:
+      name: If-None-Match
+      in: header
+      description: Used for conditional GETs. The operation is executed only if the
+        stored ETag does not match this value. Prevents 'Lost Updates' in high-concurrency
+        Service Bounded Contexts.
+      required: false
+      schema:
+        pattern: "^\"?[a-f0-9]+\"?$|^\\*$"
+        type: string
+        example: '"686897696a7c876b7e"'
+    CountryCodeHeader:
+      name: Country-Code
+      in: header
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: "1"
+    CorrelationIDHeader:
+      name: Correlation-ID
+      in: header
+      description: A unique identifier spanning the entire business lifecycle. Essential
+        for tracing logic across the 13 Bounded Contexts of the Automotive Retail
+        Domain.
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 550e8400-e29b-41d4-a716-446655440000
+    FinancialEventSnapshotKey:
+      name: financial-event-snapshot-key
+      in: path
+      description: The unique identifier for an FinancialEventSnapshot entity.
+      required: true
+      schema:
+        type: string
+        example: "909912692695760898"
+    AgentHeader:
+      name: Agent
+      in: header
+      description: "The URI profile of the calling Agent. Used to negotiate supported\
+        \ Industry Extensions (e.g., ) via the protocol."
+      required: false
+      schema:
+        pattern: ^https?://.+
+        type: string
+        format: uri
+        example: https://xxx.com/agent/v1
+    SortQuery:
+      name: sort
+      in: query
+      description: Sort parameters
+      required: false
+      schema:
+        maxLength: 100
+        minLength: 0
+        type: string
+        example: "name,country"
+    IdempotencyKeyHeader:
+      name: Idempotency-Key
+      in: header
+      description: A unique identifier sent by the client to allow the server to prevent
+        duplicate processing of the same request.
+      required: false
+      schema:
+        type: string
+        format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174000
+    BusinessContextKey:
+      name: business-context-key
+      in: path
+      description: The unique identifier for an BusinessContext entity.
+      required: true
+      schema:
+        type: string
+        example: "909912692695760897"
+    PartInventoryMetricKey:
+      name: part-inventory-metric-key
+      in: path
+      description: The unique identifier for an PartInventoryMetric entity.
+      required: true
+      schema:
+        type: string
+        example: "909912692695760896"
+    OffsetQuery:
+      name: offset
+      in: query
+      description: The number of entities to skip before starting to collect the result
+        set. Used in conjunction with 'limit' for traditional page-based navigation.
+      required: false
+      schema:
+        minimum: 0
+        type: integer
+        format: int32
+        example: 234
+    LimitQuery:
+      name: limit
+      in: query
+      description: The maximum number of entities to return in a single response page.
+        Limits the 'data' array size to prevent payload bloat.
+      required: false
+      schema:
+        maximum: 100
+        minimum: 1
+        type: integer
+        format: int32
+        example: 100
+    RegionHeader:
+      name: Region
+      in: header
+      description: The geographic or business region code.
+      required: false
+      schema:
+        maxLength: 10
+        minLength: 2
+        type: string
+        example: NE-01
+    StandardsVersionHeader:
+      name: Standards-Version
+      in: header
+      description: "The version of the STAR REST Standard this request adheres to\
+        \ (e.g., 2026.01)."
+      required: true
+      schema:
+        maxLength: 20
+        minLength: 1
+        pattern: "^[a-zA-Z0-9\\.\\-]+$"
+        type: string
+        example: "2026.01"
+    PrivacyPolicyRuleKey:
+      name: privacy-policy-rule-key
+      in: path
+      description: The unique identifier for an PrivacyPolicyRule entity.
+      required: true
+      schema:
+        type: string
+        example: "909912692695760900"
+    TransactionIDHeader:
+      name: Transaction-ID
+      in: header
+      required: true
+      schema:
+        type: string
+        example: 550e8400-e29b-41d4-a716-446655440000
+    BrandHeader:
+      name: Brand
+      in: header
+      description: The automotive brand context for the RDR.
+      required: false
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: TOYOTA
+        default: TOYOTA
+        enum:
+        - TOYOTA
+        - LEXUS
+    SubscriberCodeHeader:
+      name: Subscriber-Code
+      in: header
+      required: false
+      schema:
+        type: string
+        example: 23a7d408-aed4-43f8-8af4-7a17f407m652
+    DealerIdHeader:
+      name: Dealer-Id
+      in: header
+      description: Unique 5-digit Dealer Identifier.
+      required: false
+      schema:
+        maxLength: 5
+        minLength: 5
+        type: string
+        example: "42278"
+    PreferenceAppliedHeader:
+      name: Preference-Applied
+      in: header
+      description: Indicates which client preferences (from the 'Prefer' request header)
+        were honored by the server.
+      required: true
+      schema:
+        type: string
+        example: return=minimal
+    ResourceDomainHeader:
+      name: Resource-Domain
+      in: header
+      required: false
+      schema:
+        type: string
+        example: urn:oem/dealer/ServiceAppointment/v6.0
+    GeneralAmountKey:
+      name: general-amount-key
+      in: path
+      description: The unique identifier for an GeneralAmount entity.
+      required: true
+      schema:
+        type: string
+        example: "909912692695760899"
+  headers:
+    CacheControlHeader:
+      description: Tells the client and intermediary caches how to store the response.
+      schema:
+        type: string
+        example: "max-age=300, private"
+    VaryHeader:
+      description: Instructs downstream caches that the response varies based on the
+        Agent's profile or media type. Critical for Extension-based responses.
+      schema:
+        type: string
+        example: "Accept, UCP-Agent"
+        default: "Accept, UCP-Agent"
+    ExpiresHeader:
+      description: The timestamp after which the resource state is considered stale.
+        Vital for volatile QQQ/SQQQ market data or real-time Inventory availability.
+      schema:
+        type: string
+        format: date-time
+        example: 2026-04-06T16:00:00Z
+    LinkHeader:
+      description: "RFC 8288 compliant links providing discovery for related resources\
+        \ and 'Service Primitives' (e.g., :cancel, :execute). Essential for non-linear\
+        \ state transitions across Bounded Contexts."
+      schema:
+        pattern: "^<[^>]+>;\\s*rel=\"[^\"]+\"(,\\s*<[^>]+>;\\s*rel=\"[^\"]+\")*$"
+        type: string
+        example: "<https://api.ai-sage.com/labor-operations/123:cancel>; rel=\"cancel\"\
+          , <https://api.ai-sage.com/labor-operations/123>; rel=\"self\""
+    LocationHeader:
+      description: Relative URI of the newly created resource or status monitor for
+        an asynchronous operation.
+      style: simple
+      explode: false
+      schema:
+        pattern: ^/.+
+        type: string
+        format: uri-reference
+        example: /labor-operations/909912692695760901
+    ContentLocationHeader:
+      description: The URI of the specific representation returned in the payload.
+        Used to disambiguate the 'Resource Identifier' from the 'Data Artifact' in
+        multi-format or versioned Bounded Contexts.
+      schema:
+        pattern: ^/.+
+        type: string
+        format: uri-reference
+        example: /labor-operations/909912692695760902
+    TransactionIDHeader:
+      description: Echoes the unique identifier for the specific atomic unit of work
+        processed by the server.
+      schema:
+        type: string
+        format: uuid
+    CorrelationIDHeader:
+      description: Echoes the unique identifier spanning the entire business lifecycle
+        for cross-context tracing.
+      schema:
+        type: string
+        format: uuid
+    StandardsVersionHeader:
+      description: The version of the STAR REST Standard the response adheres to.
+      schema:
+        pattern: "^[a-zA-Z0-9\\.\\-]+$"
+        type: string
+        example: "2026.01"
+    OrgVersionHeader:
+      description: The version of the organization schema and API the response adheres
+        to.
+      schema:
+        pattern: "^[a-zA-Z0-9\\.\\-]+$"
+        type: string
+        example: "2026.01"
+    AgentHeader:
+      description: The unique identifier of the agent or user executing this method.
+      schema:
+        pattern: "^[a-zA-Z0-9\\.\\-]+$"
+        type: string
+        example: "2026.01"
+    ETagHeader:
+      description: An entity tag (ETag) is an identifier for a specific version of
+        a resource.
+      schema:
+        type: string
+        example: '"33a64df551425fcc55e4d42a148795d9f25f89d4"'
+    LastModifiedHeader:
+      description: The ISO 8601 timestamp at which the resource was last modified
+        in the underlying Postgres/Saga store.
+      schema:
+        type: string
+        format: date-time
+        example: 2026-04-06T15:47:17Z
+    RateLimitLimitHeader:
+      description: The maximum number of requests allowed in the current time window.
+      schema:
+        type: integer
+        format: int32
+        example: 1000
+    RateLimitRemainingHeader:
+      description: The number of requests remaining in the current time window.
+      schema:
+        type: integer
+        format: int32
+        example: 999
+    RateLimitResetHeader:
+      description: The number of seconds until the current rate limit window resets.
+        Using 'Delta Seconds' avoids clock-skew issues between distributed systems.
+      schema:
+        minimum: 0
+        type: integer
+        format: int32
+        example: 60
+    RateLimitPolicyHeader:
+      description: "The quota policy for the current user/agent. Format: 'limit;w=window'.\
+        \ E.g., '1000;w=3600' means 1000 requests per hour."
+      schema:
+        pattern: ^\d+;w=\d+(;burst=\d+)?$
+        type: string
+        example: 1000;w=3600
+  securitySchemes:
+    industry-oauth:
+      type: oauth2
+      description: Centralized OAuth2 service for all industry members
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.example.com/token
+          scopes:
+            standard:read: Read access
+    member-api-key:
+      type: apiKey
+      name: X-API-KEY
+      in: header
+    bearer-auth:
+      type: http
+      description: JWT token obtained from authentication service
+      scheme: bearer
+      bearerFormat: JWT
+    ApiKeyHeader:
+      type: apiKey
+      description: "A unique member-specific identifier used for API routing, quota\
+        \ management, and rate limiting. This key does not replace the Authorization\
+        \ bearer token for identity."
+      name: X-API-Key
+      in: header
+    AuthorizationHeader:
+      type: http
+      description: Standard OIDC/OAuth 2.0 Bearer Token
+      name: Authorization
+      scheme: bearer
+      bearerFormat: JWT
